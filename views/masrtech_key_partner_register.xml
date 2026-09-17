@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_register_partner_form_view">
+            <field name="model">masrtech.register.partner</field>
+            <field name="arch" type="xml">
+                <form string="Register">
+                    <sheet>
+                        <div class="col-4 col-lg-2">
+                            <field name="image" widget="image"/>
+                        </div>
+                        <group>
+                            <group string="بيانات الشركة">
+                                <field name="name"/>
+                                <field name="company_details_name"/>
+                                <field name="company_address"/>
+                                <field name="responsible_person"/>
+                                <field name="phone_number"/>
+                                <field name="email"/>
+                                <field name="type_sub"/>
+                                <field name="is_course"/>
+                                <field name="is_training"/>
+                                <field name="course_product_id"
+                                       invisible="is_course == False"/>
+                                <field name="university_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="Company requirements">
+                                <field name="training_table">
+                                    <tree>
+                                        <field name="training"/>
+                                        <field name="code"/>
+                                        <field name="duration"/>
+                                        <field name="level_ids" widget="many2many_tags"/>
+                                        <field name="capacity"/>
+                                        <field name="remaining_capacity"/>
+                                        <field name="cost"/>
+                                    </tree>
+                                    <!--                                    <form>-->
+                                    <!--                                        <group>-->
+                                    <!--                                            <group col="2">-->
+                                    <!--                                                <field name="training"/>-->
+                                    <!--                                                <field name="code"/>-->
+                                    <!--                                                <field name="duration"/>-->
+                                    <!--                                                <field name="cost"/>-->
+                                    <!--                                                <field name="relation_id"/>-->
+                                    <!--                                                <field name="location"/>-->
+                                    <!--                                            </group>-->
+                                    <!--                                            <group col="2">-->
+                                    <!--                                                <field name="capacity"/>-->
+                                    <!--                                                <field name="registered_count"/>-->
+                                    <!--                                                <field name="remaining_capacity"/>-->
+                                    <!--                                                <field name="level_ids" widget="many2many_tags"/>-->
+                                    <!--                                            </group>-->
+                                    <!--                                        </group>-->
+                                    <!--                                    </form>-->
+                                </field>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Registration List">
+                                <field name="reg_student_list">
+                                    <tree>
+                                        <field name="student_namee"/>
+                                        <field name="email"/>
+                                        <field name="phone"/>
+                                        <field name="university_id"/>
+                                        <field name="year_level"/>
+                                        <field name="gpa"/>
+                                        <field name="training_course_id"/>
+                                        <field name="payment_way"/>
+                                    </tree>
+
+                                </field>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="training_table_form_view" model="ir.ui.view">
+            <field name="name">training.table.form</field>
+            <field name="model">registrar.partner.training.table</field>
+            <field name="arch" type="xml">
+                <form string="Training Course">
+                    <header>
+                        <!--                        <button name="generate_weekly_schedule_action"-->
+                        <!--                                type="object"-->
+                        <!--                                string="Generate Weekly Schedule"-->
+                        <!--                                class="btn-primary"-->
+                        <!--                                confirm="This will regenerate the weekly schedule. Continue?"/>-->
+                    </header>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="training"/>
+                                <field name="code"/>
+                                <field name="location"/>
+                                <field name="cost"/>
+                                <field name="level_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="duration"/>
+                                <field name="capacity" required="1"/>
+                                <field name="registered_count" readonly="1"/>
+                                <field name="remaining_capacity" readonly="1"/>
+                                <field name="relation_id"/>
+                            </group>
+                        </group>
+
+                        <group string="Weekly Breakdown Configuration"
+                               col="4">
+                            <field name="is_weekly_breakdown"/>
+                            <field name="total_weeks" invisible="not is_weekly_breakdown"/>
+                            <field name="students_per_week" invisible="not is_weekly_breakdown"/>
+                            <field name="training_start_date" invisible="not is_weekly_breakdown"/>
+                        </group>
+
+
+                        <notebook>
+                            <page string="Weekly Schedule" invisible="not is_weekly_breakdown">
+                                <field name="weekly_schedule_ids">
+                                    <tree string="Weekly Schedule"
+                                          editable="bottom"
+                                          decoration-success="remaining_spots &gt; 0"
+                                          decoration-danger="remaining_spots == 0"
+                                          decoration-warning="remaining_spots &lt; 3 and remaining_spots &gt; 0">
+                                        <field name="week_number"/>
+                                        <field name="week_start_date"/>
+                                        <field name="week_end_date"/>
+                                        <field name="max_students"/>
+                                        <field name="registered_count" readonly="1"/>
+                                        <field name="remaining_spots" readonly="1"/>
+                                    </tree>
+                                    <form string="Weekly Schedule">
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="week_number"/>
+                                                    <field name="week_start_date"/>
+                                                    <field name="week_end_date"/>
+                                                </group>
+                                                <group>
+                                                    <field name="max_students"/>
+                                                    <field name="registered_count" readonly="1"/>
+                                                    <field name="remaining_spots" readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="masrtech_register_partner_kanban_working" model="ir.ui.view">
+            <field name="name">masrtech.register.partner.kanban.working</field>
+            <field name="model">masrtech.register.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" default_group_by="type_sub" quick_create="false">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone_number"/>
+                    <field name="company_address"/>
+                    <field name="type_sub"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click"
+                                 style="border: 1px solid #dee2e6; border-radius: 8px; margin: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+                                <!-- Company Name Header -->
+                                <div style="background: linear-gradient(135deg, #74b9ff, #0984e3); color: white; padding: 15px; border-radius: 8px 8px 0 0;">
+                                    <h4 class="o_kanban_record_title mb-0" style="color: white; font-weight: bold;">
+                                        <t t-esc="record.name.value"/>
+                                    </h4>
+                                </div>
+
+                                <!-- Contact Information -->
+                                <div style="padding: 15px;">
+                                    <!-- Email -->
+                                    <div style="margin-bottom: 10px; display: flex; align-items: center;">
+                                        <i class="fa fa-envelope"
+                                           style="color: #74b9ff; margin-right: 10px; width: 20px;"/>
+                                        <span style="font-size: 14px;">
+                                            <t t-esc="record.email.value"/>
+                                        </span>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div style="margin-bottom: 15px; display: flex; align-items: center;">
+                                        <i class="fa fa-phone"
+                                           style="color: #00b894; margin-right: 10px; width: 20px;"/>
+                                        <span style="font-size: 14px;">
+                                            <t t-esc="record.phone_number.value"/>
+                                        </span>
+                                    </div>
+                                    <div style="margin-bottom: 15px; display: flex; align-items: center;">
+                                        <i class="fa fa-building"
+                                           style="color: #e17055; margin-right: 10px; width: 20px;"/>
+                                        <span style="font-size: 14px;">
+                                            <t t-esc="record.company_address.value"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="masrtech_register_partner_action_kanban_professional" model="ir.actions.act_window">
+            <field name="name">Training Partners</field>
+            <field name="res_model">masrtech.register.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="masrtech_register_partner_kanban_working"/>
+            <field name="domain">[]</field>
+            <field name="context">{'group_by': 'type_sub'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first training partner
+                </p>
+                <p>
+                    Add companies that provide training courses and manage their registrations.
+                </p>
+            </field>
+        </record>
+
+        <record id="training_registration_tree_view_simple" model="ir.ui.view">
+            <field name="name">training.registration.tree.simple</field>
+            <field name="model">training.registration</field>
+            <field name="arch" type="xml">
+                <tree string="Training Registrations" default_group_by="partner_id"
+                      decoration-success="registration_status == 'confirmed'"
+                      decoration-warning="registration_status == 'submitted'"
+                      decoration-muted="registration_status == 'cancelled'"
+                      decoration-info="registration_status == 'draft'">
+
+                    <field name="student_id" string="ID"/>
+                    <field name="student_name_en" string="Full Name (English)"/>
+                    <field name="vat" string="National ID"/>
+                    <field name="student_namee" string="Student Name"/>
+                    <field name="email" string="Email"/>
+                    <field name="phone" string="Phone"/>
+                    <field name="university_id" string="University"/>
+                    <field name="partner_id" string="Company Name"/>
+                    <field name="training_course_id" string="Training Course"/>
+                    <field name="registration_status" string="Status"/>
+                    <field name="registration_date" string="Registration Date"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="training_registration_search_view" model="ir.ui.view">
+            <field name="name">training.registration.search</field>
+            <field name="model">training.registration</field>
+            <field name="arch" type="xml">
+                <search string="Search Training Registrations">
+
+                    <field name="student_id" string="Student Id"/>
+                    <field name="phone" string="Phone"/>
+                    <field name="vat" string="National ID"/>
+                    <field name="student_namee" string="Student Name"/>
+                    <field name="weekly_schedule_id" string="Week Schedule"
+                           filter_domain="[('weekly_schedule_id', 'ilike', self)]"/>
+
+                    <filter name="filter_by_company" string="Group by Company"
+                            context="{'group_by': 'partner_id'}"/>
+
+                    <filter name="filter_by_week" string="Group by Week"
+                            context="{'group_by': 'weekly_schedule_id'}"/>
+
+                    <filter name="filter_by_training" string="Group by Training Course"
+                            context="{'group_by': 'training_course_id'}"/>
+
+                </search>
+            </field>
+        </record>
+        <record id="training_registration_action" model="ir.actions.act_window">
+            <field name="name">Training Registrations</field>
+            <field name="res_model">training.registration</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="training_registration_tree_view_simple"/>
+            <field name="search_view_id" ref="training_registration_search_view"/>
+            <field name="domain">[('is_course', '=', False)]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first training registration
+                </p>
+                <p>
+                    Register students for training courses and manage their applications.
+                </p>
+            </field>
+        </record>
+        <record id="training_registration_action_course" model="ir.actions.act_window">
+            <field name="name">Course Registrations</field>
+            <field name="res_model">training.registration</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="training_registration_tree_view_simple"/>
+            <field name="search_view_id" ref="training_registration_search_view"/>
+            <field name="domain">[('is_course', '=', True)]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first course registration
+                </p>
+                <p>
+                    Register students for training courses and manage their applications.
+                </p>
+            </field>
+        </record>
+
+        <record id="view_training_form" model="ir.ui.view">
+            <field name="name">training.course.form</field>
+            <field name="model">training.registration</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="student_namee"/>
+                            <h1>
+                                <field name="student_namee"
+                                       required="1" class="o_text_overflow"/>
+                            </h1>
+                        </div>
+
+                        <div class="oe_right" invisible="not qr_code_image">
+                            <field name="qr_code_image" widget="image"
+                                   style="max-width: 200px; max-height: 200px; border: 2px solid #dee2e6; border-radius: 8px; padding: 10px; background: white;"/>
+                            <button name="action_download_qr_code"
+                                    type="object"
+                                    string="Download Qr"
+                                    class="oe_highlight"/>
+                        </div>
+                        <header>
+                            <field name="registration_status" widget="statusbar"/>
+                        </header>
+
+                        <group>
+                            <group name="personal_info" string="Personal Information" col="2">
+                                <field name="student_namee"/>
+                                <field name="student_name_en"/>
+                                <field name="vat"/>
+                                <field name="email" widget="email"/>
+                                <field name="phone" widget="phone"/>
+                            </group>
+
+                            <group name="Training Info" string="Training Details" col="2">
+                                <field name="registration_date" readonly="1"/>
+                                <field name="partner_id"/>
+                                <field name="training_course_id"/>
+                                <field name="payment_way"/>
+                                <field name="course_status"/>
+                                <field name="weekly_schedule_id"/>
+                                <field name="attachment"/>
+                                <button name="action_confirm_registration"
+                                        type="object"
+                                        string="Confirm Registration"
+                                        class="oe_highlight" invisible="registration_status == 'confirmed'"/>
+                                <button name="action_generate_qr_for_old_confirmed_records"
+                                        type="object"
+                                        string="QR"
+                                        class="oe_highlight"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group name="education_info" string="Educational Background" col="2">
+                                <field name="student_id"/>
+                                <field name="faculty_id"/>
+                                <field name="year_level"/>
+                                <field name="university_id"/>
+                                <field name="gpa"/>
+                            </group>
+
+                        </group>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="activity_ids" widget="mail_activity"/>
+                            <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_register_partner_tree_view">
+            <field name="model">masrtech.register.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Register">
+                    <field name="name"/>
+                    <field name="company_details_name"/>
+                    <field name="company_address"/>
+                    <field name="phone_number"/>
+                    <field name="email"/>
+                    <field name="type_sub" string="Work Field"/>
+                    <field name="responsible_person"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.server" id="server_action_assign_week">
+            <field name="name">Assign Weeks</field>
+            <field name="model_id" ref="model_training_registration"/>
+            <field name="state">code</field>
+            <field name="code">action = model.assign_weeks()</field>
+            <field name="binding_model_id" ref="model_training_registration"/>
+        </record>
+        <record model="ir.actions.server" id="server_action_unassign_week">
+            <field name="name">Unassign Weeks</field>
+            <field name="model_id" ref="model_training_registration"/>
+            <field name="state">code</field>
+            <field name="code">action = model.unassign_weeks()</field>
+            <field name="binding_model_id" ref="model_training_registration"/>
+
+        </record>
+
+        <record model="ir.ui.view" id="reg_wizard_form">
+            <field name="name">assign.week.wizard</field>
+            <field name="model">assign.week.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Search">
+                    <sheet>
+                        <group>
+                            <field name="weekly_schedule_id"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="confirm" type="object" string="Confirm" class="oe_highlight"/>
+                        OR
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_masrtech_register_partner" model="ir.actions.act_window">
+            <field name="name">Register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.register.partner</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('masrtech_register_partner_kanban_working')})]"/>
+        </record>
+        <record id="inherit_inherit_discuss_form_view" model="ir.ui.view">
+            <field name="name">inherit_discuss</field>
+            <field name="model">discuss.channel</field>
+            <field name="inherit_id" ref='mail.discuss_channel_view_form'/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='members']" position="after">
+                    <page string="Students" name="Students">
+                        <group>
+                            <field name="student_idss"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_registration_form_view">
+            <field name="model">masrtech.registration</field>
+            <field name="arch" type="xml">
+                <form string="Register">
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="country"/>
+                            <field name="city"/>
+                            <field name="address"/>
+                            <field name="web_link"/>
+                        </group>
+                        <group class="w-50">
+                            <field name="type"/>
+                            <field name="contact_person"/>
+                            <field name="notes" widget="html"/>
+                            <field name="financial_info"/>
+                            <field name="date_registered"/>
+                            <field name="active"/>
+                            <field name="image" widget="image"/>
+                        </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_registration_tree_view">
+            <field name="model">masrtech.registration</field>
+            <field name="arch" type="xml">
+                <tree string="Register">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_registration" model="ir.actions.act_window">
+            <field name="name">Register</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.registration</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+    </data>
+</odoo>

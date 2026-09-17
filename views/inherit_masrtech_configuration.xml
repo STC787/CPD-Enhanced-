@@ -1,0 +1,927 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!--        department-->
+        <record id="inherit_masrtech_department_form_view" model="ir.ui.view">
+            <field name="name">inherit_masrtech_department</field>
+            <field name="model">op.department</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_department_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="university"/>
+                    <field name="description"/>
+                    <field name="department_faculty"/>
+                    <field name="sub_department" widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_department_kanban_view">
+            <field name="name">department_kanban</field>
+            <field name="model">op.department</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="action_masrtech_department_staff" type="object"
+                        sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- Fixed Medical Course Form View -->
+        <record id="inherit_masrtech_course_form_view" model="ir.ui.view">
+            <field name="name">inherit_masrtech_course</field>
+            <field name="model">op.course</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_course_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Doctor Information Alert -->
+                <xpath expr="//sheet" position="before">
+                    <div class="alert alert-info"
+                         style="margin-bottom: 15px; border-left: 5px solid #17a2b8; background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(33, 150, 243, 0.1);">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 style="margin: 0; color: #1565c0; font-weight: 600;" invisible="not is_leader">
+                                    <i class="fa fa-users" style="margin-right: 10px; color: #2196f3;"></i>
+                                    Assistant Dr.
+                                    <field name="create_uid" readonly="1" nolabel="1"/>
+                                </h4>
+                                <h4 style="margin: 0; color: #1565c0; font-weight: 600;" invisible="is_leader">
+                                    <i class="fa fa-users" style="margin-right: 10px; color: #2196f3;"></i>
+                                    Dr.
+                                    <field name="create_uid" readonly="1" nolabel="1"/>
+                                </h4>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 style="margin: 0; color: #1565c0; font-weight: 600;" invisible="not is_leader">
+                                    <i class="fa fa-user" style="margin-right: 10px; color: #2196f3;"></i>
+                                    Team Leader Dr.
+                                    <field name="team_leader_name" readonly="1" nolabel="1"/>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </xpath>
+
+                <xpath expr="//sheet" position="replace">
+                    <sheet>
+                        <div class="oe_title">
+                            <h6 style="margin: 0; font-size: 1.1rem; font-weight: 500; line-height: 1.5;">
+                                Complete each section to propose a new training course. Required fields are marked with
+                                an asterisk (*).
+                            </h6>
+                        </div>
+                        <notebook>
+                            <!-- Instructor Information Tab -->
+                            <page string="👨‍⚕️ Instructor Information" name="instructor_info">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef; position: relative;">
+                                            Instructor Information
+                                        </h2>
+                                        <group>
+                                            <group string="Personal Details">
+                                                <field name="dr_name" string="Doctor Name *" required="1"
+                                                       style="padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 8px;"/>
+                                                <field name="dr_email" string="Email Address *" required="1"
+                                                       style="padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 8px;"/>
+                                                <field name="title_dr" string="Professional Title"
+                                                       style="padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 8px;"/>
+                                            </group>
+                                            <group string="Contact &amp; Department">
+                                                <field name="dr_phone" string="Phone Number"
+                                                       style="padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 8px;"/>
+
+                                                <field name="is_leader" invisible="1"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Course Details Tab -->
+                            <page string="📚 Course Details" name="course_details">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Course Details
+                                        </h2>
+                                        <group>
+                                            <group string="Basic Information">
+                                                <field name="name" string="Course Name *" required="1"/>
+                                                <field name="code" string="Course Code"/>
+                                                <field name="description" string="Course Description"/>
+                                                <field name="department" string="Department"
+                                                       style="padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 8px;"/>
+                                                <field name="department_domain" invisible="1"/>
+                                                <field name="sub_department" domain="department_domain"/>
+                                            </group>
+                                            <group string="Schedule &amp; Duration">
+                                                <field name="start_date" string="Start Date"/>
+                                                <field name="end_date" string="End Date"/>
+                                                <field name="total_hours" string="Total Hours"/>
+                                                <field name="time" string="Time Schedule"/>
+                                                <field name="date_period_display" string="Period Display"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group string="Target Audience">
+                                                <field name="target_audience_en" widget="many2many_tags"
+                                                       string="Target Audience"/>
+                                            </group>
+                                            <group string="Course Media">
+                                                <field name="flyer_image" widget="image" string="Course Flyer"
+                                                       style="border: 2px dashed #ced4da; border-radius: 12px; padding: 30px; text-align: center; background: #f8f9fa;"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Objectives Tab -->
+                            <page string="🎯 Objectives" name="objectives">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Learning Objectives
+                                        </h2>
+                                        <group>
+                                            <group string="Primary Objectives">
+                                                <field name="objective_1" string="Primary Objective" widget="text"/>
+                                                <field name="objective_2" string="Secondary Objective" widget="text"/>
+                                                <field name="objective_3" string="Tertiary Objective" widget="text"/>
+                                            </group>
+                                            <group string="Outcomes &amp; Benefits">
+                                                <field name="outcome" string="Learning Outcomes" widget="text"/>
+                                                <field name="benefits" string="Course Benefits" widget="text"/>
+                                                <field name="reference" string="References" widget="text"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Curriculum Tab -->
+                            <page string="📋 Curriculum" name="curriculum">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Course Curriculum
+                                        </h2>
+                                        <field name="subject_ids">
+                                            <tree string="Subjects" editable="bottom" decoration-info="type == 'theory'"
+                                                  decoration-success="type == 'practical'">
+                                                <field name="name" string="Subject Name"/>
+                                                <field name="name_ar" string="Arabic Name"/>
+                                                <field name="code" string="Subject Code"/>
+                                                <field name="type" string="Type"/>
+                                                <field name="duration_weeks" string="Duration (Weeks)"/>
+                                            </tree>
+                                            <form string="Subject Details">
+                                                <group>
+                                                    <group string="Subject Information">
+                                                        <field name="name" string="Subject Name *" required="1"/>
+                                                        <field name="name_ar" string="Arabic Name"/>
+                                                        <field name="code" string="Subject Code"/>
+                                                        <field name="type" string="Subject Type"/>
+                                                    </group>
+                                                    <group string="Duration &amp; Department">
+                                                        <field name="department" string="Department"/>
+                                                        <field name="duration_weeks" string="Duration (Weeks)"/>
+                                                    </group>
+                                                </group>
+                                                <group string="Descriptions">
+                                                    <field name="description" string="Description" widget="text"/>
+                                                    <field name="description_ar" string="Arabic Description"
+                                                           widget="text"/>
+                                                </group>
+                                            </form>
+                                        </field>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Logistics Tab -->
+                            <page string="🏢 Logistics" name="logistics">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Course Logistics
+                                        </h2>
+                                        <group>
+                                            <group string="Location &amp; Format">
+                                                <field name="location" string="Training Location"/>
+                                                <field name="format" string="Course Format"/>
+                                            </group>
+                                            <group string="Requirements &amp; Tools">
+                                                <field name="pre_req" widget="many2many_tags" string="Prerequisites"/>
+                                                <field name="training_tools" string="Training Tools &amp; Equipment"
+                                                       widget="text"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Accreditation Tab -->
+                            <page string="🎓 Accreditation" name="accreditation">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Accreditation Details
+                                        </h2>
+                                        <group>
+                                            <group string="Institution">
+                                                <field name="university" string="University/Institution"/>
+                                                <field name="faculty" string="Faculty/School"/>
+                                            </group>
+                                            <group string="Credits &amp; Documentation">
+                                                <field name="credit_hours" string="Credit Hours"/>
+                                                <field name="supporting_docs" string="Supporting Documents"
+                                                       widget="binary"/>
+                                            </group>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Clinical Cases Tab -->
+                            <page string="🏥 Clinical Cases" name="clinical_cases">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Clinical Cases
+                                        </h2>
+                                        <div class="alert alert-warning text-center"
+                                             style="margin: 40px 0; padding: 40px; border-radius: 12px; border: none; background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);">
+                                            <div style="font-size: 3rem; margin-bottom: 20px; color: #856404;">🏥</div>
+                                            <h4 style="margin-bottom: 15px; color: #856404;">Clinical Cases Section</h4>
+                                            <p style="margin-bottom: 20px; color: #856404;">
+                                                This section will contain real-world clinical case studies and practical
+                                                examples
+                                                that will be used throughout the course to enhance learning outcomes.
+                                            </p>
+                                            <div style="margin-top: 20px;">
+                                                <span class="badge badge-warning"
+                                                      style="padding: 8px 16px; font-size: 0.9rem;">
+                                                    📝 Coming Soon - Clinical Case Studies
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- AI Tools Tab -->
+                            <page string="🤖 AI Tools" name="ai_tools">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            AI Tools Integration
+                                        </h2>
+                                        <div class="alert alert-info text-center"
+                                             style="margin: 40px 0; padding: 40px; border-radius: 12px; border: none; background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);">
+                                            <div style="font-size: 3rem; margin-bottom: 20px; color: #004085;">🤖</div>
+                                            <h4 style="margin-bottom: 15px; color: #004085;">AI-Powered Learning Tools
+                                            </h4>
+                                            <p style="margin-bottom: 20px; color: #004085;">
+                                                Configure artificial intelligence tools and resources that will enhance
+                                                the learning experience, including AI-assisted diagnostics, virtual
+                                                patients,
+                                                and intelligent tutoring systems.
+                                            </p>
+                                            <div style="margin-top: 20px;">
+                                                <span class="badge badge-info"
+                                                      style="padding: 8px 16px; font-size: 0.9rem;">
+                                                    ⚙️ Configuration Area - AI Tools Setup
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+
+                            <!-- Review Tab -->
+                            <page string="✅ Review" name="review">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                            Review &amp; Submit
+                                        </h2>
+                                        <div class="alert alert-success text-center"
+                                             style="margin: 40px 0; padding: 40px; border-radius: 12px; border: none; background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);">
+                                            <div style="font-size: 3rem; margin-bottom: 20px; color: #155724;">✅</div>
+                                            <h4 style="margin-bottom: 15px; color: #155724;">Course Proposal Review</h4>
+                                            <p style="margin-bottom: 30px; color: #155724;">
+                                                Please review all sections of your medical training course proposal
+                                                before submission.
+                                                Ensure all required fields are completed and all supporting documents
+                                                are attached.
+                                            </p>
+
+                                            <!-- Review Checklist -->
+                                            <div class="row text-left" style="margin: 30px 0;">
+                                                <div class="col-md-6">
+                                                    <h5 style="color: #155724; margin-bottom: 15px;">
+                                                        📋 Review Checklist:
+                                                    </h5>
+                                                    <ul style="list-style: none; padding-left: 0;">
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Instructor information complete
+                                                        </li>
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Course details filled
+                                                        </li>
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Learning objectives defined
+                                                        </li>
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Curriculum structure complete
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h5 style="color: #155724; margin-bottom: 15px;">
+                                                        📝 Additional Items:
+                                                    </h5>
+                                                    <ul style="list-style: none; padding-left: 0;">
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Logistics arranged
+                                                        </li>
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Accreditation details provided
+                                                        </li>
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Supporting documents attached
+                                                        </li>
+                                                        <li style="margin: 8px 0; color: #155724;">
+                                                            ✓ Course flyer uploaded
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- Status Information -->
+                                            <div style="margin-top: 40px; padding: 20px; background: rgba(255, 255, 255, 0.3); border-radius: 8px;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <strong style="color: #155724;">Proposal Status:</strong>
+                                                        <span class="badge badge-warning"
+                                                              style="margin-left: 10px; padding: 6px 12px;">In Progress
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-6 text-right">
+                                                        <small style="color: #155724;">
+                                                            Last updated:
+                                                            <field name="write_date" readonly="1" nolabel="1"/>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="view_masrtech_course_kanban" model="ir.ui.view">
+            <field name="name">masrtech.course.kanban</field>
+            <field name="model">op.course</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column" quick_create="false" archivable="false">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="dr_name"/>
+                    <field name="state"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="department"/>
+                    <field name="format"/>
+                    <field name="location"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click"
+                                 style="border-left: 4px solid #007cba; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                <div class="oe_kanban_content" style="padding: 12px;">
+                                    <!-- Header with course name and code -->
+                                    <div style="border-bottom: 1px solid #e9ecef; padding-bottom: 8px; margin-bottom: 12px;">
+                                        <div style="font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 4px;">
+                                            <field name="name"/>
+                                        </div>
+                                        <div style="font-size: 12px; color: #6c757d; background-color: #f8f9fa; padding: 2px 8px; border-radius: 12px; display: inline-block;">
+                                            <field name="code"/>
+                                        </div>
+                                    </div>
+
+                                    <!-- Main content in two columns -->
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <div style="flex: 1;">
+                                            <div style="margin-bottom: 8px;">
+                                                <span style="font-size: 11px; color: #6c757d; text-transform: uppercase; font-weight: 500;">
+                                                    Doctor
+                                                </span>
+                                                <div style="font-size: 13px; color: #495057; margin-top: 2px;">
+                                                    <field name="dr_name"/>
+                                                </div>
+                                            </div>
+
+                                            <div style="margin-bottom: 8px;">
+                                                <span style="font-size: 11px; color: #6c757d; text-transform: uppercase; font-weight: 500;">
+                                                    Department
+                                                </span>
+                                                <div style="font-size: 13px; color: #495057; margin-top: 2px;">
+                                                    <field name="department"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style="flex: 1; margin-left: 16px;">
+                                            <t t-if="record.start_date.raw_value">
+                                                <div style="margin-bottom: 8px;">
+                                                    <span style="font-size: 11px; color: #6c757d; text-transform: uppercase; font-weight: 500;">
+                                                        Duration
+                                                    </span>
+                                                    <div style="font-size: 12px; color: #495057; margin-top: 2px;">
+                                                        <field name="start_date"/>
+                                                        -
+                                                        <field name="end_date"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+
+                                            <t t-if="record.location.raw_value">
+                                                <div style="margin-bottom: 8px;">
+                                                    <span style="font-size: 11px; color: #6c757d; text-transform: uppercase; font-weight: 500;">
+                                                        Location
+                                                    </span>
+                                                    <div style="font-size: 13px; color: #495057; margin-top: 2px;">
+                                                        <field name="location"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer with status and format -->
+                                    <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #e9ecef; display: flex; justify-content: space-between; align-items: center;">
+                                        <div>
+                                            <field name="state" widget="label_selection"
+                                                   options="{'classes': {'draft': 'warning', 'publish': 'success', 'running': 'info', 'done': 'primary', 'cancel': 'danger'}}"/>
+                                        </div>
+                                        <div>
+                                            <t t-if="record.format.raw_value">
+                                                <span style="font-size: 11px; background-color: #6c757d; color: white; padding: 4px 8px; border-radius: 10px; text-transform: uppercase; font-weight: 500;">
+                                                    <field name="format"/>
+                                                </span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="view_op_course_approval_kanban" model="ir.ui.view">
+            <field name="name">op.course.approval.kanban.beautiful</field>
+            <field name="model">op.course</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="state"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>
+                    <field name="write_date"/>
+                    <field name="doctor_name" optional="1"/>
+                    <field name="department" optional="1"/>
+                    <field name="university" optional="1"/>
+                    <field name="start_date" optional="1"/>
+                    <field name="end_date" optional="1"/>
+                    <field name="total_hours" optional="1"/>
+                    <field name="dr_name" optional="1"/>
+                    <field name="location" optional="1"/>
+                    <field name="description" optional="1"/>
+                    <field name="faculty" optional="1"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click"
+                                 style="margin: 8px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; border: none;">
+
+                                <!-- Custom CSS for beautiful styling -->
+                                <style>
+                                    .oe_kanban_card:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+                                    }
+                                    .course_header {
+                                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                    color: white;
+                                    padding: 15px;
+                                    border-radius: 12px 12px 0 0;
+                                    position: relative;
+                                    }
+                                    .course_title {
+                                    font-size: 16px;
+                                    font-weight: 600;
+                                    margin-bottom: 4px;
+                                    line-height: 1.3;
+                                    }
+                                    .course_code {
+                                    font-size: 12px;
+                                    opacity: 0.9;
+                                    background: rgba(255,255,255,0.2);
+                                    padding: 2px 8px;
+                                    border-radius: 15px;
+                                    display: inline-block;
+                                    }
+                                    .course_body {
+                                    padding: 16px;
+                                    background: white;
+                                    }
+                                    .status_badge {
+                                    position: absolute;
+                                    top: 12px;
+                                    right: 12px;
+                                    padding: 4px 10px;
+                                    border-radius: 20px;
+                                    font-size: 11px;
+                                    font-weight: 600;
+                                    text-transform: uppercase;
+                                    }
+                                    .status_draft {
+                                    background: #fff3cd;
+                                    color: #856404;
+                                    border: 1px solid #ffeaa7;
+                                    }
+                                    .status_published {
+                                    background: #d4edda;
+                                    color: #155724;
+                                    border: 1px solid #c3e6cb;
+                                    }
+                                    .info_row {
+                                    display: flex;
+                                    align-items: center;
+                                    margin-bottom: 8px;
+                                    font-size: 13px;
+                                    color: #666;
+                                    }
+                                    .info_icon {
+                                    width: 16px;
+                                    margin-right: 8px;
+                                    color: #667eea;
+                                    }
+                                    .action_buttons {
+                                    padding: 12px 16px;
+                                    background: #f8f9fa;
+                                    border-radius: 0 0 12px 12px;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    }
+                                    .btn_approve {
+                                    background: linear-gradient(45deg, #28a745, #20c997);
+                                    border: none;
+                                    color: white;
+                                    padding: 6px 12px;
+                                    border-radius: 20px;
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+                                    }
+                                    .btn_approve:hover {
+                                    transform: translateY(-1px);
+                                    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+                                    }
+                                    .btn_reject {
+                                    background: linear-gradient(45deg, #ffc107, #fd7e14);
+                                    border: none;
+                                    color: white;
+                                    padding: 6px 12px;
+                                    border-radius: 20px;
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+                                    }
+                                    .btn_reject:hover {
+                                    transform: translateY(-1px);
+                                    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+                                    }
+                                    .btn_view {
+                                    background: #6c757d;
+                                    border: none;
+                                    color: white;
+                                    padding: 6px 10px;
+                                    border-radius: 15px;
+                                    font-size: 11px;
+                                    transition: all 0.3s ease;
+                                    }
+                                    .btn_view:hover {
+                                    background: #5a6268;
+                                    transform: translateY(-1px);
+                                    }
+                                    .card_footer {
+                                    font-size: 11px;
+                                    color: #999;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    }
+                                    .validation_indicator {
+                                    display: flex;
+                                    gap: 8px;
+                                    margin-top: 12px;
+                                    padding: 8px;
+                                    background: #f8f9fa;
+                                    border-radius: 8px;
+                                    border-left: 3px solid #667eea;
+                                    }
+                                    .validation_item {
+                                    font-size: 11px;
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 4px;
+                                    }
+                                    .validation_check {
+                                    color: #28a745;
+                                    }
+                                    .validation_cross {
+                                    color: #dc3545;
+                                    }
+                                </style>
+
+                                <div class="course_header">
+                                    <div class="course_title">
+                                        <field name="name"/>
+                                    </div>
+                                    <t t-if="record.code and record.code.value">
+                                        <div class="course_code">
+                                            <field name="code"/>
+                                        </div>
+                                    </t>
+
+                                    <div t-att-class="'status_badge ' + (record.state.raw_value == 'draft' ? 'status_draft' : 'status_published')">
+                                        <t t-if="record.state.raw_value == 'draft'">Draft</t>
+                                        <t t-if="record.state.raw_value == 'publish'">Published</t>
+                                    </div>
+                                </div>
+
+                                <!-- Body with course information -->
+                                <div class="course_body">
+                                    <!-- Doctor Information -->
+
+                                    <t t-if="record.dr_name and record.dr_name.value">
+                                        <div class="info_row">
+                                            <i class="fa fa-user info_icon"/>
+                                            <span>
+                                                <field name="dr_name"/>
+                                            </span>
+                                        </div>
+                                    </t>
+
+                                    <!-- Department -->
+                                    <t t-if="record.department and record.department.value">
+                                        <div class="info_row">
+                                            <i class="fa fa-building info_icon"/>
+                                            <span>
+                                                <field name="department"/>
+                                            </span>
+                                        </div>
+                                    </t>
+
+                                    <!-- University -->
+                                    <t t-if="record.university and record.university.value">
+                                        <div class="info_row">
+                                            <i class="fa fa-university info_icon"/>
+                                            <span>
+                                                <field name="university"/>
+                                            </span>
+                                        </div>
+                                    </t>
+
+                                    <!-- Validation Indicator -->
+                                    <!--                                <div class="validation_indicator">-->
+                                    <!--                                    <div class="validation_item">-->
+                                    <!--                                        <i t-att-class="'fa ' + (record.name and record.name.value ? 'fa-check validation_check' : 'fa-times validation_cross')"/>-->
+                                    <!--                                        <span>Title</span>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="validation_item">-->
+                                    <!--                                        <i t-att-class="'fa ' + ((record.dr_name and record.dr_name.value) or (record.doctor_name and record.doctor_name.value) ? 'fa-check validation_check' : 'fa-times validation_cross')"/>-->
+                                    <!--                                        <span>Doctor</span>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="validation_item">-->
+                                    <!--                                        <i t-att-class="'fa ' + (record.start_date and record.start_date.value ? 'fa-check validation_check' : 'fa-times validation_cross')"/>-->
+                                    <!--                                        <span>Dates</span>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="validation_item">-->
+                                    <!--                                        <i t-att-class="'fa ' + (record.university and record.university.value ? 'fa-check validation_check' : 'fa-times validation_cross')"/>-->
+                                    <!--                                        <span>University</span>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="action_buttons">
+                                    <div class="card_footer">
+                                        <span>
+                                            <i class="fa fa-user"/>
+                                            <field name="dr_name"/>
+                                        </span>
+                                    </div>
+
+                                    <div style="display: flex; gap: 8px;">
+                                        <!-- Approve Button for Draft -->
+                                        <t t-if="record.state.raw_value == 'draft'">
+                                            <button name="action_approve_course"
+                                                    type="object"
+                                                    class="btn_approve">
+                                                <i class="fa fa-check"/>
+                                                Approve
+                                            </button>
+                                        </t>
+
+                                        <!-- Reject Button for Published -->
+                                        <t t-if="record.state.raw_value == 'publish'">
+                                            <button name="action_reject_course"
+                                                    type="object"
+                                                    class="btn_reject">
+                                                <i class="fa fa-undo"/>
+                                                Reject
+                                            </button>
+                                        </t>
+
+                                        <!-- View Details Button -->
+                                        <button name="action_view_course_details"
+                                                type="object"
+                                                class="btn_view">
+                                            <i class="fa fa-eye"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record><!-- Update the action to use the enhanced kanban -->
+        <record id="inherit_masrtech_subject_form_view" model="ir.ui.view">
+            <field name="name">inherit_masrtech_subject</field>
+            <field name="model">op.subject</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_subject_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="name_ar"/>
+                    <field name="university"/>
+                    <field name="faculty"/>
+                    <field name="department"/>
+                    <field name="duration_weeks"/>
+                    <field name="description"/>
+                    <field name="description_ar"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_op_student_form_docs_inherit" model="ir.ui.view">
+            <field name="name">op.student.form.docs.inherit</field>
+            <field name="model">op.student</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name"/>
+                </xpath>
+                <xpath expr="//field[@name='birth_date']" position="replace">
+                    <field name="birth_date" required="0"/>
+                </xpath>
+                <xpath expr="//field[@name='first_name']" position="replace">
+                    <field name="first_name" invisible="1" required="0"/>
+                </xpath>
+                <xpath expr="//field[@name='middle_name']" position="replace">
+                    <field name="middle_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='last_name']" position="replace">
+                    <field name="last_name" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='title']" position="replace">
+                    <field name="title" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook" position="after">
+                    <group string="Documents">
+                        <field name="id_attachment" widget="image" class="w-50"/>
+                        <field name="document_ids" widget="many2many_binary" string="All Documents"/>
+                    </group>
+                    <group string="Education">
+                        <field name="university"/>
+                                            <field name="vat" string="National Id"/>
+
+                        <field name="faculty"/>
+                        <field name="level"/>
+                        <field name="faculty_id"/>
+                        <field name="training_course_idd"/>
+                    </group>
+                    <group string="Courses">
+                        <field name="courses_id" widget="many2many_tags"/>
+                    </group>
+                    <group string="Certifications">
+                        <field name="student_certification">
+                            <tree>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='emergency_contact']" position="after">
+                    <field name="level"/>
+                    <field name="all_levels"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_op_student_search_inherit" model="ir.ui.view">
+            <field name="name">op.student.search.inherit</field>
+            <field name="model">op.student</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_student_search"/>
+            <field name="arch" type="xml">
+                <field name="blood_group" position="after">
+                    <field name="faculty_id" string="Faculty Id"/>
+                    <field name="is_complete"/>
+                    <filter string="Complete" name="complete" domain="[('is_complete', '=', True)]"/>
+                    <filter string="Draft" name="draft" domain="[('is_complete', '=', False)]"/>
+                </field>
+            </field>
+        </record>
+        <record id="inherit_masrtech_batch_form_view" model="ir.ui.view">
+            <field name="name">inherit_masrtech_batch</field>
+            <field name="model">op.batch</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_batch_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="university"/>
+                    <field name="faculty"/>
+                    <field name="department"/>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.actions.server" id="server_action_my_courses">
+            <field name="name">My Courses</field>
+            <field name="model_id" ref="openeducat_core.model_op_course"/>
+            <field name="state">code</field>
+            <field name="code">action = model.open_my_courses()</field>
+        </record>
+        <record id="action_course_approval_draft_only" model="ir.actions.act_window">
+            <field name="name">Reviewer</field>
+            <field name="res_model">op.course</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_op_course_approval_kanban')})]"/>
+            <field name="domain">[('state', '=', 'draft')]</field>
+            <field name="context">{}</field>
+
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No draft courses waiting for approval!
+                </p>
+                <p>
+                    Draft courses will appear here when they need to be reviewed and approved.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_course_approval_viewer"
+                name="Scientific Committee"
+                action="action_course_approval_draft_only"
+                sequence="15"
+                groups="nexus_nms.group_scientific_committee"/>
+
+        <menuitem id="menu_my_courses_server_action"
+                  name="My Courses"
+                  parent="openeducat_core.menu_op_course_sub"
+                  action="server_action_my_courses"
+                  sequence="10"/>
+
+    </data>
+</odoo>

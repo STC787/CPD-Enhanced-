@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_faculty_kanban_view">
+            <field name="name">faculty_kanban</field>
+            <field name="model">masrtech.faculty</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="action_masrtech_type" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_faculty_form_view">
+            <field name="model">masrtech.faculty</field>
+            <field name="arch" type="xml">
+                <form string="colleges">
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                                <field name="university_id"/>
+                                <field name="masrtech_staff" widget="many2many_tags"/>
+                                <field name="masrtech_department" widget="many2many_tags"/>
+                            </group>
+                            <group class="w-50">
+                                <field name="masrtech_course" widget="many2many_tags"/>
+                                <field name="masrtech_subject" widget="many2many_tags"/>
+                                <field name="masrtech_classroom" widget="many2many_tags"/>
+                                <field name="masrtech_activity_type" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_faculty_tree_view">
+            <field name="model">masrtech.faculty</field>
+            <field name="arch" type="xml">
+                <tree string="colleges">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_faculty" model="ir.actions.act_window">
+            <field name="name">colleges</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.faculty</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_type_kanban_view">
+            <field name="name">faculty_kanban</field>
+            <field name="model">masrtech.type</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="action_masrtech_dep" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                                <!--                                <div class="o_kanban_record_top">-->
+                                <!--                                    <ul>-->
+                                <!--                                        Name :-->
+                                <!--                                        <field name="faculty" invisible="1" />-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_type_form_view">
+            <field name="model">masrtech.type</field>
+            <field name="arch" type="xml">
+                <form string="colleges">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="faculty"/>
+                            <field name="university"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_type_tree_view">
+            <field name="model">masrtech.type</field>
+            <field name="arch" type="xml">
+                <tree string="colleges">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_type" model="ir.actions.act_window">
+            <field name="name">colleges</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.type</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+
+    </data>
+</odoo>

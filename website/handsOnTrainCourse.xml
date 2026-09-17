@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <template id="homefont_handson" name="home" inherit_id="website.layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+            </xpath>
+        </template>
+        <template id="handsOnTrainCourse">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <!-- Icon Font Stylesheet -->
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <style>
+                            h1,h2{
+                            font-weight: bold;
+                            }
+                            h2{
+                                font-size: 40px;
+                            }
+                            .card {
+                            position: relative;
+                            background: rgba(255, 255, 255, 0.95);
+                            }
+
+                            .card::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 6px;
+                            background: linear-gradient(135deg, #29abe2 0%, #000f2a 100%);
+                            transform: scaleX(0);
+                            transition: transform 0.4s ease;
+                            }
+
+                            .card:hover::before {
+                            transform: scaleX(1);
+                            }
+                            .card:hover {
+                            transform: translateY(-15px) scale(1.02);
+                            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+                            }
+                            .card-button {
+                            position: relative;
+                            padding: 14px 32px;
+                            background: linear-gradient(135deg, #29abe2 0%, #000f2a 100%);
+                            color: white;
+                            border: none;
+                            border-radius: 30px;
+                            font-size: 16px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            z-index: 1;
+                            width: max-content;
+                            margin: 16px auto;
+                            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+                            }
+
+                            .card-button:hover {
+                            transform: scale(1.05);
+                            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.5);
+                            }
+
+                            .card-button:active {
+                            transform: scale(0.98);
+                            }
+                        </style>
+                    </head>
+
+                    <div>
+                        <div class="container p-5">
+                            <div class="row">
+                                <div class="col-12 mb-4">
+                                    <h1 class="text-center">
+                                        Choose Your Category
+                                    </h1>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center  p-5 border rounded-3 card h-100">
+                                        <h2>
+                                            Training
+                                        </h2>
+                                        <a href="/training_page" class="card-button text-white text-decoration-none">Get Started</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center  p-5 border rounded-3 card h-100">
+                                        <h2>
+                                            Courses
+                                        </h2>
+                                        <a href="/course_page" class="card-button text-white text-decoration-none">Get Started</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

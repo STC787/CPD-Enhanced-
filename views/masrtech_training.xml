@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_training_kanban_view">
+            <field name="name">masrtech_training_kanban</field>
+            <field name="model">masrtech.training</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_training_form_view">
+            <field name="model">masrtech.training</field>
+            <field name="arch" type="xml">
+                <form string="Training">
+                    <header>
+                        <button type="object" name="send_to_students" string="Send to students"
+                                class="oe_highlight"
+                        />
+                    </header>
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="company_id"/>
+                                <field name="masrtech_department" widget="many2many_tags"/>
+                                <field name="location"/>
+                            </group>
+                            <group class="w-50">
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="duration_hours"/>
+                                <field name="seats_available"/>
+                                <field name="registration_deadline"/>
+                            </group>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_training_tree_view">
+            <field name="model">masrtech.training</field>
+            <field name="arch" type="xml">
+                <tree string="Training">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_masrtech_training" model="ir.actions.act_window">
+            <field name="name">Training</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.training</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+    </data>
+</odoo>

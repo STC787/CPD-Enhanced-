@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_registration_form_view">
+            <field name="model">masrtech.int</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_registration_tree_view">
+            <field name="model">masrtech.int</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_int" model="ir.actions.act_window">
+            <field name="name"></field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.int</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_sub_kanban_view">
+            <field name="name">sub_kanban</field>
+            <field name="model">masrtech.sub</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="go_to_factories" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_sub_form_view">
+            <field name="model">masrtech.sub</field>
+            <field name="arch" type="xml">
+                <form string="Partners">
+                    <sheet>
+                        <field name="name"/>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_subb_tree_view">
+            <field name="model">masrtech.sub</field>
+            <field name="arch" type="xml">
+                <tree string="Partners">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_sub" model="ir.actions.act_window">
+            <field name="name">Partners</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.sub</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_student_portfolio_form_view">
+            <field name="model">masrtech.student.portfolio</field>
+            <field name="arch" type="xml">
+                <form string="Student Portfolio">
+                    <sheet>
+                        <group>
+<!--                            <field name="image" widget="image"/>-->
+                            <field name="student_name"/>
+                            <field name="student_id"/>
+                            <field name="gender"/>
+                            <field name="birth_date"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group>
+                            <field name="university"/>
+                            <field name="faculty"/>
+                            <field name="department"/>
+                            <field name="semester"/>
+                            <field name="gpa"/>
+                            <field name="clubs"/>
+                            <field name="graduation_date"/>
+                        </group>
+                        <notebook>
+                            <page string="Academic Training">
+                                <group>
+                                    <field name="course_name"/>
+                                    <field name="academic_supervisor"/>
+                                    <field name="level"/>
+                                    <field name="student_semester">
+                                        <tree editable="button">
+                                            <field name="week"/>
+                                            <field name="practical_title"/>
+                                            <field name="practical_training"/>
+                                            <field name="institute"/>
+                                            <field name="competence"/>
+                                        </tree>
+                                    </field>
+                                    <field name="program_coordinator"/>
+                                    <field name="training_supervisor"/>
+                                </group>
+
+                            </page>
+                            <page string="Practical Study Plan">
+                                <group>
+                                    <field name="academic_year_practical"/>
+                                    <field name="student_practical_study">
+                                        <tree editable="button">
+                                            <field name="course_code"/>
+                                            <field name="course_name"/>
+                                            <field name="practical_topics"/>
+                                        </tree>
+                                    </field>
+                                    <field name="program_coordinator_practical"/>
+                                    <field name="college_agent"/>
+                                    <field name="college_dean_health"/>
+                                </group>
+
+
+                            </page>
+                            <page string="Summer Training">
+                                <group>
+                                    <field name="academic_year_training"/>
+                                    <field name="academic_supervisor_training"/>
+                                    <field name="level_training"/>
+                                    <field name="student_training_summery">
+                                        <tree editable="button">
+                                            <field name="week"/>
+                                            <field name="practical_title"/>
+                                            <field name="practical_training"/>
+                                            <field name="institute"/>
+                                            <field name="competence"/>
+                                        </tree>
+                                    </field>
+                                    <field name="program_coordinator_training"/>
+                                    <field name="summer_training_supervisor"/>
+                                </group>
+                            </page>
+                            <page string="Soft Skills">
+                                <group>
+                                    <field name="academic_year_soft_skills"/>
+                                    <field name="academic_supervisor_soft_skills"/>
+                                    <field name="level_soft_skills"/>
+                                    <field name="student_soft_skills">
+                                        <tree editable="button">
+                                            <field name="week"/>
+                                            <field name="soft_skill"/>
+                                            <field name="institute"/>
+                                            <field name="competence"/>
+                                            <field name="supervisor"/>
+                                        </tree>
+                                    </field>
+                                    <field name="program_coordinator_soft"/>
+                                    <field name="training_supervisor_soft"/>
+                                    <field name="college_agent_soft"/>
+                                    <field name="college_dean_soft"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_student_portfolio_tree_view">
+            <field name="model">masrtech.student.portfolio</field>
+            <field name="arch" type="xml">
+                <tree string="Student Portfolio">
+                    <field name="student_name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_student_portfolio" model="ir.actions.act_window">
+            <field name="name">Student Portfolio</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.student.portfolio</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+    </data>
+</odoo>

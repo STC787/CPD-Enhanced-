@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="all_programs">
+            <t t-call="website.layout">
+                <style>
+                    body {
+                    background-color: #f8f9fa;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    overflow-x: hidden;
+                    }
+
+                    div.mycontainer{
+                    margin-inline:120px;
+                    }
+                    /* Main Container */
+                    .card-container {
+                    background: white;
+                    border-radius: 8px;
+                    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+                    margin: 20px auto;
+                    max-width: 1440px;
+                    overflow: hidden;
+                    }
+                    /* Header Section */
+                    .header-section {
+                    background: white;
+                    color: white;
+                    padding: 30px;
+                    position: relative;
+                    }
+                    .doctor-name-p{
+                    font-weight:500;
+                    color: #3e75cf;
+                    }
+
+                    .university-icon {
+                    width: 50px;
+                    height: 50px;
+                    background: #4285f4;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 15px;
+                    animation: fadeInLeft 0.6s ease-out 0.2s both;
+                    transition: transform 0.3s ease;
+                    }
+
+                    .university-icon:hover {
+                    transform: scale(1.1);
+                    }
+
+                    .university-name {
+                    font-size: 16px;
+                    color: #004899;
+                    margin-bottom: 8px;
+                    font-weight:500;
+                    animation: fadeInLeft 0.6s ease-out 0.4s both;
+                    }
+
+                    .program-title {
+                    font-size: 28px;
+                    font-weight: 700;
+                    margin-bottom: 15px;
+                    line-height: 1.2;
+                    animation: fadeInUp 0.6s ease-out 0.6s both;
+                    }
+
+                    .program-description {
+                    font-size: 14px;
+                    color:#3c3c3ccc;
+                    margin-bottom: 6px;
+                    line-height: 1.5;
+                    animation: fadeInUp 0.6s ease-out 0.8s both;
+                    }
+
+                    /* Buttons */
+                    .btn-apply {
+                    background: #4285f4;
+                    border: none;
+                    color: white;
+                    padding: 10px 25px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    margin-right: 10px;
+                    animation: fadeInUp 0.6s ease-out 1s both;
+                    transition: all 0.3s ease;
+                    }
+
+                    .btn-apply:hover {
+                    border: 1px solid #4285f4 ;
+                    background:white;
+                    transform: translateY(-2px);
+                    color:#4285f4;
+                    }
+
+                    .btn-contact {
+                    background: rgba(255,255,255,0.2);
+                    border: 1px solid #004899;
+                    color: #4285f4;
+                    padding: 10px 25px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    animation: fadeInUp 0.6s ease-out 1.2s both;
+                    transition: all 0.3s ease;
+                    }
+
+                    .btn-contact:hover {
+                    background: #4285f4;
+                    border-color: rgba(255,255,255,0.5);
+                    transform: translateY(-2px);
+                    color: white;
+                    }
+                    .flyer-button{
+                    margin-block: 10px;
+                    background: rgb(165 199 255);
+                    /* border: 1px solid; */
+                    color: #1a4081;
+                    padding: 8px 19px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    animation: fadeInUp 0.6s ease-out 1.2s both;
+                    transition: all 0.3s ease;
+                    }
+                    .flyer-button:hover{
+                    background: #4285f4;
+                    border-color: rgba(255,255,255,0.5);
+                    transform: translateY(-2px);
+                    color: white;
+                    }
+
+                    .row {
+                    margin: 0;
+                    }
+
+                    html {
+                    scroll-behavior: smooth;
+                    }
+                    .see_more{
+                    margin-block: 10px;
+                    color: #4285F4;
+                    cursor: pointer;
+                    animation: fadeIn 0.6s ease-out 1.4s both;
+                    }
+                    .code{
+                    background-color: #4285f4;
+                    z-index: 99;
+                    border-bottom-left-radius: 8px;
+                    animation: fadeIn 0.6s ease-out 0.2s both;
+                    }
+                    .fadeInUp {
+                    animation: fadeInUp 0.6s ease-out 0.5s both;
+                    }
+                    /* Simple Animation Keyframes */
+                    @keyframes fadeIn {
+                    from {
+                    opacity: 0;
+                    }
+                    to {
+                    opacity: 1;
+                    }
+                    }
+                    @keyframes fadeInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    @keyframes fadeInLeft {
+                    from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    @keyframes fadeInRight {
+                    from {
+                    opacity: 0;
+                    transform: translateX(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    @keyframes gentleFloat {
+                    0%, 100% {
+                    transform: translateY(0);
+                    }
+                    50% {
+                    transform: translateY(-5px);
+                    }
+                    }
+
+                    @keyframes simpleGradient {
+                    0% {
+                    background-position: 0% 50%;
+                    }
+                    50% {
+                    background-position: 100% 50%;
+                    }
+                    100% {
+                    background-position: 0% 50%;
+                    }
+                    }
+                    /* Tablet Styles (768px to 1024px) */
+                    @media only screen and (max-width: 1024px) and (min-width: 769px) {
+                    div.mycontainer {
+                    margin-inline: 60px;
+                    }
+
+                    .card-container {
+                    margin: 15px auto;
+                    }
+
+                    .header-section {
+                    padding: 25px 20px;
+                    }
+
+                    .program-title {
+                    font-size: 24px;
+                    }
+
+                    .university-name {
+                    font-size: 15px;
+                    }
+
+                    .program-description {
+                    font-size: 13px;
+                    }
+
+                    .btn-apply, .btn-contact {
+                    padding: 8px 20px;
+                    font-size: 14px;
+                    }
+
+                    .flyer-button {
+                    padding: 6px 16px;
+                    font-size: 14px;
+                    }
+
+                    .university-icon {
+                    width: 45px;
+                    height: 45px;
+                    }
+                    }
+
+                    /* Mobile Styles (up to 768px) */
+                    @media only screen and (max-width: 768px) {
+                    div.mycontainer {
+                    margin-inline: 20px;
+                    }
+
+                    .card-container {
+                    margin: 10px auto;
+                    }
+
+                    .header-section {
+                    padding: 20px 15px;
+                    }
+
+                    .program-title {
+                    font-size: 22px;
+                    margin-bottom: 12px;
+                    }
+
+                    .university-name {
+                    font-size: 14px;
+                    margin-bottom: 6px;
+                    }
+
+                    .program-description {
+                    font-size: 12px;
+                    margin-bottom: 8px;
+                    }
+
+                    .doctor-name-p {
+                    font-size: 14px;
+                    margin-bottom: 8px;
+                    }
+
+                    .university-icon {
+                    width: 40px;
+                    height: 40px;
+                    margin-bottom: 10px;
+                    }
+
+                    .university-icon i {
+                    font-size: 16px !important;
+                    }
+
+                    .action-buttons {
+                    flex-direction: column;
+                    gap: 8px;
+                    width: 100%;
+                    }
+
+                    .btn-apply, .btn-contact {
+                    padding: 10px 20px;
+                    font-size: 14px;
+                    width: 100%;
+                    margin: 5px;
+                    text-align: center;
+                    }
+
+                    .flyer-button {
+                    padding: 8px 16px;
+                    font-size: 13px;
+                    width: 100%;
+                    }
+
+                    .see_more {
+                    font-size: 13px;
+                    margin-block: 8px;
+                    }
+
+                    .code {
+                    padding: 8px 12px;
+                    }
+
+                    .code span {
+                    font-size: 12px;
+                    }
+
+                    /* Ensure cards take full width on mobile */
+                    .col-lg-4 {
+
+                    margin-bottom: 20px;
+                    }
+                    }
+
+                    /* Small Mobile Styles (up to 480px) */
+                    @media only screen and (max-width: 480px) {
+                    div.mycontainer {
+                    margin-inline: 15px;
+                    }
+
+                    .header-section {
+                    padding: 15px 10px;
+                    }
+
+                    .program-title {
+                    font-size: 20px;
+                    line-height: 1.3;
+                    }
+
+                    .university-name {
+                    font-size: 13px;
+                    }
+
+                    .program-description {
+                    font-size: 11px;
+                    line-height: 1.4;
+                    }
+
+                    .university-icon {
+                    width: 35px;
+                    height: 35px;
+                    }
+
+                    .university-icon i {
+                    font-size: 14px !important;
+                    }
+
+                    .btn-apply, .btn-contact {
+                    padding: 8px 16px;
+                    font-size: 13px;
+                    }
+
+                    .flyer-button {
+                    padding: 6px 14px;
+                    font-size: 12px;
+                    }
+
+                    .modal-dialog {
+                    max-width: 95%;
+                    margin: 1rem auto;
+                    }
+                    }
+
+                    /* Landscape Mobile */
+                    @media only screen and (max-height: 500px) and (orientation: landscape) {
+                    .header-section {
+                    padding: 10px 15px;
+                    }
+
+                    .program-title {
+                    font-size: 18px;
+                    margin-bottom: 8px;
+                    }
+
+                    .university-icon {
+                    width: 30px;
+                    height: 30px;
+                    margin-bottom: 5px;
+                    }
+
+                    .university-name {
+                    font-size: 12px;
+                    margin-bottom: 4px;
+                    }
+
+                    .program-description {
+                    font-size: 10px;
+                    margin-bottom: 4px;
+                    }
+
+                    .action-buttons {
+                    flex-direction: row;
+                    gap: 5px;
+                    }
+
+                    .btn-apply, .btn-contact {
+                    padding: 6px 12px;
+                    font-size: 11px;
+                    width: auto;
+                    }
+
+                    .flyer-button {
+                    padding: 4px 10px;
+                    font-size: 10px;
+                    }
+                    }
+                </style>
+                <div id="wrap">
+                    <div class="mycontainer">
+                        <div class="row">
+                            <t t-if="courses" t-foreach="courses" t-as="course">
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="card-container position-relative overflow-hidden">
+                                        <!-- Header Section -->
+                                        <div class="code position-absolute d-flex p-2 end-0">
+                                            <span class="text-white fw-bold">#
+                                                <t t-esc="course.code or 'N/A'"/>
+                                            </span>
+                                        </div>
+                                        <div class="header-section d-flex flex-column align-items-center">
+                                            <div class="university-icon">
+                                                <i class="fas fa-graduation-cap" style="font-size: 20px;"></i>
+                                            </div>
+<!--                                            <div class="university-name">Borg El Arab Technological University</div>-->
+                                            <h1 class="program-title text-center" style="color: #333;">
+                                                <t t-esc="course.name"/>
+                                            </h1>
+                                            <h5 class="doctor-name-p">
+                                                <t t-if="course.dr_name.name">
+                                                    <t t-esc="course.dr_name.name"/>
+                                                </t>
+                                                <t t-else="">
+                                                    Doctor Name
+                                                </t>
+                                            </h5>
+                                            <p class="program-description text-center fs-6">
+                                                <t t-if="course.description">
+                                                    <t t-esc="course.description[:150]"/>
+                                                    <t t-if="len(course.description) > 150">...</t>
+                                                </t>
+                                                <t t-else="">
+                                                    Hands-on experience and practical skills development. Gain
+                                                    real-world knowledge in this comprehensive program.
+                                                </t>
+                                            </p>
+                                            <a t-attf-href="/program_details?course_id=#{course.id}"
+                                               class="see_more fs-6 fw-bold" style="text-decoration: none;">
+                                                See More Details
+                                            </a>
+
+                                            <button type="button" class="btn flyer-button" data-bs-toggle="modal"
+                                                    t-attf-data-bs-target="#model-course-name#{course.id}">
+                                                <i class="fa-regular fa-file-lines"></i>
+                                            </button>
+                                            <t t-if="course.flyer_image">
+                                                <div class="modal  fadeInUp" t-attf-id="model-course-name#{course.id}"
+                                                     tabindex="-1"
+                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <img class="w-100" style="border-radius: 8px;"
+                                                                     t-attf-src="data:image/jpeg;base64,#{course.flyer_image}"
+                                                                     t-attf-alt="#{course.name} Flyer"/>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                            <div class="action-buttons">
+                                                <a t-attf-href="/healthtech-training?course_id=#{course.id}"
+                                                   class="btn btn-apply"
+                                                   style="text-decoration: none; display: inline-block;">Apply
+                                                </a>
+                                                <a href="/contact_us" class="btn btn-contact"
+                                                   style="text-decoration: none; display: inline-block;">Contact Us
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

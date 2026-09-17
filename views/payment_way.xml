@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- Search View: For quick filtering and grouping -->
+        <record id="payment_way_search_view" model="ir.ui.view">
+            <field name="name">payment.way.search</field>
+            <field name="model">payment.way</field>
+            <field name="arch" type="xml">
+                <search string="Payment Way">
+                    <field name="payment_type"/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Payment Type" name="group_by_type" context="{'group_by': 'payment_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Form View: Enhanced Layout -->
+        <record model="ir.ui.view" id="payment_way_form_view">
+            <field name="name">Payment Way Form</field>
+            <field name="model">payment.way</field>
+            <field name="arch" type="xml">
+                <form string="Payment Way">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                        </div>
+                        <div class="oe_title">
+                            <label for="payment_type" class="oe_edit_only"/>
+                            <h1>
+                                <field name="payment_type" placeholder="e.g. Cash, Visa, Credit..."/>
+                            </h1>
+                        </div>
+                        <group name="main_details">
+                            <group>
+                                <field name="active" invisible="1"/>
+                                <field name="sequence" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Journal Configuration" name="journals">
+                                <field name="journal_table" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="cashier" widget="many2one_avatar_user"/>
+                                        <field name="cash" widget="many2many_tags" options="{'no_create': True}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View: List with Sequence handling -->
+        <record id="payment_way_tree_view" model="ir.ui.view">
+            <field name="name">Payment Way Tree</field>
+            <field name="model">payment.way</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="not active">
+                    <field name="sequence" widget="handle"/>
+                    <field name="payment_type" bold="1"/>
+                    <field name="journal_table" string="Assigned Staff"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="payment_way_action">
+            <field name="name">Payment Way</field>
+            <field name="res_model">payment.way</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="payment_way_search_view"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Define your payment ways!
+                </p>
+                <p>
+                    Link users (cashiers) to specific journals to automate the creation of cash registers.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

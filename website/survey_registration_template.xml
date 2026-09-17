@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="survey_register_form">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <style>
+                            .survey-register-container {
+                            max-width: 560px;
+                            background: white;
+                            border-radius: 20px;
+                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                            overflow: hidden;
+                            }
+                            .survey-register-header {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            text-align: center;
+                            padding: 30px;
+                            font-size: 24px;
+                            font-weight: bold;
+                            }
+                            .survey-register-body {
+                            padding: 40px;
+                            }
+                            .survey-register-body label {
+                            display: block;
+                            margin-bottom: 8px;
+                            font-weight: 600;
+                            color: #333;
+                            font-size: 14px;
+                            }
+                            .survey-register-body .required {
+                            color: #f44336;
+                            }
+                            .survey-register-body input[type="text"],
+                            .survey-register-body input[type="email"] {
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 2px solid #e0e0e0;
+                            border-radius: 8px;
+                            font-size: 14px;
+                            margin-bottom: 20px;
+                            }
+                            .survey-register-body input[type="text"]:focus,
+                            .survey-register-body input[type="email"]:focus {
+                            outline: none;
+                            border-color: #00bcd4;
+                            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1);
+                            }
+                            .survey-register-error {
+                            background: #fdecea;
+                            color: #a94442;
+                            border: 1px solid #f5c6cb;
+                            border-radius: 8px;
+                            padding: 12px 16px;
+                            margin-bottom: 20px;
+                            font-size: 14px;
+                            }
+                            .survey-register-submit-btn {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            border: none;
+                            padding: 15px 40px;
+                            font-size: 16px;
+                            font-weight: bold;
+                            border-radius: 25px;
+                            cursor: pointer;
+                            display: block;
+                            width: 100%;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container my-5 d-flex justify-content-center">
+                            <div class="survey-register-container">
+                                <div class="survey-register-header">
+                                    <t t-esc="survey.title"/>
+                                </div>
+                                <div class="survey-register-body">
+                                    <t t-if="error_message">
+                                        <div class="survey-register-error">
+                                            <t t-esc="error_message"/>
+                                        </div>
+                                    </t>
+                                    <p>Please enter your name to register before starting this Exam.</p>
+                                    <form role="form" t-attf-action="/survey/register/#{survey.access_token}/submit" method="POST">
+                                        <label for="name">Full Name
+                                            <span class="required">*</span>
+                                        </label>
+                                        <input type="text" id="name" name="name" t-att-value="name" required="1"/>
+
+                                        <label for="email">Email (optional)</label>
+                                        <input type="email" id="email" name="email" t-att-value="email"/>
+
+                                        <button type="submit" class="survey-register-submit-btn">Start Survey</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+
+        <template id="survey_register_expired">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container my-5 text-center">
+                        <h3>This Exam has expired</h3>
+                        <p>The registration link for
+                            <t t-esc="survey.title"/>
+                            is no longer active.
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="survey_register_not_open">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container my-5 text-center">
+                        <h3>This survey is not open yet</h3>
+                        <p>The registration link for
+                            <t t-esc="survey.title"/>
+                            is not open for answers yet.
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="survey_register_not_found">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container my-5 text-center">
+                        <h3>Survey not found</h3>
+                        <p>This registration link is invalid.</p>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

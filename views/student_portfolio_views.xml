@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <data>-->
+<!--        <record model="ir.ui.view" id="masrtech_student_semester_form_view">-->
+<!--            <field name="model">masrtech.student.semester</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Academic Training">-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <field name="course_name"/>-->
+<!--                            <field name="academic_supervisor"/>-->
+<!--                            <field name="level"/>-->
+<!--                            <field name="semester_type">-->
+<!--                                <tree editable="button">-->
+<!--                                    <field name="week"/>-->
+<!--                                    <field name="practical_title"/>-->
+<!--                                    <field name="practical_training"/>-->
+<!--                                    <field name="institute"/>-->
+<!--                                    <field name="competence"/>-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--                        </group>-->
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+<!--    </data>-->
+</odoo>

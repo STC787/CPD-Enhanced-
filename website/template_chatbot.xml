@@ -1,0 +1,302 @@
+<odoo>
+    <data>
+        <template id="chatbot_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="chat-interface mt-5 mb-5 ">
+                        <div class="chat-header">
+                            <div class="header-avatar">
+                                <img src="/nexus_nms/static/src/images/welcome.png" alt="Assistant"/>
+                            </div>
+                            <div class="header-info">
+                                <h3>Timo Your Assistant Bot</h3>
+                            </div>
+                        </div>
+
+                        <div class="chat-messages"
+                             style="height: 600px; overflow-y: scroll; border: 1px solid #ddd; display: flex; flex-direction: column-reverse;">
+                            <div style="display: flex; flex-direction: column; padding: 10px;"
+                                 id="messages-container"></div>
+                        </div>
+
+                        <!-- Input Section -->
+                        <div class="chat-input-section"
+                             style="padding: 21px; border-top: 1px solid #ddd; background-color: #f8f9fa; border-radius:0px 0px 30px 30px">
+                            <div class="input-group">
+                                <input type="text" id="chat-input" class="form-control"
+                                       placeholder="Type your message here..."/>
+                                <div class="input-group-append">
+                                    <button class="  iconBtn" type="button" id="send-button"><i class="fa-solid fa-arrow-right" style="color: #ffffff;"></i></button>
+                                </div>
+                            </div>
+                            <div id="loading" style="display: none; margin-top: 10px;">
+                                <span>Timo Is Thinking...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .chat-interface {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    background: white;
+                    border-radius:30px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    }
+
+                    .chat-header {
+                    display: flex;
+                    align-items: center;
+                    padding: 15px;
+
+                    border-radius: 30px 30px 0% 0%;
+                    border: 1px solid #ddd;
+                    background:linear-gradient(135deg, #29abe2 0%, #444b58 100%);
+                    }
+
+                    .header-avatar img {
+                    width: 82px;
+                    height: 68px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    }
+
+                    .header-info h3 {
+                    margin: 0;
+                    color: white;
+                    font-weight: 600;
+                    }
+
+                    .message-wrapper {
+                    margin-bottom: 15px;
+                    display: flex;
+                    align-items: flex-start;
+                    }
+
+                    .user-message {
+                    justify-content: flex-end;
+                    }
+
+                    .assistant-message {
+                    justify-content: flex-start;
+                    }
+
+                    .message {
+                    max-width: 70%;
+                    background: #e3f2fd;
+                    border-radius: 8px;
+                    padding: 10px;
+                    position: relative;
+                    }
+
+                    .user-message .message {
+                    background: #2196f3;
+                    color: white;
+                    }
+
+                    .avatar img {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                    }
+
+                    .message-content {
+                    margin-bottom: 5px;
+                    }
+
+                    .message-meta {
+                    font-size: 0.8em;
+                    color: #666;
+                    text-align: right;
+                    }
+
+                    .user-message .message-meta {
+                    color: #e3f2fd;
+                    }
+
+                    .input-group label {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    display: block;
+                    }
+
+                    .question-input, .answer-input {
+                    width: 100%;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 8px;
+                    }
+
+                    .answer-input {
+                    background-color: #f8f9fa;
+                    resize: vertical;
+                    }
+
+                    .chat-input-section {
+                    position: sticky;
+                    bottom: 0;
+                    }
+
+                    #loading {
+                    color: #666;
+                    font-style: italic;
+                    }
+
+                       .iconBtn {
+                            background: linear-gradient(135deg, #29abe2 0%, #000f2a 100%);
+                            color: white;
+                            border: none;
+                            padding: 15px 36px;
+                            border-radius:0px 20px 20px 0px;
+                            font-weight: 600;
+                            text-decoration: none;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 8px;
+                            transition: all 0.3s ease;
+                            position: relative;
+                            overflow: hidden;
+                            }
+
+
+                     .iconBtn::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                            transition: left 0.6s ease;
+                            }
+
+                            .iconBtn:hover {
+
+                            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+                            color: white;
+                            text-decoration: none;
+                            }
+
+                            .iconBtn:hover::before {
+                            left: 100%;
+                            }
+                </style>
+
+                <script><![CDATA[
+                    function getCurrentTime() {
+                    const now = new Date();
+                    return now.toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                    });
+                    }
+
+                    function addMessageToChat(question, answer = '') {
+                    const messagesContainer = document.getElementById('messages-container');
+                    const currentTime = getCurrentTime();
+
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'message-wrapper user-message';
+                    userMessage.innerHTML = `
+                    <div class="message">
+                        <div class="message-content">
+                            <div class="input-group">
+                                <div class="question-text"></div>
+                            </div>
+                        </div>
+                        <div class="message-meta">
+                            <span class="time">${currentTime}</span>
+                            <span class="status">✓</span>
+                        </div>
+                    </div>
+                    `;
+                    userMessage.querySelector('.question-text').textContent = question;
+
+                    const assistantMessage = document.createElement('div');
+                    assistantMessage.className = 'message-wrapper assistant-message';
+                    assistantMessage.innerHTML = `
+                    <div class="avatar">
+                        <img src="/nexus_nms/static/src/images/nico.png" alt="Assistant"/>
+                    </div>
+                    <div class="message">
+                        <div class="message-content">
+                            <div class="input-group">
+                                <div class="answer-text"></div>
+                            </div>
+                        </div>
+                        <div class="message-meta">
+                            <span class="time">${currentTime}</span>
+                        </div>
+                    </div>
+                    `;
+                    assistantMessage.querySelector('.answer-text').textContent = answer || 'Thinking...';
+
+                    messagesContainer.appendChild(userMessage);
+                    messagesContainer.appendChild(assistantMessage);
+
+                    const chatMessages = document.querySelector('.chat-messages');
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    return assistantMessage;
+                    }
+
+                    function updateAnswer(messageElement, answer) {
+                    const answerDiv = messageElement.querySelector('.answer-text');
+                    answerDiv.textContent = answer;
+                    }
+
+                    async function sendMessage() {
+                    const questionField = document.getElementById('chat-input');
+                    const question = questionField.value.trim();
+
+                    if (!question) return;
+
+                    questionField.value = '';
+                    document.getElementById('loading').style.display = 'block';
+                    const assistantMessage = addMessageToChat(question);
+
+                    try {
+                    // Send as JSON for Odoo type='json' routes
+                    const payload = { question: question };
+
+                    const response = await fetch('/ai/ask', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    const answer = data.answer || 'No response received';
+                    updateAnswer(assistantMessage, answer);
+
+                    } catch (error) {
+                    console.error('Error:', error);
+                    updateAnswer(assistantMessage, 'Error: ' + error.message);
+                    } finally {
+                    document.getElementById('loading').style.display = 'none';
+                    }
+                    }
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                    const sendBtn = document.getElementById('send-button');
+                    sendBtn.addEventListener('click', sendMessage);
+
+                    // Optional: Enter key support
+                    document.getElementById('chat-input').addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') sendMessage();
+                    });
+                    });
+                ]]></script>
+            </t>
+        </template>
+    </data>
+</odoo>

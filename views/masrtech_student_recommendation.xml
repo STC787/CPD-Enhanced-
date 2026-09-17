@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_job_opportunity_recommendation_tree_view">
+            <field name="model">masrtech.job.opportunity.recommendation</field>
+            <field name="arch" type="xml">
+                <tree string="Job Opportunities">
+                    <field name="student_name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_job_opportunity_recommendation_form_view">
+            <field name="model">masrtech.job.opportunity.recommendation</field>
+            <field name="arch" type="xml">
+                <form string="Job Opportunity">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="company_id"/>
+                            <field name="student_name"/>
+                            <!--                            <field name="masrtech_department" widget="many2many_tags"/>-->
+                            <field name="requirements"/>
+                            <field name="email"/>
+                            <field name="location"/>
+                            <field name="salary"/>
+                            <field name="deadline"/>
+                            <field name="job_type"/>
+                            <field name="experience_required"/>
+                            <field name="education_level"/>
+                            <field name="skills_required" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_project_recommendation_tree_view">
+            <field name="model">masrtech.project.recommendation</field>
+            <field name="arch" type="xml">
+                <tree string="Job Opportunities">
+                    <field name="student_name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_project_recommendation_form_view">
+            <field name="model">masrtech.project.recommendation</field>
+            <field name="arch" type="xml">
+                <form string="Project">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="company_id"/>
+                            <field name="student_name"/>
+                            <field name="description"/>
+                            <field name="email"/>
+                            <field name="supervisor_id"/>
+                            <field name="deadline"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="achievements"/>
+                            <field name="materials_needed"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

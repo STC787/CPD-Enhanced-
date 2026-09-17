@@ -1,0 +1,73 @@
+<odoo>
+<!--    <data>-->
+<!--      -->
+
+<!--        &lt;!&ndash;        <record model="ir.ui.view" id="masrtech_industry_kanban_view">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <field name="name">industry_kanban</field>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <field name="model">masrtech.industry</field>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <field name="arch" type="xml">&ndash;&gt;-->
+<!--        &lt;!&ndash;                <kanban class="o_kanban_small_column" action="action_masrtech_factory" type="object" sample="1">&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <field name="name"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    <templates>&ndash;&gt;-->
+<!--        &lt;!&ndash;                        <t t-name="kanban-box">&ndash;&gt;-->
+<!--        &lt;!&ndash;                            <div t-attf-class="oe_kanban_global_click">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <div class="o_kanban_record_top">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <ul>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        Name :&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <field name="name"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </ul>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                        </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                    </templates>&ndash;&gt;-->
+<!--        &lt;!&ndash;                </kanban>&ndash;&gt;-->
+<!--        &lt;!&ndash;            </field>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </record>&ndash;&gt;-->
+
+
+<!--        <record model="ir.ui.view" id="masrtech_factory_registration_form_view">-->
+<!--            <field name="model">masrtech.factory.registration</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Factories">-->
+<!--                    <sheet>-->
+<!--                        <group>-->
+<!--                            <field name="name"/>-->
+<!--                            <field name="type"/>-->
+<!--                            <field name="industry" attrs="{'invisible': [('type', '=', 'health')]}"/>-->
+<!--                            <field name="industry_health" attrs="{'invisible': [('type', '=', 'industry')]}"/>-->
+<!--                            <field name="description"/>-->
+<!--                            <field name="sector"/>-->
+<!--                            <field name="founded_date"/>-->
+<!--                            <field name="website"/>-->
+<!--                            <field name="contact_name"/>-->
+<!--                            <field name="contact_email"/>-->
+<!--                            <field name="contact_phone"/>-->
+<!--                            &lt;!&ndash;                            <field name="employees"/>&ndash;&gt;-->
+<!--                            <field name="annual_revenue"/>-->
+<!--                            <field name="country"/>-->
+<!--                            <field name="city"/>-->
+<!--                            <field name="state"/>-->
+<!--                            &lt;!&ndash;                            <field name="masrtech_factory" widget="many2many_tags"/>&ndash;&gt;-->
+<!--                        </group>-->
+
+<!--                    </sheet>-->
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <record model="ir.ui.view" id="masrtech_factory_registration_tree_view">-->
+<!--            <field name="model">masrtech.factory.registration</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <tree string="Factories">-->
+<!--                    <field name="name"/>-->
+<!--                </tree>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <record id="action_factory" model="ir.actions.act_window">-->
+<!--            <field name="name">Factories</field>-->
+<!--            <field name="type">ir.actions.act_window</field>-->
+<!--            <field name="res_model">masrtech.factory.registration</field>-->
+<!--            <field name="view_mode">tree,form,search,kanban</field>-->
+<!--        </record>-->
+
+<!--    </data>-->
+</odoo>

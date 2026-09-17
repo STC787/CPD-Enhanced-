@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="masrtech" name="consultation" sequence="0"/>
+        <record id="action_zoom_join_meeting" model="ir.actions.act_url">
+            <field name="name">Join Zoom Meeting</field>
+            <field name="url">https://zoom.us/join</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Add Zoom menu item with group restriction -->
+        <menuitem id="zoom_meeting_menu"
+                  name="Zoom Meeting"
+                  action="action_zoom_join_meeting"
+                  sequence="6"
+                  groups="group_zoom_access"
+                  web_icon="nexus_nms,static/src/images/zoom.png"/>
+
+        <menuitem
+                id="menu_certification_main_app"
+                name="Certificate"
+                sequence="100"/>
+        <menuitem id="certification_menu"
+                  name="Certificate"
+                  parent="menu_certification_main_app"
+                  action="action_student_certification"
+                  sequence="1"/>
+        <menuitem id="menu_main_dashboard" name="Dashboard"/>
+        <menuitem id="inherit_op_course_menu" name="Courses"
+                  action="server_action_my_courses"
+                  web_icon="nexus_nms,static/src/images/course_icon.png"/>
+        <!--        <menuitem id="iframe_edx" name="TMS" action="action_iframe_edx"/>-->
+        <menuitem id="dashboard_menu"
+                  name="Dashboard"
+                  parent="menu_main_dashboard"
+                  action="action_simple_dashboard"
+                  sequence="1"/>
+
+        <menuitem id="inherit_op_faculty_menu"
+                  name="Portal Staff"
+                  parent="masrtech"
+                  action="openeducat_core.act_open_op_faculty_view_2"
+                  sequence="2"/>
+
+
+
+        <!--        <menuitem id="student_portal" name="Student Portal" parent="masrtech"-->
+        <!--                  sequence="1"/>-->
+        <record id="action_view_all_task_edit" model="ir.actions.act_window">
+            <field name="name">All Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity</field>
+            <field name="domain">[('display_in_project', '=', True)]</field>
+            <field name="context">{'search_default_open_tasks': 1, 'default_user_ids': [(4, uid)]}</field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+            <field name="view_id" ref="project.view_task_kanban"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No tasks found. Let's create one!
+                </p>
+                <p>
+                    Organize your tasks by dispatching them across the pipeline.
+                    <br/>
+                    Collaborate efficiently by chatting in real-time or via email.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="to_do_list" name="To do List &amp; Tasks" action="nexus_nms.action_view_all_task_edit"
+                  parent="masrtech" sequence="500"/>
+        <menuitem id="follow_up_menu" name="Follow Up" action="action_offer_model"
+                  parent="masrtech" sequence="600"/>
+        <menuitem id="payment_way_menu" name="Payment Way" action="payment_way_action"
+                  parent="masrtech" sequence="700"/>
+
+
+        <menuitem id="universities" name="Universities" action="action_masrtech_Universities" parent="masrtech"
+                  sequence="20"/>
+        <menuitem id="industry" name="Partners" parent="masrtech" sequence="40"/>
+
+
+        <menuitem id="key_partner" name="Partner Program" action="action_masrtech_registration" parent="masrtech"
+                  sequence="60"/>
+
+        <!--        <menuitem id="integration" name="Integration" action="action_masrtech_int" parent="masrtech"-->
+        <!--                  sequence="80"/>-->
+        <!--        <menuitem id="kpi" name="KPIS" action="action_masrtech_int" parent="masrtech"-->
+        <!--                  sequence="100"/>-->
+        <menuitem id="services" name="Services" parent="masrtech"
+                  sequence="120"/>
+        <menuitem id="configuration" name="Configuration" parent="masrtech"
+                  sequence="140"
+        />
+        <menuitem id="menu_op_faculty_assistant_details"
+                  name="Assistant"
+                  parent="openeducat_core.menu_op_faculty_root"
+                  sequence="30"
+                  action="action_assistant"
+                  />
+
+
+        <!--        <menuitem id="inherit_masrtech_student"-->
+        <!--                  name="Student View"-->
+        <!--                  parent="student_portal"-->
+        <!--                  action="openeducat_core.act_open_op_student_view"-->
+        <!--                  sequence="2"/>-->
+        <!--        <menuitem id="masrtech_student_portfolio"-->
+        <!--                  name="Student Portfolio"-->
+        <!--                  parent="student_portal"-->
+        <!--                  action="action_masrtech_student_portfolio" sequence="3"/>-->
+
+
+        <record id="action_masrtech_partner_imc_link" model="ir.actions.act_url">
+            <field name="name">Custom Link</field>
+            <field name="url">http://www.imc-egypt.org/index.php/ar/</field>
+        </record>
+        <record id="action_masrtech_linkedin" model="ir.actions.act_url">
+            <field name="name">Linkedin</field>
+            <field name="url">https://www.linkedin.com/</field>
+        </record>
+        <record id="action_masrtech_imc_link" model="ir.actions.act_url">
+            <field name="name">Linkedin</field>
+            <field name="url">http://www.imc-egypt.org/index.php/ar/</field>
+        </record>
+        <menuitem id="register"
+                  name="Register"
+                  parent="key_partner"
+                  action="action_masrtech_register_partner"
+
+        />
+        <menuitem id="training_registration_menu"
+                  name="Training Registrations"
+                  action="training_registration_action"
+                  parent="key_partner"
+                  sequence="10"/>
+        <menuitem id="course_registration_menu"
+                  name="Courses Registrations"
+                  action="training_registration_action_course"
+                  parent="key_partner"
+                  sequence="10"/>
+        <menuitem id="week_schedule_menu"
+                  name="Week Schedule"
+                  action="action_training_weekly_schedule"
+                  parent="key_partner"
+                  sequence="12"/>
+        <menuitem id="key_partner_list"
+                  name="Key Partner List"
+                  parent="key_partner"
+        />
+        <menuitem id="action_masrtech_partner_imc"
+                  name="IMC"
+                  parent="key_partner_list"
+                  action="action_masrtech_partner_imc_link"/>
+        <menuitem id="action_masrtech_imc"
+                  name="غرفة الصناعة المصرية"
+                  parent="key_partner_list"
+                  action="action_masrtech_imc_link"/>
+
+
+        <menuitem id="masrtech_tms"
+                  name="TMS"
+                  parent="services"
+                  sequence="121"
+        />
+        <menuitem id="masrtech_job_opportunity"
+                  name="Job Opportunities"
+                  parent="services"
+                  sequence="124"
+                  action="action_masrtech_job_opportunity"
+        />
+        <menuitem id="masrtech_project"
+                  name="Projects"
+                  parent="services"
+                  sequence="125"
+                  action="action_masrtech_project"
+        />
+        <menuitem id="masrtech_problem"
+                  name="Problems"
+                  parent="services"
+                  sequence="126"
+                  action="action_masrtech_problem"
+        />
+        <menuitem id="masrtech_certificate"
+                  name="Certificates"
+                  parent="services"
+                  action="action_masrtech_int"
+                  sequence="130"
+
+        />
+        <menuitem id="masrtech_program"
+                  name="Program"
+                  parent="services"
+                  action="action_masrtech_int"
+                  sequence="131"
+        />
+        <menuitem id="masrtech_linkedin"
+                  name="LinkedIn"
+                  parent="services"
+                  action="action_masrtech_linkedin"
+                  sequence="132"
+        />
+
+        <menuitem id="masrtech_university"
+                  name="Universities"
+                  parent="configuration"
+                  action="action_masrtech_config_Universities"/>
+        <menuitem id="masrtech_college"
+                  name="Colleges"
+                  parent="configuration"
+                  action="action_masrtech_faculty_config"/>
+        <menuitem id="masrtech_faculty"
+                  name="Faculties"
+                  parent="configuration"
+                  action="openeducat_core.act_open_op_faculty_view"/>
+
+        <menuitem id="masrtech_department"
+                  name="Departments"
+                  parent="configuration"
+                  action="openeducat_core.act_open_op_department_view"/>
+        <menuitem id="sub_department_view"
+                  name="Sub Departments"
+                  parent="configuration"
+                  action="action_sub_department"/>
+        <menuitem id="cocacola_view"
+                  name="Coca Cola Training"
+                  parent="configuration"
+                  action="action_cocacola_model"/>
+
+        <menuitem id="masrtech_course"
+                  name="Courses"
+                  parent="configuration"
+                  action="openeducat_core.act_open_op_course_view"/>
+
+        <menuitem id="masrtech_subject"
+                  name="Subjects"
+                  parent="configuration"
+                  action="openeducat_core.act_open_op_subject_view"/>
+
+
+        <menuitem id="masrtech_factory_reg"
+                  name="Factory Registration"
+                  parent="industry"
+                  action="action_factory"
+                  sequence="41"
+        />
+        <menuitem id="masrtech_factory_register"
+                  name="Register"
+                  parent="industry"
+                  action="action_masrtech_sub"
+                  sequence="41"
+        />
+        <menuitem id="masrtech_industries"
+                  name="Scope Of Service"
+                  parent="industry"
+                  action="action_masrtech_industry_type"
+                  sequence="45"
+
+        />
+
+
+        <menuitem id="masrtech_type_industry"
+                  name="Industries"
+                  parent="configuration"
+
+        />
+        <menuitem id="masrtech_industry_health"
+                  name="الصحة"
+                  parent="masrtech_type_industry"
+                  action="action_masrtech_industry_health"
+        />
+        <menuitem id="masrtech_industry"
+                  name="الصناعة"
+                  parent="masrtech_type_industry"
+                  action="action_masrtech_industry"
+        />
+        <menuitem id="masrtech_factory"
+                  name="Factories"
+                  parent="configuration"
+                  action="action_factory"
+        />
+
+
+        <menuitem id="masrtech_batch"
+                  name="Batches"
+                  parent="configuration"
+                  action="openeducat_core.act_open_op_batch_view"/>
+
+        <menuitem id="masrtech_training"
+                  name="Training"
+                  parent="masrtech_tms"
+                  action="action_masrtech_training"/>
+        <menuitem id="masrtech_courses"
+                  name="Courses"
+                  parent="masrtech_tms"
+                  action="action_masrtech_courses"/>
+        <menuitem id="masrtech_program_reg"
+                  name="Program Reg"
+                  parent="masrtech_tms"
+                  action="action_training_program"/>
+        <menuitem id="masrtech_target"
+                  name="Target Audience"
+                  parent="masrtech_tms"
+                  action="action_target"/>
+        <menuitem id="masrtech_assistant"
+                  name="Scientific Committee"
+                  parent="masrtech_tms"
+                  action="action_reviewer"/>
+        <menuitem id="masrtech_pre_req"
+                  name="Pre Requirement"
+                  parent="masrtech_tms"
+                  action="action_pre_req"/>
+
+        <!--        <menuitem id="masrtech_recommendation"-->
+        <!--                  name="Recommendations"-->
+        <!--                  parent="services"-->
+        <!--                  sequence="128"-->
+
+        <!--        />-->
+        <!--        <menuitem id="masrtech_training_recommendation"-->
+        <!--                  name="Training"-->
+        <!--                  parent="masrtech_recommendation"-->
+        <!--                  action="action_masrtech_training_recommendation"-->
+        <!--                  sequence="129"-->
+
+
+        <!--        />-->
+<!--        <menuitem id="nexus_v2.management_menu" name="Digital Library" sequence="0" action="nexus_v2.contract_action"-->
+<!--                          web_icon="nexus_nms,static/src/images/nexustms.png"/>-->
+<!--        <menuitem id="mail.menu_root_discuss" name="Video Conference" sequence="5" action="mail.action_discuss"-->
+<!--                  web_icon="nexus_nms,static/src/images/discuss-icon.png"/>-->
+            <menuitem id="mail.menu_root_discuss" name="Nexus Meeting" sequence="5" action="mail.action_discuss"
+                  web_icon="nexus_nms,static/src/images/logo_nexus_sq.png"/>
+
+        <menuitem id="masrtech" name="consultation" sequence="0"
+                  web_icon="nexus_nms,static/src/images/digtial-icon.png"/>
+        <menuitem id="nexus_nms.menu_main_dashboard" name="Dashboard" sequence="0"
+                  web_icon="nexus_nms,static/src/images/dashboard4-icon.png"/>
+        <menuitem id="nexus_nms.menu_certification_main_app" name="Certificate" sequence="100"
+                  web_icon="nexus_nms,static/src/images/certificate-icon.png"/>
+    </data>
+</odoo>

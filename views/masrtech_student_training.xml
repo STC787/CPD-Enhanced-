@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_student_training_form_view">
+            <field name="model">masrtech.student.training</field>
+            <field name="arch" type="xml">
+                <form string="Training">
+                    <sheet>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="training_hours"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

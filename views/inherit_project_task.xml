@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="inherit_view_task_form2" model="ir.ui.view">
+            <field name="name">inherit_view_task_form2</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//field[@name='stage_id']" position="before">
+                    <button type="object" name="action_make_offer" string="Make Offer"
+                            class="oe_highlight"
+                    />
+                </xpath>
+                <xpath expr="//page[@name='extra_info']" position="after">
+                    <page name="consultation" string="Consultation Info">
+                        <group>
+                            <field name="company_name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="sector"/>
+                            <field name="project_requirements"/>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

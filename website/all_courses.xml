@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <template id="homefont_all_courses" name="home" inherit_id="website.layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+            </xpath>
+        </template>
+        <template id="all_Courses">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <!-- Icon Font Stylesheet -->
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <style>
+                            .all-courses .courses-item .bg-primary {
+                            background-color: rgb(251 176 59) !important;
+                            }
+                        </style>
+
+                        <!-- Spinner Start -->
+                        <div id="spinner"
+                             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                            <div class="spinner-grow text-primary" role="status"></div>
+                        </div>
+
+                        <!-- Page Header Start -->
+                        <div class="all-courses container-fluid page-header py-6 my-6 mt-0 wow fadeIn"
+                             data-wow-delay="0.1s">
+                            <div class="container text-center">
+                                <h1 class="display-4 fw-bold text-white animated slideInDown mb-4">Courses</h1>
+                                <nav aria-label="breadcrumb animated slideInDown">
+                                    <ol class="breadcrumb justify-content-center mb-0">
+                                        <li class="breadcrumb-item">
+                                            <a class="text-white" href="/">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item text-primary active" aria-current="page">Courses</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- Page Header End -->
+
+
+                        <!-- Courses Start -->
+                        <div class="container-xxl py-6">
+                            <div class="container">
+                                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                                     style="max-width: 500px;">
+                                    <h6 class="text-primary text-uppercase mb-2">We have the best options</h6>
+                                    <h1 class="display-6 mb-4">Our Courses Upskill You With Training</h1>
+                                </div>
+                                <div class="row g-4 justify-content-center">
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
+                                            <div class="text-center p-4 pt-0">
+                                                <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">
+                                                    $100
+                                                </div>
+                                                <h5 class="mb-3">SQL Essentials</h5>
+                                                <p>Learn essential SQL to query and manage databases effectively in this
+                                                    practical, hands-on course.
+                                                </p>
+                                                <ol class="breadcrumb justify-content-center mb-0">
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-signal text-primary me-2"></i>Beginner
+                                                    </li>
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-calendar-alt text-primary me-2"></i>3 Week
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="position-relative mt-auto">
+                                                <img class="img-fluid"
+                                                     src="/nexus_nms/static/src/images/sql-essentials.jpeg"
+                                                     alt=""/>
+                                                <div class="courses-overlay">
+                                                    <a class="btn btn-outline-primary border-2" href="/courseDetails">
+                                                        Read More
+                                                    </a>
+                                                    <a href="/payment?course_name=SQL Essentials&amp;course_price=100"
+                                                       class="btn btn-success pay-now-btn w-100"
+                                                       style="text-decoration: none;">
+                                                        <i class="fa fa-credit-card"></i> Pay Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
+                                            <div class="text-center p-4 pt-0">
+                                                <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">
+                                                    $230
+                                                </div>
+                                                <h5 class="mb-3">Artificial Intelligence</h5>
+                                                <p>
+                                                    Explore AI fundamentals: machine learning principles, neural
+                                                    networks, and real-world applications in this compact, practical
+                                                    course.
+
+                                                </p>
+                                                <ol class="breadcrumb justify-content-center mb-0">
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-signal text-primary me-2"></i>Beginner
+                                                    </li>
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-calendar-alt text-primary me-2"></i>10 Week
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="position-relative mt-auto">
+                                                <img class="img-fluid"
+                                                     src="/nexus_nms/static/src/images/A_I.jpeg"
+                                                     alt=""/>
+                                                <div class="courses-overlay">
+                                                    <a class="btn btn-outline-primary border-2" href="/courseDetails">
+                                                        Read More
+                                                    </a>
+                                                    <a href="/payment?course_name=Artificial Intelligence&amp;course_price=230"
+                                                       class="btn btn-success pay-now-btn w-100"
+                                                       style="text-decoration: none;">
+                                                        <i class="fa fa-credit-card"></i> Pay Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
+                                            <div class="text-center p-4 pt-0">
+                                                <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">
+                                                    $200
+                                                </div>
+                                                <h5 class="mb-3">Machine Learning</h5>
+                                                <p>
+                                                    Master essential machine learning concepts and techniques to build
+                                                    predictive models and extract insights from data.
+                                                </p>
+                                                <ol class="breadcrumb justify-content-center mb-0">
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-signal text-primary me-2"></i>Beginner
+                                                    </li>
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-calendar-alt text-primary me-2"></i>8 Week
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="position-relative mt-auto">
+                                                <img class="img-fluid"
+                                                     src="/nexus_nms/static/src/images/machine-learning.jpeg"
+                                                     alt=""/>
+                                                <div class="courses-overlay">
+                                                    <a class="btn btn-outline-primary border-2" href="/courseDetails">
+                                                        Read More
+                                                    </a>
+                                                    <a href="/payment?course_name=Machine Learning&amp;course_price=200"
+                                                       class="btn btn-success pay-now-btn w-100"
+                                                       style="text-decoration: none;">
+                                                        <i class="fa fa-credit-card"></i> Pay Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
+                                            <div class="text-center p-4 pt-0">
+                                                <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">
+                                                    $150
+                                                </div>
+                                                <h5 class="mb-3">Network Security</h5>
+                                                <p>
+                                                    Learn vital network security practices to protect systems from
+                                                    threats, implement encryption, and safeguard organizational data.
+                                                </p>
+                                                <ol class="breadcrumb justify-content-center mb-0">
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-signal text-primary me-2"></i>Beginner
+                                                    </li>
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-calendar-alt text-primary me-2"></i>9 Week
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="position-relative mt-auto">
+                                                <img class="img-fluid"
+                                                     src="/nexus_nms/static/src/images/network_security.jpeg"
+                                                     alt=""/>
+                                                <div class="courses-overlay">
+                                                    <a class="btn btn-outline-primary border-2" href="/courseDetails">
+                                                        Read More
+                                                    </a>
+                                                    <a href="/payment?course_name=Network Security&amp;course_price=150"
+                                                       class="btn btn-success pay-now-btn w-100"
+                                                       style="text-decoration: none;">
+                                                        <i class="fa fa-credit-card"></i> Pay Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
+                                            <div class="text-center p-4 pt-0">
+                                                <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">
+                                                    $300
+                                                </div>
+                                                <h5 class="mb-3">Cloud Computing</h5>
+                                                <p>Deploy and manage scalable applications across cloud platforms while
+                                                    mastering security, optimization, and modern architecture
+                                                    principles.
+                                                </p>
+                                                <ol class="breadcrumb justify-content-center mb-0">
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-signal text-primary me-2"></i>Beginner
+                                                    </li>
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-calendar-alt text-primary me-2"></i>3 Week
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="position-relative mt-auto">
+                                                <img class="img-fluid"
+                                                     src="/nexus_nms/static/src/images/cloud-computing.jpeg"
+                                                     alt=""/>
+                                                <div class="courses-overlay">
+                                                    <a class="btn btn-outline-primary border-2" href="/courseDetails">
+                                                        Read More
+                                                    </a>
+                                                    <a href="/payment?course_name=Cloud Computing&amp;course_price=300"
+                                                       class="btn btn-success pay-now-btn w-100"
+                                                       style="text-decoration: none;">
+                                                        <i class="fa fa-credit-card"></i> Pay Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                                        <div class="courses-item d-flex flex-column bg-light overflow-hidden h-100">
+                                            <div class="text-center p-4 pt-0">
+                                                <div class="d-inline-block bg-primary text-white fs-5 py-1 px-4 mb-4">
+                                                    $280
+                                                </div>
+                                                <h5 class="mb-3">System Administration</h5>
+                                                <p>Server racks or dashboard interfaces showing system monitoring
+                                                </p>
+                                                <ol class="breadcrumb justify-content-center mb-0">
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-signal text-primary me-2"></i>Beginner
+                                                    </li>
+                                                    <li class="breadcrumb-item small"><i
+                                                            class="fa fa-calendar-alt text-primary me-2"></i>3 Week
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                            <div class="position-relative mt-auto">
+                                                <img class="img-fluid"
+                                                     src="/nexus_nms/static/src/images/system_admin.jpeg"
+                                                     alt=""/>
+                                                <div class="courses-overlay">
+                                                    <a class="btn btn-outline-primary border-2" href="/courseDetails">
+                                                        Read More
+                                                    </a>
+                                                    <a href="/payment?course_name=System Administration&amp;course_price=280"
+                                                       class="btn btn-success pay-now-btn w-100"
+                                                       style="text-decoration: none;">
+                                                        <i class="fa fa-credit-card"></i> Pay Now
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Courses End -->
+
+                    </head>
+
+                    <script><![CDATA[
+// Spinner functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the spinner element
+  const spinner = document.getElementById('spinner');
+
+  // Make sure the spinner is visible during initial page load
+  if (spinner) {
+    spinner.classList.add('show');
+  }
+
+  // Hide spinner when everything is fully loaded
+  window.addEventListener('load', function() {
+    // Small delay to ensure everything is rendered
+    setTimeout(function() {
+      // Remove the "show" class to trigger the CSS transition
+      if (spinner) {
+        spinner.classList.remove('show');
+      }
+
+      // Dispatch a custom event when spinner is hidden
+      setTimeout(function() {
+        // Create and dispatch custom event after spinner transition completes
+        const spinnerCompleteEvent = new CustomEvent('spinnerComplete');
+        document.dispatchEvent(spinnerCompleteEvent);
+      }, 500); // Match the spinner transition time
+
+    }, 800); // Slightly longer delay to appreciate the overlay
+  });
+});
+
+                  ]]>
+                    </script>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

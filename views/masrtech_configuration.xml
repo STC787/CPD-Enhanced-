@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_Universities_config_form_view">
+            <field name="model">masrtech.universities</field>
+            <field name="arch" type="xml">
+                <form string="Universities">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_universities_config_tree_view">
+            <field name="model">masrtech.universities</field>
+            <field name="arch" type="xml">
+                <tree string="Universities">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_config_Universities" model="ir.actions.act_window">
+            <field name="name">Universities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.universities</field>
+            <field name="view_mode">tree,form,kanban,search</field>
+        </record>
+        <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='dept_id']" position="after">
+                    <field name="x_user_rolee"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--        colleges-->
+        <!--        colleges-->
+        <record model="ir.ui.view" id="masrtech_faculty_config_form_view">
+            <field name="model">masrtech.faculty</field>
+            <field name="arch" type="xml">
+                <form string="colleges">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="university_id"/>
+                        </group>
+                        <group>
+                            <field name="masrtech_staff" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="masrtech_department" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="masrtech_course" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="masrtech_subject" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="masrtech_classroom" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="masrtech_activity_type" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_faculty_config_tree_view">
+            <field name="model">masrtech.faculty</field>
+            <field name="arch" type="xml">
+                <tree string="colleges">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_faculty_config" model="ir.actions.act_window">
+            <field name="name">colleges</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.faculty</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+
+    </data>
+</odoo>

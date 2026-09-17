@@ -1,0 +1,423 @@
+<!-- views/training_application_views.xml -->
+
+<odoo>
+    <data>
+
+
+        <record id="view_training_application_form" model="ir.ui.view">
+            <field name="name">training.application.form</field>
+            <field name="model">program.reg</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <!-- Title Section -->
+                        <div class="oe_title">
+                            <label for="full_name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="full_name"
+                                       required="1" class="o_text_overflow"/>
+                            </h1>
+                            <h3>
+                                <field name="course_id"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                            </h3>
+                        </div>
+
+                        <!-- Main Content Groups -->
+                        <group>
+                            <!-- Personal Information -->
+                            <group name="personal_info" string="Personal Information" col="2">
+                                <field name="full_name"/>
+                                <field name="email_address" widget="email"/>
+                                <field name="phone_number" widget="phone"/>
+                                <field name="national_id"/>
+                                <field name="work_phone"/>
+                                <field name="home_phone"/>
+                            </group>
+
+                            <!-- Application Details -->
+                            <group name="application_info" string="Application Details" col="2">
+                                <field name="application_date" readonly="1"/>
+                                <field name="course_id"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group name="education_info" string="Educational Background" col="2">
+                                <field name="educational_status"/>
+                                <field name="university" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="organization"/>
+                                <field name="position"/>
+                                <field name="experience_years"/>
+                                <field name="document_ids" widget="many2many_binary"/>
+                            </group>
+
+                            <group name="additional_info" string="Additional Information" col="2">
+                                <field name="why_interested"
+                                       widget="text"/>
+                                <field name="special_requirements"
+                                       widget="text"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_training_application_tree" model="ir.ui.view">
+            <field name="name">training.application.tree</field>
+            <field name="model">program.reg</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="full_name"/>
+                    <field name="email_address"/>
+                    <field name="phone_number"/>
+                    <field name="course_id"/>
+                    <field name="university"/>
+                    <field name="application_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_training_program" model="ir.actions.act_window">
+            <field name="name">Training Programs</field>
+            <field name="res_model">program.reg</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_target_form" model="ir.ui.view">
+            <field name="name">target.form</field>
+            <field name="model">target.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="name_ar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_target_tree" model="ir.ui.view">
+            <field name="name">target.tree</field>
+            <field name="model">target.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="name_ar"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_target" model="ir.actions.act_window">
+            <field name="name">Target Audience</field>
+            <field name="res_model">target.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_pre_req_form" model="ir.ui.view">
+            <field name="name">target.form</field>
+            <field name="model">pre.requirement.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="name_ar"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_pre_req_tree" model="ir.ui.view">
+            <field name="name">target.tree</field>
+            <field name="model">pre.requirement.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="name_ar"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_pre_req" model="ir.actions.act_window">
+            <field name="name">Target Audience</field>
+            <field name="res_model">pre.requirement.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_assistant_form" model="ir.ui.view">
+            <field name="name">assistant.form</field>
+            <field name="model">assistant.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="middle_name"/>
+                            <field name="last_name"/>
+                            <field name="name"/>
+                            <field name="birth_date"/>
+                            <field name="university"/>
+                            <field name="faculty"/>
+                            <field name="title_dr"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="gender"/>
+                            <field name="course_id" widget="many2many_tags"/>
+                            <field name="staff_dr"/>
+                            <field name="user_id"/>
+                            <field name="emp_id"/>
+                            <field name="login_username"/>
+                            <field name="login_password" password="True"/>
+                        </group>
+                        <group string="Documents">
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_assistant_tree" model="ir.ui.view">
+            <field name="name">assistant.tree</field>
+            <field name="model">assistant.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="phone"/>
+                    <field name="gender"/>
+                    <field name="course_id" widget="many2many_tags"/>
+                    <field name="staff_dr"/>
+                    <field name="user_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_assistant" model="ir.actions.act_window">
+            <field name="name">Dr Assistant</field>
+            <field name="res_model">assistant.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="view_reviewer_form" model="ir.ui.view">
+            <field name="name">Validation Form</field>
+            <field name="model">reviewer.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <notebook>
+                            <page string="Reviewer">
+                                <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                    Reviewer Info
+                                </h2>
+                                <group>
+                                    <group class="w-50">
+                                        <field name="name"/>
+                                        <field name="email"/>
+                                        <field name="university"/>
+                                        <field name="role"/>
+                                    </group>
+                                    <group class="w-50">
+                                        <field name="credentials"/>
+                                        <field name="gender"/>
+                                        <field name="phone"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Course Details">
+                                <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                    Course Details
+                                </h2>
+                                <group>
+                                    <group class="w-50">
+                                        <field name="course_id"/>
+                                        <field name="lead_instructor"/>
+                                        <field name="format"/>
+                                        <field name="target_audience_en" widget="many2many_tags"/>
+                                        <field name="objective_1"/>
+                                        <field name="objective_2"/>
+                                        <field name="objective_3"/>
+                                    </group>
+                                    <group class="w-50">
+                                        <field name="description"/>
+                                        <field name="pre_req" widget="many2many_tags"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="total_hours"/>
+                                        <field name="date_period_display"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page string="Scientific Merit">
+                                <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                    Scientific Merit
+                                </h2>
+                                <group>
+                                    <group class="w-50">
+                                        <field name="key_references"/>
+                                        <field name="recent_research"/>
+                                        <field name="scientific_validity"/>
+                                    </group>
+                                    <group class="w-50">
+                                        <field name="innovative_aspects"/>
+                                        <field name="ethical_compliance"/>
+                                        <field name="conflict_of_interest"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page string="Quality Assurance">
+                                <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                    Quality Assurance
+                                </h2>
+                                <group>
+                                    <group class="w-50">
+                                        <field name="accreditation_standards"/>
+                                        <field name="quality_control_procedures"/>
+                                        <field name="feedback_mechanisms"/>
+                                    </group>
+                                    <group class="w-50">
+                                        <field name="revision_process"/>
+                                        <field name="supporting_documents"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page string="Certification">
+                                <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                    Certification
+                                </h2>
+                                <group>
+                                    <group class="w-50">
+                                        <field name="eligibility_criteria"/>
+                                        <field name="certification_assessment"/>
+                                        <field name="certification_validity"/>
+                                    </group>
+                                    <group class="w-50">
+                                        <field name="renewal_process"/>
+                                        <field name="certification_documentation"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Recommendations">
+                                <h2 style="color: #2c3e50; font-size: 2rem; font-weight: 300; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 2px solid #e9ecef;">
+                                    Recommendations
+                                </h2>
+                                <group>
+                                    <group class="w-50">
+                                        <field name="summary_recommendation"/>
+                                        <field name="rationale_header"/>
+                                    </group>
+                                    <group class="w-50">
+                                        <field name="conditions_or_suggestions"/>
+
+                                    </group>
+                                </group>
+
+                            </page>
+                            <page string="Summary">
+                                <group>
+
+                                </group>
+
+                            </page>
+                            <page string="Sign-off">
+                                <group>
+                                    <group class="w-50">
+                                        <field name="final_comments"/>
+                                    </group>
+
+                                    <div class=" w-50" style="">
+                                        <button name="action_approve"
+                                                type="object"
+                                                string="Approve"
+                                                class="btn-primary me-2"
+                                                style="background-color: #007bff; color: white; margin-right: 10px; padding: 10px 20px; border-radius: 5px;"
+                                        />
+
+                                        <button name="action_request_changes"
+                                                type="object"
+                                                string="Request Changes"
+                                                class="btn-secondary me-2"
+                                                style="background-color: #6c757d; color: white; margin-right: 10px; padding: 10px 20px; border-radius: 5px;"
+                                        />
+
+                                        <button name="action_reject"
+                                                type="object"
+                                                string="Reject"
+                                                class="btn-danger me-2"
+                                                style="background-color: #dc3545; color: white; padding: 10px 20px; border-radius: 5px;"/>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sub_department_model_form" model="ir.ui.view">
+            <field name="name">sub.department.model.form</field>
+            <field name="model">sub.department.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+
+                        <group>
+                            <group col="2">
+                                <field name="name"/>
+                                <field name="department"/>
+                            </group>
+                            <group name="Courses" col="2">
+                                <field name="course_ids" widget="many2many_tags"/>
+                            </group>
+
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_sub_dep_tree" model="ir.ui.view">
+            <field name="name">sub.department.tree</field>
+            <field name="model">sub.department.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="department"/>
+                    <field name="course_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_reviewer_tree" model="ir.ui.view">
+            <field name="name">Reviewer.tree</field>
+            <field name="model">reviewer.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="course_id"/>
+                    <field name="lead_instructor"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_reviewer" model="ir.actions.act_window">
+            <field name="name">Course Review</field>
+            <field name="res_model">reviewer.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_sub_department" model="ir.actions.act_window">
+            <field name="name">Sub Departments</field>
+            <field name="res_model">sub.department.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

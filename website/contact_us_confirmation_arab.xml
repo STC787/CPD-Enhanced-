@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="contact_us_confirmation_arab">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <style>
+                            * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            }
+
+                            body {
+                            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+                            background-color: #f8f9fa;
+                            line-height: 1.6;
+                            color: #333;
+                            direction: rtl;
+                            text-align: right;
+                            }
+
+                            .confirm {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 40px 20px;
+                            background-color: white;
+                            }
+
+                            .breadcrumb-nav {
+                            font-size: 14px;
+                            color: #4f4f4f;
+                            margin-bottom: 30px;
+                            font-weight: bold;
+                            direction: rtl;
+                            }
+
+                            .breadcrumb-nav span {
+                            margin: 0 8px;
+                            }
+
+                            .main-heading {
+                            font-size: 32px;
+                            font-weight: 600;
+                            color: #4a90e2;
+                            margin-bottom: 20px;
+                            }
+
+                            .description {
+                            font-size: 16px;
+                            color: #6c757d;
+                            margin-bottom: 40px;
+                            line-height: 1.5;
+                            }
+
+                            .next-steps {
+                            background-color: #f8f9fa;
+                            border-radius: 8px;
+                            padding: 30px;
+                            margin-bottom: 40px;
+                            }
+
+                            .next-steps-header {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 15px;
+                            flex-direction: row-reverse;
+                            }
+
+                            .checkmark {
+                            width: 24px;
+                            height: 24px;
+                            background-color: #4a90e2;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-left: 15px;
+                            margin-right: 0;
+                            flex-shrink: 0;
+                            }
+
+                            .checkmark::after {
+                            content: "✓";
+                            color: white;
+                            font-weight: bold;
+                            font-size: 14px;
+                            }
+
+                            .next-steps h2 {
+                            font-size: 20px;
+                            font-weight: 600;
+                            color: #333;
+                            margin: 0;
+                            }
+
+                            .next-steps-description {
+                            font-size: 14px;
+                            color: #6c757d;
+                            line-height: 1.5;
+                            }
+
+                            .button-group {
+                            display: flex;
+                            gap: 15px;
+                            margin-bottom: 40px;
+                            flex-wrap: wrap;
+                            justify-content: flex-start;
+                            }
+
+                            .btn-confirm {
+                            padding: 12px 24px !important;
+                            border: none !important;
+                            border-radius: 8px !important;
+                            font-size: 14px !important;
+                            font-weight: 500 !important;
+                            cursor: pointer !important;
+                            text-decoration: none !important;
+                            display: inline-block !important;
+                            transition: all 0.2s ease !important;
+                            }
+
+                            .backBtn {
+                            background-color: #4a90e2 !important;
+                            color: white !important;
+                            }
+
+                            .backBtn:hover {
+                            background-color: #357abd !important;
+                            }
+
+                            .contactbtn {
+                            background-color: #5293d140 !important;
+                            color: #4a90e2 !important;
+                            }
+
+                            .contactbtn:hover {
+                            background-color: #e9f2fb !important;
+                            }
+
+                            .contact-info {
+                            font-size: 14px;
+                            color: #6c757d;
+                            }
+
+                            .contact-info a {
+                            color: #4a90e2;
+                            text-decoration: none;
+                            }
+
+                            .contact-info a:hover {
+                            text-decoration: underline;
+                            }
+
+                            @media (max-width: 600px) {
+                            .confirm {
+                            padding: 20px 15px;
+                            }
+
+                            .main-heading {
+                            font-size: 24px;
+                            }
+
+                            .button-group {
+                            flex-direction: column;
+                            }
+
+                            .btn {
+                            text-align: center;
+                            }
+                            }
+                        </style>
+                    </head>
+                    <body>
+
+                        <div class="container-fluid confirm mt-5 mb-5">
+                            <nav class="breadcrumb-nav">
+                               الدعم الفني<span>&lt;</span> تقديم الطلب <span>&lt;</span> تم الإرسال
+                            </nav>
+
+                            <h1 class="main-heading">تم إرسال رسالتك بنجاح!</h1>
+
+                            <p class="description">
+                            سوف نتواصل معك في أقرب وقت ممكن، نقدر وقتك وصبرك.
+                            </p>
+
+                            <div class="button-group">
+                                <a href="/all_programs" class="btn-confirm backBtn">العودة إلى البرامج</a>
+                            </div>
+
+                            <p class="contact-info">
+                                لديك أسئلة؟ راسلنا على
+                                <a href="mailto:info@georgelarab.edu.eg">info@georgelarab.edu.eg</a>
+                            </p>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

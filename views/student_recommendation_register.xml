@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_training_register_form_view">
+            <field name="model">masrtech.training.registration</field>
+            <field name="arch" type="xml">
+                <form string="Training Registration">
+                    <header>
+                        <button type="object" name="create_accept_student" string="Accept"
+                                class="oe_highlight" invisable="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="student_name"/>
+                            <field name="student_id"/>
+                            <field name="gender"/>
+                            <field name="birth_date"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                        </group>
+                        <group>
+                            <field name="university"/>
+                            <field name="faculty"/>
+                            <field name="department"/>
+                            <field name="semester"/>
+                            <field name="gpa"/>
+                            <field name="clubs"/>
+                            <field name="graduation_date"/>
+                            <field name="training_name"/>
+                            <field name="company_id"/>
+                            <field name="check_company" invisable="1"/>
+
+
+                        </group>
+                        <group>
+                            <field name="certificates">
+                                <tree editable="button">
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="attachment"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_register_tree_view">
+            <field name="model">masrtech.training.registration</field>
+            <field name="arch" type="xml">
+                <tree string="Training Registration">
+                    <field name="student_name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_masrtech_register" model="ir.actions.act_window">
+            <field name="name">Training Registration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.training.registration</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="offer_model_kanban_view">
+            <field name="name">offer_model_kanban_view</field>
+            <field name="model">offer.model</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_details">
+                                <h4>
+
+                                    <field name="name"/>
+                                </h4>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="offer_model_form_view">
+            <field name="model">offer.model</field>
+            <field name="arch" type="xml">
+                <form string="Follow Up">
+                    <header>
+                        <button type="object" name="action_send_offer" string="Send Offer"
+                                class="oe_highlight"
+                        />
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                            </group>
+                            <group class="w-50">
+                                <field name="task_id"/>
+                                <field name="email"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="offer_model_tree_view">
+            <field name="model">offer.model</field>
+            <field name="arch" type="xml">
+                <tree string="Offers">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_offer_model" model="ir.actions.act_window">
+            <field name="name">Follow Up</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">offer.model</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+        </record>
+
+    </data>
+</odoo>

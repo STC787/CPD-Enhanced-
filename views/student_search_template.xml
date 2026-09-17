@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_search_template" name="Student Search Page">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Search Portal</t>
+
+            <div id="wrap" class="oe_structure oe_empty">
+                <style>
+                    * {
+                    box-sizing: border-box;
+                    margin: 0;
+                    padding: 0;
+                    }
+
+                    .search-portal-section {
+                    min-height: 100vh;
+                    padding: 80px 20px;
+                    background: linear-gradient(135deg, #004899 0%, #1e7bb8 25%, #29abe2 50%, #1e7bb8 75%, #004899
+                    100%);
+                    background-size: 400% 400%;
+                    animation: gradientFlow 20s ease infinite;
+                    position: relative;
+                    overflow: hidden;
+                    }
+
+                    @keyframes gradientFlow {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    }
+
+                    .search-portal-section::before {
+                    content: '';
+                    position: absolute;
+                    width: 800px;
+                    height: 800px;
+                    top: -300px;
+                    right: -200px;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+                    border-radius: 50%;
+                    animation: float 25s ease-in-out infinite;
+                    }
+
+                    .search-portal-section::after {
+                    content: '';
+                    position: absolute;
+                    width: 600px;
+                    height: 600px;
+                    bottom: -200px;
+                    left: -150px;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+                    border-radius: 50%;
+                    animation: float 30s ease-in-out infinite reverse;
+                    }
+
+                    @keyframes float {
+                    0%, 100% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 0.5;
+                    }
+                    50% {
+                    transform: translate(60px, -60px) scale(1.1);
+                    opacity: 0.8;
+                    }
+                    }
+
+                    .portal-header {
+                    text-align: center;
+                    margin-bottom: 60px;
+                    position: relative;
+                    z-index: 1;
+                    animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1);
+                    }
+
+                    @keyframes fadeInDown {
+                    from {
+                    opacity: 0;
+                    transform: translateY(-50px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    .portal-title {
+                    font-size: 4rem;
+                    font-weight: 900;
+                    color: white;
+                    margin-bottom: 20px;
+                    text-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+                    letter-spacing: -2px;
+                    line-height: 1.1;
+                    }
+
+                    .portal-subtitle {
+                    font-size: 1.4rem;
+                    color: rgba(255, 255, 255, 0.95);
+                    font-weight: 400;
+                    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+                    letter-spacing: 0.5px;
+                    }
+
+                    .unified-search-card {
+                    max-width: 900px;
+                    margin: 0 auto;
+                    background: rgba(255, 255, 255, 0.98);
+                    backdrop-filter: blur(20px);
+                    border-radius: 35px;
+                    padding: 60px;
+                    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+                    position: relative;
+                    z-index: 1;
+                    animation: cardZoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+                    }
+
+                    @keyframes cardZoomIn {
+                    from {
+                    opacity: 0;
+                    transform: scale(0.9) translateY(40px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                    }
+                    }
+
+                    .search-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 35px;
+                    margin-bottom: 40px;
+                    }
+
+                    .form-group-unified {
+                    position: relative;
+                    }
+
+                    .form-group-unified label {
+                    display: block;
+                    color: #1a1a1a;
+                    font-weight: 800;
+                    margin-bottom: 15px;
+                    font-size: 1.1rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    }
+
+                    .form-control-unified {
+                    width: 100%;
+                    padding: 22px 28px;
+                    border: 3px solid #e8ecf1;
+                    border-radius: 18px;
+                    font-size: 1.15rem;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    background: #f8fafb;
+                    font-weight: 600;
+                    color: #2c3e50;
+                    }
+
+                    .form-control-unified:hover {
+                    border-color: #c5d4e3;
+                    background: white;
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 20px rgba(0, 72, 153, 0.08);
+                    }
+
+                    .form-control-unified:focus {
+                    outline: none;
+                    border-color: #29abe2;
+                    background: white;
+                    box-shadow: 0 0 0 8px rgba(41, 171, 226, 0.12), 0 12px 30px rgba(41, 171, 226, 0.25);
+                    transform: translateY(-3px);
+                    }
+
+                    .form-control-select {
+                    appearance: none;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20'
+                    height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23004899' d='M10 13L4 7h12z'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 22px center;
+                    padding-right: 60px;
+                    cursor: pointer;
+                    }
+
+                    .btn-search-unified {
+                    width: 100%;
+                    padding: 28px;
+                    background: linear-gradient(135deg, #004899 0%, #0066cc 25%, #29abe2 50%, #0066cc 75%, #004899
+                    100%);
+                    background-size: 300% 300%;
+                    color: white;
+                    border: none;
+                    border-radius: 70px;
+                    font-size: 1.4rem;
+                    font-weight: 900;
+                    cursor: pointer;
+                    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                    box-shadow: 0 15px 45px rgba(0, 72, 153, 0.5), 0 0 0 0 rgba(41, 171, 226, 0.4);
+                    position: relative;
+                    overflow: hidden;
+                    text-transform: uppercase;
+                    letter-spacing: 3px;
+                    animation: buttonGradientFlow 4s ease infinite, buttonGlow 2s ease-in-out infinite;
+                    }
+
+                    @keyframes buttonGradientFlow {
+                    0%, 100% {
+                    background-position: 0% 50%;
+                    }
+                    50% {
+                    background-position: 100% 50%;
+                    }
+                    }
+
+                    @keyframes buttonGlow {
+                    0%, 100% {
+                    box-shadow: 0 15px 45px rgba(0, 72, 153, 0.5), 0 0 0 0 rgba(41, 171, 226, 0.4);
+                    }
+                    50% {
+                    box-shadow: 0 15px 55px rgba(0, 72, 153, 0.7), 0 0 0 8px rgba(41, 171, 226, 0.2);
+                    }
+                    }
+
+                    .btn-search-unified::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+                    border-radius: 50%;
+                    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                    transform: translate(-50%, -50%);
+                    }
+
+                    .btn-search-unified::after {
+                    content: '✨';
+                    position: absolute;
+                    right: 30px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 1.5rem;
+                    opacity: 0;
+                    transition: all 0.4s ease;
+                    }
+
+                    .btn-search-unified:hover {
+                    transform: translateY(-6px) scale(1.04);
+                    box-shadow: 0 25px 65px rgba(0, 72, 153, 0.7), 0 0 0 12px rgba(41, 171, 226, 0.3);
+                    letter-spacing: 4px;
+                    }
+
+                    .btn-search-unified:hover::before {
+                    width: 1000px;
+                    height: 1000px;
+                    }
+
+                    .btn-search-unified:hover::after {
+                    opacity: 1;
+                    right: 35px;
+                    }
+
+                    .btn-search-unified:active {
+                    transform: translateY(-3px) scale(1.01);
+                    box-shadow: 0 12px 40px rgba(0, 72, 153, 0.6), 0 0 0 6px rgba(41, 171, 226, 0.2);
+                    }
+
+                    .error-card {
+                    max-width: 900px;
+                    margin: 50px auto 0;
+                    background: linear-gradient(135deg, #ff1744 0%, #f50057 50%, #d50000 100%);
+                    background-size: 200% 200%;
+                    border-radius: 30px;
+                    padding: 45px;
+                    box-shadow: 0 25px 70px rgba(213, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+                    animation: errorSlideIn 0.7s cubic-bezier(0.16, 1, 0.3, 1), errorShake 0.8s cubic-bezier(0.36, 0.07,
+                    0.19, 0.97), errorGradientFlow 3s ease infinite;
+                    position: relative;
+                    z-index: 1;
+                    overflow: hidden;
+                    border: 3px solid rgba(255, 255, 255, 0.2);
+                    }
+
+                    @keyframes errorSlideIn {
+                    from {
+                    opacity: 0;
+                    transform: translateY(60px) scale(0.95);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                    }
+                    }
+
+                    @keyframes errorShake {
+                    0%, 100% { transform: translateX(0) rotate(0deg); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-15px) rotate(-1deg); }
+                    20%, 40%, 60%, 80% { transform: translateX(15px) rotate(1deg); }
+                    }
+
+                    @keyframes errorGradientFlow {
+                    0%, 100% {
+                    background-position: 0% 50%;
+                    }
+                    50% {
+                    background-position: 100% 50%;
+                    }
+                    }
+
+                    .error-card::before {
+                    content: '';
+                    position: absolute;
+                    top: -100%;
+                    left: -100%;
+                    width: 300%;
+                    height: 300%;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+                    animation: errorGlow 4s ease-in-out infinite;
+                    }
+
+                    @keyframes errorGlow {
+                    0%, 100% {
+                    transform: translate(0, 0) scale(1);
+                    opacity: 0.3;
+                    }
+                    50% {
+                    transform: translate(30%, 30%) scale(1.2);
+                    opacity: 0.6;
+                    }
+                    }
+
+                    .error-card::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                    animation: errorShine 3s ease-in-out infinite;
+                    }
+
+                    @keyframes errorShine {
+                    0% {
+                    left: -100%;
+                    }
+                    50%, 100% {
+                    left: 100%;
+                    }
+                    }
+
+                    .error-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 30px;
+                    position: relative;
+                    z-index: 1;
+                    }
+
+                    .error-icon {
+                    font-size: 5rem;
+                    animation: errorIconPulse 1.5s ease-in-out infinite;
+                    filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.4));
+                    }
+
+                    @keyframes errorIconPulse {
+                    0%, 100% {
+                    transform: scale(1) rotate(0deg);
+                    }
+                    25% {
+                    transform: scale(1.2) rotate(-8deg);
+                    }
+                    50% {
+                    transform: scale(1.1) rotate(0deg);
+                    }
+                    75% {
+                    transform: scale(1.2) rotate(8deg);
+                    }
+                    }
+
+                    .error-text {
+                    flex: 1;
+                    font-size: 1.35rem;
+                    color: white;
+                    font-weight: 800;
+                    line-height: 1.7;
+                    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+                    letter-spacing: 0.5px;
+                    }
+
+                    .info-card {
+                    max-width: 900px;
+                    margin: 50px auto 0;
+                    background: white;
+                    border-radius: 25px;
+                    padding: 50px;
+                    border: 3px dashed #dee2e6;
+                    text-align: center;
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    animation: fadeInUp 0.8s ease-out 0.6s both;
+                    position: relative;
+                    z-index: 1;
+                    }
+
+                    @keyframes fadeInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    .info-card:hover {
+                    border-color: #29abe2;
+                    background: linear-gradient(135deg, #ffffff, #f0f8ff);
+                    transform: translateY(-8px);
+                    box-shadow: 0 15px 40px rgba(41, 171, 226, 0.25);
+                    }
+
+                    .info-icon {
+                    font-size: 5rem;
+                    margin-bottom: 25px;
+                    display: inline-block;
+                    animation: infoSwing 3s ease-in-out infinite;
+                    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+                    }
+
+                    @keyframes infoSwing {
+                    0%, 100% { transform: rotate(0deg); }
+                    25% { transform: rotate(15deg); }
+                    75% { transform: rotate(-15deg); }
+                    }
+
+                    .info-text {
+                    font-size: 1.3rem;
+                    color: #6c757d;
+                    font-weight: 600;
+                    line-height: 1.8;
+                    }
+
+                    /* Responsive Design */
+                    @media (max-width: 768px) {
+                    .portal-title {
+                    font-size: 2.8rem;
+                    }
+
+                    .portal-subtitle {
+                    font-size: 1.2rem;
+                    }
+
+                    .unified-search-card {
+                    padding: 40px 30px;
+                    }
+
+                    .search-grid {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                    }
+                    }
+
+                    @media (max-width: 576px) {
+                    .portal-title {
+                    font-size: 2.2rem;
+                    }
+
+                    .unified-search-card {
+                    padding: 35px 25px;
+                    }
+
+                    .error-content {
+                    flex-direction: column;
+                    text-align: center;
+                    }
+                    }
+                </style>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                    // Input validation feedback with smooth animations
+                    const inputs = document.querySelectorAll('.form-control-unified');
+                    inputs.forEach(function(input) {
+                    input.addEventListener('input', function() {
+                    if (this.value.trim().length >= 2) {
+                    this.style.borderColor = '#29abe2';
+                    this.style.boxShadow = '0 0 0 4px rgba(41, 171, 226, 0.1)';
+                    } else {
+                    this.style.borderColor = '#e8ecf1';
+                    this.style.boxShadow = 'none';
+                    }
+                    });
+
+                    input.addEventListener('blur', function() {
+                    this.style.boxShadow = 'none';
+                    });
+                    });
+                    });
+                </script>
+
+                <section class="search-portal-section">
+                    <div class="container">
+                        <div class="portal-header">
+                            <h1 class="portal-title">🔍 Search Portal</h1>
+                            <p class="portal-subtitle">Find students and access quiz sessions</p>
+                        </div>
+
+                        <div class="unified-search-card">
+                            <form method="POST" action="/student/confirm">
+                                <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                                <div class="search-grid">
+                                    <div class="form-group-unified">
+                                        <label for="search_query">👨‍🎓 Student ID</label>
+                                        <input
+                                                type="text"
+                                                id="search_query"
+                                                name="search_query"
+                                                class="form-control-unified"
+                                                placeholder="Enter Student ID"
+                                                t-att-value="search_query or ''"
+                                        />
+                                    </div>
+
+                                    <div class="form-group-unified">
+                                        <t>
+                                            <label for="course_id">📘 Select Course</label> <!-- CHANGED -->
+                                            <select id="course_id" name="course_id"
+                                                    class="form-control-unified form-control-select"> <!-- CHANGED -->
+                                                <option value="">-- Choose a Course --</option> <!-- CHANGED -->
+                                                <t t-foreach="all_courses" t-as="course"> <!-- CHANGED -->
+                                                    <option t-att-value="course.id"
+                                                            t-att-selected="'selected' if selected_course_id and int(selected_course_id) == course.id else None"> <!-- CHANGED -->
+                                                        <t t-esc="course.training.training_name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </t>
+<!--                                        <t t-else="">-->
+<!--                                            <label for="course_id">📘 Select Training Course</label> &lt;!&ndash; CHANGED &ndash;&gt;-->
+<!--                                            <select id="course_id" name="course_id"-->
+<!--                                                    class="form-control-unified form-control-select"> &lt;!&ndash; CHANGED &ndash;&gt;-->
+<!--                                                <option value="">&#45;&#45; Choose a Training Course &#45;&#45;</option> &lt;!&ndash; CHANGED &ndash;&gt;-->
+<!--                                                <t t-foreach="training_courses" t-as="course"> &lt;!&ndash; CHANGED &ndash;&gt;-->
+<!--                                                    <option t-att-value="course.id"-->
+<!--                                                            t-att-selected="'selected' if selected_course_id and int(selected_course_id) == course.id else None"> &lt;!&ndash; CHANGED &ndash;&gt;-->
+<!--                                                        <t t-esc="course.training_course_id.training.training_name"/>-->
+<!--                                                    </option>-->
+<!--                                                </t>-->
+<!--                                            </select>-->
+<!--                                        </t>-->
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-search-unified">
+                                    ✅ Confirm
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Error Message -->
+                        <t t-if="error_message">
+                            <div class="error-card">
+                                <div class="error-content">
+                                    <span class="error-icon">⚠️</span>
+                                    <div class="error-text" t-esc="error_message"/>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Info Message -->
+                        <t t-if="not search_query and not selected_course_id and not error_message">
+                            <div class="info-card">
+                                <div class="info-icon">💡</div>
+                                <div class="info-text">
+                                    Enter your Student ID and select a Course to access the quiz session
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

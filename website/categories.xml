@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="all_categories">
+            <t t-call="website.layout">
+                <style>
+                    body {
+                    background: #d8dcde5e;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    overflow-x: hidden;
+                    }
+                    html {
+                    scroll-behavior: smooth;
+                    }
+                    * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    }
+
+                    body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    }
+
+                    .header {
+                    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+                    padding: 2rem 0;
+                    margin-bottom: 3rem;
+                    position: relative;
+                    overflow: hidden;
+                    }
+
+                    .header::before {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    animation: float 20s infinite linear;
+                    }
+
+
+                    .header h1 {
+                    text-align: center;
+                    color: white;
+                    font-size: 2.5rem;
+                    font-weight: 700;
+                    position: relative;
+                    z-index: 2;
+                    }
+
+                    .container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 2rem;
+                    }
+
+                    .categories-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                    gap: 2rem;
+                    margin-bottom: 3rem;
+                    }
+
+                    .category-card {
+                    background: white;
+                    border-radius: 16px;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                    overflow: hidden;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    border: 1px solid #e2e8f0;
+                    position: relative;
+                    }
+
+                    .category-card:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+                    border-color: #36d1dc;
+                    }
+
+                    .category-header {
+                    padding: 1.5rem;
+                    background:linear-gradient(135deg, #36d1dc, #5b86e5);
+                    color: white;
+                    position: relative;
+                    overflow: hidden;
+                    }
+
+                    .category-header::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 100px;
+                    height: 100px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 50%;
+                    transform: translate(30px, -30px);
+                    }
+
+                    .category-title {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    margin-bottom: 0.5rem;
+                    position: relative;
+                    z-index: 2;
+                    }
+
+                    .category-description {
+                    opacity: 0.9;
+                    font-size: 0.9rem;
+                    position: relative;
+                    z-index: 2;
+                    }
+
+                    .subcategories-container {
+                    padding: 1.5rem;
+                    }
+
+                    .subcategories-title {
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: #64748b;
+                    margin-bottom: 1rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    }
+
+                    .subcategories-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                    margin-bottom: 1.5rem;
+                    }
+
+                    .subcategory-item {
+                    background: #f8fafc;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 8px;
+                    padding: 0.75rem 1rem;
+                    transition: all 0.2s ease;
+                    cursor: pointer;
+                    position: relative;
+                    z-index: 1;
+                    overflow: hidden;
+                    text-decoration: none !important;
+                    display: block;
+                    }
+
+                    .subcategory-item::before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 0%;
+                    background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                    z-index: -1;
+                    transition: all 0.5s ease;
+                    }
+
+                    .subcategory-item:hover {
+                    background: #f1f5f9;
+                    border-color: #49abe1;
+                    transform: translateX(4px);
+                    }
+
+                    .subcategory-item:hover::before {
+                    width: 100%;
+                    transition: all 0.5s ease;
+                    }
+                    .subcategory-name {
+                    font-weight: 500;
+                    color: #374151;
+                    font-size: 0.95rem;
+                    transition: all 0.2s ease;
+                    }
+                    .subcategory-item:hover .subcategory-name{
+                    color: white;
+                    transition: all 0.2s ease;
+                    }
+                    .explore-btn {
+                    width: 100%;
+                    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                    color: white;
+                    border: none;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    font-size: 0.95rem;
+                    }
+
+                    .explore-btn:hover {
+                    background: linear-gradient(135deg, #2563eb, #1e40af);
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+                    }
+
+                    .explore-btn:active {
+                    transform: translateY(0);
+                    }
+
+                    .empty-subcategories {
+                    color: #9ca3af;
+                    font-style: italic;
+                    text-align: center;
+                    padding: 2rem 1rem;
+                    font-size: 0.9rem;
+                    }
+
+                    .subcategory-count {
+                    background: rgba(139, 92, 246, 0.1);
+                    color: #dcdcdc;
+                    font-size: 0.75rem;
+                    font-weight: 600;
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 12px;
+                    margin-left: auto;
+                    }
+
+                    .category-stats {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    margin-top: 0.5rem;
+                    }
+
+                    @media (max-width: 768px) {
+                    .categories-grid {
+                    grid-template-columns: 1fr;
+                    gap: 1.5rem;
+                    padding: 0 1rem;
+                    }
+
+                    .header h1 {
+                    font-size: 2rem;
+                    }
+
+                    .container {
+                    padding: 0 1rem;
+                    }
+                    }
+
+                    .fade-in {
+                    animation: fadeIn 0.6s ease-out forwards;
+                    }
+                    @keyframes float {
+                    0% { transform: translateX(-50px) translateY(-50px); }
+                    100% { transform: translateX(50px) translateY(50px); }
+                    }
+
+                    @keyframes fadeIn {
+                    from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+
+                    .arrow-icon {
+                    transition: transform 0.2s ease;
+                    }
+
+                    .explore-btn:hover .arrow-icon {
+                    transform: translateX(2px);
+                    }
+                    .title {
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 4rem;
+                    font-weight: 800;
+                    background: linear-gradient(45deg, #39cbdd,  #3d74a1);
+                    background-size: 300% 300%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: gradientShift 4s ease-in-out infinite;
+                    text-align: center;
+                    margin: 20px 0;
+                    position: relative;
+                    }
+
+                    .title::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 100px;
+                    height: 4px;
+                    background: linear-gradient(45deg, #39cbdd, #4ea0e1);
+                    border-radius: 2px;
+                    animation: pulse 4s ease-in-out infinite;
+                    }
+
+                    @keyframes gradientShift {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    }
+
+                    @keyframes pulse {
+                    0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 1; }
+                    50% { transform: translateX(-50%) scaleX(2); opacity: 0.7; }
+                    }
+                    /* Simple Animation Keyframes */
+                    @keyframes fadeIn {
+                    from {
+                    opacity: 0;
+                    }
+                    to {
+                    opacity: 1;
+                    }
+                    }
+                    @keyframes fadeInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    @keyframes fadeInLeft {
+                    from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    @keyframes fadeInRight {
+                    from {
+                    opacity: 0;
+                    transform: translateX(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+                    @keyframes gentleFloat {
+                    0%, 100% {
+                    transform: translateY(0);
+                    }
+                    50% {
+                    transform: translateY(-5px);
+                    }
+                    }
+
+                    @keyframes simpleGradient {
+                    0% {
+                    background-position: 0% 50%;
+                    }
+                    50% {
+                    background-position: 100% 50%;
+                    }
+                    100% {
+                    background-position: 0% 50%;
+                    }
+                    }
+
+                    .card-action {
+                    width: 100%;
+                    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                    color: white !important;
+                    border: none;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 8px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    font-size: 0.95rem;
+                    text-decoration: none;
+                    }
+
+                    .card-action:hover {
+                    background: linear-gradient(135deg, #2563eb, #1e40af);
+                    transform: translateY(-1px);
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+                    text-decoration: none;
+                    }
+                </style>
+                <div id="wrap">
+                    <div class="container py-4">
+                        <h1 class="text-center my-5 title">
+                            All Categories
+                        </h1>
+                        <div class="row justify-content-center">
+                            <t t-foreach="departments" t-as="dept">
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="category-card fade-in" style="animation-delay: 0.1s">
+                                        <div class="category-header">
+                                            <div class="category-title">
+                                                <t t-esc="dept.name"/>
+                                            </div>
+                                            <div class="category-description">
+                                                <t t-esc="dept.description or 'Explore this Categories.'"/>
+                                            </div>
+                                            <div class="category-stats">
+                                                <span class="subcategory-count">
+                                                    <t t-esc="len(dept.sub_department)"/>
+                                                    Sub-Categories
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="subcategories-container">
+                                            <div class="subcategories-title">Sub Categories</div>
+                                            <div class="subcategories-list">
+                                                <t t-foreach="dept.sub_department" t-as="sub_dept">
+                                                    <a t-attf-href="/all_programs?department={{ dept.id }}&amp;subdepartment={{ sub_dept.id }}"
+                                                       class="subcategory-item">
+                                                        <div class="subcategory-name">
+                                                            <t t-esc="sub_dept.name"/>
+                                                        </div>
+                                                    </a>
+                                                </t>
+
+                                                <t t-if="not dept.sub_department">
+                                                    <div class="subcategory-item">
+                                                        <div class="subcategory-name text-muted">
+                                                            No sub-Categories available
+                                                        </div>
+                                                    </div>
+                                                </t>
+<!--                                                <a t-attf-href="/all_programs?department={{ dept.id }}"-->
+<!--                                                   class="card-action">-->
+<!--                                                    Explore All Courses-->
+<!--                                                    <i class="fas fa-arrow-right"></i>-->
+<!--                                                </a>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

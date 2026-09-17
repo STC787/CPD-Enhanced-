@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="join_meeting_template">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                <title>NEXUS - Meeting Invitation</title>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+                      rel="stylesheet"/>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+                      rel="stylesheet"/>
+                <style>
+                    :root {
+                    --primary-gradient: linear-gradient(135deg, #29abe2 0%, #24557b 100%);
+                    --card-gradient: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                    --orange-gradient: linear-gradient(135deg, #f97316, #ea580c);
+                    --yellow-gradient: linear-gradient(135deg, #f59e0b, #d97706);
+                    --blue-gradient: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                    }
+
+                    * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    }
+
+                    body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    background: var(--primary-gradient);
+                    min-height: 100vh;
+                    overflow-x: hidden;
+                    position: relative;
+                    }
+                    .main-container {
+                    min-height: 100vh;
+                    position: relative;
+                    z-index: 2;
+                    }
+
+                    .invitation-card {
+                    background: rgba(255, 255, 255, 0.95);
+                    backdrop-filter: blur(20px);
+                    border-radius: 24px;
+                    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    position: relative;
+                    overflow: hidden;
+                    animation: slideInUp 1s ease-out;
+                    max-width: 700px;
+                    margin: 0 auto;
+                    }
+
+                    @keyframes slideInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(60px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    /* Shimmer effect */
+                    .invitation-card::before {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                    transform: rotate(45deg);
+                    animation: shimmer 4s ease-in-out infinite;
+                    pointer-events: none;
+                    }
+
+                    @keyframes shimmer {
+                    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+                    50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+                    100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+                    }
+
+                    .invitation-title {
+                    color: #1f2937;
+                    font-weight: 600;
+                    font-size: 1.8rem;
+                    position: relative;
+                    z-index: 1;
+                    animation: titleSlide 1s ease-out 0.6s both;
+                    }
+
+                    @keyframes titleSlide {
+                    from {
+                    opacity: 0;
+                    transform: translateX(-30px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    .form-section {
+                    position: relative;
+                    z-index: 1;
+                    animation: formFadeIn 1s ease-out 0.9s both;
+                    }
+
+                    @keyframes formFadeIn {
+                    from {
+                    opacity: 0;
+                    transform: translateY(40px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    .form-label {
+                    color: #4b5563;
+                    font-weight: 500;
+                    font-size: 1.1rem;
+                    }
+
+                    .form-control {
+                    border: 2px solid #e5e7eb;
+                    border-radius: 12px;
+                    padding: 1rem 1.25rem;
+                    font-size: 1.1rem;
+                    background: rgba(255, 255, 255, 0.9);
+                    transition: all 0.3s ease;
+                    animation: inputReady 0.5s ease-out 1.2s both;
+                    }
+
+                    @keyframes inputReady {
+                    from {
+                    transform: scale(0.95);
+                    opacity: 0;
+                    }
+                    to {
+                    transform: scale(1);
+                    opacity: 1;
+                    }
+                    }
+
+                    .form-control:focus {
+                    border-color: #3b82f6;
+                    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+                    transform: translateY(-2px);
+                    background: rgba(255, 255, 255, 1);
+                    }
+
+                    .btn-join {
+                    background: var(--card-gradient);
+                    border: none;
+                    border-radius: 12px;
+                    padding: 1.1rem 2.5rem;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    color: white;
+                    position: relative;
+                    overflow: hidden;
+                    transition: all 0.4s ease;
+                    animation: buttonEntrance 0.8s ease-out 1.5s both;
+                    }
+
+                    @keyframes buttonEntrance {
+                    from {
+                    transform: translateY(20px) scale(0.9);
+                    opacity: 0;
+                    }
+                    to {
+                    transform: translateY(0) scale(1);
+                    opacity: 1;
+                    }
+                    }
+
+                    .btn-join::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    transition: left 0.6s ease;
+                    }
+
+                    .btn-join:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4);
+                    filter: brightness(1.1);
+                    }
+
+                    .btn-join:hover::before {
+                    left: 100%;
+                    }
+
+                    .btn-join:active {
+                    transform: translateY(-2px);
+                    }
+
+                    .btn-icon {
+                    transition: transform 0.3s ease;
+                    margin-left: 8px;
+                    }
+
+                    .btn-join:hover .btn-icon {
+                    transform: translateX(5px);
+                    }
+
+
+                    /* Responsive adjustments */
+                    @media (max-width: 768px) {
+                    .logo-text {
+                    font-size: 2.5rem;
+                    letter-spacing: -2px;
+                    }
+
+                    .invitation-title {
+                    font-size: 1.5rem;
+                    }
+
+                    .logo-block {
+                    width: 28px;
+                    height: 28px;
+                    }
+                    }
+
+                    @media (max-width: 576px) {
+                    .invitation-card {
+                    margin: 1rem;
+                    border-radius: 20px;
+                    }
+
+                    .logo-text {
+                    font-size: 2rem;
+                    }
+
+                    .invitation-title {
+                    font-size: 1.3rem;
+                    }
+                    }
+                </style>
+            </head>
+            <body class="bg-particles">
+                <div class="container-fluid main-container d-flex align-items-center justify-content-center">
+                    <div class="row w-100 justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div class="invitation-card p-5">
+                                <!-- Logo Section -->
+                                <div class="text-center">
+                                    <img src="/nexus_nms/static/src/images/nexus-sq.png" class="w-75"/>
+                                </div>
+
+                                <!-- Invitation Text -->
+                                <h1 class="invitation-title text-center mb-0 p-3 p-md-5">
+                                    You've been invited to a meeting!
+                                </h1>
+
+                                <!-- Form Section -->
+                                    <form>
+                                        <div class="mb-4">
+                                            <label for="studentId" class="form-label">Student ID</label>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="studentId"
+                                                    placeholder="Enter your ID"
+                                                    required="true"
+                                            />
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-join">
+                                                Join Us
+                                                <i class="fas fa-arrow-right btn-icon"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+            </body>
+        </template>
+      <template id="student_not_allowed" name="Student Not Allowed">
+            <html>
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <link rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+                          rel="stylesheet"/>
+                    <style>
+                        .bg-deni{
+                        background: #eeeeee;
+
+                        }
+                        .error-modal {
+                        border-radius: 20px;
+                        padding: 20px;
+                        box-shadow: 0px 1px 17px 0px #d5d5d5;
+                        background-color: #ffffff;
+                        border: 1px solid #ffffff;
+                        color: #721c24;
+                        }
+
+                        .btn-deni{
+                        color: white;
+                        border: 1px solid #721c24;
+                        border-radius: 42px;
+                        padding: 8px;
+                        padding-left: 27px;
+                        padding-right: 27px;
+                        background: #721c24;
+                        }
+                    </style>
+                </head>
+                <body class=" bg-deni d-flex align-items-center min-vh-100">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <div class="card error-modal">
+                                    <div class="card-body text-center">
+                                        <i class="fa-solid fa-circle-xmark fa-4x mb-4"></i>
+                                        <h2 class="card-title mb-4">Access Denied</h2>
+                                        <p class="card-text">
+                                            Student ID "
+                                            <strong>
+                                                <t t-esc="student_id"/>
+                                            </strong>
+                                            " is not registered for this session.
+                                        </p>
+                                        <p class="card-text">
+                                            Please contact your administrator or check your registration status.
+                                        </p>
+                                        <button class="btn-deni mt-2 mb-2" onclick="history.back()">Go Back
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+    </data>
+</odoo>

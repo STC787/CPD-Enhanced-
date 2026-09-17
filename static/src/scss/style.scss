@@ -1,0 +1,791 @@
+//theme style
+.o-discuss-Call {
+    height: 50%;
+    min-height: 50%;
+    background: var(--o-discuss-Call-bgColor, #111827);
+}
+.o-discuss-Call.o-minimized {
+    height: 50%;
+}
+.o_list_view .zoom-btn img {
+    width: 16px !important;
+    height: 16px !important;
+}
+button[title="Disconnect"],button[title="Mute"],button[title="Deafen"],button[title="Turn camera on"],button[title="Stop camera"],button[title="Disconnect"],button[title="More"]{
+    padding:5px !important;
+    }
+
+
+.btn-primary ,.btn-outline-primary{
+    color: #FFF;
+    background-color: #004899;
+    border-color:#004899;
+    box-shadow: 0;
+    border-radius: 8px;
+    padding-inline: 18px !important;
+}
+.btn-check:checked + .btn-primary,
+.btn-primary:hover,.btn-outline-primary:hover,
+ .btn-check:active + .btn-primary,
+  .btn-primary:active, .btn-primary.active,
+   .show > .btn-primary.dropdown-toggle {
+    color: #004899;
+    background-color: white;
+    border-color: #004899;
+    border-radius: 8px;
+    padding-inline: 12px !important
+}
+.o-form-buttonbox .oe_stat_button .o_button_icon {
+    font-size: 1.5em;
+    color: #004899;
+}
+.o_main_navbar .o_menu_sections .o_nav_entry,
+ .o_main_navbar .o_menu_sections .dropdown-toggle{
+    color: #004899 !important;
+    font-size: 16px;
+}
+.o_kanban_renderer .o_kanban_record > div:not(.o_dropdown_kanban),
+ .o_kanban_renderer .o_kanban_quick_create {
+    border: 2px solid #004899;
+    background-color: white;
+    border-radius: 15px;
+    padding: 17px !important;
+    background: #f4f9ff;
+}
+.nav-tabs .nav-link.active {
+    border: 1px solid #004899;
+    background-color: white;
+    color: #004899;
+}
+.o_form_sheet.position-relative {
+    border: 1px solid #004899;
+    background: #f8fbff;
+    border-radius: 10px;
+    margin-block: 14px;
+    box-shadow: 1px -1px 7px #cacaca;
+}
+.o_form_view .o_form_label {
+    font-weight: 500;
+    color: #043b78 !important;
+    width: max-content;
+}
+.o_form_view .o_input {
+    padding: 1px 19px;
+    border: 1px solid #e2e2e2;
+    border-radius: 5px;
+    background: white;
+    min-height: 29px;
+}
+.o_horizontal_separator.mt-4.mb-3.text-uppercase.fw-bolder.small {
+    font-size: 19px;
+    padding: 10px;
+    border-bottom: 1px solid #004899;
+    color: #004899;
+    background: white;
+    box-shadow: 0.5px 2.5px 8px #c3c3c3;
+    border-radius: 5px;
+}
+.nav-tabs .nav-link {
+    background-color: #d1e7f0;
+    border: 1px solid #aaaaaa;
+    margin-right: 2px;
+    border-radius: 8px 8px 0 0;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    color: #333;
+}
+button.dropdown-toggle.o_searchview_dropdown_toggler.d-print-none.btn.btn-outline-secondary.o-no-caret.rounded-start-0.h-100 {
+    border: 1px solid #81bbfd;
+}
+header .o_main_navbar {
+    background: white !important;
+}
+.o_home_menu {
+    background: linear-gradient(to right, white, #5b79ff 30%), linear-gradient(to bottom, white, #167ac6 30%), linear-gradient(to left, white, #167ac6 90%), linear-gradient(to top, white, #167ac6 90%);
+    background-blend-mode: screen;
+}
+.o_searchview {
+    --SearchBar-background-color: #FFF;
+    background-color: var(--SearchBar-background-color);
+    border: 1px solid #81bbfd;
+}
+.o_notebook .nav {
+    padding: 0 var(--notebook-padding-x, 0);
+    background-color: transparent;
+    border-bottom: 1px solid #004899;
+}
+.oe_kanban_details {
+    color: #12a3bb;
+}
+.oe_kanban_details h4 {
+    color: #004899;
+}
+i.fa.fa-folder.o_search_panel_section_icon.text-primary.me-2 {
+    color: #2c84ef !important;
+}
+.text-primary{
+    font-size: 18px;
+}
+// home page style
+
+/********** Template CSS **********/
+    $primary: #004899;
+    $secondary: #757575;
+    $light: #F3F6F8;
+    $dark: #0C2B4B;
+
+
+.py-6 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.my-6 {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+}
+.navbar-light .btn-primary{
+    background-color: #29abe2;
+    border-color: #29abe2;
+    border-radius: 25px !important;
+    color:white;
+    }
+.navbar-light .btn-outline-secondary{
+    border-radius: 25px !important;
+    }
+a.navbar-brand.logo {
+    background: url(/nexus_nms/static/src/images/nexus.png);
+    z-index: 1;
+    background-size: cover;
+    background-position: 1px -49px;
+    width: 144px;
+    height: 51px;
+}
+#o_main_nav ul.navbar-nav.align-items-center.gap-2.flex-shrink-0.justify-content-end.ps-3>li:nth-child(2) {
+    display: none;
+}
+
+.navbar-brand.logo span {
+    visibility: hidden !important;
+}
+ .navbar-light .btn-primary:hover{
+        background-color: white;
+    border-color: #29abe2;
+    border-radius: 26px !important;
+    color:#29abe2;
+}
+.footer .input-group button.btn.btn-blue {
+    padding: 8px 47px !important;
+
+}
+.btn-blue {
+    color: #FFF;
+    background-color: #004899;
+    border-color: #004899;
+    box-shadow: 0;
+    padding: 17px 47px !important;
+}
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+    background-color: rgba(255, 128, 0, 0.2); /* Semi-transparent orange background */
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Additional styling for the spinner itself to make it stand out */
+#spinner .spinner-grow {
+    width: 3rem;
+    height: 3rem;
+    box-shadow: 0 0 20px rgba(255, 128, 0, 0.5); /* Optional: adds a glow effect */
+}
+/*** Button ***/
+.btn {
+    font-weight: 500 !important;
+    transition: .5s !important;
+}
+
+
+.btn-square {
+    border-radius: 5px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+}
+
+/*** Header ***/
+.carousel-caption {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 15%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color:#004899;
+    border: 1x solid #004899;
+    border-radius:50px;
+}
+
+/* Carousel fade-in animation from top */
+@keyframes fadeInFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply animation to titles and buttons in carousel */
+.carousel-item.active h1,
+.carousel-item.active .display-2 {
+    animation: fadeInFromTop 1s ease forwards;
+}
+
+.carousel-item.active .btn {
+    opacity: 0;
+    animation: fadeInFromTop 1s ease forwards;
+    animation-delay: 0.3s; /* Slight delay for buttons to create sequential effect */
+}
+
+/* Ensure elements are hidden before animation starts */
+.carousel-item:not(.active) h1,
+.carousel-item:not(.active) .display-2,
+.carousel-item:not(.active) .btn {
+    opacity: 0;
+}
+
+/* Different delays for multiple buttons */
+.carousel-item.active .btn:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position: relative;
+        min-height: 450px;
+    }
+
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Adjust animation timing for mobile */
+    .carousel-item.active h1,
+    .carousel-item.active .display-2 {
+        animation-duration: 0.8s;
+    }
+}
+
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, .75),
+     rgba(0, 0, 0, .75)),
+      url(/nexus_nms/static/src/images/learning.png) center center no-repeat;
+    background-size: cover;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #999999;
+}
+/*** Facts ***/
+// scroll top butn
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 30px;
+    bottom: 30px;
+    z-index: 99;
+}
+/* Facts Box Animation */
+@media (min-width: 991.98px) {
+    .facts {
+        position: relative;
+        margin-top: -75px;
+        z-index: 1;
+    }
+}
+
+/* Base animation for fading in facts boxes */
+@keyframes fadeInBox {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply initial state to fact boxes */
+.facts .col-lg-4 {
+    opacity: 0; /* Start with invisible boxes */
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Define the animation classes */
+.facts .col-lg-4.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Specific delays for each box to create a sequential effect */
+.facts .col-lg-4:nth-child(1).animate-in {
+    transition-delay: 0.3s;
+}
+
+.facts .col-lg-4:nth-child(2).animate-in {
+    transition-delay: 0.6s;
+}
+
+.facts .col-lg-4:nth-child(3).animate-in {
+    transition-delay: 0.9s;
+}
+
+/* Add a subtle shadow expansion effect during animation */
+@keyframes shadowExpand {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    100% {
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.facts .bg-white.shadow {
+    transition: transform 0.3s ease, box-shadow 1s ease;
+}
+
+.facts .col-lg-4.animate-in .bg-white.shadow {
+    animation: shadowExpand 1s forwards;
+}
+
+/* Add hover effect for better user experience */
+.facts .bg-white.shadow:hover {
+    transform: translateY(-5px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position: relative;
+        min-height: 450px;
+    }
+
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Adjust animation timing for mobile */
+    .carousel-item.active h1,
+    .carousel-item.active .display-2 {
+        animation-duration: 0.8s;
+    }
+
+    /* Adjust facts box animations for mobile */
+    .facts .col-lg-4:nth-child(1).animate-in {
+        transition-delay: 0.2s;
+    }
+
+    .facts .col-lg-4:nth-child(2).animate-in {
+        transition-delay: 0.4s;
+    }
+
+    .facts .col-lg-4:nth-child(3).animate-in {
+        transition-delay: 0.6s;
+    }
+}
+
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url(/nexus_nms/static/src/images/learning.png) center center no-repeat;
+    background-size: cover;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: #999999;
+}
+//*our partner start//
+.partners-section {
+    background:linear-gradient(135deg, #29abe2 0%, #176792 100%);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    padding: 40px;
+//     margin: 40px auto;
+//     max-width: 1200px;
+}
+
+.section-title {
+    color: #4361ee;
+    font-size: 14px;
+    font-family:"Roboto", "Odoo Unicode Support Noto", sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.section-heading {
+    font-size: 28px;
+    font-family:"Roboto", "Odoo Unicode Support Noto", sans-serif;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.partner-card {
+                            background: rgba(255, 255, 255,0.7);
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            border-radius: 16px;
+                            padding: 0px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 120px;
+                            transition: all 0.3s ease;
+                            cursor: pointer;
+                            box-shadow : 0 5px 20px rgba(0, 0, 0, 0.1);
+                            margin-bottom: 0px;
+                            transition: all 0.5s;
+                            }
+
+                            .partner-card:hover {
+                            background: rgba(255, 255, 255, 0.2);
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                            transform: translateY(-5px);
+                            transition: all 0.5s;
+                            }
+
+.partner-logo {
+    max-height: 40px;
+    max-width: 100%;
+    object-fit: contain;
+}
+// ---------------about us start ---------------
+.about-btn:hover {
+    background: #004899;
+    color: white;
+    padding: 12px 41px !important;
+}
+.about-btn {
+    border: 2px solid #00489B;
+    color: #004899;
+    padding: 12px 41px !important;
+}
+.about-us p {
+    line-height: 27px;
+    margin-bottom: 3rem;
+}
+.modal-title {
+    color: #002147;
+}
+.modal-body p>span{
+    color: #29abe2;
+}
+.modal-body h5 {
+    color: #002147;
+}
+.modal-body hr {
+   width: 100px;
+    border-top: 2px solid #fbb03b;
+    margin: 26px auto;
+}
+
+// ---------------about us end ---------------
+// <------------------------------our partner start------------------------------->
+ ////////////////* our service start*////////////////////////
+
+ .courses {
+min-height: 100vh;
+background: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .9)),
+url('/nexus_nms/static/src/images/NEXUS Knowledge.1.4.pptx (1).jpg') center center no-repeat;
+background-attachment: fixed;
+background-size: cover;
+}
+.courses-item a h5 {
+    color: rgb(0, 33, 71) !important;
+}
+
+
+.courses-item .courses-overlay {
+position: absolute;
+width: 100%;
+height: 0;
+top: 0;
+left: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(0, 0, 0, .5);
+overflow: hidden;
+opacity: 0;
+transition: .5s;
+}
+
+.courses-item:hover .courses-overlay {
+height: 100%;
+opacity: 1;
+}
+#carouselExampleCaptions span.carousel-control-prev-icon {
+    position: relative;
+    right: 51px;
+}
+
+#carouselExampleCaptions span.carousel-control-next-icon {
+    position: relative;
+    left: 51px;
+}
+.courses-item {
+    border-radius: 8px;
+//     display: flex !important;
+//     justify-content: space-between;
+}
+.carousel-indicators {
+    position: absolute;
+    right: 0;
+    bottom: -51px;
+    left: 0;
+    z-index: 2;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex ;
+    justify-content: center;
+    padding: 0;
+    margin-right: 15%;
+    margin-bottom: 1rem;
+    margin-left: 15%;
+    list-style: none;
+    }
+
+
+    .center-ourservice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    .btn-ourservice:hover{
+    color: #004899;
+    background-color: white;
+    border-color: #004899;
+    box-shadow: 0;
+    padding: 10px 35px !important;
+    }
+    .btn-ourservice{
+    color: #FFF;
+    background-color: #004899;
+    border-color: #004899;
+    box-shadow: 0;
+    padding: 10px 35px !important;
+    }
+////////////////* our service end*///////////////////////////
+
+// ###### staff style start ####
+.team-item {
+    padding: .75rem;
+}
+.team-item .team-social {
+    position: absolute;
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, .75);
+    overflow: hidden;
+    opacity: 0;
+    transition: .5s;
+}
+.team-item:hover .team-social {
+    height: 100%;
+    opacity: 1;
+}
+.team-item:hover::after {
+    height: 100%;
+    background: $primary;
+}
+.team-item::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 0;
+    top: 0;
+    left: 0;
+    background: #FFFFFF;
+    transition: .5s;
+    z-index: -1;
+}
+// .btn-outline-primary{
+//         color: $primary !important;
+//     border-color: $primary !important;
+//     }
+.btn-outline-primary:hover {
+    color: #FFFFFF !important;
+    background-color: $primary !important;
+    border-color:$primary !important;
+    padding-inline: 22px !important;
+}
+.img-container{
+    max-height: 300px;
+    overflow: hidden;
+    }
+.img-container>img{
+    height: 300px;
+    object-fit: cover;
+    }
+.team-item .bg-light {
+    min-height: 149px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+// certificate design kanban
+.o_kanban_renderer .o_kanban_record .certificate-kanban{
+        margin-block: 8px;
+        text-align: center;
+        border: none !important;
+        background: white !important;
+          position: relative;
+    min-width: 150px;
+    overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.5s;
+    }
+.certificate-kanban span.badge.badge-expired {
+    background: #c00f0f;
+}
+.certificate-kanban span.badge.badge-active {
+    background: #107a10;
+}
+.certificate-kanban span.badge.badge-active, .certificate-kanban span.badge.badge-expired{
+      padding: 8px 12px;
+    border-radius: 99px;
+    color: white;
+    font-size: 10px;
+    }
+.o_kanban_renderer .o_kanban_record .certificate-kanban:hover {
+transform: translateY(-8px);
+box-shadow:0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+transition: all 0.5s;
+}
+.oe_kanban_card.oe_kanban_global_click.certificate-kanban:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #004899;
+}
+.certificate-kanban   .card-title {
+font-size: 1.4rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 0.75rem;
+}
+// app icons
+.o_home_menu .o_app .o_app_icon{
+        padding: 6px !important;
+    }
+a[role="menuitem"].nav-link {
+    font-size: 16px;
+}
+li:has(.oe_structure_solo a[href="/contactus"]) {
+    display: none;
+}
+.o-mail-Discuss button.active.o-active{
+    background: linear-gradient(135deg, #52c5f7, #4fa8d8);
+    color: white;
+    overflow: hidden;
+    }
+.o-mail-Discuss button.active.o-active:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+    animation: leftdir 4s infinite;
+}
+.o-mail-MessagingMenu-navbar .o-mail-MessagingMenu-tab.o-active{
+    background: linear-gradient(135deg, #29abe2 0%, #033691 100%);
+    color: white !important;
+}
+ button.courseZoomMeeting[name="show_zoom_meeting"]{
+    background-image: url('/nexus_nms/static/src/images/zoom.png');
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+button.courseMindray[name="show_mindray"]{
+    background-image: url('/nexus_nms/static/src/images/mindray-logo.png');
+      width: 75px;
+    height: 25px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+@keyframes leftdir {
+  0% {
+    left: -100%;
+  }
+  100%{
+      left: 100%;
+      }
+}
+@media screen and (max-width: 992px){
+#header-carousel .carousel-item, #header-carousel .carousel-item.active{
+    height: 1000px !important;
+    max-height: unset !important;
+    }
+    }

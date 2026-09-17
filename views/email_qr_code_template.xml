@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="email_template_with_qr_code" model="mail.template">
+            <field name="name">Student QR Code Email</field>
+            <field name="model_id" ref="model_op_student"/>
+            <field name="subject">Your QR Code</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Hello ${object.name},</p>
+            <p>Attached is your QR code.</p>
+            <p>Thank you!</p>
+        ]]>
+            </field>
+            <field name="attachment_ids" eval="[(0, 0, {
+        'name': 'QR_Code.png',
+        'datas': object.qr_code,
+        'mimetype': 'image/png'
+    })]"/>
+        </record>
+    </data>
+</odoo>

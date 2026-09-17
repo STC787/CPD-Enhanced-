@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_job_opportunity_kanban_view">
+            <field name="name">masrtech_job_opportunity_kanban</field>
+            <field name="model">masrtech.job.opportunity</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_job_opportunity_form_view">
+            <field name="model">masrtech.job.opportunity</field>
+            <field name="arch" type="xml">
+                <form string="Job Opportunities">
+                    <header>
+                        <button type="object" name="send_to_students" string="Send to students"
+                                class="oe_highlight" invisible="not check_student"/>
+                        <button type="object" name="send_to_staff" string="Send to Staff"
+                                class="oe_highlight" invisible="check_student"/>
+                    </header>
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="email"/>
+                            <field name="description"/>
+                            <field name="masrtech_department" widget="many2many_tags"/>
+                            <field name="requirements"/>
+                            <field name="location"/>
+                            </group>
+                            <group class="w-50">
+                            <field name="salary"/>
+                            <field name="deadline"/>
+                            <field name="job_type"/>
+                            <field name="experience_required"/>
+                            <field name="education_level"/>
+                            <field name="skills_required" widget="many2many_tags"/>
+                            <field name="check_student" invisible="1"/>
+                        </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_job_opportunity_tree_view">
+            <field name="model">masrtech.job.opportunity</field>
+            <field name="arch" type="xml">
+                <tree string="Job Opportunities">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_masrtech_job_opportunity" model="ir.actions.act_window">
+            <field name="name">Job Opportunities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.job.opportunity</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+
+        <record model="ir.ui.view" id="masrtech_type_job_opportunity_form_view">
+            <field name="model">masrtech.type.job.opportunity</field>
+            <field name="arch" type="xml">
+                <form string="Job Opportunities">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="check_rec"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_type_job_opportunity_kanban_view">
+            <field name="name">masrtech_type_job_opportunity_kanban</field>
+            <field name="model">masrtech.type.job.opportunity</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="create_job_opportunity" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

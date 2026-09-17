@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="iframe_edx_form">
+            <field name="model">iframe.edx</field>
+            <field name="arch" type="xml">
+                <form string="TMS">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                                <field name="iframe_code"  widget="html" />
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="iframe_edx_tree">
+            <field name="model">iframe.edx</field>
+            <field name="arch" type="xml">
+                <tree string="TMS">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_iframe_edx" model="ir.actions.act_window">
+            <field name="name">TMS</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">iframe.edx</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

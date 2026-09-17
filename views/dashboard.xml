@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Simple Dashboard Kanban View -->
+        <record id="view_simple_dashboard_kanban" model="ir.ui.view">
+            <field name="name">simple.dashboard.kanban</field>
+            <field name="model">simple.dashboard</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_dashboard">
+                    <field name="select_title"/>
+                    <field name="description"/>
+                    <!--                    <field name="icon_class"/>-->
+                    <!--                    <field name="color"/>-->
+                    <!--                    <field name="record_count"/>-->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class=" kanban-card  oe_kanban_card oe_kanban_global_click ">
+                                <style>
+                                    :root {
+                                    --primary-color: #4f46e5;
+                                    --secondary-color: #6366f1;
+                                    --success-color: #10b981;
+                                    --info-color: #06b6d4;
+                                    --warning-color: #f59e0b;
+                                    --danger-color: #ef4444;
+                                    --light-bg: #f8fafc;
+                                    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0,
+                                    0.06);
+                                    --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0,
+                                    0, 0, 0.04);
+                                    }
+
+
+                                    .dashboard-container {
+                                    background: var(--light-bg);
+                                    min-height: 100vh;
+                                    padding: 2rem 0;
+                                    }
+
+                                    .dashboard-header {
+                                    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color)
+                                    100%);
+                                    color: white;
+                                    padding: 3rem 0;
+                                    margin-bottom: 3rem;
+                                    border-radius: 0 0 30px 30px;
+                                    box-shadow: var(--card-shadow);
+                                    }
+
+
+                                    .kanban-card {
+                                    background: white !important;
+                                    border-radius: 20px;
+                                    box-shadow: var(--card-shadow);
+                                    transition: all 0.3s ease;
+                                    border: none !important;
+                                    overflow: hidden;
+                                    height: 100%;
+                                    padding:1px !important;
+                                    position: relative;
+                                    }
+                                    .o_kanban_renderer .o_kanban_record > div:not(.o_dropdown_kanban),
+                                    .o_kanban_renderer .o_kanban_quick_create{
+                                      padding:1px !important;
+                                    }
+
+                                    .kanban-card:hover {
+                                    transform: translateY(-8px);
+                                    box-shadow: var(--card-hover-shadow);
+                                    }
+
+                                    .kanban-card::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    height: 4px;
+                                    background: #004899;
+                                    }
+
+                                    .card-icon {
+                                    width: 60px;
+                                    height: 60px;
+                                    border-radius: 50%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin: 0 auto 1.5rem;
+                                    font-size: 2rem;
+                                    color: white;
+                                    position: relative;
+                                    overflow: hidden;
+                                    }
+
+                                    .card-icon::before {
+                                    content: '';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    border-radius: 50%;
+                                    opacity: 0.1;
+
+                                    }
+
+
+                                    .card-title {
+                                    font-size: 1.4rem;
+                                    font-weight: 600;
+                                    color: #1f2937;
+                                    margin-bottom: 0.75rem;
+                                    }
+
+                                    .card-description {
+                                    color: #6b7280;
+                                    font-size: 0.95rem;
+                                    line-height: 1.5;
+                                    ;
+                                    }
+
+                                    .action-btn {
+
+                                    background: #004899;
+                                    border: none;
+                                    border-radius: 12px;
+                                    padding: 12px 25px;
+                                    font-weight: 600;
+                                    color: white;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+                                    width: 80%;
+                                    }
+
+                                    .action-btn:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+                                    color: #004899;
+                                    padding: 12px 25px;
+                                    border: 1px solid blue;
+                                    background:white
+                                    }
+
+
+                                    .o_kanban_dashboard {
+                                    padding: 0;
+                                    }
+
+                                    @media (max-width: 768px) {
+                                    .dashboard-title {
+                                    font-size: 2rem;
+                                    }
+
+                                    .kanban-card {
+                                    margin-bottom: 1.5rem;
+                                    }
+
+                                    .card-icon {
+                                    width: 70px;
+                                    height: 70px;
+                                    font-size: 1.5rem;
+                                    }
+                                    }
+
+                                    .fade-in {
+                                    animation: fadeIn 0.6s ease-in;
+                                    }
+
+                                    @keyframes fadeIn {
+                                    from { opacity: 0; transform: translateY(20px); }
+                                    to { opacity: 1; transform: translateY(0); }
+                                    }
+                                </style>
+
+
+                                <div class="  o_kanban_card_header text-center" style="padding: 20px;">
+                                    <div class="o_primary">
+                                        <!--                                        <i t-attf-class="fa #{record.icon_class.raw_value} fa-4x mb-3" style="color: #007bff;"/>-->
+
+                                        <br/>
+                                        <div class="card-icon user-icon">
+                                            <img
+                                                    src="/nexus_nms/static/src/images/graduation.png" alt=""
+                                                    style="" class="img-fluid"/>
+                                        </div>
+                                        <h3>
+                                            <strong>
+                                                <field name="select_title" class="card-title"/>
+                                            </strong>
+                                        </h3>
+                                    </div>
+                                    <div class="o_secondary text-muted">
+                                        <p class="card-description">
+                                            <field name="description"/>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!--                                <div class="o_kanban_card_content text-center" style="padding: 0 20px;">-->
+                                <!--                                    <div class="o_kanban_number mb-3">-->
+                                <!--                                        <span style="font-size: 24px; font-weight: bold; color: #28a745;">-->
+                                <!--                                            &lt;!&ndash;                                            <field name="record_count"/>&ndash;&gt;-->
+                                <!--                                        </span>-->
+                                <!--                                        <br/>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+
+                                <div class="o_kanban_card_footer text-center " style="padding: 20px;">
+                                    <button type="object" name="action_view_records"
+                                            class="btn   action-btn"
+                                            style="width: 80%; padding: 12px;">
+                                        <i class="fa fa-eye"/>
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="view_dashboard_form" model="ir.ui.view">
+            <field name="name">Dashboard</field>
+            <field name="model">simple.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="dashboard">
+                    <sheet>
+                        <group>
+                            <field name="select_title"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_simple_dashboard" model="ir.actions.act_window">
+            <field name="name">Main Dashboard</field>
+            <field name="res_model">simple.dashboard</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Welcome to your Dashboard!
+                </p>
+                <p>
+                    Click on the cards to access different modules and manage your data.
+                </p>
+            </field>
+        </record>
+
+        <!-- Dashboard Menu -->
+        <!--        <menuitem id="menu_main_dashboard"-->
+        <!--                  name="Dashboard"-->
+        <!--                  action="action_simple_dashboard"-->
+        <!--                  sequence="1"-->
+        <!--                  web_icon="fa-dashboard"/>-->
+    </data>
+</odoo>

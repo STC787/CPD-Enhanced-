@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="custom_footer_template" inherit_id="website.layout">
+            <xpath expr="//footer" position="replace">
+                <style>
+                    body {
+                    background: #f8f9fa;
+                    min-height: 70vh;
+                    display: flex;
+                    flex-direction: column;
+                    }
+
+                    .main-content {
+                    flex: 1;
+                    padding: 3rem 0;
+                    }
+
+                    /* Footer Styles */
+                    .custom-footer {
+                    background: linear-gradient(135deg, #29abe2 0%, #000f2a 100%);
+                    color: white;
+                    position: relative;
+                    overflow: hidden;
+                    }
+
+                    .custom-footer::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 4px;
+                    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffc107);
+                    background-size: 400% 100%;
+                    animation: gradientMove 8s ease infinite;
+                    }
+
+                    @keyframes gradientMove {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    }
+
+                    .footer-section-title {
+
+                    font-weight: 600;
+                    margin-bottom: 1.5rem;
+                    position: relative;
+                    padding-bottom: 0.5rem;
+                    color: white;
+                    }
+
+                    .footer-section-title::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 80px;
+                    height: 3px;
+                    background: linear-gradient(90deg, #fbb03b, #4af7f0);
+                    border-radius: 2px;
+                    }
+
+                    .nexus-brand {
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: white;
+                    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                    margin-bottom: 1rem;
+                    }
+
+                    .footer-links {
+                    list-style: none;
+                    padding: 0;
+                    }
+
+                    .footer-links li {
+                    margin-bottom: 0.8rem;
+                    transition: transform 0.3s ease;
+                    }
+
+                    .footer-links li:hover {
+                    transform: translateX(10px);
+                    }
+
+                    .footer-links a {
+                    color: #e0e0e0;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    padding: 0.5rem 0;
+                    transition: all 0.3s ease;
+                    border-radius: 5px;
+                    position: relative;
+                        font-size: 16px;
+                    }
+
+                    .footer-links a:hover {
+                    color: white;
+                    background: rgba(255, 255, 255, 0.1);
+                    padding-left: 1rem;
+                    }
+
+
+
+                    .
+
+                    .newsletter-card {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 15px;
+                    backdrop-filter: blur(10px);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                    }
+
+                    .form-control:focus {
+                    border-color: #4ecdc4;
+                    box-shadow: 0 0 0 0.2rem rgba(78, 205, 196, 0.25);
+                    }
+
+                    .btn-gradient {
+                    background: linear-gradient(45deg, #29abe2, #4ecdc4);
+                    border: none;
+                    color: white;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                    }
+
+                    .btn-gradient:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    color: white;
+                    }
+
+                    .btn-gradient::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                    transition: left 0.5s ease;
+                    }
+
+                    .btn-gradient:hover::before {
+                    left: 100%;
+                    }
+
+                    .social-btn {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 2px solid transparent;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    margin: 0 0.25rem;
+                    }
+
+                    .social-btn:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    transform: translateY(-3px) scale(1.1);
+                    border-color: #4ecdc4;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    color: #4ecdc4;
+                    }
+
+                    .footer-bottom {
+                    border-top: 1px solid rgba(255, 255, 255, 0.2);
+                    color: #b0b0b0;
+                    }
+
+                    .operated-link {
+                    color: white;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: color 0.3s ease;
+                    font-size:16px;
+                    }
+
+                    .operated-link:hover {
+                    color: blue;
+                    }
+
+                    /* Floating decorative elements */
+                    .floating-shape {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.05);
+                    pointer-events: none;
+                    }
+
+                    .shape-1 {
+                    width: 100px;
+                    height: 100px;
+                    top: 10%;
+                    left: 10%;
+                    animation: float1 6s ease-in-out infinite;
+                    }
+
+                    .shape-2 {
+                    width: 80px;
+                    height: 80px;
+                    top: 60%;
+                    right: 10%;
+                    animation: float2 8s ease-in-out infinite;
+                    }
+
+                    @keyframes float1 {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(180deg); }
+                    }
+
+                    @keyframes float2 {
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-15px) rotate(-180deg); }
+                    }
+
+                    .brand-description {
+                    color: #e0e0e0;
+                    line-height: 1.6;
+                    font-size: 0.95rem;
+                    font-size: 1.2rem;
+                    }
+
+                    /* Responsive adjustments */
+                    @media (max-width: 768px) {
+                    .footer-section-title::after {
+                    width: 30px;
+                    }
+
+                    .nexus-brand {
+                    font-size: 1.5rem;
+                    text-align: center;
+                    }
+
+                    .social-buttons {
+                    justify-content: center !important;
+                    }
+                    }
+                </style>
+
+
+                <footer class="custom-footer py-5">
+                    <!-- Floating decorative shapes -->
+                    <div class="floating-shape shape-1"></div>
+                    <div class="floating-shape shape-2"></div>
+
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                 <div class="nexus-brand">NEXUS</div>
+                            </div>
+                            <!-- Get in Touch Section -->
+                            <div class="col-lg-4 col-md-6 px-3">
+                                <h3 class="footer-section-title">Get in Touch</h3>
+                                <p class="brand-description">
+                                    Connect with us and discover innovative solutions for your business needs. We're
+                                    here to help you grow and succeed.
+                                </p>
+                            </div>
+
+                            <!-- Quick Links Section -->
+                            <div class="col-lg-4 col-md-6 px-3">
+                                <h3 class="footer-section-title">Quick Links</h3>
+                                <ul class="footer-links">
+                                     <li>
+                                        <a href="/#ourservice">Our Services</a>
+                                    </li>
+                                    <li>
+                                        <a href="/#aboutus">About Us</a>
+                                    </li>
+                                    <li>
+                                        <a href="/#partner">Our Partner</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="/#Testimonial">Testimonial</a>
+                                    </li>
+                                    <li>
+                                        <a href="/blog">Blogs</a>
+                                    </li>
+                                    <li>
+                                        <a href="#support">Contact us</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Newsletter Section -->
+                            <div class="col-lg-4 col-md-12 px-3">
+                                <div class="newsletter-card ">
+                                    <h3 class="footer-section-title">Newsletter</h3>
+                                    <form class="mb-3">
+                                        <div class="input-group mb-3">
+                                            <input type="email" class="form-control" placeholder="Your Email Address"/>
+                                            <button class="btn btn-gradient px-4" type="submit">Send</button>
+                                        </div>
+                                    </form>
+                                    <p class="mb-3" style="color: #e0e0e0; font-size: 0.9rem;">Follow Us</p>
+                                    <div class="d-flex social-buttons">
+                                        <a href="#" class="social-btn" title="Twitter">
+                                            <i class="fa-brands fa-twitter" style="color: #ffffff;"></i>
+                                        </a>
+                                        <a href="#" class="social-btn" title="Facebook">
+                                           <i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i>
+                                        </a>
+                                        <a href="#" class="social-btn" title="YouTube">
+                                          <i class="fa-brands fa-youtube" style="color: #ffffff;"></i>
+                                        </a>
+                                        <a href="#" class="social-btn" title="LinkedIn">
+                                           <i class="fa-brands fa-linkedin-in" style="color: #ffffff;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Bottom -->
+                        <div class="footer-bottom pt-4 mt-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 text-center text-md-start">
+                                    <small>Operated By:
+                                        <a href="https://www.3s-groups.com/?fbclid=IwY2xjawLFVghleHRuA2FlbQIxMABicmlkETF0YUQ2YjlCYkhKbHhEeWRGAR5jNcahNU3G-hpHrAOySBXeI0BDl0zZ2dRFLf-UF9Fn5DDj9zk1bG0de7lbUg_aem_7ZnZ5ZDqpu-3zjVSTqkxYw" class="operated-link">Smart Scientific Solution</a>
+                                    </small>
+                                </div>
+                                <div class="col-md-6 text-center text-md-end">
+                                    <small>© 2025 Nexus. All rights reserved.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- Copyright End -->
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_factory_type_kanban_view">
+            <field name="name">Factory_type_kanban</field>
+            <field name="model">masrtech.factory.type</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="action_masrtech_factory" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_factory_type_form_view">
+            <field name="model">masrtech.factory.type</field>
+            <field name="arch" type="xml">
+                <form string="Factories">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="industry"/>
+                            <field name="industry_health"/>
+                            <field name="field"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_factory_type_tree_view">
+            <field name="model">masrtech.factory.type</field>
+            <field name="arch" type="xml">
+                <tree string="Factories">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_masrtech_factory_type" model="ir.actions.act_window">
+            <field name="name">Factories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.factory.type</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+        </record>
+
+        <!--        <record model="ir.ui.view" id="masrtech_industry_kanban_view">-->
+        <!--            <field name="name">industry_kanban</field>-->
+        <!--            <field name="model">masrtech.industry</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <kanban class="o_kanban_small_column" action="action_masrtech_factory" type="object" sample="1">-->
+        <!--                    <field name="name"/>-->
+        <!--                    <templates>-->
+        <!--                        <t t-name="kanban-box">-->
+        <!--                            <div t-attf-class="oe_kanban_global_click">-->
+        <!--                                <div class="o_kanban_record_top">-->
+        <!--                                    <ul>-->
+        <!--                                        Name :-->
+        <!--                                        <field name="name"/>-->
+        <!--                                    </ul>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+        <!--                        </t>-->
+        <!--                    </templates>-->
+        <!--                </kanban>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record model="ir.ui.view" id="masrtech_factory_form_view">
+            <field name="model">masrtech.factory</field>
+            <field name="arch" type="xml">
+                <form string="Factories">
+                    <header>
+                        <button type="object" name="recruitment" string="Recruitment" class="oe_highlight"/>
+                        <button type="object" name="create_training" string="Training"
+                                class="oe_highlight"
+                        />
+                        <button type="object" name="create_type_job_opportunity" string="Job Opportunity"
+                                class="oe_highlight"
+                        />
+<!--                        <button type="object" name="create_project_type" string="Create Project"-->
+<!--                                class="oe_highlight"-->
+<!--                        />-->
+<!--                        <button type="object" name="create_problem" string="Create Problem"-->
+<!--                                class="oe_highlight"-->
+<!--                        />-->
+                    </header>
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="btn oe_stat_button" type="object"
+                                    name="go_to_training_recommendation"
+                                    string="Training Recommendations"
+                                    style="border-right: 1px solid;"
+                                    icon="fa-file"/>
+                            <button class="btn oe_stat_button" type="object"
+                                    name="go_to_job_opportunity_recommendation"
+                                    string="Job opportunities Recommendations"
+                                    style="border-right: 1px solid;"
+                                    icon="fa-briefcase"/>
+<!--                            <button class="btn oe_stat_button" type="object"-->
+<!--                                    name="go_to_project_type_recommendation"-->
+<!--                                    string="Project Recommendations"-->
+<!--                                    style="border-right: 1px solid;"-->
+<!--                                    icon="fa-tasks"/>-->
+<!--                            <button class="btn oe_stat_button" type="object"-->
+<!--                                    name="go_to_problem_recommendation"-->
+<!--                                    string="Problems Recommendations"-->
+<!--                                    style="border-right: 1px solid;"-->
+<!--                                    icon="fa-file"/>-->
+                        </div>
+
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                                <field name="type_sub"/>
+                                <field name="type_sub_name" invisible="1"/>
+                                <field name="type" invisible="type_sub_name not in ['مصانع']"/>
+                                <field name="industry" invisible="type in ['nothing', 'health']"/>
+                                <field name="industry_health" invisible="type in ['nothing', 'industry']"/>
+                                <field name="description"/>
+                                <field name="sector"/>
+                                <field name="founded_date"/>
+                            </group>
+                            <group class="w-50">
+                                <field name="website"/>
+                                <field name="contact_name"/>
+                                <field name="contact_email"/>
+                                <field name="contact_phone"/>
+                                <!--                            <field name="employees"/>-->
+                                <field name="annual_revenue"/>
+                                <field name="country"/>
+                                <field name="city"/>
+                                <field name="state"/>
+
+                                <!--                            <field name="masrtech_factory" widget="many2many_tags"/>-->
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_factory_tree_view">
+            <field name="model">masrtech.factory</field>
+            <field name="arch" type="xml">
+                <tree string="Factories">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_factory" model="ir.actions.act_window">
+            <field name="name">Factories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.factory</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,1847 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <template id="homefont_home" name="home" inherit_id="website.layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+            </xpath>
+        </template>
+        <template id="Home1">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <!-- Icon Font Stylesheet -->
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <style>
+                            /* Main Section */
+                            #ourservice {
+                            padding: 80px 0;
+                            background-color: #ffffff;
+                            }
+
+                            /* Title Styling */
+                            .display-6 {
+                            font-size: 2.5rem;
+                            font-weight: 700;
+                            text-align: center;
+                            color: var(--dark-color);
+                            position: relative;
+                            }
+                            /* Title Styling */
+                            .display-5 {
+                            font-size: 2.5rem;
+                            font-weight: 700;
+                            text-align: start;
+                            color: var(--dark-color);
+                            position: relative;
+                            }
+
+                            .display-6::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -15px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 80px;
+                            height: 4px;
+                            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+                            border-radius: 2px;
+                            }
+
+                            /* Service Cards */
+                            .courses-item {
+                            background: #ffffff;
+                            border: none;
+                            border-radius: 20px;
+                            overflow: hidden;
+                            box-shadow: var(--card-shadow);
+                            transition: all 0.4s ease;
+                            height: 100%;
+                            position: relative;
+                            }
+
+                            .courses-item::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 5px;
+                            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+                            transform: scaleX(0);
+                            transition: transform 0.4s ease;
+                            transform-origin: left;
+                            }
+
+                            .courses-item:hover {
+                            transform: translateY(-10px);
+                            box-shadow: var(--card-shadow-hover);
+                            }
+
+                            .courses-item:hover::before {
+                            transform: scaleX(1);
+                            }
+
+                            .divHeader {
+                            font-size: 1.8rem;
+                            font-weight: 700;
+                            color: var(--dark-color);
+                            margin-bottom: 0.5rem;
+                            margin-top: 0;
+                            transition: color 0.3s ease;
+                            }
+
+                            .courses-item:hover .divHeader {
+                            color: var(--primary-color);
+                            }
+
+                            .text-center h5 {
+                            font-size: 1.1rem;
+                            color: var(--primary-color);
+                            font-weight: 600;
+                            margin-bottom: 1rem;
+                            }
+
+                            .courses-item p {
+                            color: #666;
+                            line-height: 1.6;
+                            margin-bottom: 2rem;
+                            font-size: 0.95rem;
+                            }
+
+                            /* Enhanced Button */
+                            .iconBtn {
+                            background: #29abe2;
+                            color: white;
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 50px;
+                            font-weight: 600;
+                            text-decoration: none;
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 8px;
+                            transition: all 0.3s ease;
+                            position: relative;
+                            overflow: hidden;
+                            }
+
+                            .iconBtn::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                            transition: left 0.6s ease;
+                            }
+
+                            .iconBtn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+                            color: white;
+                            text-decoration: none;
+                            }
+
+                            .iconBtn:hover::before {
+                            left: 100%;
+                            }
+
+                            .iconBtn:hover i {
+                            transform: translateX(3px);
+                            }
+
+                            /* Image Container */
+                            .position-relative {
+                            position: relative;
+                            overflow: hidden;
+                            height: 250px;
+                            }
+
+                            .img-fluid {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: transform 0.4s ease;
+                            }
+
+                            .courses-item:hover .img-fluid {
+                            transform: scale(1.05);
+                            }
+
+                            .position-relative::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(0, 168, 255, 0.1));
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
+                            }
+
+                            .courses-item:hover .position-relative::after {
+                            opacity: 1;
+                            }
+
+                            /* CTA Section */
+                            .center-ourservice {
+                            text-align: center;
+                            border-top: 1px solid #e9ecef;
+                            }
+
+                            .btn-ourservice {
+                            background:#47b9e3;
+                            color: white;
+                            border: none;
+                            padding: 15px 40px;
+                            border-radius: 50px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            text-decoration: none;
+                            display: inline-block;
+                            transition: all 0.3s ease;
+                            position: relative;
+                            overflow: hidden;
+                            }
+
+                            .btn-ourservice::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 0;
+                            height: 0;
+                            background: rgba(255, 255, 255, 0.2);
+                            border-radius: 50%;
+                            transition: all 0.4s ease;
+                            transform: translate(-50%, -50%);
+                            }
+
+                            .btn-ourservice:hover {
+                            transform: translateY(-3px);
+                            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+
+                            text-decoration: none;
+                            }
+
+                            .btn-ourservice:hover::before {
+                            width: 300px;
+                            height: 300px;
+                            }
+
+                            /* Animation Classes */
+                            .wow {
+                            animation: fadeInUp 0.8s ease-out;
+                            }
+
+                            .wow[data-wow-delay="0.1s"] {
+                            animation: fadeInUp 0.8s ease-out 0.2s both;
+                            }
+
+                            .wow[data-wow-delay="0.3s"] {
+                            animation: fadeInUp 0.8s ease-out 0.4s both;
+                            }
+
+                            .wow[data-wow-delay="0.5s"] {
+                            animation: fadeInUp 0.8s ease-out 0.6s both;
+                            }
+
+                            @keyframes fadeInUp {
+                            from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                            }
+                            to {
+                            opacity: 1;
+                            transform: translateY(0);
+                            }
+                            }
+
+                            /* Responsive Design */
+                            @media (max-width: 768px) {
+                            .services-section {
+                            padding: 60px 0;
+                            }
+
+                            .main-title {
+                            font-size: 2.5rem;
+                            margin-bottom: 3rem;
+                            }
+
+                            .card-content {
+                            padding: 1.5rem;
+                            }
+
+                            .service-image {
+                            height: 200px;
+                            }
+
+                            .service-card {
+                            margin-bottom: 2rem;
+                            }
+                            }
+
+                            @media (max-width: 576px) {
+                            .main-title {
+                            font-size: 2rem;
+                            }
+
+                            .service-title {
+                            font-size: 1.3rem;
+                            }
+
+                            .service-subtitle {
+                            font-size: 1rem;
+                            }
+
+                            .card-content {
+                            padding: 1.25rem;
+                            }
+                            }
+
+                            /* Additional Card Hover Effects */
+                            .courses-item:hover {
+                            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+                            }
+
+                            /* Service Icons */
+                            .service-icon {
+                            width: 75px;
+                            height:75px;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 2rem;
+                            color: white;
+                            transition: all 0.4s ease;
+                            position: relative;
+                            overflow: hidden;
+                            }
+
+                            .service-icon::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 0;
+                            height: 0;
+                            background: rgba(255, 255, 255, 0.2);
+                            border-radius: 50%;
+                            transition: all 0.3s ease;
+                            transform: translate(-50%, -50%);
+                            }
+
+                            .courses-item:hover .service-icon::before {
+                            width: 50%;
+                            height: 50%;
+                            }
+
+                            .courses-item:hover .service-icon {
+                            transform: rotateY(360deg) scale(1);
+                            }
+
+                            /* Icon Specific Styling */
+                            .consultation-icon {
+                            background: linear-gradient(135deg, #667eea, #764ba2);
+                            }
+
+                            .tms-icon {
+                            background: linear-gradient(135deg, #fbb03b, #f15a24);
+                            }
+
+                            .training-icon {
+                            background: linear-gradient(135deg, #a8edea, #29abe2);;
+                            }
+
+
+                            <!--                            ////////////////* carousel slider start *////////////////////////-->
+                            <!--                            /* Custom animations and styling */-->
+
+                            .btn-blue {
+                            color: #FFF;
+                            background-color: #004899;
+                            border-color: #004899;
+                            box-shadow: 0;
+                            padding: 17px 47px !important;
+                            }
+
+                            .text-primary-custom {
+                            color: var(--primary-color) !important;
+                            }
+
+                            .testimonial-card {
+                            transition: all 0.5s ease;
+                            overflow: hidden;
+                            }
+
+                            /* Carousel indicator styling */
+                            .carousel-indicators.testimonial [data-bs-target] {
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            background-color: #ccc;
+                            margin: 0 6px;
+                            transition: all 0.3s ease;
+                            }
+
+                            .carousel-indicators.testimonial .active {
+                            background-color: #004899;
+                            transform: scale(1.2);
+                            }
+
+                            /* Carousel controls styling */
+                            .carousel-control-prev.testimonial,
+                            .carousel-control-next.testimonial {
+                            opacity: 0;
+                            transition: all 0.3s ease;
+                            }
+
+                            .carousel.testimonial:hover .carousel-control-prev.testimonial,
+                            .carousel.testimonial:hover .carousel-control-next.testimonial {
+                            opacity: 1;
+                            }
+
+                            .carousel-control-prev-icon.testimonial,
+                            .carousel-control-next-icon.testimonial{
+                            background-color:#004899;
+                            border-radius: 50%;
+                            padding: 10px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                            transition: all 0.3s ease;
+                            }
+
+                            .carousel-control-prev-icon.testimonial:hover,
+                            .carousel-control-next-icon.testimonial:hover {
+                            transform: scale(1.1);
+                            }
+
+                            /* Photo container animation */
+                            .photo-container {
+                            position: relative;
+                            width: 150px;
+                            height: 150px;
+                            margin: 0 auto 40px;
+                            transition: all 0.5s ease;
+                            }
+
+                            .carousel-item.testimonial.active .photo-container {
+                            animation: pulse 2s infinite;
+                            }
+
+                            @keyframes pulse {
+                            0% {
+                            transform: scale(1);
+                            }
+                            50% {
+                            transform: scale(1.05);
+                            }
+                            100% {
+                            transform: scale(1);
+                            }
+                            }
+
+                            /* Quote icon animation */
+                            .quote-icon {
+                            position: absolute;
+                            bottom: -15px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 50px;
+                            height: 50px;
+                            background-color: white;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                            transition: all 0.3s ease;
+                            }
+
+
+                            .carousel-control-prev-icon.testimonial, .carousel-control-next-icon.testimonial{
+                            display: inline-block;
+                            width: 1.7rem;
+                            height: 1.7rem;
+                            FONT-VARIANT: JIS78;
+                            background-position: 50%;
+                            background-size: 100% 70%;
+                            background-repeat: no-repeat;
+                            }
+
+                            *,
+                            .carousel-item.testimonial.active .quote-icon {
+                            animation: bounce 1s ease infinite;
+
+
+                            @keyframes bounce {
+                            0%, 100% {
+                            transform: translateX(-50%) translateY(0);
+                            }
+                            50% {
+                            transform: translateX(-50%) translateY(-5px);
+                            }
+                            }
+
+                            /* Testimonial text animation */
+                            .testimonial-text {
+                            opacity: 0;
+                            transform: translateY(20px);
+                            transition: all 0.5s ease 0.3s;
+                            }
+
+                            .carousel-item.testimonial.active .testimonial-text {
+                            opacity: 1;
+                            transform: translateY(0);
+                            }
+                            .carousel-control-next.testimonial
+                            {
+                            right: -74px;
+                            }
+                            .carousel-control-prev.testimonial {
+                            left: -74px;
+                            }
+
+                            /* Client info animation */
+                            .client-info {
+                            opacity: 0;
+                            transform: translateY(20px);
+                            transition: all 0.5s ease 0.6s;
+                            }
+
+                            .carousel-item.testimonial.active .client-info {
+                            opacity: 1;
+                            transform: translateY(0);
+                            }
+
+                            /* Divider animation */
+                            .divider {
+                            width: 0;
+                            height: 3px;
+                            background-color:#fab918;
+                            margin: 1.5rem auto;
+                            transition: all 1s ease 0.9s;
+                            }
+
+                            .carousel-item.testimonial.active .divider {
+                            width: 25%;
+                            }
+                            @media (max-width: 447px){
+                            .carousel-control-next.testimonial {
+                            right: -7px;
+                            top: -326px;
+                            }
+                            .carousel-control-left.testimonial {
+                            left: -7px;
+                            top: -326px;
+                            }
+                            }
+                            /* Responsive adjustments */
+                            @media (max-width: 768px) {
+                            .photo-container {
+                            width: 120px;
+                            height: 120px;
+                            }
+                            #header-carousel .carousel-item img {
+                            position: relative !important;
+                            }
+
+                            .quote-icon {
+                            width: 40px;
+                            height: 40px;
+                            }
+                            }
+
+                            @media (max-width: 576px) {
+                            .photo-container {
+                            width: 100px;
+                            height: 100px;
+                            }
+
+                            .quote-icon {
+                            width: 35px;
+                            height: 35px;
+                            }
+                            }
+                            .font-header {
+                            font-weight: 700;
+                            font-size:41px;
+                            }
+                            #header-carousel .carousel-item,#header-carousel .carousel-item.active {
+                            min-height: 540px !important;
+                            max-height: 100vh;
+                            }
+                            <!--                            ////////////////* carousel slider end *////////////////////////-->
+                            <!--                            card-->
+                            #modalAboutUs.modal-dialog.modal-lg {
+                            max-width: 90% !important;
+                            }
+                            .cards-container {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            gap: 2rem;
+                            }
+
+                            .card {
+                            width:405px;
+                            background-color: white;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            transition: all 0.3s ease;
+                            }
+
+                            .card:hover {
+                            transform: translateY(-10px);
+                            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
+                            }
+
+                            .card-image {
+                            position: relative;
+                            height: 180px;
+                            overflow: hidden;
+                            }
+
+                            .card-image img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: transform 0.5s ease;
+                            }
+
+                            .card:hover .card-image img {
+                            transform: scale(1.05);
+                            }
+
+                            .card-image::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: rgba(0, 0, 0, 0);
+                            transition: background-color 0.3s ease;
+                            }
+
+                            .card:hover .card-image::after {
+                            background-color: rgba(0, 0, 0, 0.2);
+                            }
+
+                            .card-content {
+                            padding: 1.5rem;
+                            }
+
+                            .card-title {
+                            font-size: 1.25rem;
+                            font-weight: bold;
+                            margin-bottom: 0.75rem;
+                            color: #003f88;
+                            transition: color 0.3s ease;
+                            }
+
+                            .card:hover .card-title {
+                            color: #3b82f6;
+                            }
+
+                            .card-description {
+                            color: #666;
+                            line-height: 1.5;
+                            opacity: 0.8;
+                            transition: opacity 0.3s ease;
+                            }
+
+                            .card:hover .card-description {
+                            opacity: 1;
+                            }
+                            .main-desc{
+                            text-align: center;
+                            width: 58%;
+                            margin: auto;
+                            margin-bottom: 35px;
+                            }
+                            .modal-body h5 {
+                            color: #0a55ab;
+                            font-size: 25px;
+                            text-align: center;
+                            }
+                            .advantages{
+                            width: 60% !important;
+                            margin: auto;
+                            text-align: center;
+                            }
+                            .p-adv{
+                            width: 76%;
+                            margin: 23px auto;
+                            }
+                            h3.divHeader{
+                            color: #004899;
+                            }
+                            .iconBtn i{
+                            transition: all 0.5s ease;
+                            }
+                            .iconBtn:hover i{
+                            transform: rotate(180deg);
+                            transition: all 0.5s ease;
+                            }
+                            .courses-item p{
+                            min-height: 100px;
+                            }
+                            .nexus-brand-header {
+                            font-size: 5rem;
+                            font-weight: bold;
+                            color: white;
+                            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                            margin-bottom: 0.7rem;
+
+                            .partner-card {
+                            background-color:#ffffff !important;
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            border-radius: 16px;
+                            padding: 0px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 98px;
+                            transition: all 0.3s ease;
+                            cursor: pointer;
+                            box-shadow : 0 5px 20px rgba(0, 0, 0, 0.1);
+                            margin-bottom: 0px;
+                            transition: all 0.5s;
+                            }
+
+                            .partner-card:hover {
+                            background: white;
+                            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                            transform: translateY(-5px);
+                            transition: all 0.5s;
+                            }
+                        </style>
+                    </head>
+
+                    <!-- Spinner Start -->
+                    <div id="spinner"
+                         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                        <div class="spinner-grow text-primary" role="status"></div>
+                    </div>
+                    <div class="oe_structure" id="oe_structure_website_blog_latest_blogs_1">
+                        <section class="py-5 pt-0">
+                            <!-- Carousel Start -->
+                            <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
+                                <div id="header-carousel" class="carousel slide" data-bs-ride="carousel"
+                                >
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active"
+                                             style="background-size: cover !important;background: url(/nexus_nms/static/src/images/blue_background_start.png);">
+                                            <div class="carousel-caption">
+                                                <div class="container">
+
+                                                    <div class="row justify-content-start">
+                                                        <div class="col-lg-6 oe_structure d-flex flex-column justify-content-center"
+                                                             id="oe_structure_website_blog_latest_blogs_1">
+                                                            <h1 class="text-white font-header nexus-brand-header text-start mb-5">
+                                                                NEXUS
+                                                            </h1>
+                                                            <p class="fs-5 text-white text-start w-75 mx-auto w-lg-auto">
+                                                                Where knowledge, innovation, and impact
+                                                                converge-empowering you to lead the future of industry
+                                                                and healthcare.
+                                                            </p>
+
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <img src="/nexus_nms/static/src/images/Purple Modern Twitter Header (2).gif"
+                                                                 alt="/" class="w-100"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                              <div class="carousel-item" style="background-size: cover !important;
+    background: url(/nexus_nms/static/src/images/sl-3.jpg);">
+                                            <div class="carousel-caption">
+                                                <div class="container">
+                                                    <div class="row justify-content-start">
+                                                        <div class="col-lg-6 oe_structure d-flex flex-column justify-content-center"
+                                                             id="oe_structure_website_blog_latest_blogs_1">
+                                                            <h1 class="text-white font-header text-start mb-5">
+                                                                Summer Programs Now Open!
+                                                            </h1>
+                                                            <p class="fs-5 text-white text-start w-75 mx-auto w-lg-auto">
+                                                                Don't wait __pick your program and get started!
+                                                                This summer is yours to own.
+                                                            </p>
+                                                            <a class="btn iconBtn border-2 text-center"
+                                                               href="/training_page" style="margin-top:20px; width: max-content;">
+                                                                Join Us
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <img src="nexus_nms/static/src/images/lh.gif"
+                                                                 alt="/" class="w-100"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item" style="background-size: cover !important;
+    background: url(/nexus_nms/static/src/images/sl-2.jpg);">
+
+                                            <div class="carousel-caption">
+                                                <div class="container">
+                                                    <div class="row justify-content-start">
+                                                        <div class="col-lg-6 oe_structure d-flex flex-column justify-content-center"
+                                                             id="oe_structure_website_blog_latest_blogs_1">
+                                                            <h1 class="text-white font-header text-start mb-5">Speak to
+                                                                an
+                                                                Expert
+                                                            </h1>
+                                                            <p class="fs-5 text-white text-start w-75 mx-auto w-lg-auto">
+                                                                Unlock tailored
+                                                                expertise
+                                                                for
+                                                                your organization. NEXUS consultations connect you with
+                                                                leading industry and healthcare specialists to solve
+                                                                complex
+                                                                challenges, drive digital transformation, optimize
+                                                                operations, and implement innovative solutions. Benefit
+                                                                from
+                                                                actionable advice and strategic guidance designed to
+                                                                accelerate growth and ensure sustainable impact.
+                                                            </p>
+
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <img src="nexus_nms/static/src/images/ste.gif"
+                                                                 alt="/" class="w-100"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item" style="background-size: cover !important;
+    background: url(/nexus_nms/static/src/images/sl-4.jpg);">
+                                            <div class="carousel-caption">
+                                                <div class="container">
+                                                    <div class="row justify-content-start">
+                                                        <div class="col-lg-6 oe_structure d-flex flex-column justify-content-center"
+                                                             id="oe_structure_website_blog_latest_blogs_1">
+                                                            <h1 class="text-white font-header text-start mb-5">Learn
+                                                                by
+                                                                Doing, Lead by Innovation
+                                                            </h1>
+                                                            <p class="fs-5 text-white text-start w-75 mx-auto w-lg-auto">
+                                                                Our training programs
+                                                                use a practical, industry-driven approach that goes
+                                                                beyond
+                                                                traditional learning. By incorporating real-world data,
+                                                                digital labs, and simulations, participants gain
+                                                                hands-on
+                                                                skills relevant to their fields. We collaborate with top
+                                                                factories, healthcare organizations, and tech providers
+                                                                to
+                                                                offer immersive, scenario-based experiences.
+
+                                                            </p>
+
+<!--                                                            <a class="btn iconBtn border-2  mx-auto text-center"-->
+<!--                                                               href="/program_details" style="margin-top:20px; width: max-content;">-->
+<!--                                                                Join Us-->
+<!--                                                            </a>-->
+
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <img src="nexus_nms/static/src/images/lblead.gif"
+                                                                 alt="/" class="w-100"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#header-carousel"
+                                            data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                            data-bs-target="#header-carousel"
+                                            data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Carousel End -->
+                            <!-- Facts Start -->
+                            <!--                        <div class="container-fluid facts py-5 pt-lg-0">-->
+                            <!--                            <div class="container py-5 pt-lg-0">-->
+                            <!--                                <div class="row gx-0 justify-content-center">-->
+                            <!--                                    <div class="col-lg-4">-->
+                            <!--                                        <div class="bg-white shadow d-flex align-items-center h-100 p-4 justify-content-center"-->
+                            <!--                                             style="min-height: 150px;">-->
+                            <!--                                            <div class="text-center gap-1 d-flex flex-column">-->
+                            <!--                                                <div class="flex-shrink-0 btn-lg-square bg-primary mx-auto my-3 rounded">-->
+                            <!--                                                    <i class="fa-solid fa-earth-americas text-white h1 mb-0"></i>-->
+                            <!--                                                </div>-->
+                            <!--                                                <div>-->
+                            <!--                                                    <h5 class="mb-2">Empower industry and healthcare</h5>-->
+                            <!--                                                    <p>with practical, data-driven learning and expert consulting.</p>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-4">-->
+                            <!--                                        <div class="bg-white shadow d-flex align-items-center h-100 p-4 justify-content-center"-->
+                            <!--                                             style="min-height: 150px;">-->
+                            <!--                                            <div class="text-center gap-1 d-flex flex-column">-->
+                            <!--                                                <div class="flex-shrink-0 btn-lg-square bg-primary mx-auto my-3 rounded">-->
+                            <!--                                                    <i class="fa-solid fa-earth-americas text-white h1 mb-0"></i>-->
+                            <!--                                                </div>-->
+                            <!--                                                <div>-->
+                            <!--                                                    <h5 class="mb-2">Bridge academia and industry</h5>-->
+                            <!--                                                    <p>with practical, data-driven learning and expert consulting.</p>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-4">-->
+                            <!--                                        <div class="bg-white shadow d-flex align-items-center h-100 p-4 justify-content-center"-->
+                            <!--                                             style="min-height: 150px;">-->
+                            <!--                                            <div class="text-center gap-1 d-flex flex-column">-->
+                            <!--                                                <div class="flex-shrink-0 btn-lg-square bg-primary mx-auto my-3 rounded">-->
+                            <!--                                                    <i class="fa-solid fa-earth-americas text-white h1 mb-0"></i>-->
+                            <!--                                                </div>-->
+                            <!--                                                <div>-->
+                            <!--                                                    <h5 class="mb-2">Deliver a scalable, secure, and flexible digital-->
+                            <!--                                                        ecosystem-->
+                            <!--                                                    </h5>-->
+                            <!--                                                    <p>supporting hybrid (online and onsite) learning, consultancy, and-->
+                            <!--                                                        data-driven services.-->
+                            <!--                                                    </p>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                            <!-- Facts End -->
+                            <!---our services start -->
+                            <div id="ourservice" class="container-fluid courses py-6 pb-0">
+                                <div style="padding-bottom:3rem;" class="container">
+                                    <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"
+                                         style="max-width: 500px;">
+                                        <h1 class="display-6 mb-4">Our Services</h1>
+                                    </div>
+
+                                    <div class="row g-4 justify-content-center">
+                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                            <div class="courses-item d-flex flex-column bg-white overflow-hidden h-100">
+                                                <div class="text-center p-4 pt-3 flex-grow-1 d-flex flex-column">
+                                                    <div class="service-icon consultation-icon mx-auto mb-3">
+                                                        <i class="fas fa-comments"></i>
+                                                    </div>
+                                                    <h3 class="fw-bold divHeader mt-3">Consultation</h3>
+                                                    <h5 class="text-center mt-4">Speak to an Expert</h5>
+                                                    <p class="flex-grow-1">Unlock tailored solutions and real-world
+                                                        insights-connect
+                                                        directly
+                                                        with industry and healthcare leaders to accelerate your
+                                                        progress.
+                                                    </p>
+                                                    <div class="mt-auto">
+                                                        <a class="btn  border-2 iconBtn"
+                                                           href="/consultation/form">
+                                                            <i class="fa-solid fa-arrow-left me-2"></i>
+                                                            Join Us
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative">
+                                                    <img class="img-fluid"
+                                                         src="/nexus_nms/static/src/images/consultation.jpeg"
+                                                         alt=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                                            <div class="courses-item d-flex flex-column bg-white overflow-hidden h-100">
+                                                <div class="text-center p-4 pt-3 flex-grow-1 d-flex flex-column">
+                                                    <div class="service-icon tms-icon mx-auto mb-3">
+                                                        <i class="fas fa-graduation-cap"></i>
+                                                    </div>
+                                                    <h3 class="fw-bold divHeader mt-3">CPD</h3>
+                                                    <h5 class="text-center mt-4">Learning Hub</h5>
+                                                    <p class="flex-grow-1">Empowering your future with hands-on,
+                                                        industry-driven
+                                                        learning-where
+                                                        real data meets real skills.
+                                                    </p>
+                                                    <div class="mt-auto">
+                                                        <a class="btn  border-2 iconBtn"
+                                                           href="/programCategory">
+                                                            <i class="fa-solid fa-arrow-left me-2"></i>
+                                                            Join Us
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative">
+                                                    <img class="img-fluid"
+                                                         src="/nexus_nms/static/src/images/tms.jpeg" alt=""
+                                                         loading="lazy" style=""/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                                            <div class="courses-item d-flex flex-column bg-white overflow-hidden h-100">
+                                                <div class="text-center p-4 pt-3 flex-grow-1 d-flex flex-column">
+                                                    <div class="service-icon training-icon mx-auto mb-3">
+                                                        <i class="fas fa-tools"></i>
+                                                    </div>
+                                                    <h3 class="fw-bold divHeader mt-3">Hands-On Training And Courses</h3>
+                                                    <h5 class="mt-4">Learn by Doing, Lead by Innovation</h5>
+                                                    <p class="flex-grow-1">Unlock your potential with immersive,
+                                                        industry-powered
+                                                        training-gain
+                                                        real-world skills, earn global certifications, and shape
+                                                        tomorrow's
+                                                        breakthroughs.
+                                                        Join us and be part of the next generation of innovators.
+                                                    </p>
+                                                    <div class="mt-auto">
+                                                        <a class="btn  border-2 iconBtn"
+                                                           href="/handsOn">
+                                                            <i class="fa-solid fa-arrow-left me-2"></i>
+                                                            Join Us
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative">
+                                                    <img class="img-fluid w-100"
+                                                         src="/nexus_nms/static/src/images/hands-on-training.jpeg"
+                                                         alt=""
+                                                         loading="lazy"/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="center-ourservice">
+                                        <a href="all_Courses">
+                                            <button class="btn btn-ourservice btn-lg btn-hover-effect mt-5">Learning Hub
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- About Start -->
+                            <div id="aboutus" class="container-xxl about-us py-6">
+                                <div class="container">
+                                    <div class="row g-5">
+                                        <div class="col-lg-6 mt-0 wow fadeInUp">
+                                            <div class="position-relative overflow-hidden ps-5 pt-5 h-100"
+                                                 style="min-height: 400px;">
+                                                <img class="position-absolute w-100 h-100"
+                                                     src="/nexus_nms/static/src/images/2ceed6bb95.jpg" alt=""
+                                                     style="object-fit: cover;"/>
+                                                <img class="position-absolute top-0 start-0  bg-white pe-3 pb-3"
+                                                     src="/nexus_nms/static/src/images/unnamed.jpg" alt=""
+                                                     style="width: 200px; height: 200px;"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mt-5 wow fadeInUp">
+                                            <div class="h-100">
+                                                <h1 class="display-5 mb-4">Nexus Platform
+                                                </h1>
+                                                <p>NEXUS is a next-generation digital platform that stands apart from
+                                                    any
+                                                    other solution in the region, delivering an integrated ecosystem for
+                                                    consulting, education, and hands-on training in industry and
+                                                    healthcare.
+                                                    Unlike traditional platforms that focus on only one area, NEXUS
+                                                    unites
+                                                    expert consultations, accredited courses, and immersive field
+                                                    training-empowering organizations and professionals to solve real
+                                                    challenges, upskill their teams, and drive innovation.
+                                                </p>
+
+                                                <div class="row g-4">
+                                                    <div class="col-sm-6">
+                                                        <a class="btn iconBtn py-3 px-5" data-bs-toggle="modal"
+                                                           data-bs-target="#readMoreModal" href="#">Read More
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="readMoreModal" tabindex="-1"
+                                 aria-labelledby="readMoreModalLabel"
+                                 aria-hidden="true">
+                                <div id="modalAboutUs" class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="readMoreModalLabel">About Nexus Platform</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="bigtitle">What Makes NEXUS Different?</h5>
+                                            <hr/>
+                                            <p class="main-desc">Comprehensive, All-in-One Solution: NEXUS combines
+                                                consulting, learning, and
+                                                practical training in a single, seamless environment, making it easy for
+                                                users to access the expertise and resources they need-no matter their
+                                                sector
+                                                or challenge.
+                                            </p>
+                                            <div class="cards-container">
+                                                <div class="card">
+                                                    <div class="card-image">
+                                                        <img src="/nexus_nms/static/src/images/headerpart1.png"
+                                                             alt="Hands-On, Industry-Led Approach"/>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 class="card-title">Hands-On, Industry-Led Approach</h2>
+                                                        <p class="card-description">Every course and training program is
+                                                            designed in partnership with leading factories, healthcare
+                                                            providers, and
+                                                            technology experts. Participants work with real industrial
+                                                            and
+                                                            clinical
+                                                            data, digital labs, and scenario-based simulations to gain
+                                                            job-ready skills
+                                                            that go far beyond traditional e-learning.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <div class="card-image">
+                                                        <img src="/nexus_nms/static/src/images/Real-world data integration.jpeg"
+                                                             alt="Expert Consulting"/>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 class="card-title">Expert Consulting</h2>
+                                                        <p class="card-description">NEXUS connects you directly with top
+                                                            industry and
+                                                            academic consultants, delivering actionable advice and
+                                                            tailored
+                                                            solutions
+                                                            for digital transformation, process optimization, and
+                                                            technology
+                                                            integration.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <div class="card-image">
+                                                        <img src="/nexus_nms/static/src/images/dev.jpg"
+                                                             alt="Workforce Development"/>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 class="card-title">Workforce Development</h2>
+                                                        <p class="card-description">The platform is dedicated to
+                                                            building
+                                                            future-ready
+                                                            professionals through practical, accredited programs that
+                                                            respond to the
+                                                            needs of today’s rapidly evolving industries.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <h5 class="mt-5">Technological Excellence
+                                            </h5>
+                                            <hr/>
+                                            <div class="cards-container">
+                                                <div class="card">
+                                                    <div class="card-image">
+                                                        <img src="/nexus_nms/static/src/images/bg-2.jpg"
+                                                             alt="Hands-On, Industry-Led Approach"/>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 class="card-title">World-Class Platform Architecture</h2>
+                                                        <p class="card-description">NEXUS is built on a robust,
+                                                            scalable,
+                                                            and
+                                                            secure technology stack, featuring advanced learning
+                                                            management
+                                                            capabilities, real-time notifications, integrated reporting,
+                                                            and
+                                                            a seamless
+                                                            user experience across all devices.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <div class="card-image">
+                                                        <img src="/nexus_nms/static/src/images/Information Technology Program.png"
+                                                             alt="Expert Consulting"/>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 class="card-title">Innovation &amp; Accessibility</h2>
+                                                        <p class="card-description">With features like gamification,
+                                                            social
+                                                            learning, AI-powered support, and full accessibility
+                                                            compliance,
+                                                            NEXUS
+                                                            delivers an engaging, intuitive, and inclusive experience
+                                                            for
+                                                            every user.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <div class="card-image">
+                                                        <img src="/nexus_nms/static/src/images/slide-2.jpg"
+                                                             alt="Workforce Development"/>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <h2 class="card-title">Customization &amp; Integration</h2>
+                                                        <p class="card-description">Organizations can tailor the
+                                                            platform to
+                                                            their
+                                                            branding, reporting needs, and accessibility requirements,
+                                                            while
+                                                            benefiting
+                                                            from dedicated support and continuous innovation.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <h5 class="mt-4">The NEXUS Advantage
+                                            </h5>
+                                            <hr/>
+                                            <p class="mb-4 advantages">
+                                                NEXUS is more than a platform-it’s a dynamic ecosystem that bridges the
+                                                gap
+                                                between academia and the real world, enabling organizations and
+                                                individuals
+                                                to
+
+                                            </p>
+                                            <div class="p-adv row g-2 gy-3 mb-4 pb-2">
+                                                <div class="col-sm-6">
+                                                    <i class="fa fa-check text-primary me-2"></i>Access expert
+                                                    consulting
+                                                    and solve real business problems
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <i class="fa fa-check text-primary me-2"></i>Gain practical,
+                                                    industry-validated skills through hands-on
+                                                    training
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <i class="fa fa-check text-primary me-2"></i>Connect and collaborate
+                                                    with a vibrant professional community
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <i class="fa fa-check text-primary me-2"></i>Rely on a platform
+                                                    engineered for security, scalability, and future growth
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- About End -->
+
+
+                            <!-- Team Start -->
+                            <!--                        <div class="container-xxl py-6 oe_structure" id="oe_structure_website_blog_latest_blogs_2">-->
+                            <!--                            <div class="container">-->
+                            <!--                                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s"-->
+                            <!--                                     style="max-width: 500px;">-->
+                            <!--                                    <h6 class="text-primary text-uppercase mb-2">Meet The Team</h6>-->
+                            <!--                                    <h1 class="display-6 mb-4">We Have Great Experience</h1>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="row g-4  team-items">-->
+                            <!--                                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">-->
+                            <!--                                        <div class="team-item position-relative">-->
+                            <!--                                            <div class="position-relative img-container">-->
+                            <!--                                                <img class="img-fluid w-100 mx-auto"-->
+                            <!--                                                     src="/nexus_nms/static/src/images/eng.emad.jpg" alt=""/>-->
+                            <!--                                                <div class="team-social text-center">-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-facebook-f"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-twitter"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-instagram"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="bg-light text-center p-4">-->
+                            <!--                                                <h5 class="mt-2">eng. Emad Mohamed</h5>-->
+                            <!--                                                <span>Head of Health Information Management Technology program</span>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">-->
+                            <!--                                        <div class="team-item position-relative">-->
+                            <!--                                            <div class="position-relative img-container">-->
+                            <!--                                                <img class="img-fluid w-100 mx-auto"-->
+                            <!--                                                     src="/nexus_nms/static/src/images/eman.jpg" alt=""/>-->
+                            <!--                                                <div class="team-social text-center">-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-facebook-f"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-twitter"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-instagram"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="bg-light text-center p-4">-->
+                            <!--                                                <h5 class="mt-2">Dr. Eman Hassan</h5>-->
+                            <!--                                                <span>Lecturer in Pharmaceutical Production Technology program</span>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">-->
+                            <!--                                        <div class="team-item position-relative">-->
+                            <!--                                            <div class="position-relative img-container">-->
+                            <!--                                                <img class="img-fluid w-100 mx-auto"-->
+                            <!--                                                     src="/nexus_nms/static/src/images/mostafa.jpg" alt=""/>-->
+                            <!--                                                <div class="team-social text-center">-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-facebook-f"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-twitter"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-instagram"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="bg-light text-center p-4">-->
+                            <!--                                                <h5 class="mt-2">Dr. Mostafa Baker</h5>-->
+                            <!--                                                <span>Lecturer in Pharmaceutical Production Technology program</span>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">-->
+                            <!--                                        <div class="team-item position-relative">-->
+                            <!--                                            <div class="position-relative img-container">-->
+                            <!--                                                <img class="img-fluid w-100 mx-auto"-->
+                            <!--                                                     src="/nexus_nms/static/src/images/moh gamal.jpg" alt=""/>-->
+                            <!--                                                <div class="team-social text-center">-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-facebook-f"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-twitter"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                    <a class="btn btn-square btn-outline-primary border-2 m-1" href="">-->
+                            <!--                                                        <i class="fab fa-instagram"></i>-->
+                            <!--                                                    </a>-->
+                            <!--                                                </div>-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="bg-light text-center p-4">-->
+                            <!--                                                <h5 class="mt-2">Full Name</h5>-->
+                            <!--                                                <span>Trainer</span>-->
+                            <!--                                            </div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                            <!-- Team End -->
+                            <!--our partner start-->
+                            <div id="partner" class="partners-section">
+                                <div class="text-center mx-auto mb-5 animate__animated animate__fadeInDown"
+                                     style="max-width: 500px;">
+                                    <h6 class="text-uppercase mb-2 text-white">Our Partner</h6>
+                                    <h2 class="display-6 mb-4 text-white">Our Best Partner</h2>
+                                </div>
+                                <div class="container">
+                                    <div class="row g-3">
+                                        <!-- First row -->
+                                        <div class="col-md-2 col-6">
+                                            <a href="" class="partner-card">
+                                                <img class="w-75" src="/nexus_nms/static/src/images/nexus-sq.png" alt=""/>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-6">
+                                            <a href="" class="partner-card">
+                                                <img class="w-75" src="/nexus_nms/static/src/images/nexus-sq.png" alt=""/>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-6">
+                                            <a href="" class="partner-card">
+                                                <img class="w-75" src="/nexus_nms/static/src/images/nexus-sq.png" alt=""/>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-6">
+                                            <a class="partner-card">
+                                                <img class="w-75" src="/nexus_nms/static/src/images/nexus-sq.png" alt=""/>
+                                            </a>
+                                        </div>
+                                        <!-- Second row -->
+                                        <div class="col-md-2 col-6">
+                                            <a href="" class="partner-card">
+                                                <img class="w-75" src="/nexus_nms/static/src/images/nexus-sq.png" alt=""/>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-2 col-6">
+                                            <a href="" class="partner-card">
+                                                <img class="w-75" src="/nexus_nms/static/src/images/nexus-sq.png" alt=""/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;our partner end-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+                            <!--- testimonial slider start -->
+
+                            <div class="container-fluid py-5">
+                                <div>
+                                    <!-- Section Title with Animation -->
+                                    <div id="Testimonial" class="text-center mx-auto mb-5 animate__animated animate__fadeInDown"
+                                         style="max-width: 500px;">
+                                        <h6 class="text-primary text-uppercase mb-2">Testimonial</h6>
+                                        <h1 class="display-6 mb-4">What Our Clients Say!</h1>
+                                    </div>
+
+                                    <!-- Animated Bootstrap Carousel -->
+                                    <div class="row justify-content-center">
+                                        <div class="col-12 col-md-10 col-lg-8 animate__animated animate__fadeIn animate__delay-1s">
+                                            <div id="testimonialCarousel" class="carousel testimonial slide"
+                                                 data-bs-ride="carousel"
+                                                 data-bs-interval="5000">
+                                                <!-- Carousel Indicators -->
+                                                <div class="carousel-indicators testimonial">
+                                                    <button type="button" data-bs-target="#testimonialCarousel"
+                                                            data-bs-slide-to="0" class="active" aria-current="true"
+                                                            aria-label="Testimonial 1"/>
+                                                    <button type="button" data-bs-target="#testimonialCarousel"
+                                                            data-bs-slide-to="1" aria-label="Testimonial 2"/>
+                                                    <button type="button" data-bs-target="#testimonialCarousel"
+                                                            data-bs-slide-to="2" aria-label="Testimonial 3"/>
+                                                </div>
+
+                                                <!-- Carousel Items -->
+                                                <div class="carousel-inner testimonial">
+                                                    <!-- Testimonial 1 -->
+                                                    <div class="carousel-item testimonial active">
+                                                        <div class="testimonial-card  rounded-3 p-4 p-md-5 mx-2">
+                                                            <div class="photo-container">
+                                                                <img src="nexus_nms/static/src/images/12.png"
+                                                                     class="rounded-circle img-fluid w-100 h-100 object-fit-cover"
+                                                                     alt="Client 1"/>
+                                                                <div class="quote-icon">
+                                                                    <i class="fa fa-quote-left text-primary-custom"/>
+                                                                </div>
+                                                            </div>
+                                                            <p class="testimonial-text fs-5 mb-4">"The service was
+                                                                exceptional!
+                                                                I couldn't be happier with the results. Their team went
+                                                                above
+                                                                and beyond to ensure everything was perfect and
+                                                                delivered
+                                                                exactly what I needed."
+                                                            </p>
+                                                            <div class="divider"></div>
+                                                            <div class="client-info">
+                                                                <h5 class="mb-1">Sarah sayed</h5>
+                                                                <span class="d-block text-muted">Marketing Director
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Testimonial 2 -->
+                                                    <div class="carousel-item testimonial">
+                                                        <div class="testimonial-card testimonial rounded-3 p-4 p-md-5 mx-2">
+                                                            <div class="photo-container">
+                                                                <img src="nexus_nms/static/src/images/12.png"
+                                                                     class="rounded-circle img-fluid w-100 h-100 object-fit-cover"
+                                                                     alt="Client 2"/>
+                                                                <div class="quote-icon">
+                                                                    <i class="fa fa-quote-left text-primary-custom"/>
+                                                                </div>
+                                                            </div>
+                                                            <p class="testimonial-text fs-5 mb-4">"Working with this
+                                                                company
+                                                                transformed our business. Their innovative solutions
+                                                                helped
+                                                                us
+                                                                increase efficiency and grow our customer base by over
+                                                                40%
+                                                                in
+                                                                just six months."
+                                                            </p>
+                                                            <div class="divider"></div>
+                                                            <div class="client-info">
+                                                                <h5 class="mb-1">Mohmamed saieed</h5>
+                                                                <span class="d-block text-muted">CEO, TechStart Inc.
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Testimonial 3 -->
+                                                    <div class="carousel-item testimonial">
+                                                        <div class="testimonial-card testimonial  rounded-3 p-4 p-md-5 mx-2">
+                                                            <div class="photo-container">
+                                                                <img src="nexus_nms/static/src/images/12.png"
+                                                                     class="rounded-circle img-fluid w-100 h-100 object-fit-cover"
+                                                                     alt="Client 3"/>
+                                                                <div class="quote-icon">
+                                                                    <i class="fa fa-quote-left text-primary-custom"></i>
+                                                                </div>
+                                                            </div>
+                                                            <p class="testimonial-text fs-5 mb-4">"I've worked with many
+                                                                providers over the years, but none compare to the level
+                                                                of
+                                                                dedication and expertise I experienced here. Their
+                                                                attention
+                                                                to
+                                                                detail is unmatched."
+                                                            </p>
+                                                            <div class="divider"></div>
+                                                            <div class="client-info">
+                                                                <h5 class="mb-1">salem sarhan</h5>
+                                                                <span class="d-block text-muted">Project Manager</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Carousel Controls -->
+                                                <button class="carousel-control-prev testimonial" type="button"
+                                                        data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon testimonial"
+                                                          aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next testimonial" type="button"
+                                                        data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon testimonial"
+                                                          aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--- testimonial slider end -->
+
+                        </section>
+                    </div>
+                    <!-- Back to Top -->
+                    <!--                    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">-->
+                    <!--                        <i class="bi bi-arrow-up"></i>-->
+                    <!--                    </a>-->
+                    <script><![CDATA[
+// Spinner functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the spinner element
+  const spinner = document.getElementById('spinner');
+
+  // Make sure the spinner is visible during initial page load
+  if (spinner) {
+    spinner.classList.add('show');
+  }
+
+  // Hide spinner when everything is fully loaded
+  window.addEventListener('load', function() {
+    // Small delay to ensure everything is rendered
+    setTimeout(function() {
+      // Remove the "show" class to trigger the CSS transition
+      if (spinner) {
+        spinner.classList.remove('show');
+      }
+
+      // Dispatch a custom event when spinner is hidden
+      setTimeout(function() {
+        // Create and dispatch custom event after spinner transition completes
+        const spinnerCompleteEvent = new CustomEvent('spinnerComplete');
+        document.dispatchEvent(spinnerCompleteEvent);
+      }, 500); // Match the spinner transition time
+
+    }, 800); // Slightly longer delay to appreciate the overlay
+  });
+});
+
+// Carousel animations functionality (trigger first after spinner)
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.getElementById('header-carousel');
+  const carouselItems = document.querySelectorAll('#header-carousel .carousel-item');
+
+  // Function to prepare and play carousel animations
+  function setupCarouselAnimations() {
+    // Initially hide all animated elements by removing active class
+    carouselItems.forEach(item => {
+      if (item.classList.contains('active')) {
+        // Temporarily remove active class
+        item.classList.remove('active');
+        // Mark this item to be activated later
+        item.setAttribute('data-was-active', 'true');
+      }
+    });
+
+    // Wait for the spinner to complete before starting carousel animations
+    document.addEventListener('spinnerComplete', function() {
+      // Find the item that should be active and re-add the class
+      const itemToActivate = document.querySelector('#header-carousel .carousel-item[data-was-active="true"]');
+      if (itemToActivate) {
+        itemToActivate.classList.add('active');
+      } else if (carouselItems.length > 0) {
+        // If no item was marked, activate the first one
+        carouselItems[0].classList.add('active');
+      }
+
+      // After carousel animation starts, dispatch event for other sections
+      // The carousel animation takes about 1s to complete based on your CSS
+      setTimeout(function() {
+        const carouselAnimationCompleteEvent = new CustomEvent('carouselAnimationComplete');
+        document.dispatchEvent(carouselAnimationCompleteEvent);
+      }, 1000);
+    });
+  }
+
+  // Call the setup function
+  setupCarouselAnimations();
+});
+
+// Disable about section animations until carousel completes
+document.addEventListener('DOMContentLoaded', function() {
+  // First, hide the about section completely
+  const aboutUsSection = document.querySelector('.container-xxl.about-us');
+
+  if (aboutUsSection) {
+    // Hide the entire section initially
+    aboutUsSection.style.opacity = '0';
+    aboutUsSection.style.transition = 'opacity 0.5s ease';
+
+    // Only show the section after carousel animation completes
+    document.addEventListener('carouselAnimationComplete', function() {
+      // Fade in the section
+      aboutUsSection.style.opacity = '1';
+    });
+  }
+});
+
+// Slide-up animation for the about-us section (wait for carousel)
+document.addEventListener('DOMContentLoaded', function() {
+  function initializeAboutAnimation() {
+    // Specifically target the about-us section
+    const aboutUsSection = document.querySelector('.container-xxl.about-us');
+
+    if (aboutUsSection) {
+      // Target the left and right sections separately
+      const leftSection = aboutUsSection.querySelector('.col-lg-6:first-child');
+      const rightSection = aboutUsSection.querySelector('.col-lg-6:last-child');
+
+      // Set initial states
+      // Left section starts off-screen from the bottom
+      leftSection.style.opacity = '0';
+      leftSection.style.transform = 'translateY(500px)';
+      leftSection.style.transition = 'opacity 1.5s ease, transform 1.5s ease';
+
+      // Right section starts invisible and below its final position
+      rightSection.style.opacity = '0';
+      rightSection.style.transform = 'translateY(500px)';
+      rightSection.style.transition = 'opacity 2s ease, transform 2s ease';
+
+      // Create Intersection Observer for the whole section
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // When about-us section enters viewport
+          if (entry.isIntersecting) {
+            // First animate the left section sliding in
+            setTimeout(() => {
+              leftSection.style.opacity = '1';
+              leftSection.style.transform = 'translateY(0)';
+
+              // Then fade in and slide up the right section after the left section animation completes
+              setTimeout(() => {
+                rightSection.style.opacity = '1';
+                rightSection.style.transform = 'translateY(0)';
+              }, 1200); // Increased delay for right section
+            }, 100);
+
+            // Unobserve after animation sequence is started
+            observer.unobserve(aboutUsSection);
+          }
+        });
+      }, {
+        root: null, // viewport
+        threshold: 0.50, // trigger when 50% of element is visible
+        rootMargin: '0px' // no margin
+      });
+
+      // Only start observing after carousel animation is complete
+      document.addEventListener('carouselAnimationComplete', function() {
+        // Start observing the about-us section
+        observer.observe(aboutUsSection);
+      });
+    }
+  }
+
+  // Initialize immediately to set up the observer
+  initializeAboutAnimation();
+});
+
+// Intersection Observer for triggering animations on scroll (modified)
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait for carousel animation to complete before initializing
+  function initializeFactsAnimation() {
+    // Get all fact boxes
+    const factBoxes = document.querySelectorAll('.facts .col-lg-4');
+
+    // Create the Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Add the animation class when the element is in view
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          // Unobserve after animation has been triggered
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      // Configure the observer options
+      root: null, // Use the viewport as the root
+      rootMargin: '0px', // No margin
+      threshold: 0.1 // Trigger when at least 10% of the element is visible
+    });
+
+    // Observe all fact boxes
+    factBoxes.forEach(box => {
+      observer.observe(box);
+    });
+
+    // Fallback for browsers that don't support Intersection Observer
+    if (!('IntersectionObserver' in window)) {
+      factBoxes.forEach(box => {
+        box.classList.add('animate-in');
+      });
+    }
+  }
+
+  // Initialize after carousel animation completes
+  document.addEventListener('carouselAnimationComplete', initializeFactsAnimation);
+});
+
+// Optional: Add animation for elements entering viewport (modified)
+function animateOnViewport() {
+  const factBoxes = document.querySelectorAll('.facts .col-lg-4:not(.animate-in)');
+
+  factBoxes.forEach(box => {
+    const rect = box.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+    if (rect.top <= windowHeight * 0.8) {
+      box.classList.add('animate-in');
+    }
+  });
+}
+
+// Only add scroll listener after carousel animation completes
+document.addEventListener('carouselAnimationComplete', function() {
+  // Add scroll event listener for the fallback function
+  window.addEventListener('scroll', animateOnViewport, { passive: true });
+});
+
+// Team animation (modified)
+document.addEventListener('DOMContentLoaded', function() {
+  function initializeTeamAnimation() {
+    // Select all team items
+    const teamItems = document.querySelectorAll('.team-item');
+    const teamSection = document.querySelector('.team-items');
+
+    if (!teamSection || teamItems.length === 0) {
+      console.error('Team section or team items not found');
+      return;
+    }
+
+    // Hide all items initially
+    teamItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(50px)';
+      item.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+    });
+
+    // Function to animate items sequentially
+    function animateItems() {
+      teamItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+        }, index * 400); // 400ms delay between each item
+      });
+    }
+
+    // Create an Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // If section is visible
+        if (entry.isIntersecting) {
+          animateItems();
+          // Stop observing after animation is triggered
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      // Trigger when at least 50% of the section is visible
+      threshold: 0.5
+    });
+
+    // Start observing the team section
+    observer.observe(teamSection);
+  }
+
+  // Initialize after carousel animation completes
+  document.addEventListener('carouselAnimationComplete', initializeTeamAnimation);
+
+
+
+});
+
+                  ]]>
+                    </script>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

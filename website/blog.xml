@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+
+        <template id="blog">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <!-- Icon Font Stylesheet -->
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <style>
+                            .heroContainer{
+                            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                            url(/nexus_nms/static/src/images/heroblog2.jpeg);
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="oe_structure" id="oe_structure_website_blog_latest_blogs_1">
+                            <section class="py-5 pt-0">
+                                <div class="heroContainer vh-100 d-flex justify-content-center align-items-center">
+                                    <h1 class="fw-bold fs-1 text-white">
+                                        Blogs
+                                    </h1>
+                                </div>
+                                <div>
+                                    <p class="fs-5 text-center container w-50 mt-5 fw-bold">
+                                        Empowering professionals through
+                                        impactful training, we have partnered with numerous companies to deliver
+                                        hands-on learning experiences that drive growth and success
+                                    </p>
+                                </div>
+                                <div class="blogsContainer container py-5">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div>
+                                                <img src="/nexus_nms/static/src/images/blog1.jpeg"
+                                                     class="w-100"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <img src="/nexus_nms/static/src/images/blog3.jpeg" class="w-100"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div>
+                                                <img src="/nexus_nms/static/src/images/blog4.jpeg" class="w-100"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div>
+                                                <img src="/nexus_nms/static/src/images/blog6.jpg" class="w-100"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="h-100">
+                                                <img src="/nexus_nms/static/src/images/blog5.jpeg" class="w-100 h-100"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

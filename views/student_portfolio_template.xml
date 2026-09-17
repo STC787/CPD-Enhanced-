@@ -1,0 +1,1251 @@
+<odoo>
+    <data>
+        <template id="student_portfolio">
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+                          rel="stylesheet"
+                          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                          crossorigin="anonymous"/>
+
+                    <!-- Latest compiled and minified JavaScript -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                            crossorigin="anonymous">
+                    </script>
+                    <title>MASRTECH Student Form</title>
+                    <style>
+                        h5, h1{
+                        text-align: center;
+                        }
+                        h1{
+                        color: #2c3491;
+                        font-weight: bold;
+                        }
+                        h5{
+                        color: #3f9a3f;
+                        }
+                        form{
+                        padding: 30px;
+                        margin: auto;
+                        width: 70%;
+                        }
+                        input{
+                        width:100%;
+                        border-top: none;
+                        border-left: none;
+                        border-right: none;
+                        border-width: 1px;
+                        margin-top: 25px !important;
+                        margin-bottom: 25px !important;
+                        padding: 10px 0;
+                        }
+                        select{
+                        width: 100%;
+                        border-top: none;
+                        border-left: none;
+                        border-right: none;
+                        border-width: 1px;
+                        background-color: transparent;
+                        margin-bottom: 25px;
+                        padding: 10px 0;
+                        }
+                        label {
+                        margin-top: 25px;
+                        }
+                        button{
+                        width: 80px;
+                        <!--                        height: 35px;-->
+                        background: #3f9a3f;
+                        border-width: 1px;
+                        border-radius: 4px;
+                        border-color: white;
+                        color: white;
+                        font-weight: bold;
+                        display: block;
+                        }
+                        .formTable td{
+                        padding:5px 15px;
+                        }
+                        .formTable td, .formTable th{
+                        border: solid 1px #DEE2E6;
+                        }
+                        .formTable th{
+                        padding-block: 10px;
+                        }
+                        .no-width{
+                        width: auto;
+                        padding: 0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <form role="form" action="/MASRTECH/student/portfolio/confirm" method="GET"
+                          enctype="multipart/form-data">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="/masrtech/static/imgs/masr_logo.jpeg" class="d-block" width="200"/>
+                                </div>
+                                <div class="col-4">
+                                </div>
+                                <div class="col-4">
+                                    <img src="/masrtech/static/imgs/Borg_El_Arab_Technological_University_logo.jpg"
+                                         width="200" class="d-block w-100"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label for="first_name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name"/>
+                        <label for="middle_name">Middle Name:</label>
+                        <input type="text" id="middle_name" name="middle_name" required="1"/>
+                        <label for="last_name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" required="1"/>
+                        <input type="hidden" id="name"/>
+                        <label for="student_id">Student ID:</label>
+                        <input type="text" id="student_id" name="student_id" required="1"/>
+                        <label for="date_of_birth">Date of Birth:</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" required="1"/>
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required="1">
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
+                        <label for="address">Address:</label>
+                        <input type="text" id="street" name="street" placeholder="Street Address"/>
+                        <input type="text" id="city" name="city" placeholder="City" required="1"/>
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone"/>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email"/>
+                        <label for="parent_name">Parent Name:</label>
+                        <input type="text" id="parent_name" name="parent_name"/>
+                        <label for="parent_contact">Parent Contact:</label>
+                        <input type="tel" id="parent_contact" name="parent_contact"/>
+                        <label for="semester">Current Semester:</label>
+                        <input type="text" id="semester" name="semester"/>
+                        <label for="gpa">GPA:</label>
+                        <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4.0"/>
+                        <label for="clubs">Clubs/Organizations:</label>
+                        <input type="text" id="clubs" name="clubs"/>
+                        <label for="graduation_date">Expected Graduation Date:</label>
+                        <input type="date" id="graduation_date" name="graduation_date"/>
+                        <label for="universities">Universities</label>
+                        <br/>
+                        <select class="form-control" name="universities" id="universities">
+                            <t t-foreach="universities" t-as="universities">
+                                <option t-esc="universities.name" t-att-value="universities.id"
+                                        t-att-selected="str(universities.id) == universities">
+                                    <t t-esc="universities.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <label for="faculty">College</label>
+                        <br/>
+                        <select class="form-control" name="faculty" id="faculty">
+                            <t t-foreach="faculty" t-as="faculty">
+                                <option t-esc="faculty.name" t-att-value="faculty.id"
+                                        t-att-selected="str(faculty.id) == faculty">
+                                    <t t-esc="faculty.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <label for="department">Department</label>
+                        <br/>
+                        <select class="form-control" name="department" id="department">
+                            <t t-foreach="department" t-as="department">
+                                <option t-esc="department.name" t-att-value="department.id"
+                                        t-att-selected="str(department.id) == department">
+                                    <t t-esc="department.name"/>
+                                </option>
+                            </t>
+                        </select>
+
+                        <div class="row" dir="rtl">
+                            <div class="col-md-12 my-3">
+                                <div class="d-flex justify-content-center  ">
+                                    <label>اسم المقرر:</label>
+                                    <input name="course_name" id="course_name" class="border-0 border-bottom no-width"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 my-3">
+                                <label>اشراف:</label>
+                                <input id="supervisor" name="supervisor" class="border-0 border-bottom no-width"/>
+                            </div>
+                            <div class="col-md-6 my-3">
+                                <label>الفرقة:</label>
+                                <select id="level" name="level">
+                                    <option value="one">الفرقة الاولي</option>
+                                    <option value="two">الفرقة الثانية</option>
+                                    <option value="three">الفرقة الثالثة</option>
+                                    <option value="four">الفرقة الرابعة</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+                        <table class="w-100 mx-4 formTable text-center">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Week</th>
+                                    <th>Practical title</th>
+                                    <th>Practical training</th>
+                                    <th>Institute</th>
+                                    <th>Competence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span>1st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_1" id="Semester_title_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_1" id="Semester_training_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_1" id="Semester_institute_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_1" id="Semester_competence_1" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>2st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_2" id="Semester_title_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_2" id="Semester_training_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_2" id="Semester_institute_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_2" id="Semester_competence_2" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>3st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_3" id="Semester_title_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_3" id="Semester_training_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_3" id="Semester_institute_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_3" id="Semester_competence_3" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>4st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_4" id="Semester_title_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_4" id="Semester_training_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_4" id="Semester_institute_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_4" id="Semester_competence_4" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>5st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_5" id="Semester_title_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_5" id="Semester_training_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_5" id="Semester_institute_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_5" id="Semester_competence_5" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>6st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_6" id="Semester_title_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_6" id="Semester_training_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_6" id="Semester_institute_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_6" id="Semester_competence_6" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>7st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_7" id="Semester_title_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_7" id="Semester_training_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_7" id="Semester_institute_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_7" id="Semester_competence_7" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>8th</span>
+                                    </td>
+                                    <td colspan="4">
+                                        <span>Mid-term exam</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>9st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_9" id="Semester_title_9" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_9" id="Semester_training_9" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_9" id="Semester_institute_9" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_9" id="Semester_competence_9" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>10st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_10" id="Semester_title_10" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_10" id="Semester_training_10" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_10" id="Semester_institute_10" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_10" id="Semester_competence_10" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>11st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_11" id="Semester_title_11" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_11" id="Semester_training_11" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_11" id="Semester_institute_11" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_11" id="Semester_competence_11" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>12st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_12" id="Semester_title_12" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_12" id="Semester_training_12" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_12" id="Semester_institute_12" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_12" id="Semester_competence_12" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>13st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_13" id="Semester_title_13" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_13" id="Semester_training_13" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_13" id="Semester_institute_13" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_13" id="Semester_competence_13" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>14st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_14" id="Semester_title_14" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_14" id="Semester_training_14" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_14" id="Semester_institute_14" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_14" id="Semester_competence_14" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>15st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_15" id="Semester_title_15" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_15" id="Semester_training_15" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_15" id="Semester_institute_15" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_15" id="Semester_competence_15" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>16st</span>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_title_16" id="Semester_title_16" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_training_16" id="Semester_training_16" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_institute_16" id="Semester_institute_16" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="Semester_competence_16" id="Semester_competence_16" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>17th</span>
+                                    </td>
+                                    <td colspan="4">
+                                        <span>Final practical exam</span>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                        <div class="row" dir="rtl">
+                            <div class="col-md-6">
+                                <label>منسق البرنامج</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="program_coordinator" name="program_coordinator"
+                                           class="border-0 border-bottom no-width"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>مشرف التدريب</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="training_supervisor" name="training_supervisor"
+                                           class="border-0 border-bottom no-width"/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--                        Practical Study Plan-->
+                        <div class="row" dir="rtl">
+                            <div class="col-md-12 my-3">
+                                <div class="d-flex justify-content-center">
+                                    <h4>Practical Study Plan</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-12 my-3">
+                                <div class="d-flex justify-content-center">
+                                    <h6>Academic year: 2023-2024</h6>
+                                </div>
+                            </div>
+
+                        </div>
+                        <table class="w-100 mx-4 formTable text-center">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Course Code</th>
+                                    <th>Course Name</th>
+                                    <th>Practical Topics</th>
+                                    <th>Practical Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input name="course_code_1" id="course_code_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="course_name_1" id="course_name_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_topic_1" id="practical_topic_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_location_1" id="week1_competence" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="course_code_2" id="course_code_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="course_name_2" id="course_name_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_topic_2" id="practical_topic_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_location_2" id="practical_location_2" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="course_code_3" id="course_code_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="course_name_3" id="course_name_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_topic_3" id="practical_topic_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_location_3" id="practical_location_3" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="course_code_4" id="course_code_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="course_name_4" id="course_name_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_topic_4" id="practical_topic_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_location_4" id="practical_location_4" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="course_code_5" id="course_code_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="course_name_5" id="course_name_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_topic_5" id="practical_topic_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_location_5" id="practical_location_5" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="course_code_6" id="course_code_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="course_name_6" id="course_name_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_topic_6" id="practical_topic_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="practical_location_6" id="practical_location_6" class="w-100"/>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="row" dir="rtl">
+                            <div class="col-md-4">
+                                <label>منسق البرنامج</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="program_coordinator_practical" name="program_coordinator_practical"
+                                           class="border-0 border-bottom no-width"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>وكيل الكلية لشئون التعليم والطلاب</label>
+                                <div>
+                                    <label>ا.د.رشا ياقوت</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>عميد كلية العلوم الصحية</label>
+                                <div>
+                                    <label>ا.د.رانيا الشرقاوي</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--                        التدريب الصيفى -->
+
+                        <div class="row" dir="rtl">
+                            <div class="col-md-12 my-3">
+                                <div class="d-flex justify-content-center">
+                                    <h4>التدريب الصيفى لعام 2023\2024</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-6 my-3">
+                                <label>اشراف:</label>
+                                <input id="academic_supervisor_training" name="academic_supervisor_training"
+                                       class="border-0 border-bottom no-width"/>
+                            </div>
+                            <div class="col-md-6 my-3">
+                                <label>الفرقة:</label>
+                                <select id="level_training" name="level_training">
+                                    <option value="one">الفرقة الاولي</option>
+                                    <option value="two">الفرقة الثانية</option>
+                                    <option value="three">الفرقة الثالثة</option>
+                                    <option value="four">الفرقة الرابعة</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <table class="w-100 mx-4 formTable text-center">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Week</th>
+                                    <th>Practical title</th>
+                                    <th>Practical training</th>
+                                    <th>Institute</th>
+                                    <th>Competence</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span>1st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_1" id="summer_title_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_1" id="summer_training_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_1" id="summer_institute_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_1" id="summer_competence_1" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>2st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_2" id="summer_title_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_2" id="summer_training_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_2" id="summer_institute_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_2" id="summer_competence_2" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>3st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_3" id="summer_title_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_3" id="summer_training_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_3" id="summer_institute_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_3" id="summer_competence_3" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>4st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_4" id="summer_title_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_4" id="summer_training_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_4" id="summer_institute_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_4" id="summer_competence_4" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>5st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_5" id="summer_title_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_5" id="summer_training_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_5" id="summer_institute_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_5" id="summer_competence_5" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>6st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_6" id="summer_title_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_6" id="summer_training_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_6" id="summer_institute_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_6" id="summer_competence_6" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>7st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_7" id="summer_title_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_7" id="summer_training_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_7" id="summer_institute_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_7" id="summer_competence_7" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>8st</span>
+                                    </td>
+                                    <td>
+                                        <input name="summer_title_8" id="summer_title_8" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_training_8" id="summer_training_8" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_institute_8" id="summer_institute_8" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="summer_competence_8" id="summer_competence_8" class="w-100"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="row" dir="rtl">
+                            <div class="col-md-6">
+                                <label>منسق البرنامج</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="program_coordinator_training" name="program_coordinator_training"
+                                           class="border-0 border-bottom  no-width"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>مشرف التدريب</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="summer_training_supervisor" name="summer_training_supervisor"
+                                           class="border-0 border-bottom no-width "/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--                        2024\2023 Soft skills -->
+
+                        <div class="row" dir="rtl">
+                            <div class="col-md-12 my-3">
+                                <div class="d-flex justify-content-center">
+                                    <h4>2024\2023 Soft skills</h4>
+                                </div>
+                            </div>
+                            <div class="col-md-6 my-3">
+                                <label>اشراف:</label>
+                                <input id="academic_supervisor_soft_skills" name="academic_supervisor_soft_skills"
+                                       class="border-0 border-bottom no-width"/>
+                            </div>
+                            <div class="col-md-6 my-3">
+                                <label>الفرقة:</label>
+                                <select id="level_soft_skills" name="level_soft_skills">
+                                    <option value="one">الفرقة الاولي</option>
+                                    <option value="two">الفرقة الثانية</option>
+                                    <option value="three">الفرقة الثالثة</option>
+                                    <option value="four">الفرقة الرابعة</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                        <table class="w-100 mx-4 formTable text-center">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Week</th>
+                                    <th>Soft Skills</th>
+                                    <th>Institute</th>
+                                    <th>Competence</th>
+                                    <th>Supervisor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span>1st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_1" id="soft_skills_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_1" id="soft_institute_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_1" id="soft_competence_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_1" id="soft_supervisor_1" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>2st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_2" id="soft_skills_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_2" id="soft_institute_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_2" id="soft_competence_2" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_2" id="soft_supervisor_2" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>3st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_3" id="soft_skills_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_3" id="soft_institute_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_3" id="soft_competence_3" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_3" id="soft_supervisor_3" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>4st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_4" id="soft_skills_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_4" id="soft_institute_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_4" id="soft_competence_4" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_4" id="soft_supervisor_4" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>5st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_5" id="soft_skills_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_5" id="soft_institute_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_5" id="soft_competence_5" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_5" id="soft_supervisor_5" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>6st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_5" id="soft_skills_1" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_6" id="soft_institute_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_6" id="soft_competence_6" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_6" id="soft_supervisor_6" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>7st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_7" id="soft_skills_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_7" id="soft_institute_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_7" id="soft_competence_7" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_7" id="soft_supervisor_7" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>8st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_8" id="soft_skills_8" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_8" id="soft_institute_8" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_8" id="soft_competence_8" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_8" id="soft_supervisor_8" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>9st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_9" id="soft_skills_9" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_9" id="soft_institute_9" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_9" id="soft_competence_9" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_9" id="soft_supervisor_9" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>10st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_10" id="soft_skills_10" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_10" id="soft_institute_10" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_10" id="soft_competence_10" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_10" id="soft_supervisor_10" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>11st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_11" id="soft_skills_11" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_11" id="soft_institute_11" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_11" id="soft_competence_11" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_11" id="soft_supervisor_11" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>12st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_12" id="soft_skills_12" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_12" id="soft_institute_12" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_12" id="soft_competence_12" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_12" id="soft_supervisor_12" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>13st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_13" id="soft_skills_13" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_13" id="soft_institute_13" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_13" id="soft_competence_13" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_13" id="soft_supervisor_13" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>14st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_14" id="soft_skills_14" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_14" id="soft_institute_14" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_14" id="soft_competence_14" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_14" id="soft_supervisor_14" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>15st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_15" id="soft_skills_15" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_15" id="soft_institute_15" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_15" id="soft_competence_15" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_15" id="soft_supervisor_15" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>16st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_16" id="soft_skills_16" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_16" id="soft_institute_16" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_16" id="soft_competence_16" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_16" id="soft_supervisor_16" class="w-100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>17st</span>
+                                    </td>
+                                    <td>
+                                        <input name="soft_skills_17" id="soft_skills_17" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_institute_17" id="soft_institute_17" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_competence_17" id="soft_competence_17" class="w-100"/>
+                                    </td>
+                                    <td>
+                                        <input name="soft_supervisor_17" id="soft_supervisor_17" class="w-100"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row" dir="rtl">
+                            <div class="col-md-6">
+                                <label>منسق البرنامج</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="program_coordinator_soft" name="program_coordinator_soft"
+                                           class="border-0 border-bottom no-width"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>مشرف التدريب</label>
+                                <div>
+                                    <label>د.</label>
+                                    <input id="training_supervisor_soft" name="training_supervisor_soft"
+                                           class="border-0 border-bottom no-width"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>وكيل الكلية لشئون التعليم والطلاب</label>
+                                <div>
+                                    <label>ا.د.</label>
+                                    <input id="college_agent_soft" name="college_agent_soft"
+                                           class="border-0 border-bottom no-width "/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>عميد كلية</label>
+                                <div>
+                                    <label>ا.د.</label>
+                                    <input id="college_dean_soft" name="college_dean_soft"
+                                           class="border-0 border-bottom no-width "/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button style="text-align: center; background: #0060bf; width: 250px; margin:20px auto; border-radius: 20px; color: white; padding: 10px;"
+                                action="/MASRTECH/student/registration/confirm" method="GET">
+                            Submit
+                        </button>
+
+                    </form>
+
+                </body>
+            </html>
+        </template>
+        <template id="student_portfolio_confirm">
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8"/>
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+                          rel="stylesheet"
+                          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                          crossorigin="anonymous"/>
+
+                    <!-- Latest compiled and minified JavaScript -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                            crossorigin="anonymous">
+                    </script>
+                    <title>Confirm Form</title>
+                    <style>
+                        div.header{
+                        padding: 30px 50px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container  header">
+                        <div class="row ">
+                            <div class="col-4">
+                                <img src="/masrtech/static/imgs/masr_logo.jpeg" class="d-block" width="200"/>
+                            </div>
+                            <div class="col-4">
+                            </div>
+                            <div class="col-4">
+                                <img src="/masrtech/static/imgs/Borg_El_Arab_Technological_University_logo.jpg"
+                                     width="200" class="d-block w-100"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div style="border: solid 2px #0060bf; border: solid 2px #0060bf;margin: 20px 50px;padding: 40px; border-radius: 20px;">
+                            <h5 style="font-size: 20px; color: #0060bf; margin: 0; text-align: center;">
+                                The registration is confirmed
+                            </h5>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+    </data>
+</odoo>

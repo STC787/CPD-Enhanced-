@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action to open the page - MUST be defined first -->
+    <record id="action_student_search" model="ir.actions.act_url">
+        <field name="name">Student Search</field>
+        <field name="url">/student/search</field>
+        <field name="target">new</field>
+    </record>
+    
+    <!-- Add menu item in the main menu -->
+    <menuitem 
+        id="menu_student_search_root"
+        name="Student Portal"
+        sequence="10"
+        web_icon="nexus_nms,static/src/images/graduation.png"
+    />
+    
+    <menuitem 
+        id="menu_student_search"
+        name="Search Student"
+        parent="menu_student_search_root"
+        action="action_student_search"
+        sequence="1"
+    />
+</odoo>

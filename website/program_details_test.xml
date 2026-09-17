@@ -1,0 +1,1209 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <data>
+        <template id="homefont_program_details" name="home" inherit_id="website.layout">
+            <xpath expr="//head" position="inside">
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+                <link rel="stylesheet"
+                      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"/>
+            </xpath>
+        </template>
+        <template id="programDetails">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <!-- Icon Font Stylesheet -->
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <meta charset="UTF-8"/>
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                        <title>Course Details</title>
+                        <style>
+                            :root {
+                            <!--                            &#45;&#45;primary: #4361ee;-->
+                            --primary:#49a9e0;
+                            --secondary: #3f37c9;
+                            --accent: #4895ef;
+                            --light: #f8f9fa;
+                            --dark: #212529;
+                            --success: #4cc9f0;
+                            --gray: #adb5bd;
+                            }
+
+                            * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            }
+
+                            .course-details {
+                            max-width: 1200px;
+                            margin: 2rem auto;
+                            padding: 0 1rem;
+                            }
+
+                            .course-container {
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            gap: 2rem;
+                            }
+
+                            @media (min-width: 768px) {
+                            .course-container {
+                            grid-template-columns: 2fr 1fr;
+                            }
+                            }
+
+                            .course-header {
+                            border-radius: 12px;
+                            padding: 2rem;
+                            color: white;
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            margin-bottom: 2rem;
+                            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+                            transform: translateY(30px);
+                            opacity: 0;
+                            animation: slide-in 0.6s ease forwards;
+                            }
+
+                            .course-title {
+                            font-size: 2rem;
+                            margin-bottom: 1rem;
+                            line-height: 1.2;
+                            font-weight: 600;
+                            color: rgb(15 40 71);
+                            }
+
+                            .course-subtitle {
+                            font-size: 1.2rem;
+                            opacity: 0.8;
+                            margin-bottom: 1.5rem;
+                            }
+
+                            .stats-container {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 1.5rem;
+                            margin-top: 1.5rem;
+                            }
+
+                            .stat-item {
+                            display: flex;
+                            align-items: center;
+                            font-size: 0.95rem;
+                            opacity: 0;
+                            transform: translateY(20px);
+                            animation: slide-in 0.6s ease forwards;
+                            }
+
+                            .stat-item:nth-child(1) {
+                            animation-delay: 0.2s;
+                            }
+
+                            .stat-item:nth-child(2) {
+                            animation-delay: 0.4s;
+                            }
+
+                            .stat-item:nth-child(3) {
+                            animation-delay: 0.6s;
+                            }
+
+                            .stat-item:nth-child(4) {
+                            animation-delay: 0.8s;
+                            }
+
+                            .stat-item i {
+                            margin-right: 0.5rem;
+                            font-size: 1.2rem;
+                            }
+
+                            .custom-badge {
+                            display: inline-block;
+                            padding: 0.35rem 0.75rem;
+                            font-size: 0.85rem;
+                            border-radius: 50px;
+                            background-color: rgba(255, 255, 255, 0.2);
+                            margin-right: 0.5rem;
+                            margin-bottom: 0.5rem;
+                            opacity: 0;
+                            transform: scale(0.8);
+                            animation: fade-in 0.5s ease forwards;
+                            animation-delay: calc(0.1s * var(--i));
+                            }
+
+                            .course-content {
+                            background-color: white;
+                            border-radius: 12px;
+                            padding: 2rem;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            opacity: 0;
+                            transform: translateY(30px);
+                            animation: slide-in 0.6s ease forwards;
+                            animation-delay: 0.3s;
+                            }
+
+                            /* Bootstrap tab customization */
+                            .nav-tabs .nav-link {
+                            color: var(--gray);
+                            font-weight: 600;
+                            border: none;
+                            padding: 0.75rem 1.5rem;
+                            transition: all 0.3s ease;
+                            position: relative;
+                            background-color: transparent;
+                            }
+
+                            .nav-tabs .nav-link.active {
+                            color: var(--primary);
+                            background-color: transparent;
+                            border: none;
+                            }
+
+                            .nav-tabs .nav-link.active::after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 3px;
+                            background-color: var(--primary);
+                            border-radius: 3px 3px 0 0;
+                            animation: grow-line 0.3s ease forwards;
+                            }
+
+                            .nav-tabs {
+                            border-bottom: 1px solid #eee;
+                            margin-bottom: 1.5rem;
+                            }
+
+                            .tab-content {
+                            animation: fade-in 0.5s ease;
+                            }
+
+                            .tab-pane {
+                            animation: fade-in 0.5s ease;
+                            }
+
+                            @keyframes grow-line {
+                            from { width: 0; }
+                            to { width: 100%; }
+                            }
+
+                            .section {
+                            margin-bottom: 2rem;
+                            }
+
+                            .section-title {
+                            font-size: 1.4rem;
+                            margin-bottom: 1rem;
+                            color: var(--dark);
+                            display: flex;
+                            align-items: center;
+                            }
+
+                            .section-title i {
+                            margin-right: 0.75rem;
+                            color: var(--primary);
+                            }
+
+                            ul.features {
+                            list-style: none;
+                            margin-bottom: 1.5rem;
+                            }
+
+                            ul.features li {
+                            padding: 0.5rem 0;
+                            display: flex;
+                            align-items: center;
+                            opacity: 0;
+                            transform: translateX(-20px);
+                            animation: slide-in-right 0.5s ease forwards;
+                            }
+
+                            ul.features li:nth-child(1) {
+                            animation-delay: 0.3s;
+                            }
+
+                            ul.features li:nth-child(2) {
+                            animation-delay: 0.4s;
+                            }
+
+                            ul.features li:nth-child(3) {
+                            animation-delay: 0.5s;
+                            }
+
+                            ul.features li:nth-child(4) {
+                            animation-delay: 0.6s;
+                            }
+
+                            ul.features li:nth-child(5) {
+                            animation-delay: 0.7s;
+                            }
+
+                            ul.features li:before {
+                            content: '✓';
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 24px;
+                            height: 24px;
+                            background-color: rgba(67, 97, 238, 0.1);
+                            border-radius: 50%;
+                            margin-right: 0.75rem;
+                            color: var(--primary);
+                            font-size: 0.8rem;
+                            flex-shrink: 0;
+                            }
+
+                            .module {
+                            background-color: #f8f9fa;
+                            border-radius: 8px;
+                            padding: 1.25rem;
+                            margin-bottom: 1rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            border-left: 3px solid transparent;
+                            opacity: 0;
+                            transform: translateY(20px);
+                            animation: slide-in 0.5s ease forwards;
+                            }
+
+                            .module:nth-child(1) {
+                            animation-delay: 0.3s;
+                            }
+
+                            .module:nth-child(2) {
+                            animation-delay: 0.4s;
+                            }
+
+                            .module:nth-child(3) {
+                            animation-delay: 0.5s;
+                            }
+
+                            .module:hover {
+                            border-left-color: var(--primary);
+                            transform: translateX(5px);
+                            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+                            }
+
+                            .module-header {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-bottom: 0.5rem;
+                            }
+
+                            .module-title {
+                            font-weight: 600;
+                            font-size: 1.1rem;
+                            }
+
+                            .module-lessons {
+                            color: var(--gray);
+                            font-size: 0.85rem;
+                            }
+
+                            .module-content {
+                            font-size: 0.95rem;
+                            color: #666;
+                            margin-bottom: 0.5rem;
+                            }
+
+                            .module-meta {
+                            display: flex;
+                            gap: 1rem;
+                            margin-top: 0.75rem;
+                            font-size: 0.85rem;
+                            color: var(--gray);
+                            }
+
+                            .module-meta span {
+                            display: flex;
+                            align-items: center;
+                            }
+
+                            .module-meta i {
+                            margin-right: 0.3rem;
+                            font-size: 1rem;
+                            }
+
+                            .course-sidebar {
+                            opacity: 0;
+                            transform: translateY(30px);
+                            animation: slide-in 0.6s ease forwards;
+                            animation-delay: 0.6s;
+                            }
+
+                            .sidebar-box {
+                            background-color: white;
+                            border-radius: 12px;
+                            <!--                            padding: 1.5rem;-->
+                            margin-bottom: 2rem;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            overflow: hidden;
+                            }
+                            .sideBarTitle {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            }
+                            .price-container {
+                            text-align: center;
+                            margin-bottom: 1.5rem;
+                            }
+
+                            .price {
+                            font-size: 3rem;
+                            font-weight: 700;
+                            color: var(--primary);
+                            margin-bottom: 0.5rem;
+                            }
+                            .form-select:where(:not(:disabled)):hover {
+                            border-color: #5299e3;
+                            }
+                            .form-select:focus, .form-control:focus {
+                            border-color: #5493e3;
+                            box-shadow: 0 0 0 0.25rem rgb(86, 145, 228, 0.25);
+                            }
+                            .price-text {
+                            color: var(--gray);
+                            margin-bottom: 1rem;
+                            }
+
+                            <!--                            .btn {-->
+                            <!--                            display: block;-->
+                            <!--                            width: 100%;-->
+                            <!--                            padding: 0.9rem 1.5rem;-->
+                            <!--                            border: none;-->
+                            <!--                            border-radius: 8px;-->
+                            <!--                            background-color: var(&#45;&#45;primary);-->
+                            <!--                            color: white;-->
+                            <!--                            font-weight: 600;-->
+                            <!--                            text-align: center;-->
+                            <!--                            cursor: pointer;-->
+                            <!--                            transition: all 0.3s ease;-->
+                            <!--                            font-size: 1rem;-->
+                            <!--                            text-decoration: none;-->
+                            <!--                            margin-bottom: 1rem;-->
+                            <!--                            position: relative;-->
+                            <!--                            overflow: hidden;-->
+                            <!--                            }-->
+
+                            <!--                            .btn:hover {-->
+                            <!--                            background-color: var(&#45;&#45;secondary);-->
+                            <!--                            transform: translateY(-2px);-->
+                            <!--                            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);-->
+                            <!--                            }-->
+
+                            <!--                            .btn:active {-->
+                            <!--                            transform: translateY(0);-->
+                            <!--                            }-->
+
+                            <!--                            .btn-secondary {-->
+                            <!--                            background-color: #fff;-->
+                            <!--                            color: var(&#45;&#45;primary);-->
+                            <!--                            border: 2px solid #eee;-->
+                            <!--                            }-->
+
+                            <!--                            .btn-secondary:hover {-->
+                            <!--                            background-color: #f8f9fa;-->
+                            <!--                            box-shadow: none;-->
+                            <!--                            }-->
+
+                            <!--                            .btn .ripple {-->
+                            <!--                            position: absolute;-->
+                            <!--                            border-radius: 50%;-->
+                            <!--                            background-color: rgba(255, 255, 255, 0.4);-->
+                            <!--                            transform: scale(0);-->
+                            <!--                            animation: ripple 0.6s linear;-->
+                            <!--                            }-->
+
+                            .guarantee {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 1rem 0;
+                            color: var(--gray);
+                            font-size: 0.9rem;
+                            }
+
+                            .guarantee i {
+                            margin-right: 0.5rem;
+                            color: var(--success);
+                            }
+
+                            .course-includes {
+                            margin-top: 1rem;
+                            }
+
+                            .include-item {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 0.75rem;
+                            font-size: 0.95rem;
+                            opacity: 0;
+                            transform: translateX(-20px);
+                            animation: slide-in-right 0.5s ease forwards;
+                            }
+
+                            .include-item:nth-child(1) {
+                            animation-delay: 0.7s;
+                            }
+
+                            .include-item:nth-child(2) {
+                            animation-delay: 0.8s;
+                            }
+
+                            .include-item:nth-child(3) {
+                            animation-delay: 0.9s;
+                            }
+
+                            .include-item:nth-child(4) {
+                            animation-delay: 1s;
+                            }
+
+                            .include-item i {
+                            margin-right: 0.75rem;
+                            color: var(--success);
+                            font-size: 1.1rem;
+                            }
+
+                            <!--                            .instructor {-->
+                            <!--                            display: flex;-->
+                            <!--                            align-items: center;-->
+                            <!--                            margin-bottom: 1rem;-->
+                            <!--                            }-->
+
+                            .instructor-avatar {
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            margin-right: 1rem;
+                            position: relative;
+                            }
+
+                            .instructor-avatar img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            }
+
+                            .instructor-info {
+                            flex: 1;
+                            }
+
+                            .instructor-name {
+                            font-weight: 600;
+                            margin-bottom: 0.25rem;
+                            }
+
+                            .instructor-title {
+                            font-size: 0.85rem;
+                            color: var(--gray);
+                            }
+
+                            .progress-container {
+                            margin: 1.5rem 0;
+                            }
+
+                            .progress-text {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 0.5rem;
+                            font-size: 0.85rem;
+                            }
+
+                            .progress-bar {
+                            height: 8px;
+                            background-color: #eee;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            }
+
+                            .progress-fill {
+                            height: 100%;
+                            width: 0;
+                            background: linear-gradient(90deg, var(--primary), var(--accent));
+                            border-radius: 10px;
+                            transform-origin: left;
+                            animation: progress 1.5s ease forwards;
+                            animation-delay: 1s;
+                            }
+
+                            .ratings {
+                            display: flex;
+                            align-items: center;
+                            font-size: 0.9rem;
+                            margin-top: 1rem;
+                            }
+
+                            .stars {
+                            display: flex;
+                            margin-right: 0.5rem;
+                            color: #ffc107;
+                            }
+
+                            .rating-count {
+                            color: var(--gray);
+                            }
+
+                            .reviews {
+                            margin-top: 1.5rem;
+                            }
+
+                            .review {
+                            padding-bottom: 1rem;
+                            margin-bottom: 1rem;
+                            border-bottom: 1px solid #eee;
+                            opacity: 0;
+                            animation: fade-in 0.6s ease forwards;
+                            }
+
+                            .review:nth-child(1) {
+                            animation-delay: 0.3s;
+                            }
+
+                            .review:nth-child(2) {
+                            animation-delay: 0.6s;
+                            }
+
+                            .review-header {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 0.5rem;
+                            }
+
+                            .review-avatar {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                            margin-right: 0.75rem;
+                            }
+
+                            .review-avatar img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            }
+
+                            .review-author {
+                            flex: 1;
+                            }
+
+                            .review-name {
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            }
+
+                            .review-date {
+                            font-size: 0.8rem;
+                            color: var(--gray);
+                            }
+
+                            .review-stars {
+                            color: #ffc107;
+                            font-size: 0.8rem;
+                            margin-bottom: 0.25rem;
+                            }
+
+                            .review-content {
+                            font-size: 0.95rem;
+                            line-height: 1.6;
+                            }
+
+                            /* Animations */
+                            @keyframes slide-in {
+                            from {
+                            opacity: 0;
+                            transform: translateY(30px);
+                            }
+                            to {
+                            opacity: 1;
+                            transform: translateY(0);
+                            }
+                            }
+
+                            @keyframes slide-in-right {
+                            from {
+                            opacity: 0;
+                            transform: translateX(-20px);
+                            }
+                            to {
+                            opacity: 1;
+                            transform: translateX(0);
+                            }
+                            }
+
+                            @keyframes fade-in {
+                            from {
+                            opacity: 0;
+                            transform: scale(0.9);
+                            }
+                            to {
+                            opacity: 1;
+                            transform: scale(1);
+                            }
+                            }
+
+                            @keyframes progress {
+                            from {
+                            width: 0;
+                            }
+                            to {
+                            width: 75%;
+                            }
+                            }
+
+                            @keyframes ripple {
+                            to {
+                            transform: scale(4);
+                            opacity: 0;
+                            }
+                            }
+
+                            /* Icons */
+                            .icon {
+                            display: inline-block;
+                            width: 24px;
+                            height: 24px;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            vertical-align: middle;
+                            }
+                            p{
+                            font-size: 16px;
+                            }
+                            .top-80{
+                            top: 80px;
+                            }
+                            /* Buttons */
+                            .btn-apply {
+                            background: #588ee5;
+                            border: none;
+                            color: white;
+                            <!--                    padding: 10px 25px;-->
+                            border-radius: 25px;
+                            font-weight: 600;
+                            margin-right: 10px;
+                            animation: fadeInUp 0.6s ease-out 1s both;
+                            transition: all 0.3s ease;
+                            }
+
+                            .btn-apply:hover {
+                            border: 1px solid #588ee5 ;
+                            background:white;
+                            transform: translateY(-2px);
+                            color:#588ee5;
+                            }
+                            .btn-contact {
+                            background: rgba(255,255,255,0.2);
+                            border: 1px solid #588ee5;
+                            color: #4285f4;
+                            <!--                    padding: 10px 25px;-->
+                            border-radius: 25px;
+                            font-weight: 600;
+                            animation: fadeInUp 0.6s ease-out 1.2s both;
+                            transition: all 0.3s ease;
+                            }
+                            .btn-contact:hover {
+                            background: #588ee5;
+                            border-color: #588ee5;
+                            transform: translateY(-2px);
+                            color: white;
+                            }
+
+                        </style>
+                    </head>
+                    <!-- Spinner Start -->
+                    <div id="spinner"
+                         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+                        <div class="spinner-grow text-primary" role="status"></div>
+                    </div>
+                    <div class="container course-details">
+                        <div class="course-header">
+                            <div class="header-section px-3 px-md-4">
+                                <div class="university-icon">
+                                    <i class="fas fa-graduation-cap" style="font-size: 20px;"></i>
+                                </div>
+                                <div class="university-name">
+                                    Borg El Arab Technological University
+                                    <!--                                            <t t-esc="course.university.name"/>-->
+                                </div>
+                                <h1 class="program-title text-white">
+                                    course one
+                                    <!--                                            <t t-esc="course.name"/>-->
+                                </h1>
+
+                                <p class="program-description">
+                                    <!--                                            <t t-if="course.description">-->
+                                    <!--                                                <t t-esc="course.description"/>-->
+                                    <!--                                            </t>-->
+                                    <!--                                            <t t-else="">-->
+                                    Hands-on experience and practical skills development. Gain real-world
+                                    knowledge in this comprehensive program.
+                                    <!--                                            </t>-->
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="course-container">
+                            <div class="course-content">
+                                <!-- Bootstrap Tabs -->
+                                <ul class="nav nav-tabs" id="courseTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="overview-tab" data-bs-toggle="tab"
+                                                data-bs-target="#overview" type="button" role="tab"
+                                                aria-controls="overview" aria-selected="true">Overview
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab"
+                                                data-bs-target="#curriculum" type="button" role="tab"
+                                                aria-controls="curriculum" aria-selected="false">Curriculum
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="Benefits-tab" data-bs-toggle="tab"
+                                                data-bs-target="#Benefits" type="button" role="tab"
+                                                aria-controls="Benefits" aria-selected="false">Benefits
+                                        </button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
+                                                data-bs-target="#reviews" type="button" role="tab"
+                                                aria-controls="reviews" aria-selected="false">Reviews
+                                        </button>
+                                    </li>
+                                </ul>
+
+                                <!-- Tab Content -->
+                                <div class="tab-content" id="courseTabContent">
+                                    <div class="tab-pane fade show active" id="overview" role="tabpanel"
+                                         aria-labelledby="overview-tab">
+                                        <div class="section">
+                                            <h2 class="section-title">
+                                                <i class="fas fa-info-circle"></i>
+                                                About This Course
+                                            </h2>
+                                            <p>This comprehensive web development bootcamp takes you from absolute
+                                                beginner to professional developer. You'll learn to build fully-fledged
+                                                websites and web applications from scratch using the latest technologies
+                                                and frameworks.
+                                            </p>
+                                            <p>By the end of the course, you'll have the skills and confidence to create
+                                                your own projects, apply for developer jobs, or freelance as a web
+                                                developer.
+                                            </p>
+                                        </div>
+
+                                        <div class="section">
+                                            <h2 class="section-title">
+                                                <i class="fas fa-check-circle"></i>
+                                                What You'll Learn
+                                            </h2>
+                                            <ul class="features">
+                                                <li>Build responsive, accessible, and dynamic websites with HTML5, CSS3,
+                                                    and JavaScript
+                                                </li>
+                                                <li>Develop modern, reactive user interfaces with React.js</li>
+                                                <li>Create backend applications with Node.js, Express.js, and MongoDB
+                                                </li>
+                                                <li>Implement authentication, payment processing, and user management
+                                                    systems
+                                                </li>
+                                                <li>Deploy your applications to production with cloud platforms like AWS
+                                                    and Heroku
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="section">
+                                            <h2 class="section-title">
+                                                <i class="fas fa-laptop-code"></i>
+                                                Projects You'll Build
+                                            </h2>
+                                            <ul class="features">
+                                                <li>E-commerce store with shopping cart and payment integration</li>
+                                                <li>Social media platform with real-time messaging</li>
+                                                <li>Portfolio website with animations and responsive design</li>
+                                                <li>Task management application with drag-and-drop interface</li>
+                                                <li>REST API with authentication and database integration</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="curriculum" role="tabpanel"
+                                         aria-labelledby="curriculum-tab">
+                                        <div class="section">
+                                            <h2 class="section-title">
+                                                <i class="fas fa-list"></i>
+                                                Course Modules
+                                            </h2>
+
+                                            <div class="module">
+                                                <div class="module-header">
+                                                    <h3 class="module-title">HTML and CSS Fundamentals</h3>
+                                                    <span class="module-lessons">12 lessons</span>
+                                                </div>
+                                                <p class="module-content">Learn the building blocks of the web. Master
+                                                    HTML structure and CSS styling to create beautiful, responsive
+                                                    layouts.
+                                                </p>
+                                                <div class="module-meta">
+                                                    <span>
+                                                        <i class="fas fa-clock"></i>
+                                                        8 hours
+                                                    </span>
+                                                    <span>
+                                                        <i class="fas fa-file-alt"></i>
+                                                        5 exercises
+                                                    </span>
+                                                    <span>
+                                                        <i class="fas fa-project-diagram"></i>
+                                                        1 project
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="module">
+                                                <div class="module-header">
+                                                    <h3 class="module-title">JavaScript Programming</h3>
+                                                    <span class="module-lessons">18 lessons</span>
+                                                </div>
+                                                <p class="module-content">Dive into programming with JavaScript. Learn
+                                                    variables, functions, objects, arrays, and the DOM to make your
+                                                    websites interactive.
+                                                </p>
+                                                <div class="module-meta">
+                                                    <span>
+                                                        <i class="fas fa-clock"></i>
+                                                        15 hours
+                                                    </span>
+                                                    <span>
+                                                        <i class="fas fa-file-alt"></i>
+                                                        8 exercises
+                                                    </span>
+                                                    <span>
+                                                        <i class="fas fa-project-diagram"></i>
+                                                        2 projects
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="module">
+                                                <div class="module-header">
+                                                    <h3 class="module-title">React.js Frontend Development</h3>
+                                                    <span class="module-lessons">22 lessons</span>
+                                                </div>
+                                                <p class="module-content">Build modern user interfaces with React.
+                                                    Create components, manage state, and implement hooks for powerful
+                                                    frontend applications.
+                                                </p>
+                                                <div class="module-meta">
+                                                    <span>
+                                                        <i class="fas fa-clock"></i>
+                                                        18 hours
+                                                    </span>
+                                                    <span>
+                                                        <i class="fas fa-file-alt"></i>
+                                                        6 exercises
+                                                    </span>
+                                                    <span>
+                                                        <i class="fas fa-project-diagram"></i>
+                                                        3 projects
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="Benefits" role="tabpanel"
+                                         aria-labelledby="Benefits-tab">
+                                        <div class="section">
+                                            <h2 class="section-title">
+                                                <i class="fas fa-list"></i>
+                                                Benefits &amp; Outcomes
+                                            </h2>
+                                            <div class="section">
+                                                <p>Our comprehensive industrial training program provides tangible
+                                                    career benefits and valuable outcomes that will give you a
+                                                    competitive edge in the rapidly evolving manufacturing and
+                                                    industrial technology sector.
+                                                </p>
+                                            </div>
+
+                                            <div class="section">
+                                                <h2 class="section-title">
+                                                   <i class="fa-solid fa-handshake"></i>
+                                                   Benefits
+                                                </h2>
+                                                <ul class="features">
+                                                    <li>Providing engineers with the basics of maintenance of rotating and stationary equipment
+                                                    </li>
+
+                                                    <li>Learn about common faults, their causes, and how to diagnose them.</li>
+
+                                                    <li>Practical training on the use of inspection, analysis and preventive maintenance tools
+                                                    </li>
+                                                    <li>The course also covers understanding maintenance schedules, lubrication concepts, alignment, and balancing.
+                                                    </li>
+                                                    <li>In addition to acquiring skills in preparing fault reports, maintenance and technical documentation.
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="section">
+                                                <h2 class="section-title">
+                                                 <i class="fa-solid fa-chart-column"></i>
+                                                    Outcomes
+                                                </h2>
+                                                <ul class="features">
+                                                    <li>Includes a complete file for typical routine maintenance</li>
+                                                    <li>Technical Guide for Troubleshooting</li>
+                                                    <li>And models for fault reports and maintenance plans</li>
+                                                    <li>Certificate of attendance with documentation of acquired skills</li>
+                                                </ul>
+                                            </div>
+
+
+
+                                     <div class="section">
+                                                <h2 class="section-title">
+                                                   <i class="fa-solid fa-hand-holding-droplet"></i>
+                                                   Reference
+                                                </h2>
+                                                <ul class="features">
+                                                    <li>ASME Section VIII, IX Valves and Welding</li>
+                                                    <li>API 610/671/686 Pumps, Connections, and Alignment</li>
+                                                    <li>OSHA safety procedures during maintenance</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="tab-pane fade" id="reviews" role="tabpanel"
+                                         aria-labelledby="reviews-tab">
+                                        <div class="section">
+                                            <h2 class="section-title">
+                                                <i class="fas fa-star"></i>
+                                                Student Reviews
+                                            </h2>
+
+                                            <div class="review">
+                                                <div class="review-header">
+                                                    <div class="review-avatar">
+                                                        <img src="/nexus_nms/static/src/images/testimonial-2.jpg"
+                                                             alt="User avatar"/>
+                                                    </div>
+                                                    <div class="review-author">
+                                                        <div class="review-name">Alex Johnson</div>
+                                                        <div class="review-date">March 15, 2025</div>
+                                                    </div>
+                                                </div>
+                                                <div class="review-stars">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <p class="review-content">This course has been transformative for my
+                                                    career. I went from knowing nothing about web development to landing
+                                                    a junior developer position in just 6 months. The projects are
+                                                    practical and the explanations are crystal clear.
+                                                </p>
+                                            </div>
+
+                                            <div class="review">
+                                                <div class="review-header">
+                                                    <div class="review-avatar">
+                                                        <img src="/nexus_nms/static/src/images/testimonial-3.jpg"
+                                                             alt="User avatar"/>
+                                                    </div>
+                                                    <div class="review-author">
+                                                        <div class="review-name">Sarah Williams</div>
+                                                        <div class="review-date">April 2, 2025</div>
+                                                    </div>
+                                                </div>
+                                                <div class="review-stars">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                                <p class="review-content">I've tried many coding courses before, but
+                                                    this one stands out for the depth of knowledge and the way complex
+                                                    concepts are broken down. The instructor's teaching style makes even
+                                                    the most difficult topics approachable.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="course-sidebar position-relative">
+                                <div class="position-sticky top-80">
+                                    <div class="sidebar-box border p-0">
+                                        <div>
+                                            <div class="sideBarTitle p-3">
+                                                <h3 class="text-center text-white fw-bold m-0">
+                                                    Course One
+                                                </h3>
+                                            </div>
+                                            <div class="p-3">
+                                                <div class="text-center">
+                                                    <p class="fw-bold">
+                                                        5000 EGP / per student
+                                                    </p>
+                                                    <p class="fw-bold">
+                                                        10% discount for group registration (5 students or more)
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <div class="inputss">
+                                                        <select class="form-select" id="wavenumber"
+                                                                name="wave_no">
+                                                            <option value="" selected="1">Choose A Wave</option>
+                                                            <option value="wave1" disabled="1">Wave 1</option>
+                                                            <option value="wave2">Wave 2</option>
+                                                            <option value="wave3">Wave 3</option>
+                                                        </select>
+                                                        <input type="number" placeholder="Number of students"
+                                                               class="form-control mt-3"/>
+                                                    </div>
+                                                    <div class="action-buttons">
+                                                        <!--                                                        t-attf-href="/healthtech-training?course_id=#{course.id}"-->
+                                                        <a
+                                                                class="btn btn-apply  mt-2 mx-auto d-block w-50"
+                                                                style="text-decoration: none;">Apply
+                                                        </a>
+                                                        <a href="/contact_us"
+                                                           class="btn btn-contact  mt-2 mx-auto d-block w-50"
+                                                           style="text-decoration: none">Contact
+                                                            Us
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sidebar-box">
+                                        <div class="sideBarTitle p-3">
+                                            <h3 class="text-center text-white fw-bold m-0">Your Instructor</h3>
+                                        </div>
+                                        <div class="instructor">
+                                            <div class="instructor-avatar">
+                                                <img src="https://cdn-icons-png.flaticon.com/128/9721/9721094.png"
+                                                     alt="Instructor avatar"/>
+                                            </div>
+                                            <div class="instructor-info ">
+                                                <div class="instructor-name">David Miller</div>
+                                                <div class="instructor-title">Senior Web Developer &amp; Educator</div>
+                                                <div class="instructor-title">instructor@example.com</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <script><![CDATA[
+// Spinner functionality
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the spinner element
+  const spinner = document.getElementById('spinner');
+
+  // Make sure the spinner is visible during initial page load
+  if (spinner) {
+    spinner.classList.add('show');
+  }
+
+  // Hide spinner when everything is fully loaded
+  window.addEventListener('load', function() {
+    // Small delay to ensure everything is rendered
+    setTimeout(function() {
+      // Remove the "show" class to trigger the CSS transition
+      if (spinner) {
+        spinner.classList.remove('show');
+      }
+
+      // Dispatch a custom event when spinner is hidden
+      setTimeout(function() {
+        // Create and dispatch custom event after spinner transition completes
+        const spinnerCompleteEvent = new CustomEvent('spinnerComplete');
+        document.dispatchEvent(spinnerCompleteEvent);
+      }, 500); // Match the spinner transition time
+
+    }, 800); // Slightly longer delay to appreciate the overlay
+  });
+});
+  document.querySelectorAll('.module').forEach(module => {
+            module.addEventListener('mouseenter', () => {
+                module.style.transform = 'translateX(5px)';
+                module.style.borderLeftColor = '#4361ee';
+                module.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.05)';
+            });
+
+            module.addEventListener('mouseleave', () => {
+                module.style.transform = '';
+                module.style.borderLeftColor = 'transparent';
+                module.style.boxShadow = '';
+            });
+
+            module.addEventListener('click', () => {
+                const title = module.querySelector('.module-title').textContent;
+                alert(`You're about to start the "${title}" module. Get ready to learn!`);
+            });
+        });
+
+        // Button ripple effect
+        document.getElementById('enrollBtn').addEventListener('click', function(e) {
+            const button = this;
+
+            // Create ripple element
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple');
+
+            // Add ripple to button
+            this.appendChild(ripple);
+
+            // Get position of click relative to button
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Set ripple position
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+
+            // Remove ripple after animation completes
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+
+            // Show enrollment confirmation popup
+            setTimeout(() => {
+                alert('Thank you for enrolling in the Complete Web Development Bootcamp! Your journey to becoming a web developer starts now.');
+            }, 300);
+        });
+                  ]]>
+                    </script>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

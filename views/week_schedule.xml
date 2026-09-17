@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="training_weekly_schedule_kanban_view" model="ir.ui.view">
+        <field name="name">training.weekly.schedule.kanban</field>
+        <field name="model">training.weekly.schedule</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="company_id" class="o_kanban_small_column">
+                <field name="id"/>
+                <field name="week_number"/>
+                <field name="week_start_date"/>
+                <field name="week_end_date"/>
+                <field name="max_students"/>
+                <field name="registered_count"/>
+                <field name="remaining_spots"/>
+                <field name="is_full"/>
+                <field name="is_active"/>
+                <field name="company_id"/>
+                <field name="training_id"/>
+                <field name="display_name"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click #{record.is_full.raw_value ? 'oe_kanban_color_2' : (record.is_active.raw_value ? 'oe_kanban_color_5' : '')}">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            Week <field name="week_number"/>
+                                        </strong>
+                                        <br/>
+                                        <span class="o_kanban_record_subtitle text-muted">
+                                            <field name="week_start_date"/> - <field name="week_end_date"/>
+                                        </span>
+                                    </div>
+                                    <div class="o_kanban_record_top_right">
+                                        <t t-if="record.is_active.raw_value">
+                                            <span class="badge badge-success">Active</span>
+                                        </t>
+                                        <t t-if="record.is_full.raw_value">
+                                            <span class="badge badge-danger">Full</span>
+                                        </t>
+                                    </div>
+                                </div>
+
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <span class="text-muted">Training:</span><br/>
+                                            <field name="training_id"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <span class="text-muted">Capacity:</span><br/>
+                                            <span t-attf-class="#{record.is_full.raw_value ? 'text-danger' : 'text-success'}">
+                                                <field name="registered_count"/>/<field name="max_students"/>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col-12">
+                                            <div class="progress" style="height: 10px;">
+                                                <div class="progress-bar"
+                                                     t-attf-style="width: #{(record.registered_count.raw_value / record.max_students.raw_value) * 100}%"
+                                                     t-attf-class="#{record.is_full.raw_value ? 'bg-danger' : 'bg-success'}">
+                                                </div>
+                                            </div>
+                                            <small class="text-muted">
+                                                <field name="remaining_spots"/> spots remaining
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <button name="action_view_registrations" type="object" class="btn btn-primary btn-sm">
+                                            View Registrations
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="training_weekly_schedule_form_view" model="ir.ui.view">
+        <field name="name">training.weekly.schedule.form</field>
+        <field name="model">training.weekly.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Training Weekly Schedule">
+                <header>
+                    <button name="action_create_discussion_channel" string="Create Channel"
+                            type="object" class="btn-primary"/>
+                    <button name="get_session" string="start Channel"
+                            type="object" class="btn-primary"/>
+
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" readonly="1"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group name="basic_info" string="Basic Information">
+                            <field name="training_id" options="{'no_create': True}"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="week_number"/>
+                        </group>
+
+                        <group name="dates" string="Schedule Dates">
+                            <field name="week_start_date"/>
+                            <field name="week_end_date"/>
+                            <field name="link"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group name="capacity" string="Capacity Management">
+                            <field name="max_students"/>
+                            <field name="registered_count" readonly="1"/>
+                            <field name="remaining_spots" readonly="1"/>
+                        </group>
+
+                        <group name="status" string="Status">
+                            <field name="is_full" readonly="1"/>
+                            <field name="is_active" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Student Registrations" name="registrations">
+                            <field name="student_registrations" readonly="1">
+                                <tree string="Registered Students">
+                                    <field name="student_id"/>
+                                    <field name="registration_status"/>
+                                    <field name="registration_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+
+            </form>
+        </field>
+    </record>
+
+    <record id="training_weekly_schedule_tree_view" model="ir.ui.view">
+        <field name="name">training.weekly.schedule.tree</field>
+        <field name="model">training.weekly.schedule</field>
+        <field name="arch" type="xml">
+            <tree string="Training Weekly Schedules" decoration-danger="is_full" decoration-success="is_active">
+                <field name="company_id"/>
+                <field name="training_id"/>
+                <field name="week_number"/>
+                <field name="week_start_date"/>
+                <field name="week_end_date"/>
+                <field name="registered_count"/>
+                <field name="max_students"/>
+                <field name="remaining_spots"/>
+                <field name="is_full" invisible="1"/>
+                <field name="is_active" invisible="1"/>
+                <button name="action_view_registrations" string="View Registrations"
+                        type="object" class="btn btn-sm btn-secondary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="training_weekly_schedule_search_view" model="ir.ui.view">
+        <field name="name">training.weekly.schedule.search</field>
+        <field name="model">training.weekly.schedule</field>
+        <field name="arch" type="xml">
+            <search string="Search Training Weekly Schedules">
+                <field name="training_id"/>
+                <field name="company_id"/>
+                <field name="week_number"/>
+                <field name="week_start_date"/>
+
+                <filter string="Active Weeks" name="active_weeks" domain="[('is_active', '=', True)]"/>
+                <filter string="Full Weeks" name="full_weeks" domain="[('is_full', '=', True)]"/>
+                <filter string="Available Weeks" name="available_weeks" domain="[('remaining_spots', '>', 0)]"/>
+
+                <separator/>
+
+                <filter string="This Month" name="this_month"
+                        domain="[('week_start_date', '&gt;=', (context_today().replace(day=1)).strftime('%Y-%m-%d')),
+                                ('week_start_date', '&lt;', ((context_today().replace(day=1) + relativedelta(months=1))).strftime('%Y-%m-%d'))]"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Company" name="group_company" context="{'group_by': 'company_id'}"/>
+                    <filter string="Training Course" name="group_training" context="{'group_by': 'training_id'}"/>
+                    <filter string="Week Number" name="group_week" context="{'group_by': 'week_number'}"/>
+                    <filter string="Start Date" name="group_start_date" context="{'group_by': 'week_start_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_training_weekly_schedule" model="ir.actions.act_window">
+        <field name="name">Training Weekly Schedules</field>
+        <field name="res_model">training.weekly.schedule</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first training weekly schedule!
+            </p>
+            <p>
+                Manage your training schedules week by week, track student registrations,
+                and monitor capacity for each training period.
+            </p>
+        </field>
+    </record>
+</odoo>

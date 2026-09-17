@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="inherit_survey_form_view" model="ir.ui.view">
+            <field name="name">survey</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_survey_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="after">
+                    <field name="faculty_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="training_course_id"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <field name="state" widget="statusbar"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

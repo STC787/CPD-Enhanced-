@@ -1,0 +1,705 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="healthCare_analysis">
+            <t t-call="website.layout">
+                <style>
+                    * {
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    }
+
+                    body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    background: linear-gradient(135deg, #f8faff 0%, #e8f2ff 100%);
+                    min-height: 100vh;
+                    color: #333;
+                    }
+
+                    .analysis {
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 40px 20px;
+                    animation: fadeInUp 0.8s ease-out;
+                    }
+
+                    @keyframes fadeInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    .breadcrumb-analysis {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    margin-bottom: 30px;
+                    font-size: 14px;
+                    color: #666;
+                    animation: slideInLeft 0.6s ease-out;
+                    }
+
+                    @keyframes slideInLeft {
+                    from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    .breadcrumb-analysis span {
+                    transition: color 0.2s ease;
+                    }
+
+                    .breadcrumb-analysis span:hover {
+                    color: #4285f4;
+                    cursor: pointer;
+                    }
+
+                    .separator {
+                    color: #ccc;
+                    }
+
+                    .title {
+                    font-size: 32px;
+                    font-weight: 600;
+                    color: #4285f4;
+                    margin-bottom: 10px;
+                    animation: slideInRight 0.6s ease-out;
+                    }
+
+                    @keyframes slideInRight {
+                    from {
+                    opacity: 0;
+                    transform: translateX(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    .subtitle {
+                    color: #666;
+                    font-size: 16px;
+                    margin-bottom: 50px;
+                    line-height: 1.5;
+                    animation: fadeIn 0.8s ease-out 0.2s both;
+                    }
+
+                    @keyframes fadeIn {
+                    from {
+                    opacity: 0;
+                    }
+                    to {
+                    opacity: 1;
+                    }
+                    }
+
+                    .section-title {
+                    font-size: 20px;
+                    font-weight: 600;
+                    margin-bottom: 30px;
+                    animation: fadeIn 0.6s ease-out 0.4s both;
+                    }
+
+                    .analytics-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 25px;
+                    margin-bottom: 60px;
+                    }
+
+                    .analytics-card {
+                    background: white;
+                    border-radius: 16px;
+                    padding: 30px 25px;
+                    text-align: center;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    animation: scaleIn 0.6s ease-out;
+                    animation-delay: calc(var(--delay) * 0.1s);
+                    transform: scale(0.95);
+                    animation-fill-mode: both;
+                    }
+
+                    .analytics-card:nth-child(1) { --delay: 1; }
+                    .analytics-card:nth-child(2) { --delay: 2; }
+                    .analytics-card:nth-child(3) { --delay: 3; }
+
+                    @keyframes scaleIn {
+                    from {
+                    opacity: 0;
+                    transform: scale(0.8);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: scale(1);
+                    }
+                    }
+
+                    .analytics-card:hover {
+                    transform: translateY(-8px) scale(1.02);
+                    box-shadow: 0 15px 40px rgba(66, 133, 244, 0.15);
+                    border-color: rgba(66, 133, 244, 0.2);
+                    }
+
+                    .card-icon {
+                    width: 50px;
+                    height: 50px;
+                    margin: 0 auto 20px;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 24px;
+                    color: white;
+                    transition: transform 0.3s ease;
+                    }
+
+                    .analytics-card:hover .card-icon {
+                    transform: scale(1.1) rotate(5deg);
+                    }
+
+                    .icon-chart { background: linear-gradient(135deg, #4285f4, #34a853); }
+                    .icon-trend { background: linear-gradient(135deg, #4285f4, #1a73e8); }
+                    .icon-shield { background: linear-gradient(135deg, #4285f4, #6c5ce7); }
+
+                    .card-title {
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                    color: #333;
+                    }
+
+                    .card-description {
+                    color: #666;
+                    font-size: 14px;
+                    line-height: 1.4;
+                    }
+
+                    .chart-section {
+                    background: white;
+                    border-radius: 20px;
+                    padding: 40px;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+                    margin-bottom: 60px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    animation: slideInUp 0.8s ease-out 0.6s both;
+                    }
+
+                    @keyframes slideInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(40px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    .chart-container {
+                    height: 300px;
+                    display: flex;
+                    align-items: end;
+                    justify-content: space-around;
+                    gap: 10px;
+                    margin-top: 30px;
+                    padding: 20px 0;
+                    }
+
+                    .chart-bar {
+                    background: linear-gradient(180deg, #4285f4, #1a73e8);
+                    border-radius: 6px 6px 0 0;
+                    position: relative;
+                    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                    animation: growUp 1.2s ease-out;
+                    animation-delay: calc(var(--bar-delay) * 0.1s);
+                    animation-fill-mode: both;
+                    cursor: pointer;
+                    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+                    }
+
+                    .chart-bar:nth-child(1) { --bar-delay: 8; height: 180px; }
+                    .chart-bar:nth-child(2) { --bar-delay: 9; height: 120px; }
+                    .chart-bar:nth-child(3) { --bar-delay: 10; height: 140px; }
+                    .chart-bar:nth-child(4) { --bar-delay: 11; height: 220px; }
+                    .chart-bar:nth-child(5) { --bar-delay: 12; height: 100px; }
+                    .chart-bar:nth-child(6) { --bar-delay: 13; height: 90px; }
+                    .chart-bar:nth-child(7) { --bar-delay: 14; height: 160px; }
+                    .chart-bar:nth-child(8) { --bar-delay: 15; height: 80px; }
+                    .chart-bar:nth-child(9) { --bar-delay: 16; height: 130px; }
+                    .chart-bar:nth-child(10) { --bar-delay: 17; height: 95px; }
+                    .chart-bar:nth-child(11) { --bar-delay: 18; height: 110px; }
+                    .chart-bar:nth-child(12) { --bar-delay: 19; height: 125px; }
+
+                    @keyframes growUp {
+                    from {
+                    height: 0;
+                    opacity: 0;
+                    }
+                    to {
+                    opacity: 1;
+                    }
+                    }
+
+                    .chart-bar:hover {
+                    transform: scale(1.05);
+                    filter: brightness(1.1);
+                    box-shadow: 0 8px 20px rgba(66, 133, 244, 0.4);
+                    }
+
+                    .chart-bar {
+                    width: 60px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    }
+
+                    .bar-label {
+                    margin-top: 10px;
+                    font-size: 12px;
+                    color: #666;
+                    font-weight: 500;
+                    }
+
+                    .impact-section {
+                    animation: fadeIn 0.8s ease-out 1s both;
+                    }
+
+                    .impact-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 25px;
+                    margin-bottom: 40px;
+                    }
+
+                    .impact-card {
+                    background: white;
+                    border-radius: 16px;
+                    padding: 25px;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    animation: slideInLeft 0.6s ease-out;
+                    animation-delay: calc(var(--impact-delay) * 0.1s);
+                    animation-fill-mode: both;
+                    }
+
+                    .impact-card:nth-child(1) { --impact-delay: 12; }
+                    .impact-card:nth-child(2) { --impact-delay: 13; }
+                    .impact-card:nth-child(3) { --impact-delay: 14; }
+
+                    .impact-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+                    }
+
+                    .impact-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 10px;
+                    }
+
+                    .impact-icon {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    color: white;
+                    transition: transform 0.3s ease;
+                    }
+
+                    .impact-card:hover .impact-icon {
+                    transform: scale(1.1);
+                    }
+
+                    .icon-pulse { background: linear-gradient(135deg, #e91e63, #f06292); }
+                    .icon-users { background: linear-gradient(135deg, #9c27b0, #ba68c8); }
+                    .icon-check { background: linear-gradient(135deg, #4caf50, #81c784); }
+
+                    .impact-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    }
+
+                    .impact-description {
+                    color: #666;
+                    font-size: 14px;
+                    line-height: 1.4;
+                    }
+
+                    .apply-button {
+                    background: linear-gradient(135deg, #4285f4, #1a73e8);
+                    color: white;
+                    border: none;
+                    padding: 16px 32px;
+                    border-radius: 12px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+                    animation: pulse 2s infinite;
+                    animation-delay: 2s;
+                    }
+
+                    @keyframes pulse {
+                    0%, 100% {
+                    transform: scale(1);
+                    box-shadow: 0 4px 16px rgba(66, 133, 244, 0.3);
+                    }
+                    50% {
+                    transform: scale(1.02);
+                    box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+                    }
+                    }
+
+                    .apply-button:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 8px 24px rgba(66, 133, 244, 0.4);
+                    animation: none;
+                    }
+
+                    .apply-button:active {
+                    transform: translateY(0);
+                    }
+
+                    @media (max-width: 768px) {
+                    .analysis {
+                    padding: 20px 15px;
+                    }
+
+                    .analytics-grid {
+                    grid-template-columns: 1fr;
+                    }
+
+                    .chart-container {
+                    gap: 5px;
+                    }
+
+                    .chart-bar {
+                    width: 25px;
+                    }
+
+                    .impact-grid {
+                    grid-template-columns: 1fr;
+                    }
+                    }
+                </style>
+                <div id="wrap">
+                    <div class="container analysis">
+                        <!-- Breadcrumb -->
+                        <div class="breadcrumb-analysis">
+                            <span>Flyer</span>
+                            <span class="separator">›</span>
+                            <span>Curriculum</span>
+                            <span class="separator">›</span>
+                            <span>Data Analytics</span>
+                            <span class="separator">›</span>
+                            <span style="color: #4285f4;">Healthcare Insights</span>
+                        </div>
+
+                        <!-- Header -->
+                        <h1 class="title">Healthcare Data Analytics</h1>
+                        <p class="subtitle">Unlock actionable insights from hospital data to improve patient care and
+                            operations.
+                        </p>
+
+                        <!-- Key Analytics Topics -->
+                        <h2 class="section-title">Key Analytics Topics</h2>
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <div class="card-icon icon-chart">📊</div>
+                                <h3 class="card-title">Data Dashboards</h3>
+                                <p class="card-description">Visualize patient flow, wait times, and resource use.</p>
+                            </div>
+                            <div class="analytics-card">
+                                <div class="card-icon icon-trend">📈</div>
+                                <h3 class="card-title">Predictive Insights</h3>
+                                <p class="card-description">Forecast trends and identify care gaps.</p>
+                            </div>
+                            <div class="analytics-card">
+                                <div class="card-icon icon-shield">🛡️</div>
+                                <h3 class="card-title">Data Privacy</h3>
+                                <p class="card-description">Understand secure handling of health data.</p>
+                            </div>
+                        </div>
+
+                        <!-- Sample Analytics Dashboard -->
+                        <div class="chart-section">
+                            <h2 class="section-title">Sample Analytics Dashboard</h2>
+                            <div class="chart-container">
+                                <div class="chart-bar">
+                                    <div class="bar-label">ER</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">ICU</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">Lab</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">Ward</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">Pharm</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">OR</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">OPD</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">Admin</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">Diag</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">Rehab</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">ICU2</div>
+                                </div>
+                                <div class="chart-bar">
+                                    <div class="bar-label">ER2</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real-World Impact -->
+                        <div class="impact-section">
+                            <h2 class="section-title">Real-World Impact</h2>
+                            <div class="impact-grid">
+                                <div class="impact-card">
+                                    <div class="impact-header">
+                                        <div class="impact-icon icon-pulse">⚡</div>
+                                        <h3 class="impact-title">Faster Diagnoses</h3>
+                                    </div>
+                                    <p class="impact-description">Data-driven patient triage</p>
+                                </div>
+                                <div class="impact-card">
+                                    <div class="impact-header">
+                                        <div class="impact-icon icon-users">👥</div>
+                                        <h3 class="impact-title">Resource Planning</h3>
+                                    </div>
+                                    <p class="impact-description">Optimize staff &amp; beds</p>
+                                </div>
+                                <div class="impact-card">
+                                    <div class="impact-header">
+                                        <div class="impact-icon icon-check">✓</div>
+                                        <h3 class="impact-title">Quality Care</h3>
+                                    </div>
+                                    <p class="impact-description">Monitor outcomes</p>
+                                </div>
+                            </div>
+                            <a href="/healthtech-training" class="apply-button" >Apply Today</a>
+                        </div>
+                    </div>
+
+                    <script><![CDATA[
+                       // Intersection Observer for scroll-triggered animations
+                        const observerOptions = {
+                            threshold: 0.5, // Trigger when 50% of element is visible
+                            rootMargin: '0px'
+                        };
+
+                        // Create intersection observer
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    const element = entry.target;
+
+                                    // Trigger different animations based on element class
+                                    if (element.classList.contains('analytics-card')) {
+                                        element.style.animation = 'scaleIn 0.6s ease-out forwards';
+                                        element.style.animationDelay = `${element.dataset.delay * 0.1}s`;
+                                    }
+
+                                    if (element.classList.contains('chart-bar')) {
+                                        element.style.animation = 'growUp 1.2s ease-out forwards';
+                                        element.style.animationDelay = `${element.dataset.barDelay * 0.1}s`;
+                                    }
+
+                                    if (element.classList.contains('impact-card')) {
+                                        element.style.animation = 'slideInLeft 0.6s ease-out forwards';
+                                        element.style.animationDelay = `${element.dataset.impactDelay * 0.1}s`;
+                                    }
+
+                                    if (element.classList.contains('chart-section')) {
+                                        element.style.animation = 'slideInUp 0.8s ease-out forwards';
+                                    }
+
+                                    // Add floating animation after initial animation
+                                    setTimeout(() => {
+                                        if (element.classList.contains('analytics-card') || element.classList.contains('impact-card')) {
+                                            element.style.animation += ', float 6s ease-in-out infinite';
+                                        }
+                                    }, 1000);
+
+                                    // Stop observing after animation is triggered
+                                    observer.unobserve(element);
+                                }
+                            });
+                        }, observerOptions);
+
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Remove initial animations from CSS and add them via JS
+                            const elementsToAnimate = document.querySelectorAll('.analytics-card, .chart-bar, .impact-card, .chart-section');
+
+                            elementsToAnimate.forEach((element, index) => {
+                                // Reset animations
+                                element.style.animation = 'none';
+                                element.style.opacity = '0';
+                                element.style.transform = 'translateY(30px)';
+
+                                // Add data attributes for delays
+                                if (element.classList.contains('analytics-card')) {
+                                    element.dataset.delay = Array.from(element.parentNode.children).indexOf(element) + 1;
+                                }
+                                if (element.classList.contains('chart-bar')) {
+                                    element.dataset.barDelay = Array.from(element.parentNode.children).indexOf(element) + 8;
+                                }
+                                if (element.classList.contains('impact-card')) {
+                                    element.dataset.impactDelay = Array.from(element.parentNode.children).indexOf(element) + 12;
+                                }
+
+                                // Start observing
+                                observer.observe(element);
+                            });
+
+                            // Chart bar hover interactions
+                            const chartBars = document.querySelectorAll('.chart-bar');
+                            chartBars.forEach(bar => {
+                                bar.addEventListener('mouseenter', function() {
+                                    this.style.transform += ' scale(1.05)';
+                                    this.style.filter = 'brightness(1.1)';
+                                });
+
+                                bar.addEventListener('mouseleave', function() {
+                                    this.style.transform = this.style.transform.replace(' scale(1.05)', '');
+                                    this.style.filter = 'brightness(1)';
+                                });
+                            });
+
+                            // Button click animation
+                            const applyButton = document.querySelector('.apply-button');
+                            applyButton.addEventListener('click', function() {
+                                this.style.transform = 'scale(0.98)';
+                                setTimeout(() => {
+                                    this.style.transform = 'scale(1)';
+                                }, 150);
+
+                                // Add success animation
+                                this.innerHTML = '✓ Applied!';
+                                this.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
+
+                                setTimeout(() => {
+                                    this.innerHTML = 'Apply Today';
+                                    this.style.background = 'linear-gradient(135deg, #4285f4, #1a73e8)';
+                                }, 2000);
+                            });
+
+                            // Scroll progress indicator (optional)
+                            const progressBar = document.createElement('div');
+                            progressBar.style.cssText = `
+                                position: fixed;
+                                top: 0;
+                                left: 0;
+                                width: 0%;
+                                height: 3px;
+                                background: linear-gradient(90deg, #4285f4, #34a853);
+                                z-index: 1000;
+                                transition: width 0.1s ease;
+                            `;
+                            document.body.appendChild(progressBar);
+
+                            window.addEventListener('scroll', () => {
+                                const scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                                progressBar.style.width = scrollProgress + '%';
+                            });
+                        });
+
+                        // Enhanced CSS for scroll-triggered animations
+                        const style = document.createElement('style');
+                        style.textContent = `
+                            @keyframes float {
+                                0%, 100% {
+                                    transform: translateY(0px);
+                                }
+                                50% {
+                                    transform: translateY(-5px);
+                                }
+                            }
+
+                            @keyframes scaleIn {
+                                from {
+                                    opacity: 0;
+                                    transform: translateY(30px) scale(0.8);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0) scale(1);
+                                }
+                            }
+
+                            @keyframes growUp {
+                                from {
+                                    height: 0;
+                                    opacity: 0;
+                                    transform: translateY(20px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+
+                            @keyframes slideInLeft {
+                                from {
+                                    opacity: 0;
+                                    transform: translateX(-30px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translateX(0);
+                                }
+                            }
+
+                            @keyframes slideInUp {
+                                from {
+                                    opacity: 0;
+                                    transform: translateY(40px);
+                                }
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    ]]></script>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

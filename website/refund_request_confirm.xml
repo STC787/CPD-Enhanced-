@@ -1,0 +1,194 @@
+<odoo>
+    <data>
+        <template id="refund_request_confirm_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>refund request confirm </title>
+                 <style>
+  :root {
+      --blue-900: #0a1628;
+      --blue-800: #0f2547;
+      --blue-700: #1a3a6e;
+      --blue-600: #1e4fa0;
+      --blue-500: #2563eb;
+      --blue-400: #3b82f6;
+      --blue-300: #60a5fa;
+      --blue-200: #bfdbfe;
+      --blue-100: #dbeafe;
+      --blue-50:  #eff6ff;
+      --white:    #ffffff;
+      --slate:    #64748b;
+      --success:  #16a34a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--blue-50);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    /* ── CARD ── */
+    .msg-card {
+  margin-bottom: 50px !important;
+    margin-top: 50px !important;
+    margin: auto;
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(10, 22, 40, 0.12);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+    animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── TOP STRIPE ── */
+    .card-stripe {
+      background: linear-gradient(135deg, var(--blue-900), var(--blue-600));
+      height: 8px;
+    }
+
+    /* ── BODY ── */
+    .card-body {
+      padding: 40px 32px 36px;
+      text-align: center;
+    }
+
+    /* ── ICON ── */
+    .icon-wrap {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #dcfce7;
+      border: 3px solid #86efac;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s both;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+
+    .icon-wrap i {
+      font-size: 2rem;
+      color: var(--success);
+    }
+
+    /* ── TEXT ── */
+    .msg-title {
+ font-size: 2.4rem;
+      color: var(--blue-900) !important;
+      margin-bottom: 10px;
+    }
+
+    .msg-text {
+     font-size: 1rem;
+    color: #2a4a78;
+    line-height: 1.88;
+    margin-bottom: 14px;
+    }
+
+    /* ── REF BADGE ── */
+
+
+
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--blue-100);
+      margin-bottom: 24px;
+    }
+
+    /* ── BUTTON ── */
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--blue-700);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 12px 32px;
+      font-size: 0.87rem;
+      font-weight: 700;
+      width: 100%;
+      transition: background 0.18s, transform 0.14s;
+    }
+
+    .btn-back:hover {
+      background: var(--blue-500);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER NOTE ── */
+    .footer-note {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 18px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .card-body  { padding: 30px 20px 28px; }
+      .msg-title  { font-size: 1.2rem; }
+      .icon-wrap  { width: 64px; height: 64px; }
+      .icon-wrap i { font-size: 1.7rem; }
+    }
+  </style>
+                    </head>
+                    <body>
+<div class="msg-card">
+
+    <div class="card-stripe"></div>
+
+    <div class="card-body">
+
+      <!-- Icon -->
+      <div class="icon-wrap">
+<i class="fa-solid fa-check" style="color: #16a34a;"></i>
+      </div>
+
+      <!-- Title -->
+      <h2 class="msg-title">Request Sent!</h2>
+
+      <!-- Message -->
+      <p class="msg-text">
+        Your refund request has been successfully submitted.<br/>
+      </p>
+
+
+
+      <div class="divider"></div>
+
+    </div>
+  </div>
+
+
+                    </body>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

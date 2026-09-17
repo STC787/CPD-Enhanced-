@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="custom_header_layout" inherit_id="website.layout" name="Custom Header Layout">
+        <xpath expr="//header" position="before">
+            <style>
+                #top-navbar{
+                background:linear-gradient(135deg, #29abe2 0%, #000f2a 100%);
+                }
+                .btn-link i {
+                color:white;
+                }
+                .text-family{
+                font-family:DM Sans;
+                }
+            </style>
+            <t t-if="request.env.user._is_public()">
+                <!-- Topbar Start -->
+                <div id="top-navbar" class="container-fluid text-light p-0">
+                    <div class="row gx-0  d-lg-flex">
+                        <div class="px-lg-5 pt-2 pt-lg-0">
+                            <div class="d-flex justify-content-center justify-content-lg-end flex-wrap">
+                                <a class="btn btn-link rounded-0 border-0 " href="/partnerRegis">
+                                    <i class="fa-solid fa-user-plus me-2"></i>
+                                    <span class="text-white text-family">Register as Partner</span>
+                                </a>
+                                <a class="btn btn-link rounded-0 border-0 "
+                                   href="/studentRegistration">
+                                    <i class="fa-solid fa-user-graduate me-2"></i>
+                                    <span class="text-white text-family">Register as Student</span>
+                                </a>
+                                <a class="btn btn-link rounded-0 border-0 "
+                                   href="/doctorRegis">
+                                    <i class="fa-solid fa-user-graduate me-2"></i>
+                                    <span class="text-white text-family">Register as Expert</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Topbar End -->
+            </t>
+        </xpath>
+    </template>
+
+
+</odoo>

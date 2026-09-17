@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_problem_kanban_view">
+            <field name="name">masrtech_problem_kanban</field>
+            <field name="model">masrtech.problem</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_problem_form_view">
+            <field name="model">masrtech.problem</field>
+            <field name="arch" type="xml">
+                <form string="Problem">
+                    <header>
+                        <button type="object" name="send_to_staff" string="Send to Staff"
+                                class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="company_id"/>
+                                <field name="masrtech_department" widget="many2many_tags"/>
+                                <!--                            <field name="recommended_staff_ids" widget="many2many_tags"/>-->
+                                <field name="email"/>
+                            </group>
+                            <group class="w-50">
+                                <field name="location"/>
+                                <field name="deadline"/>
+                                <field name="status"/>
+                                <field name="challenges"/>
+                                <field name="materials_needed"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_problem_tree_view">
+            <field name="model">masrtech.problem</field>
+            <field name="arch" type="xml">
+                <tree string="Problems">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_masrtech_problem" model="ir.actions.act_window">
+            <field name="name">Problems</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.problem</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+    </data>
+</odoo>

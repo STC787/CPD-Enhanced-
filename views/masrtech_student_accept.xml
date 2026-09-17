@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_student_accept_form_view">
+            <field name="model">masrtech.student.accept</field>
+            <field name="arch" type="xml">
+                <form string="Accepting">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="student_name"/>
+                            <field name="company_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_student_accept_tree_view">
+            <field name="model">masrtech.student.accept</field>
+            <field name="arch" type="xml">
+                <tree string="Accepting">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_student_accept" model="ir.actions.act_window">
+            <field name="name">Accepting</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.student.accept</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+    </data>
+</odoo>

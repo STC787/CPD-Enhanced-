@@ -1,0 +1,637 @@
+<odoo>
+    <data>
+        <template id="student_registration">
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <link rel="stylesheet"
+                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+                    <!-- Optional theme -->
+                    <link rel="stylesheet"
+                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+
+                    <!-- Latest compiled and minified JavaScript -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+                    <title>MASRTECH Student Registration</title>
+                    <style>
+                        h5, h1{
+                        text-align: center;
+                        }
+                        h1{
+                        color: #8d1d17;
+                        font-weight: bold;
+                        }
+                        h5{
+                        color: #C55E55;
+                        font-size: 2rem;
+                        line-height: 32px;
+                        }
+                        h6{
+                        font-size: 1.7rem;
+                        }
+                        body{
+                        background:#fef0db;
+                        }
+                        form{
+                        padding: 30px;
+                        margin: 20px auto;
+                        width:96%;
+                        border: 1px solid #c7c2c2;
+                        border-radius: 27px;
+                        box-shadow: 1px 0px 21px #e2e0e0;
+                        background:white;
+                        }
+                        input{
+                        width:100%;
+                        margin-top: 25px !important;
+                        margin-bottom: 25px !important;
+                        padding: 10px 0;
+                        border: solid 1px #691617 !important;
+                        }
+                        select{
+                        width: 100%;
+                        background-color: transparent;
+                        margin-bottom: 25px;
+                        padding: 10px 0;
+                        border: solid 1px #691617 !important;
+                        }
+                        label {
+                        margin-top: 25px;
+                        font-size: 1.7rem;
+                        }
+                        button{
+                        width: 80px;
+                        height: 35px;
+                        background: #3f9a3f;
+                        border-width: 1px;
+                        border-radius: 4px;
+                        border-color: white;
+                        color: white;
+                        font-weight: bold;
+                        display: block;
+                        }
+                        input[type="radio"]{
+                        width:max-content
+                        }
+                        textarea{
+                        border: solid 1px #691617 !important;
+                        border-radius: 7px !important;
+                        }
+                        button.remove {
+                        background: transparent;
+                        background-image: url(/masrtech/static/imgs/bin.png);
+                        border-width: 0px;
+                        background-position: center;
+                        background-size: 20px;
+                        background-repeat: no-repeat;
+                        padding: 0;
+                        width: 24px;
+                        }
+                        @media screen and (min-width:768px){
+                        form{
+                        width: 80% !important;
+                        }
+                        }
+                        @media screen and (min-width:959px){
+                        form{
+                        width:70% !important;
+                        }
+                        }
+                        @media screen and (min-width:1024px){
+                        form{
+                        width:50% !important;
+                        }
+                        }
+
+                    </style>
+                </head>
+                <body dir="rtl">
+                    <form role="form" action="/MASRTECH/student/registration/confirm" method="POST"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                        <img src="/masrtech/static/imgs/masr_logo.jpeg" width="200"
+                             style="margin: auto; display: block;"/>
+                        <h1>Job fair</h1>
+                        <h6>Unlock your future at our Job Fair! Meet top employers, explore exciting job opportunities,
+                            and take the next step in your career journey. Whether you're a fresh graduate or a seasoned
+                            professional, there’s something for everyone
+                        </h6>
+                        <label for="name">اسم الطالب / الخريج</label>
+                        <input type="text" id="name" name="name" required="1" placeholder="اجابتك"/>
+                        <label for="student_id">رقم الجامعي</label>
+                        <input type="text" id="student_id" name="student_id" required="1" placeholder="اجابتك"/>
+                        <label for="email">Gmail:</label>
+                        <input type="email" id="email" name="email" required="1" placeholder="اجابتك"/>
+                        <label for="phone">رقم الهاتف :</label>
+                        <input type="tel" id="phone" name="phone" required="1" placeholder="اجابتك"/>
+
+                        <label for="academic_track">المسار الاكاديمي:</label>
+                        <select class="form-control" name="academic_track" id="academic_track" required="1">
+                            <option value=""></option>
+                            <option value="student">طالب</option>
+                            <option value="graduated">خريج</option>
+                        </select>
+                        <div id="level_div" class="hidden">
+                            <label for="levels">الفرقة:</label>
+                            <select id="levels" name="levels">
+                                <option value="">اختر الفرقة</option>
+                                <option value="one">الاولي</option>
+                                <option value="two">الثانية</option>
+                                <option value="three">الثالثة</option>
+                            </select>
+                        </div>
+
+                        <label for="faculty">الكلية</label>
+                        <br/>
+                        <select class="form-control" name="faculty" id="faculty" required="1">
+                            <option value="">اختر الكلية</option>
+                            <t t-foreach="faculty" t-as="faculty">
+                                <option t-esc="faculty.name" t-att-value="faculty.id"
+                                        t-att-selected="str(faculty.id) == faculty">
+                                    <t t-esc="faculty.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <label for="department">البرنامج</label>
+                        <br/>
+                        <select class="form-control" name="department" id="department" required="1">
+                            <option value="">اختر البرنامج</option>
+                            <t t-foreach="department" t-as="department">
+                                <option t-esc="department.name" t-att-value="department.id"
+                                        t-att-selected="str(department.id) == department">
+                                    <t t-esc="department.name"/>
+                                </option>
+                            </t>
+                        </select>
+
+                        <input type="hidden" name="graduatedLineCount" id="graduatedLineCount" value="0"/>
+
+                        <div class="form-section">
+                            <div id="graduated_table_div" class="hidden">
+                                <table id="graduated_table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>المسمى الوظيفي</th>
+                                            <th>المؤهل</th>
+                                            <th>الخبرة</th>
+                                            <th>المهارات</th>
+                                            <th>أماكن العمل</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="graduated_table_body">
+                                        <tr id="graduated_row_0">
+                                            <td>
+                                                <input type="text" name="graduated_title_0"
+                                                       id="graduated_title_0" class="form-control"
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="graduated_qualification_0"
+                                                       id="graduated_qualification_0" class="form-control"
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="graduated_experience_0"
+                                                       id="graduated_experience_0" class="form-control"
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="graduated_skills_0"
+                                                       id="graduated_skills_0" class="form-control"
+                                                />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="work_locations_0"
+                                                       id="work_locations_0" class="form-control"
+                                                />
+                                            </td>
+
+                                            <td style="vertical-align:middle;padding: 0;">
+                                                <button type="button" class="remove"
+                                                        onclick="removeGraduatedRow(0)">
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" id="add_graduated_line" class="btn btn-success">Add Line
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <input type="hidden" name="studentLineCount" id="studentLineCount" value="0"/>
+                        <div class="form-section">
+                            <div id="student_table_div" class="hidden">
+
+                                <table id="student_table" class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>مسمي وظيفي</th>
+                                            <th>مؤهل الدراسي</th>
+                                            <th>مهارات</th>
+                                            <th>Soft Skills</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="student_table_body">
+                                        <tr id="student_row_0">
+                                            <td>
+                                                <input type="text" name="student_title_0"
+                                                       id="student_title_0" class="form-control"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="student_education_0"
+                                                       id="student_education_0" class="form-control"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="student_skills_0"
+                                                       id="student_skills_0" class="form-control"/>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="student_soft_skills_0"
+                                                       id="student_soft_skills_0" class="form-control"/>
+                                            </td>
+                                            <td style="vertical-align:middle;padding: 0;">
+                                                <button type="button" class="remove"
+                                                        onclick="removeStudentRow(0)">
+
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" id="add_student_line" class="btn btn-success">Add Line
+                                </button>
+                            </div>
+                        </div>
+
+                        <label for="fileUpload">برجاء ارفاق الشهادات التي حصلت عليها</label>
+                        <input type="file" id="fileUpload" name="fileUpload"
+                               multiple="multiple"/>
+                        <button style="text-align: center; background: #C55E55; width: 150px; margin:20px auto; border-radius: 10px; color: white; "
+                                action="/MASRTECH/student/portfolio/confirm" method="GET">
+                            Submit
+                        </button>
+                    </form>
+                    <script>
+                        let graduatedLineCount =$('#graduatedLineCount').val();
+                        let studentLineCount = $('#studentLineCount').val();
+
+
+                        // Add line to training table
+                        document.getElementById("add_graduated_line").addEventListener("click", function() {
+                        graduatedLineCount++;
+                        $('#graduatedLineCount').val(graduatedLineCount);
+
+
+                        const rowHtml = `
+                        <tr id="graduated_row_${graduatedLineCount}">
+                            <td>
+                                <input type="text" name="graduated_title_${graduatedLineCount}"
+                                       id="graduated_title_${graduatedLineCount}" class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input type="text" name="graduated_qualification_${graduatedLineCount}"
+                                       id="graduated_qualification_${graduatedLineCount}" class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input type="text" name="graduated_experience_${graduatedLineCount}"
+                                       id="graduated_experience_${graduatedLineCount}" class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input type="text" name="graduated_skills_${graduatedLineCount}"
+                                       id="graduated_skills_${graduatedLineCount}" class="form-control"
+                                />
+                            </td>
+                            <td>
+                                <input type="text" name="work_locations_${graduatedLineCount}"
+                                       id="work_locations_${graduatedLineCount}" class="form-control"
+                                />
+                            </td>
+
+                            <td style="vertical-align:middle;padding: 0;">
+                                <button type="button" class="remove"
+                                        onclick="removeGraduatedRow(${graduatedLineCount})">
+                                </button>
+                            </td>
+
+                        </tr>
+                        `;
+                        document.getElementById("graduated_table_body").insertAdjacentHTML('beforeend', rowHtml);
+                        });
+
+                        // Remove row from training table
+                        function removeGraduatedRow(rowId) {
+                        const row = document.getElementById(`graduated_row_${rowId}`);
+                        if (row) {
+                        row.remove();
+                        }
+                        }
+
+                        // Add line to job table
+                        document.getElementById("add_student_line").addEventListener("click", function() {
+                        studentLineCount++;
+                        $('#studentLineCount').val(studentLineCount);
+                        const rowHtml = `
+                        <tr id="student_row_${studentLineCount}">
+                            <td>
+                                <input type="text" name="student_title_${studentLineCount}"
+                                       id="student_title_${studentLineCount}" class="form-control"/>
+                            </td>
+                            <td>
+                                <input type="text" name="student_education_${studentLineCount}"
+                                       id="student_education_${studentLineCount}" class="form-control"/>
+                            </td>
+                            <td>
+                                <input type="text" name="student_skills_${studentLineCount}"
+                                       id="student_skills_${studentLineCount}" class="form-control"/>
+                            </td>
+                            <td>
+                                <input type="text" name="student_soft_skills_${studentLineCount}"
+                                       id="student_soft_skills_${studentLineCount}" class="form-control"/>
+                            </td>
+                            <td style="vertical-align:middle;padding: 0;">
+                                <button type="button" class="remove"
+                                        onclick="removeStudentRow(${studentLineCount})">
+                                </button>
+                            </td>
+                        </tr>
+                        `;
+                        document.getElementById("student_table_body").insertAdjacentHTML('beforeend', rowHtml);
+                        });
+
+                        // Remove row from job table
+                        function removeJobRow(rowId) {
+                        const row = document.getElementById(`student_row_${rowId}`);
+                        if (row) {
+                        row.remove();
+                        }
+                        }
+                        document.getElementById('academic_track').addEventListener('change', function () {
+                        const studentTable = document.getElementById('student_table_div');
+                        const graduatedTable = document.getElementById('graduated_table_div');
+                        const level_div = document.getElementById('level_div');
+
+                        if (this.value === 'student') {
+                        studentTable.classList.remove('hidden');
+                        level_div.classList.remove('hidden');
+                        graduatedTable.classList.add('hidden');
+                        } else if (this.value === 'graduated') {
+                        graduatedTable.classList.remove('hidden');
+                        studentTable.classList.add('hidden');
+                        level_div.classList.add('hidden');
+                        } else {
+                        studentTable.classList.add('hidden');
+                        graduatedTable.classList.add('hidden');
+                        level_div.classList.add('hidden');
+                        }
+                        });
+                    </script>
+
+                </body>
+            </html>
+        </template>
+        <template id="student_registration_confirm">
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8"/>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                    <link rel="stylesheet"
+                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+                    <!-- Optional theme -->
+                    <link rel="stylesheet"
+                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+
+                    <!-- Latest compiled and minified JavaScript -->
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+                    <title>Confirm Form</title>
+                    <style>
+                        body{
+                        background: #fef0db;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        height: 100vh;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div style="">
+                        <div style="border: solid 2px #C55E55;margin: 20px auto;padding: 40px; border-radius: 15px; background: white; width: 50%; min-width:300px;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <input type="hidden" name="check_duplicate" id="check_duplicate"/>
+
+                                    <t t-if="check_duplicate">
+
+                                        <td style="width: 240px;">
+                                            <h5 style="font-size: 25px; color: #C55E55; text-align: center; line-height: 45px;">
+                                                The registration is  Duplicated
+                                            </h5>
+                                        </td>
+
+                                    </t>
+                                    <t t-else="">
+                                        <td style="width: 240px;">
+                                            <h5 style="font-size: 25px; color: #C55E55; text-align: center; line-height: 45px;">
+                                                The registration is confirmed
+                                            </h5>
+                                        </td>
+
+                                    </t>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+    </data>
+</odoo>
+
+
+        <!--        <template id="student_registration">-->
+        <!--            <html lang="en">-->
+        <!--                <head>-->
+        <!--                    <meta charset="UTF-8"/>-->
+        <!--                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+        <!--                    <link rel="stylesheet"-->
+        <!--                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+
+        <!--                    &lt;!&ndash; Optional theme &ndash;&gt;-->
+        <!--                    <link rel="stylesheet"-->
+        <!--                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>-->
+
+        <!--                    &lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+        <!--                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>-->
+        <!--                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>-->
+        <!--                    <title>MASRTECH Student Registration</title>-->
+        <!--                    <style>-->
+        <!--                        h5, h1{-->
+        <!--                        text-align: center;-->
+        <!--                        }-->
+        <!--                        h1{-->
+        <!--                        color: #2c3491;-->
+        <!--                        font-weight: bold;-->
+        <!--                        }-->
+        <!--                        h5{-->
+        <!--                        color: #3f9a3f;-->
+        <!--                        }-->
+        <!--                        form{-->
+        <!--                        padding: 30px;-->
+        <!--                        margin: auto;-->
+        <!--                        width: 70%;-->
+        <!--                        }-->
+        <!--                        input{-->
+        <!--                        width:100%;-->
+        <!--                        border-top: none;-->
+        <!--                        border-left: none;-->
+        <!--                        border-right: none;-->
+        <!--                        border-width: 1px;-->
+        <!--                        margin-top: 25px !important;-->
+        <!--                        margin-bottom: 25px !important;-->
+        <!--                        padding: 10px 0;-->
+        <!--                        }-->
+        <!--                        select{-->
+        <!--                        width: 100%;-->
+        <!--                        border-top: none;-->
+        <!--                        border-left: none;-->
+        <!--                        border-right: none;-->
+        <!--                        border-width: 1px;-->
+        <!--                        background-color: transparent;-->
+        <!--                        margin-bottom: 25px;-->
+        <!--                        padding: 10px 0;-->
+        <!--                        }-->
+        <!--                        label {-->
+        <!--                        margin-top: 25px;-->
+        <!--                        }-->
+        <!--                        button{-->
+        <!--                        width: 80px;-->
+        <!--                        height: 35px;-->
+        <!--                        background: #3f9a3f;-->
+        <!--                        border-width: 1px;-->
+        <!--                        border-radius: 4px;-->
+        <!--                        border-color: white;-->
+        <!--                        color: white;-->
+        <!--                        font-weight: bold;-->
+        <!--                        display: block;-->
+        <!--                        }-->
+        <!--                    </style>-->
+        <!--                </head>-->
+        <!--                <body>-->
+        <!--                    <form role="form" action="/MASRTECH/student/registration/confirm" method="GET" enctype="multipart/form-data">-->
+        <!--                        <img src="/masrtech/static/imgs/masr_logo.jpeg" width="200" style="margin: auto; display: block;"/>-->
+        <!--&lt;!&ndash;                        <h1>MASRTECH</h1>&ndash;&gt;-->
+        <!--                        <h5>Student Registration</h5>-->
+        <!--                        <label for="first_name">First Name:</label>-->
+        <!--                        <input type="text" id="first_name" name="first_name"/>-->
+        <!--                        <label for="middle_name">Middle Name:</label>-->
+        <!--                        <input type="text" id="middle_name" name="middle_name" required="1"/>-->
+        <!--                        <label for="last_name">Last Name:</label>-->
+        <!--                        <input type="text" id="last_name" name="last_name" required="1"/>-->
+        <!--                                                <label for="first_name">First Name:</label>-->
+        <!--                        <input type="hidden" id="name"/>-->
+
+
+        <!--                        <label for="student_id">Student ID:</label>-->
+        <!--                        <input type="text" id="student_id" name="student_id" required="1"/>-->
+        <!--                        <label for="date_of_birth">Date of Birth:</label>-->
+        <!--                        <input type="date" id="date_of_birth" name="date_of_birth" required="1"/>-->
+        <!--                        <label for="gender">Gender:</label>-->
+
+        <!--                        <select id="gender" name="gender" required="1">-->
+        <!--                            <option value="m">Male</option>-->
+        <!--                            <option value="f">Female</option>-->
+        <!--                        </select>-->
+
+        <!--&lt;!&ndash;                        <label for="nationality">Nationality:</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" id="nationality" name="nationality"/>&ndash;&gt;-->
+
+        <!--                        <label for="address">Address:</label>-->
+        <!--                        <input type="text" id="street" name="street" placeholder="Street Address"/>-->
+        <!--                        <input type="text" id="city" name="city" placeholder="City" required="1"/>-->
+        <!--&lt;!&ndash;                        <input type="text" id="state" name="state" placeholder="State/Province"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" id="country" name="country" placeholder="Country"/>&ndash;&gt;-->
+        <!--                        <label for="phone">Phone:</label>-->
+        <!--                        <input type="tel" id="phone" name="phone"/>-->
+        <!--                        <label for="email">Email:</label>-->
+        <!--                        <input type="email" id="email" name="email"/>-->
+        <!--                        <label for="parent_name">Parent Name:</label>-->
+        <!--                        <input type="text" id="parent_name" name="parent_name"/>-->
+        <!--                        <label for="parent_contact">Parent Contact:</label>-->
+        <!--                        <input type="tel" id="parent_contact" name="parent_contact"/>-->
+        <!--&lt;!&ndash;                        <label for="photo">Photo:</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="file" id="photo" name="photo"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <label for="semester">Current Semester:</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" id="semester" name="semester"/>&ndash;&gt;-->
+        <!--                        <label for="gpa">GPA:</label>-->
+        <!--                        <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4.0"/>-->
+        <!--                        <label for="clubs">Clubs/Organizations:</label>-->
+        <!--                        <input type="text" id="clubs" name="clubs"/>-->
+        <!--                        <label for="graduation_date">Expected Graduation Date:</label>-->
+        <!--                        <input type="date" id="graduation_date" name="graduation_date"/>-->
+
+
+        <!--                        &lt;!&ndash;                        <select class="form-control speciality" id="clinics" name="clinics" t-att-value="clinics"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                onchange="myFunc()">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            <option value="all" t-att-selected="clinics == 'all'">All Clinics</option>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            <t t-foreach="clinic_rec" t-as="clinic">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                <option t-esc="clinic.name" t-att-value="clinic.id"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                        t-att-selected="str(clinic.id) == clinics">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                    <t t-esc="clinic.name"/>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                </option>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            </t>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                        </select>&ndash;&gt;-->
+
+        <!--                        <label for="universities">Universities</label>-->
+        <!--                        <br/>-->
+        <!--                        <select class="form-control" name="universities" id="universities">-->
+        <!--                            <t t-foreach="universities" t-as="universities">-->
+        <!--                                <option t-esc="universities.name" t-att-value="universities.id"-->
+        <!--                                        t-att-selected="str(universities.id) == universities">-->
+        <!--                                    <t t-esc="universities.name"/>-->
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+        <!--                        <label for="faculty">College</label>-->
+        <!--                        <br/>-->
+        <!--                        <select class="form-control" name="faculty" id="faculty">-->
+        <!--                            <t t-foreach="faculty" t-as="faculty">-->
+        <!--                                <option t-esc="faculty.name" t-att-value="faculty.id"-->
+        <!--                                        t-att-selected="str(faculty.id) == faculty">-->
+        <!--                                    <t t-esc="faculty.name"/>-->
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+        <!--                        <label for="department">Department</label>-->
+        <!--                        <br/>-->
+        <!--                        <select class="form-control" name="department" id="department">-->
+        <!--                            <t t-foreach="department" t-as="department">-->
+        <!--                                <option t-esc="department.name" t-att-value="department.id"-->
+        <!--                                        t-att-selected="str(department.id) == department">-->
+        <!--                                    <t t-esc="department.name"/>-->
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+
+
+        <!--                        <button style="text-align: center; background: #0060bf; width: 250px; margin:20px auto; border-radius: 20px; color: white; padding: 10px;"-->
+        <!--                                action="/MASRTECH/student/portfolio/confirm" method="GET">-->
+        <!--                            Submit-->
+        <!--                        </button>-->
+        <!--                    </form>-->
+        <!--                </body>-->
+        <!--            </html>-->
+        <!--        </template>-->

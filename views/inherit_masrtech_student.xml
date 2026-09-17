@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+<!--        <record id="inherit_masrtech_student_form_view" model="ir.ui.view">-->
+<!--            <field name="name">inherit_masrtech_student</field>-->
+<!--            <field name="model">op.student</field>-->
+<!--            <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//button[@name='action_view_invoice']" position="replace">-->
+<!--                    &lt;!&ndash;                    <button class="btn oe_stat_button" type="object"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            name="get_training"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            style="border-right: 1px solid;"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            icon="fa-file">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        <field string="Training" name="training_hours" widget="statinfo"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                    </button>&ndash;&gt;-->
+<!--                    <button class="btn oe_stat_button" type="object"-->
+<!--                            name="get_accepting_student"-->
+<!--                            style="border-right: 1px solid;"-->
+<!--                            icon="fa-check">-->
+<!--                        <field string="Accepting" name="count_accepting_student"-->
+<!--                               widget="statinfo"/>-->
+<!--                    </button>-->
+<!--                    <button class="btn oe_stat_button" type="object"-->
+<!--                            name="go_to_training_recommendation"-->
+<!--                            style="border-right: 1px solid;"-->
+<!--                            icon="fa-file">-->
+<!--                        <field string="Training Recommendations" name="count_training_recommendation"-->
+<!--                               widget="statinfo"/>-->
+<!--                    </button>-->
+<!--                    <button class="btn oe_stat_button" type="object"-->
+<!--                            name="go_to_job_opportunity_recommendation"-->
+<!--                            style="border-right: 1px solid;"-->
+<!--                            icon="fa-briefcase">-->
+<!--                        <field string="Job Opportunities Recommendations" name="count_job_opportunity_recommendation"-->
+<!--                               widget="statinfo"/>-->
+<!--                    </button>-->
+<!--                    <button class="btn oe_stat_button" type="object"-->
+<!--                            name="go_to_project_recommendation"-->
+<!--                            style="border-right: 1px solid;"-->
+<!--                            icon="fa-tasks">-->
+<!--                        <field string="Projects Recommendations" name="count_project_recommendation" widget="statinfo"/>-->
+<!--                    </button>-->
+
+<!--                </xpath>-->
+<!--                &lt;!&ndash;                <xpath expr="//div[@name='button_box']" position="before">&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                </xpath>&ndash;&gt;-->
+<!--                <xpath expr="//button[@name='create_student_user']" position="after">-->
+<!--                    <button type="object" name="go_to_student_Portfolio" string="Go To Student Portfolio"-->
+<!--                            class="oe_highlight"-->
+<!--                    />-->
+<!--                    <button type="object" name="generate_qr_code" string="Generate Qr code"-->
+<!--                            class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('check_qr', '=', True)]}"-->
+<!--                    />-->
+<!--                    <button name="send_qr_code_email" type="object" string="Send QR Code Email" class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('receiver_email', '=', True)]}"/>-->
+<!--                    <button name="set_duplicate_check" type="object" string="check duplicate" class="oe_highlight"-->
+<!--                    />-->
+<!--                    <button name="import_students" type="object" string="import students" class="oe_highlight"-->
+<!--                    />-->
+<!--                    <button name="send_custom_email" type="object" string="send_custom_email" class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('receiver_email', '=', True)]}"-->
+<!--                    />-->
+<!--                    <field name="receiver_email" invisible="1"/>-->
+<!--                    <field name="check_qr" invisible="1"/>-->
+<!--                </xpath>-->
+
+<!--                <button type="object" name="create_student_user" string="Create Student User" class="oe_highlight"-->
+<!--                        attrs="{'invisible': [('user_id', '!=', False)]}"/>-->
+<!--                <xpath expr="//field[@name='emergency_contact']" position="after">-->
+<!--                    <field name="level"/>-->
+<!--                    <field name="job_name"/>-->
+<!--                    <field name="soft_skills"/>-->
+<!--                    <field name="trainings"/>-->
+<!--                    <field name="trainings"/>-->
+<!--                    <field name="academic_track"/>-->
+<!--                    <field name="graduated_skills">-->
+<!--                        <tree editable="bottom">-->
+<!--                            <field name="graduated_title"/>-->
+<!--                            <field name="graduated_qualification"/>-->
+<!--                            <field name="graduated_experience"/>-->
+<!--                            <field name="graduated_skills"/>-->
+<!--                            <field name="work_locations"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                    <field name="student_skills">-->
+<!--                        <tree editable="bottom">-->
+<!--                            <field name="student_title"/>-->
+<!--                            <field name="student_education"/>-->
+<!--                            <field name="student_skills"/>-->
+<!--                            <field name="student_soft_skills"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                    <field name="attachments">-->
+<!--                        <tree editable="bottom">-->
+<!--                            <field name="create_date"/>-->
+<!--                            <field name="datas"/>-->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                    <field name="qr_code" widget="image" style="max-width:2.5cm; margin:10px;"/>-->
+<!--                    <field name="file"/>-->
+<!--                    <field name="filename"/>-->
+
+
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='nationality']" position="after">-->
+<!--                    <field name="university"/>-->
+<!--                    <field name="faculty"/>-->
+<!--                    <field name="department"/>-->
+<!--                    <field name="semester"/>-->
+<!--                    <field name="gpa"/>-->
+<!--                    <field name="clubs"/>-->
+<!--                    <field name="graduation_date"/>-->
+
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='gender']" position="before">-->
+<!--                    <field name="student_id"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='birth_date']" position="attributes">-->
+<!--                    <attribute name="required">0</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='name']" position="attributes">-->
+<!--                    <attribute name="invisible">0</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='first_name']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='last_name']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='middle_name']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='image_1920']" position="replace">-->
+<!--                    <field name="image_1920" widget="image"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='user_id']" position="replace">-->
+<!--                    <field name="user_id"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='title']" position="attributes">-->
+<!--                    <attribute name="invisible">1</attribute>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <record id="inherit_masrtech_view_op_student_search" model="ir.ui.view">-->
+<!--            <field name="name">inherit_masrtech_view_op_student_search</field>-->
+<!--            <field name="model">op.student</field>-->
+<!--            <field name="inherit_id" ref="openeducat_core.view_op_student_search"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//filter[@name='language']" position="after">-->
+<!--                    <filter name="student_id" string="Student Id"-->
+<!--                            domain="[]" context="{'group_by':'student_id'}"/>-->
+<!--                    <filter name="faculty" string="faculty"-->
+<!--                            domain="[]" context="{'group_by':'faculty'}"/>-->
+<!--                    <filter name="department" string="Department"-->
+<!--                            domain="[]" context="{'group_by':'department'}"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//filter[@name='inactive']" position="after">-->
+<!--                    <filter string="Duplicated" name="is_duplicated" domain="[('duplicate_check', '=', True)]"/>-->
+<!--                    <filter string="receiving email" name="receiver_email" domain="[('receiver_email', '=', True)]"/>-->
+<!--                    <filter string="not receiving email" name="receiver_email"-->
+<!--                            domain="[('receiver_email', '=', False)]"/>-->
+
+<!--                    <filter string="qr" name="qr" domain="[('check_qr', '=', True)]"/>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+        <record id="inherit_student_form_view" model="ir.ui.view">
+            <field name="name">student</field>
+            <field name="model">op.student</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_student_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='courses_id']" position="after">
+                    <field name="quiz_ids">
+                        <tree editable="bottom">
+                            <field name="exam_id"/>
+                            <field name="training_course_id"/>
+                            <field name="opened_quiz"/>
+                        </tree>
+                    </field>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="inherit_masrtech_faculty_form_view" model="ir.ui.view">
+            <field name="name">inherit_masrtech_faculties</field>
+            <field name="model">op.faculty</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_faculty_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='nationality']" position="after">
+                    <field name="title_dr"/>
+                    <field name="university"/>
+                    <field name="faculty"/>
+                    <field name="document_ids" widget="many2many_binary"/>
+                    <field name="department" widget="many2many_tags"/>
+
+                </xpath>
+                <xpath expr="//button[@name='count_sessions_details']" position="before">
+                    <button class="btn oe_stat_button" type="object"
+                            name="go_to_job_opportunity_recommendation"
+                            style="border-right: 1px solid;"
+                            icon="fa-briefcase">
+                        <field string="Job Opportunities Recommendations" name="count_job_opportunity_recommendation"
+                               widget="statinfo"/>
+                    </button>
+                    <!--                    <button class="btn oe_stat_button" type="object"-->
+                    <!--                          name="go_to_project_recommendation"-->
+                    <!--                            style="border-right: 1px solid;"-->
+                    <!--                           icon="fa-tasks">-->
+                    <!--                        <field string="Projects Recommendations" name="count_project_recommendation" widget="statinfo"/>-->
+                    <!--                    </button>-->
+                    <!--                    <button class="btn oe_stat_button" type="object"-->
+                    <!--                            name="go_to_problem_recommendation"-->
+                    <!--                            style="border-right: 1px solid;"-->
+                    <!--                            icon="fa-file">-->
+                    <!--                        <field string="Problems Recommendations" name="count_problem_recommendation" widget="statinfo"/>-->
+                    <!--                    </button>-->
+
+                </xpath>
+
+
+            </field>
+        </record>
+        <record id="inherit_op_course_tree_view" model="ir.ui.view">
+            <field name="name">inherit_course</field>
+            <field name="model">op.course</field>
+            <field name="inherit_id" ref="openeducat_core.view_op_course_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='subject_ids']" position="after">
+                    <button name="show_zoom_meeting" type="object"  help="Zoom Meeting" class="courseZoomMeeting"/>
+                    <button name="show_mindray" type="object" help="Mindray" class="courseMindray"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

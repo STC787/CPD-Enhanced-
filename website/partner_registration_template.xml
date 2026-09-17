@@ -1,0 +1,888 @@
+<odoo>
+    <data>
+        <template id="key_partner_registration">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>Partner Registration</title>
+                        <style>
+
+
+                            .form-container {
+                            max-width: 1300px;
+                            margin: 0 auto;
+                            background: white;
+                            border-radius: 20px;
+                            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                            overflow: hidden;
+                            }
+
+                            .form-header {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            text-align: center;
+                            padding: 30px 20px;
+                            position: relative;
+                            }
+
+                            .form-header::before {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 20px;
+                            background: white;
+                            border-radius: 20px 20px 0 0;
+                            }
+
+                            .form-header h1 {
+                            color:white;
+                            font-size: 2.5rem;
+                            font-weight: bold;
+                            margin: 0;
+                            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            }
+
+                            .section-card {
+                            background: white;
+                            margin: 20px;
+                            border-radius: 15px;
+                            border: 1px solid #e3f2fd;
+                            overflow: hidden;
+                            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+                            }
+
+                            .section-header {
+                            direction: rtl;
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            padding: 15px 20px;
+                            font-weight: bold;
+                            font-size: 1.2rem;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+
+                            }
+
+                            .section-body {
+                            direction: rtl;
+                            padding: 25px;
+                            }
+
+                            .form-group {
+                            margin-bottom: 20px;
+                            }
+
+                            .form-label {
+                            font-weight: 600;
+                            color: #2c3e50;
+                            margin-bottom: 8px;
+                            display: block;
+                            font-size: 1.1rem;
+                            }
+
+                            .form-control, .form-select {
+                            border: 2px solid #e1e8ed;
+                            border-radius: 10px;
+                            padding: 12px 15px;
+                            font-size: 1rem;
+                            transition: all 0.3s ease;
+                            background: #f8f9fa;
+                            }
+
+                            .form-control:focus, .form-select:focus {
+                            border-color: #4facfe;
+                            box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+                            background: white;
+                            }
+
+                            .form-control:hover, .form-select:hover {
+                            border-color: #4facfe;
+                            background: white;
+                            }
+
+                            textarea.form-control {
+                            min-height: 100px;
+                            resize: vertical;
+                            }
+
+                            .submit-btn {
+                            background:linear-gradient(135deg, #36d1dc, #5b86e5);
+                            border: none;
+                            color: white;
+                            padding: 15px 40px;
+                            font-size: 1.2rem;
+                            font-weight: bold;
+                            border-radius: 50px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: block;
+                            margin: 30px auto;
+                            min-width: 200px;
+                            }
+
+                            .submit-btn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+                            }
+
+                            .error-message {
+                            color: #e74c3c;
+                            font-size: 0.875rem;
+                            margin-top: 5px;
+                            }
+
+                            .required-star {
+                            color: #e74c3c;
+                            margin-right: 3px;
+                            }
+
+                            @media (max-width: 768px) {
+                            .form-container {
+                            margin: 10px;
+                            border-radius: 15px;
+                            }
+
+                            .form-header h1 {
+                            font-size: 2rem;
+                            }
+
+                            .section-card {
+                            direction: rtl;
+                            margin: 15px;
+                            }
+                            }
+                        </style>
+                    </head>
+                    <body dir="rtl">
+                        <div class="container-fluid">
+                            <form role="form" action="/partnerRegisConfirm" method="GET" class="partnerRegis">
+                                <div class="form-container">
+                                    <!-- Header -->
+                                    <div class="form-header">
+                                        <h1>استمارة تسجيل المؤسسة</h1>
+                                    </div>
+
+                                    <!-- Institution Information Section -->
+                                    <div class="section-card">
+                                        <div class="section-header">
+                                            <i class="fas fa-building"></i>
+                                            بيانات المؤسسة
+                                        </div>
+                                        <div class="section-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="company_name" class="form-label">
+                                                            <span class="required-star">*</span>اسم المؤسسة:
+                                                        </label>
+                                                        <input class="form-control" type="text" id="company_name"
+                                                               name="company_name" required="1"/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="company_address" class="form-label">
+                                                            <span class="required-star">*</span>عنوان المؤسسة:
+                                                        </label>
+                                                        <input class="form-control" type="text" id="company_address"
+                                                               name="company_address" required="1"/>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="responsible_person" class="form-label">
+                                                            <span class="required-star">*</span>اسم الشخص المسؤول:
+                                                        </label>
+                                                        <input class="form-control" type="text" id="responsible_person"
+                                                               name="responsible_person" required="1"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="company_details_name" class="form-label">
+                                                            <span class="required-star">*</span>نبذة عن المؤسسة:
+                                                        </label>
+                                                        <textarea class="form-control" id="company_details_name"
+                                                                  name="company_details_name" required="1"
+                                                                  placeholder="اكتب نبذة مختصرة عن المؤسسة..."></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Contact Information Section -->
+                                    <div class="section-card">
+                                        <div class="section-header">
+                                            <i class="fas fa-address-book"></i>
+                                            معلومات الاتصال
+                                        </div>
+                                        <div class="section-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="form-label">
+                                                            <span class="required-star">*</span>البريد الإلكتروني:
+                                                        </label>
+                                                        <input class="form-control" type="email" id="email" name="email"
+                                                               required="1"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="phone_number" class="form-label">
+                                                            <span class="required-star">*</span>رقم الهاتف:
+                                                        </label>
+                                                        <input class="form-control" type="tel" id="phone_number"
+                                                               name="phone_number" required="1"/>
+                                                        <t t-if="error_message_phone">
+                                                            <p class="error-message">خطأ:
+                                                                <t t-esc="error_message_phone"/>
+                                                            </p>
+                                                        </t>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Department Selection Section -->
+                                    <div class="section-card">
+                                        <div class="section-header">
+                                            <i class="fas fa-briefcase"></i>
+                                            مجال العمل
+                                        </div>
+                                        <div class="section-body">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label for="department" class="form-label">
+                                                            <span class="required-star">*</span>تحديد مجال العمل:
+                                                        </label>
+                                                        <select class="form-select" name="department" id="department">
+                                                            <option value="">اختر مجال</option>
+                                                            <t t-foreach="department" t-as="department">
+                                                                <option t-esc="department.name"
+                                                                        t-att-value="department.id"
+                                                                        t-att-selected="str(department.id) == department">
+                                                                    <t t-esc="department.name"/>
+                                                                </option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="submit-btn" action="/partnerRegisConfirm" method="GET">
+                                        <i class="fas fa-paper-plane me-2"></i>
+                                        إرسال الطلب
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!--                        <script><![CDATA[-->
+                        <!--                                                let trainingLineCount =$('#trainingLineCount').val();-->
+                        <!--                                                let jobLineCount = $('#jobLineCount').val();-->
+
+
+                        <!--                                                // Add line to training table-->
+                        <!--                                                document.getElementById("add_training_line").addEventListener("click", function() {-->
+                        <!--                                                trainingLineCount++;-->
+                        <!--                                                $('#trainingLineCount').val(trainingLineCount);-->
+
+
+                        <!--                                                const rowHtml = `-->
+                        <!--                                                <tr id="training_row_${trainingLineCount}">-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text"-->
+                        <!--                                                               name="training_title_${trainingLineCount}"-->
+                        <!--                                                               class="py-3"-->
+                        <!--                                                        />-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="training_duration_${trainingLineCount}"-->
+                        <!--                                                               id="training_duration_${trainingLineCount}" class="py-3"-->
+                        <!--                                                        />-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="training_location_${trainingLineCount}"-->
+                        <!--                                                               id="training_location_${trainingLineCount}" class="py-3"-->
+                        <!--                                                        />-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="number" name="training_capacity_${trainingLineCount}"-->
+                        <!--                                                               id="training_capacity_${trainingLineCount}" class="py-3"-->
+                        <!--                                                        />-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td style="vertical-align:middle;padding: 0;">-->
+                        <!--                                                        <button type="button" class="remove"-->
+                        <!--                                                                onclick="removeTrainingRow(${trainingLineCount})">-->
+                        <!--                                                        </button>-->
+                        <!--                                                    </td>-->
+                        <!--                                                </tr>-->
+                        <!--                                                `;-->
+                        <!--                                                document.getElementById("training_table_body").insertAdjacentHTML('beforeend', rowHtml);-->
+                        <!--                                                });-->
+
+                        <!--                                                // Remove row from training table-->
+                        <!--                                                function removeTrainingRow(rowId) {-->
+                        <!--                                                const row = document.getElementById(`training_row_${rowId}`);-->
+                        <!--                                                if (row) {-->
+                        <!--                                                row.remove();-->
+                        <!--                                                }-->
+                        <!--                                                }-->
+
+                        <!--                                                // Add line to job table-->
+                        <!--                                                document.getElementById("add_job_line").addEventListener("click", function() {-->
+                        <!--                                                jobLineCount++;-->
+                        <!--                                                $('#jobLineCount').val(jobLineCount);-->
+                        <!--                                                const rowHtml = `-->
+                        <!--                                                <tr id="job_row_${jobLineCount}">-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="job_title_${jobLineCount}"-->
+                        <!--                                                               id="job_title_${jobLineCount}" class="py-3"/>-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="qualification_${jobLineCount}"-->
+                        <!--                                                               id="qualification_${jobLineCount}" class="py-3"/>-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="experience_${jobLineCount}"-->
+                        <!--                                                               id="experience_${jobLineCount}"-->
+                        <!--                                                               class="py-3"/>-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="location_${jobLineCount}"-->
+                        <!--                                                               id="location_${jobLineCount}"-->
+                        <!--                                                               class="py-3"/>-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td>-->
+                        <!--                                                        <input type="text" name="extra_skills_${jobLineCount}"-->
+                        <!--                                                               id="extra_skills_${jobLineCount}"-->
+                        <!--                                                               class="py-3"/>-->
+                        <!--                                                    </td>-->
+                        <!--                                                    <td style="vertical-align:middle;padding: 0;">-->
+                        <!--                                                        <button type="button" class="remove"-->
+                        <!--                                                                onclick="removeJobRow(${jobLineCount})">-->
+
+                        <!--                                                        </button>-->
+                        <!--                                                    </td>-->
+                        <!--                                                </tr>-->
+                        <!--                                                `;-->
+                        <!--                                                document.getElementById("job_table_body").insertAdjacentHTML('beforeend', rowHtml);-->
+                        <!--                                                });-->
+
+                        <!--                                                // Remove row from job table-->
+                        <!--                                                function removeJobRow(rowId) {-->
+                        <!--                                                const row = document.getElementById(`job_row_${rowId}`);-->
+                        <!--                                                if (row) {-->
+                        <!--                                                row.remove();-->
+                        <!--                                                }-->
+                        <!--                                                }-->
+                        <!--                                                ]]>-->
+                        <!--                        </script>-->
+                    </body>
+                </div>
+            </t>
+        </template>
+        <template id="key_partner_registration_confirm">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+
+                    </head>
+                    <body>
+                        <div class="text-center col-12 col-md-7 mx-auto">
+                            <div style="border: solid 2px #0060bf; border: solid 2px #0060bf;margin: 20px 50px;padding: 40px; border-radius: 20px;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 240px;">
+                                            <h5 style="font-size: 25px; color: #0060bf;">
+                                                The registration is confirmed
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+        <!--                    <form role="form" action="/MASRTECH/key_partner/registration/confirm" method="GET">-->
+        <!--                        <img src="/masrtech/static/imgs/masr_logo.jpeg" width="200" style="margin: auto; display: block;"/>-->
+        <!--                        &lt;!&ndash;                        <h1>MASRTECH</h1>&ndash;&gt;-->
+        <!--                        <h5>Key Partner Registration</h5>-->
+
+        <!--                        <label for="name">Company Name:</label>-->
+        <!--                        <input type="text" id="name" name="name" placeholder="Company Name"/>-->
+        <!--                        <label for="address">Phone Number:</label>-->
+        <!--                        <input type="tel" id="phone" name="phone" placeholder="Phone"/>-->
+        <!--                        <label for="address">Email:</label>-->
+        <!--                        <input type="email" id="email" name="email" placeholder="Email"/>-->
+        <!--                        <label for="country">Country:</label>-->
+        <!--                        <input type="text" id="country" name="country" placeholder="Country"/>-->
+        <!--                        <label for="city">City:</label>-->
+        <!--                        <input type="text" id="city" name="city" placeholder="City"/>-->
+        <!--                        <label for="address">Address:</label>-->
+        <!--                        <input type="text" id="street" name="street" placeholder="Street Address"/>-->
+        <!--                        <label for="notes">Notes:</label>-->
+        <!--                        <input type="text" id="notes" name="notes" placeholder="Notes"/>-->
+
+
+        <!--                        <button style="text-align: center; background: #0060bf; width: 250px; margin:20px auto; border-radius: 20px; color: white; padding: 10px;"-->
+        <!--                                action="/MASRTECH/key_partner/registration/confirm" method="GET">-->
+        <!--                            Submit-->
+        <!--                        </button>-->
+        <!--                    </form>-->
+
+        <!--        <template id="key_partner_registration">-->
+        <!--            <t t-call="website.layout">-->
+        <!--                <div id="wrap">-->
+        <!--                    <head>-->
+        <!--                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"-->
+        <!--                              rel="stylesheet"/>-->
+        <!--                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>-->
+        <!--                        <style>-->
+        <!--                            .smallTitle{-->
+        <!--                            color: #629ad0;-->
+        <!--                            }-->
+        <!--                            .bigTitle{-->
+        <!--                            background-color: #629ad0;-->
+        <!--                            }-->
+        <!--                            .partnerRegis input{-->
+        <!--                            width:100%;-->
+        <!--                            border: unset;-->
+        <!--                            box-shadow: 0 0 4px rgba(0,0,0,0.3);-->
+        <!--                            border-width: 1px;-->
+        <!--                            padding: 10px 8px;-->
+        <!--                            border-radius: 4px;-->
+        <!--                            }-->
+        <!--                            .partnerRegis select{-->
+        <!--                            width: 100%;-->
+        <!--                            border: unset;-->
+        <!--                            box-shadow: 0 0 4px rgba(0,0,0,0.3);-->
+        <!--                            border-width: 1px;-->
+        <!--                            margin-bottom: 25px;-->
+        <!--                            padding: 10px 8px;-->
+        <!--                            border-radius: 4px;-->
+        <!--                            }-->
+        <!--                            .partnerRegis textarea{-->
+        <!--                            width: 100%;-->
+        <!--                            border: unset;-->
+        <!--                            box-shadow: 0 0 4px rgba(0,0,0,0.3);-->
+        <!--                            border-width: 1px;-->
+        <!--                            margin-bottom: 25px;-->
+        <!--                            padding: 10px 8px;-->
+        <!--                            border-radius: 4px;-->
+        <!--                            min-height: 200px;-->
+        <!--                            }-->
+        <!--                            .partnerRegis button{-->
+        <!--                            height: 40px;-->
+        <!--                            background: #629ad0;-->
+        <!--                            border-width: 1px;-->
+        <!--                            border-radius: 4px;-->
+        <!--                            border-color: #629ad0;-->
+        <!--                            }-->
+        <!--                            .partnerRegis button[type="button"]:not(.remove){-->
+        <!--                            height: 35px;-->
+        <!--                            background: #3f72a2;-->
+        <!--                            border-width: 1px;-->
+        <!--                            border-radius: 4px;-->
+        <!--                            border-color: #3f72a2;-->
+        <!--                            }-->
+
+
+        <!--                            form.partnerRegis{-->
+        <!--                            padding: 30px;-->
+        <!--                            margin: auto;-->
+        <!--                            direction: rtl;-->
+        <!--                            }-->
+        <!--                            .partnerRegis label{-->
+        <!--                            font-size: 20px;-->
+        <!--                            width: 210px;-->
+        <!--                            }-->
+
+        <!--                            .partnerRegis select:focus {-->
+        <!--                            color: #212529;-->
+        <!--                            background-color: #f9f9f9;-->
+        <!--                            border: solid 1px black;-->
+        <!--                            border-radius: 4px !important;-->
+        <!--                            }-->
+        <!--                            input[type="radio"]{-->
+        <!--                            width:max-content-->
+        <!--                            }-->
+        <!--                            textarea{-->
+        <!--                            border: solid 1px #691617 !important;-->
+        <!--                            border-radius: 7px !important;-->
+        <!--                            }-->
+        <!--                            button.remove {-->
+        <!--                            background: transparent;-->
+        <!--                            background-image: url(/nexus_nms/static/src/images/bin.svg);-->
+        <!--                            border-width: 0px;-->
+        <!--                            background-position: center;-->
+        <!--                            background-size: 20px;-->
+        <!--                            background-repeat: no-repeat;-->
+        <!--                            padding: 0;-->
+        <!--                            width: 24px;-->
+        <!--                            }-->
+        <!--                        </style>-->
+        <!--                    </head>-->
+        <!--                    <body dir="rtl">-->
+        <!--                        <form role="form" action="/MASRTECH/key_partner/registration/confirm" method="GET"-->
+        <!--                              class="partnerRegis col-md-12 col-lg-9">-->
+        <!--                            <img src="/nexus_nms/static/src/images/nexusLogo.png" width="200"-->
+        <!--                                 style="margin: auto; display: block;"/>-->
+        <!--                            <h3 class="text-center fw-bold smallTitle mt-5">استمارة تسجيل الشركة</h3>-->
+        <!--                            <div class="border rounded-3">-->
+        <!--                                <h1 class="text-center fw-bold bigTitle text-white  py-2 rounded-top-3 ">بيانات-->
+        <!--                                    المؤسسة-->
+        <!--                                </h1>-->
+        <!--                                &lt;!&ndash;                            <label for="fileUpload">logo</label>&ndash;&gt;-->
+        <!--                                &lt;!&ndash;                            <input type="file" id="fileUpload" name="fileUpload"&ndash;&gt;-->
+        <!--                                &lt;!&ndash;                                   required="1" multiple="multiple"/>&ndash;&gt;-->
+        <!--                                <div class="px-2 py-3">-->
+        <!--                                <div class="row g-0">-->
+        <!--                                    <div class="col-md-6 px-3">-->
+        <!--                                        <div class="d-flex align-items-center">-->
+        <!--                                            <label for="company_name" class="fw-bold my-4">اسم المؤسسة:</label>-->
+        <!--                                            <input class="my-4 px-2" type="text" id="company_name" name="company_name"-->
+        <!--                                                   required="1"/>-->
+        <!--                                        </div>-->
+        <!--                                        <div class="d-flex align-items-center">-->
+        <!--                                            <label for="company_address" class="fw-bold my-4">عنوان المؤسسة:</label>-->
+        <!--                                            <input class="my-4 px-2" type="text" id="company_address"-->
+        <!--                                                   name="company_address"-->
+        <!--                                                   required="1"/>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-md-6 px-3">-->
+        <!--                                        <div class="d-flex">-->
+        <!--                                            <label for="company_details_name" class="fw-bold my-4">نبذة عن المؤسسة:-->
+        <!--                                            </label>-->
+        <!--                                            <textarea class="my-4 px-2 border-0" id="company_details_name"-->
+        <!--                                                      name="company_details_name" required="1">-->
+        <!--                                            </textarea>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="row g-0">-->
+        <!--                                    <div class="col-md-6 px-3">-->
+        <!--                                        <div class="d-flex align-items-center">-->
+        <!--                                            <label for="responsible_person" class="fw-bold my-4">اسم الشخص المسؤول:-->
+        <!--                                            </label>-->
+        <!--                                            <input class="my-4 px-2" type="text" id="responsible_person"-->
+        <!--                                                   name="responsible_person"-->
+        <!--                                                   required="1"/>-->
+        <!--                                        </div>-->
+        <!--                                        <div class="d-flex align-items-center">-->
+        <!--                                            <label for="email" class="fw-bold my-4">البريد الإلكتروني:</label>-->
+        <!--                                            <input class="my-4 px-2" type="email" id="email" name="email" required="1"/>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-md-6 px-3">-->
+        <!--                                        <div class="d-flex align-items-center">-->
+        <!--                                            <label for="phone_number" class="fw-bold my-4">رقم الهاتف:</label>-->
+        <!--                                            <div class="w-100">-->
+        <!--                                                <input class="my-4 px-2" type="tel" id="phone_number"-->
+        <!--                                                       name="phone_number"-->
+        <!--                                                       required="1"/>-->
+        <!--                                                <t t-if="error_message_phone">-->
+        <!--                                                    <p style="color: red; margin: 5px 0;">Error:-->
+        <!--                                                        <t t-esc="error_message_phone"/>-->
+        <!--                                                    </p>-->
+        <!--                                                </t>-->
+        <!--                                            </div>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="row g-0">-->
+        <!--                                    <div class="col-md-6 px-3">-->
+        <!--                                        <div class="d-flex flex-column align-items-center">-->
+        <!--                                            <h4 class="smallTitle text-center fw-bold">تحديد مجال العمل:</h4>-->
+        <!--                                            <select class="my-4 px-2 w-75" name="department" id="department">-->
+        <!--                                                <option value="">اختر مجال</option>-->
+        <!--                                                <t t-foreach="department" t-as="department">-->
+        <!--                                                    <option t-esc="department.name" t-att-value="department.id"-->
+        <!--                                                            t-att-selected="str(department.id) == department">-->
+        <!--                                                        <t t-esc="department.name"/>-->
+        <!--                                                    </option>-->
+        <!--                                                </t>-->
+        <!--                                            </select>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-md-6 px-3">-->
+        <!--                                        <div>-->
+        <!--                                            <h4 class="smallTitle text-center fw-bold">متطلبات المؤسسة:</h4>-->
+        <!--                                            <div class="d-flex align-items-center justify-content-center">-->
+        <!--                                                <label for="representatives" class="fw-bold my-4 ms-2">عدد ممثلي المؤسسة-->
+        <!--                                                    المشاركين:-->
+        <!--                                                </label>-->
+        <!--                                                <div>-->
+        <!--                                                    <input class="my-4 px-2 " type="text" id="representatives"-->
+        <!--                                                           name="representatives"-->
+        <!--                                                    />-->
+        <!--                                                    <t t-if="error_message_representatives">-->
+        <!--                                                        <p style="color: red; margin: 5px 0;">Error:-->
+        <!--                                                            <t t-esc="error_message_representatives"/>-->
+        <!--                                                        </p>-->
+        <!--                                                    </t>-->
+        <!--                                                </div>-->
+        <!--                                            </div>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--&lt;!&ndash;                                <div class="row g-0">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <div class="col-md-12 px-3">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <input type="hidden" name="trainingLineCount" id="trainingLineCount" value="0"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <div class="">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <h4 class="smallTitle text-center fw-bold">فرص التدريب المتاحة</h4>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <table id="training_table" class="table">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <thead>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">المسمى الوظيفي&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            </p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">مدة التدريب</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">مكان التدريب</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">عدد المتدربين</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th></th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </thead>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <tbody id="training_table_body">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <tr id="training_row_0">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="training_title_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="training_title_0" class="py-3"&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                            />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="training_duration_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="training_duration_0" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="training_location_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="training_location_0" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="number" name="training_capacity_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="training_capacity_0" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td style="vertical-align:middle;padding: 0;">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <button type="button" class="remove"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                    onclick="removeTrainingRow(0)">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            </button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </tbody>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            </table>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <button type="button" id="add_training_line" class="btn text-white">Add&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                Line&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            </button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    <div class="col-md-12 px-3">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <input type="hidden" name="jobLineCount" id="jobLineCount" value="0"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        <div class="">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <h4 class="smallTitle text-center fw-bold">فرص التوظيف المتاحة</h4>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <table id="job_table" class="table">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <thead>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">المسمى الوظيفي</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">مؤهلات المطلوبة</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">مدة الخبرة</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">مكان الوظيفة</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <p class="h5 fw-bold text-center">مهارات اضافية</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <th></th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </thead>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <tbody id="job_table_body">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <tr id="job_row_0">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="job_title_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="job_title_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="qualification_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="qualification_0" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="experience_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="experience_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="location_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="location_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <input type="text" name="extra_skills_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   id="extra_skills_0"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                   class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <td style="vertical-align:middle;padding: 0;">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <button type="button" class="remove"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                    onclick="removeJobRow(0)">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                            </button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </tbody>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            </table>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            <button type="button" id="add_job_line" class="btn text-white">Add Line&ndash;&gt;-->
+        <!--&lt;!&ndash;                                            </button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+        <!--                                <button class="text-white mx-auto mt-3 btn d-block px-5 fw-bold h4"-->
+        <!--                                        action="/MASRTECH/key_partner/registration/confirm" method="GET">-->
+        <!--                                    Submit-->
+        <!--                                </button>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+
+
+        <!--                        </form>-->
+        <!--&lt;!&ndash;                        <script><![CDATA[&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                let trainingLineCount =$('#trainingLineCount').val();&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                let jobLineCount = $('#jobLineCount').val();&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash;                                                // Add line to training table&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                document.getElementById("add_training_line").addEventListener("click", function() {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                trainingLineCount++;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                $('#trainingLineCount').val(trainingLineCount);&ndash;&gt;-->
+
+
+        <!--&lt;!&ndash;                                                const rowHtml = `&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <tr id="training_row_${trainingLineCount}">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               name="training_title_${trainingLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="training_duration_${trainingLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="training_duration_${trainingLineCount}" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="training_location_${trainingLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="training_location_${trainingLineCount}" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="number" name="training_capacity_${trainingLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="training_capacity_${trainingLineCount}" class="py-3"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        />&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td style="vertical-align:middle;padding: 0;">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <button type="button" class="remove"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                onclick="removeTrainingRow(${trainingLineCount})">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                `;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                document.getElementById("training_table_body").insertAdjacentHTML('beforeend', rowHtml);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                });&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                // Remove row from training table&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                function removeTrainingRow(rowId) {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                const row = document.getElementById(`training_row_${rowId}`);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                if (row) {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                row.remove();&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                }&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                // Add line to job table&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                document.getElementById("add_job_line").addEventListener("click", function() {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                jobLineCount++;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                $('#jobLineCount').val(jobLineCount);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                const rowHtml = `&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                <tr id="job_row_${jobLineCount}">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="job_title_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="job_title_${jobLineCount}" class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="qualification_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="qualification_${jobLineCount}" class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="experience_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="experience_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="location_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="location_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <input type="text" name="extra_skills_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               id="extra_skills_${jobLineCount}"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                               class="py-3"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    <td style="vertical-align:middle;padding: 0;">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        <button type="button" class="remove"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                onclick="removeJobRow(${jobLineCount})">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                        </button>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                </tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                `;&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                document.getElementById("job_table_body").insertAdjacentHTML('beforeend', rowHtml);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                });&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                                // Remove row from job table&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                function removeJobRow(rowId) {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                const row = document.getElementById(`job_row_${rowId}`);&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                if (row) {&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                row.remove();&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                }&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                ]]>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        </script>&ndash;&gt;-->
+        <!--                    </body>-->
+        <!--                </div>-->
+        <!--            </t>-->
+        <!--        </template>-->

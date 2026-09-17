@@ -1,0 +1,92 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_training_recommendation_kanban_view">
+            <field name="name">masrtech_training_recommendation</field>
+            <field name="model">masrtech.training.recommendation</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_gotraining_type_kanban_view">
+            <field name="name">masrtech.gotraining.type</field>
+            <field name="model">masrtech.gotraining.type</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="go_to_Registers_recommendation" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_student_training_form_view">
+            <field name="model">masrtech.training.recommendation</field>
+            <field name="arch" type="xml">
+                <form string="Training">
+                    <header>
+                        <button type="object" name="get_training_registration" string="Register"
+                                class="oe_highlight"
+                        />
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="company_id"/>
+                            <field name="student_name"/>
+                            <field name="duration"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="duration_hours"/>
+                            <field name="location"/>
+                            <field name="materials"/>
+                            <field name="seats_available"/>
+                            <field name="registration_deadline"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_training_recommendation_tree_view">
+            <field name="model">masrtech.training.recommendation</field>
+            <field name="arch" type="xml">
+                <tree string="Training">
+                    <field name="student_name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_training_recommendation" model="ir.actions.act_window">
+            <field name="name">Training</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.training.recommendation</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cron_update_training_status" model="ir.cron">
+            <field name="name">Update Training Registration Status</field>
+            <field name="model_id" ref="model_training_registration"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_update_training_status()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall">True</field>
+        </record>
+
+        <record id="cron_add_courses_to_students" model="ir.cron">
+            <field name="name">Add Courses to Students (One Time)</field>
+            <field name="model_id" ref="model_training_registration"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_add_courses_to_students()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="cron_expire_surveys" model="ir.cron">
+            <field name="name">Expire Surveys Past End Date</field>
+            <field name="model_id" ref="survey.model_survey_survey"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_expire_surveys()</field>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

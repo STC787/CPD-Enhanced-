@@ -1,0 +1,1960 @@
+<odoo>
+    <data>
+        <template id="registration_for_training">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>registration_for_training</title>
+<style>
+    * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .form-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #36d1dc, #5b86e5);
+        color: white;
+        text-align: center;
+        padding: 40px;
+        position: relative;
+    }
+
+    .form-header::before {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background: white;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .form-header h1 {
+        color: white;
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .form-body {
+        padding: 40px;
+    }
+
+    .section-header {
+        background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin: 30px 0 20px 0;
+        border-right: 4px solid #2196f3;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-header i {
+        color: #2196f3;
+        font-size: 1.2rem;
+    }
+
+    .section-header h3 {
+        margin: 0;
+        color: #1976d2;
+        font-weight: 600;
+        font-size: 1.3rem;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+        font-size: 0.95rem;
+    }
+
+    .form-control, .form-select {
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fafafa;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #4facfe;
+        box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+        background: white;
+    }
+
+    .row-custom {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .row-custom {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .status-message {
+            left: 50% !important;
+        }
+    }
+
+    .btn-submit {
+        background: linear-gradient(135deg, #36d1dc, #5b86e5);
+        border: none;
+        border-radius: 50px;
+        padding: 15px 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 30px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+    }
+
+    .required {
+        color: #e74c3c;
+    }
+
+    .required-star {
+        color: #e74c3c;
+        margin-right: 3px;
+    }
+
+    /* Loading and status styles */
+    .loading-spinner {
+        display: none;
+        text-align: center;
+        color: white;
+        margin-top: 10px;
+    }
+
+    .status-message {
+        margin: 10px auto;
+        padding: 12px 20px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+        max-width: 400px;
+        width: fit-content;
+        position: relative;
+        left: 82%;
+        transform: translateX(-50%);
+        animation: slideDown 0.3s ease-out;
+    }
+
+    .status-success {
+        background: rgba(72, 187, 120, 0.2);
+        border: 1px solid rgba(72, 187, 120, 0.5);
+        color: #2f855a;
+        box-shadow: 0 2px 8px rgba(72, 187, 120, 0.1);
+    }
+
+    .status-success::before {
+        content: "✅ ";
+        margin-right: 5px;
+    }
+
+    .status-error {
+        background: rgba(229, 62, 62, 0.2);
+        border: 1px solid rgba(229, 62, 62, 0.5);
+        color: #c53030;
+        box-shadow: 0 2px 8px rgba(229, 62, 62, 0.1);
+    }
+
+    .status-error::before {
+        content: "❌ ";
+        margin-right: 5px;
+    }
+
+    .row-custom .status-message {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+
+    .form-control:disabled {
+        background-color: #f8f9fa;
+        opacity: 0.7;
+    }
+
+    .auto-filled {
+        background: linear-gradient(135deg, #e8f5e8, #f0f8f0) !important;
+        border: 2px solid #28a745 !important;
+        position: relative;
+    }
+
+    .auto-filled::after {
+        content: "✓ Auto-filled";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #28a745;
+        font-size: 12px;
+        font-weight: bold;
+        pointer-events: none;
+    }
+
+    .auto-filled-editable {
+        background: linear-gradient(135deg, #fff3cd, #fef7e0) !important;
+        border: 2px solid #ffc107 !important;
+        position: relative;
+    }
+
+    .auto-filled-editable::after {
+        content: "✏️ Editable";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #856404;
+        font-size: 12px;
+        font-weight: bold;
+        pointer-events: none;
+    }
+
+    .readonly-field {
+        background-color: #f8f9fa !important;
+        border-color: #6c757d !important;
+        color: #495057 !important;
+    }
+
+    /* FIX FOR SELECT DROPDOWN GARBLED TEXT */
+    .form-select, select.form-control, select {
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e") !important;
+        background-position: right 0.5rem center !important;
+        background-repeat: no-repeat !important;
+        background-size: 1.5em 1.5em !important;
+        padding-right: 2.5rem !important;
+
+        /* CRITICAL FIX: Use simple Arial font */
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+        color: #333 !important;
+        width: 100% !important;
+    }
+
+    /* Fix for options inside select */
+    .form-select option, select.form-control option, select option {
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 16px !important;
+        color: #333 !important;
+        background-color: white !important;
+        padding: 8px 12px !important;
+    }
+
+    /* Fix for disabled select fields */
+    .form-select:disabled, select.form-control:disabled, select:disabled {
+        background-color: #f8f9fa !important;
+        color: #6c757d !important;
+        opacity: 0.8 !important;
+        cursor: not-allowed !important;
+    }
+    .form-check:has(>input[type="radio"]){
+        display: flex;
+    gap: 8px;
+    align-items: center;
+    }
+    .form-check-input[type="radio"]:checked{
+        background-color: #1976d2;
+    border-color: #1976d2;
+    background-image: unset !important;
+    }
+    .form-check-input[type="radio"]:focus{
+    box-shadow: unset !important;
+    }
+    .form-check:hover, .form-check:hover .form-check-input:not(:disabled):not(.o_wysiwyg_loader){
+       border-color: #1976d2;
+    }
+    label[for="status_student"], label[for="status_graduated"]{
+    border: solid 1px #1976d2;
+    color: #1976d2;
+    }
+    label[for="status_student"]:hover, label[for="status_graduated"]:hover{
+    border: solid 1px #1976d2;
+    background: #1976d2;
+    color: #fff;
+    }
+    .form-check-input[type="radio"]:checked~label{
+      border: solid 1px #1976d2;
+    background: #1976d2;
+    color: #fff;
+    }
+</style>
+                    </head>
+                    <body>
+                        <div class="container my-4">
+                            <form action="/registration_for_training/submit" method="POST" style="direction: ltr;"
+                                  role="form" class="form-container" id="registrationForm" enctype="multipart/form-data"
+>
+
+                                <input type="hidden" name="partner_id" t-att-value="partner_id"/>
+                                <input type="hidden" name="training_id" t-att-value="training_id"/>
+                                <input type="hidden" name="course_code" t-att-value="course_code"/>
+
+                                <div class="form-header">
+                                    <h1><i class="fas fa-graduation-cap me-3 mb-2"></i>Registration For Training
+                                    </h1>
+                                </div>
+
+                                <div class="form-body">
+                                      <div class="mb-4">
+                                            <label class="form-label fw-bold text-dark">
+                                                Status <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="d-flex gap-4 mt-2">
+                                                <div class="form-check">
+                                                    <input class="form-check-input"
+                                                           type="radio"
+                                                           name="status"
+                                                           id="status_student"
+                                                           value="student"
+                                                           checked="checked"
+                                                           onchange="document.getElementById('student_id_group').classList.remove('d-none'); document.getElementById('national_id_group').classList.add('d-none'); document.querySelector('#student_id_group input').required = true; document.querySelector('#national_id_group input').required = false;"/>
+                                                    <label class="form-check-label btn btn-outline-info btn-lg" for="status_student">
+                                                         Student
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input"
+                                                           type="radio"
+                                                           name="status"
+                                                           id="status_graduated"
+                                                           value="graduated"
+                                                           required="required"
+                                                           onchange="document.getElementById('national_id_group').classList.remove('d-none'); document.getElementById('student_id_group').classList.add('d-none'); document.querySelector('#national_id_group input').required = true; document.querySelector('#student_id_group input').required = false;"/>
+                                                    <label class="form-check-label btn btn-outline-info btn-lg" for="status_graduated">
+                                                        Graduated
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="row-custom">
+                                        <div class="form-group" id="student_id_group">
+                                            <label for="student_id">Student ID
+                                            </label>
+                                            <input type="text"
+                                                   id="student_id"
+                                                   name="student_id"
+                                                   class="form-control"
+                                                   t-att-value="request.params.get('student_id', '')"
+                                                   placeholder="Enter Student ID"/>
+                                            <div class="loading-spinner">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                                Searching student...
+                                            </div>
+                                            <div id="statusMessage" class="status-message"></div>
+                                        </div>
+                                        <div class="form-group d-none" id="national_id_group">
+                                            <label for="national_id">National ID
+                                            </label>
+                                            <input type="text"
+                                                   id="national_id"
+                                                   name="national_id"
+                                                   class="form-control"
+                                                   t-att-value="request.params.get('national_id', '')"
+                                                   placeholder="Enter National ID"/>
+                                            <div class="loading-spinner">
+                                                <i class="fas fa-spinner fa-spin"></i>
+                                                Searching student...
+                                            </div>
+                                            <div id="statusMessage" class="status-message"></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name">Student Name
+                                                <span class="required">*</span>
+                                            </label>
+                                            <input type="text"
+                                                   id="name"
+                                                   name="name"
+                                                   required="1"
+                                                   placeholder="Your full name"
+                                                   class="form-control"/>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Personal Information Section -->
+                                    <div class="section-header">
+                                        <i class="fas fa-user"></i>
+                                        <h3>Personal Information</h3>
+                                    </div>
+
+
+                                    <div class="row-custom">
+                                        <div class="form-group">
+                                            <label for="email">Email Address
+
+                                            </label>
+                                            <input type="email" id="email" name="email" required="1"
+                                                   placeholder="Your answer" class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone">Phone Number
+                                                <span class="required">*</span>
+                                            </label>
+                                            <input type="tel" id="phone" name="phone" required="1"
+                                                   placeholder="Your answer"
+                                                   class="form-control" dir="ltr"/>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Academic Information Section -->
+                                    <div class="section-header">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <h3>Academic Information</h3>
+                                    </div>
+
+                                    <div class="row-custom">
+                                        <div class="form-group">
+                                            <label for="university">University</label>
+                                            <select class="form-select" name="university" id="university" required="1">
+                                                <option value="">Select university</option>
+                                                <t t-foreach="universities" t-as="university">
+                                                    <option t-att-value="university.id">
+                                                        <t t-esc="university.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="faculty">Faculty</label>
+                                            <select class="form-select" name="faculty" id="faculty">
+                                                <option value="">Select Faculty</option>
+                                                <t t-foreach="faculty" t-as="faculty_item">
+                                                    <option t-att-value="faculty_item.id">
+                                                        <t t-esc="faculty_item.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-custom">
+                                        <div class="form-group">
+                                            <label for="levels">Year Level</label>
+                                            <select id="levels" name="levels" class="form-select" required="1">
+                                                <option value="">Select Year</option>
+                                                <option value="one">First Year</option>
+                                                <option value="two">Second Year</option>
+                                                <option value="three">Third Year</option>
+                                                <option value="fourth">Fourth Year</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <!-- FIXED: Changed id and name to gpa -->
+                                            <label for="gpa">GPA</label>
+                                            <input type="number" step="0.01" id="gpa" name="gpa"
+                                                   placeholder="Your answer" class="form-control"/>
+                                        </div>
+                                        <div class="row-custom" id="id_attachment_section" style="display: none;">
+                                            <div class="form-group">
+                                                <label for="id_number_attachment">
+                                                    National ID Attachment
+                                                    <span class="required">*</span>
+                                                </label>
+                                                <input type="file"
+                                                       id="id_number_attachment"
+                                                       name="id_number_attachment"
+                                                       class="form-control"
+                                                       accept="image/*,.pdf"
+                                                       data-required="false"/>
+                                                <small class="text-muted">Upload your ID card image (JPG, PNG, or PDF)
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--                                    <div class="row-custom">-->
+                                    <!--                                        <div class="form-group">-->
+                                    <!--                                            <label for="department">Program</label>-->
+                                    <!--                                            <select class="form-select" name="department" id="department" required="1">-->
+                                    <!--                                                <option value="">Select Program</option>-->
+                                    <!--                                                <t t-foreach="department" t-as="department_item">-->
+                                    <!--                                                    &lt;!&ndash; FIXED: Changed variable name to avoid conflict &ndash;&gt;-->
+                                    <!--                                                    <option t-att-value="department_item.id">-->
+                                    <!--                                                        <t t-esc="department_item.name"/>-->
+                                    <!--                                                    </option>-->
+                                    <!--                                                </t>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+
+                                    <!-- Payment Way -->
+                                    <div class="section-header">
+                                        <i class="fa-solid fa-wallet"></i>
+                                        <h3>Payment Way</h3>
+                                    </div>
+                                    <div class="">
+                                        <ul class="list-group d-flex gap-3 flex-row">
+                                            <t t-foreach="payment_ways" t-as="payment_way"
+                                               t-foreach-index="payment_way_index">
+                                                <label class="form-check-label fs-6 w-50"
+                                                       t-att-for="'paymentWayRadio_%s' % payment_way.id">
+                                                    <li class="form-control">
+                                                        <input class="me-1" type="radio" name="payment_way"
+                                                               t-att-value="payment_way.id"
+                                                               t-att-id="'paymentWayRadio_%s' % payment_way.id"
+                                                               t-att-checked="payment_way_index == 0"/>
+                                                        <t t-esc="payment_way.payment_type"/>
+                                                    </li>
+                                                </label>
+                                            </t>
+                                        </ul>
+                                    </div>
+
+                                    <button type="submit" class="btn-submit">
+                                        <i class="fas fa-paper-plane me-2"></i>
+                                        Register
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <script><![CDATA[
+$(document).ready(function() {
+    let studentDataLoaded = false;
+    let searchTimeout;
+
+    // Check if student_id was passed from URL and mark as auto-filled
+    const urlStudentId = $('#student_id').val();
+    if (urlStudentId && urlStudentId.trim() !== '') {
+        console.log('Student ID auto-filled from URL:', urlStudentId);
+        $('#student_id').addClass('auto-filled');
+
+        // Automatically search for this student
+        setTimeout(function() {
+            searchStudent(urlStudentId.trim(), 'student_id');
+        }, 500);
+    }
+
+    // University change handler - show/hide ID attachment
+    $('#university').on('change', function() {
+        const selectedOption = $(this).find('option:selected');
+        const universityName = selectedOption.text().trim();
+
+        console.log('Selected university:', universityName);
+
+        // Check if university is NOT "Borg El Arab Technological University"
+        if (universityName && universityName !== 'Borg El Arab Technological University') {
+            $('#id_attachment_section').slideDown();
+            $('#id_number_attachment').attr('data-required', 'true');
+        } else {
+            $('#id_attachment_section').slideUp();
+            $('#id_number_attachment').attr('data-required', 'false');
+            $('#id_number_attachment').val(''); // Clear the file input
+        }
+    });
+
+    // Student ID input handler
+    $('#student_id').on('input', function() {
+        const studentId = $(this).val().trim();
+
+        // Remove auto-filled class if user is typing
+        $(this).removeClass('auto-filled');
+
+        clearTimeout(searchTimeout);
+        resetForm();
+        studentDataLoaded = false;
+
+        if (studentId.length >= 2) {
+            searchTimeout = setTimeout(function() {
+                searchStudent(studentId, 'student_id');
+            }, 500);
+        }
+    });
+
+    // National ID input handler
+    $('#national_id').on('input', function() {
+        const nationalId = $(this).val().trim();
+
+        clearTimeout(searchTimeout);
+        resetForm();
+        studentDataLoaded = false;
+
+        if (nationalId.length >= 2) {
+            searchTimeout = setTimeout(function() {
+                searchStudent(nationalId, 'national_id');
+            }, 500);
+        }
+    });
+
+    function searchStudent(identifier, searchType) {
+        $('.loading-spinner').show();
+        $('#statusMessage, #statusMessageNational').hide();
+
+        const statusDiv = searchType === 'student_id' ? $('#statusMessage') : $('#statusMessageNational');
+
+        $.ajax({
+            url: '/get_student_data',
+            type: 'POST',
+            data: {
+                [searchType]: identifier
+            },
+            success: function(response) {
+                $('.loading-spinner').hide();
+                console.log('=== FRONTEND DEBUG ===');
+                console.log('Raw response:', response);
+
+                try {
+                    let data;
+                    if (typeof response === 'string') {
+                        data = JSON.parse(response);
+                    } else {
+                        data = response;
+                    }
+
+                    console.log('Parsed data:', data);
+
+                    if (data && data.success) {
+                        populateForm(data.data);
+                        showStatus('Student found! Data loaded successfully.', 'success', statusDiv);
+                        studentDataLoaded = true;
+
+                        // Trigger university change to check ID attachment requirement
+                        $('#university').trigger('change');
+                    } else {
+                        const errorMsg = data && data.error ? data.error : 'Student not found. Enter your data';
+                        showStatus(errorMsg, 'error', statusDiv);
+                        studentDataLoaded = false;
+                    }
+                } catch (e) {
+                    console.error('Error parsing response:', e);
+                    showStatus('Error processing response', 'error', statusDiv);
+                    studentDataLoaded = false;
+                }
+            },
+            error: function(xhr, status, error) {
+                $('.loading-spinner').hide();
+                console.error('AJAX Error:', status, error);
+                console.error('Response text:', xhr.responseText);
+                showStatus('Error connecting to server', 'error', statusDiv);
+                studentDataLoaded = false;
+            }
+        });
+    }
+
+    function populateForm(data) {
+        console.log('=== POPULATE FORM DEBUG ===');
+        console.log('Student data:', data);
+
+        // Fill basic fields - name and email as readonly, phone as editable
+        if (data.name) {
+            $('#name').val(data.name).addClass('readonly-field').prop('readonly', true);
+        }
+        if (data.email) {
+            $('#email').val(data.email).addClass('readonly-field').prop('readonly', true);
+        }
+        if (data.phone) {
+            $('#phone').val(data.phone).removeClass('readonly-field').prop('readonly', false);
+            $('#phone').attr('required', 'required');
+            $('#phone').addClass('auto-filled-editable');
+        }
+
+        console.log('Basic fields filled');
+
+        // Try to set University
+        if (data.university_id) {
+            const universitySelect = $('#university');
+            universitySelect.val(data.university_id);
+
+            if (universitySelect.val() === data.university_id.toString()) {
+                universitySelect.addClass('readonly-field').prop('disabled', true);
+            }
+        }
+
+        // Try to set Faculty
+        if (data.faculty_id) {
+            const facultySelect = $('#faculty');
+            facultySelect.val(data.faculty_id);
+
+            if (facultySelect.val() === data.faculty_id.toString()) {
+                facultySelect.addClass('readonly-field').prop('disabled', true);
+            }
+        }
+
+        // Try to set Level
+        if (data.level) {
+            const levelSelect = $('#levels');
+            const originalLevel = data.level;
+
+            levelSelect.val(originalLevel);
+
+            if (levelSelect.val() !== originalLevel) {
+                // Try mapping
+                let mappedValue = '';
+                const levelText = originalLevel.toString().toLowerCase();
+
+                if (levelText.includes('1') || levelText.includes('اول') || levelText.includes('one') || levelText.includes('first')) {
+                    mappedValue = 'one';
+                } else if (levelText.includes('2') || levelText.includes('ثان') || levelText.includes('two') || levelText.includes('second')) {
+                    mappedValue = 'two';
+                } else if (levelText.includes('3') || levelText.includes('ثال') || levelText.includes('three') || levelText.includes('third')) {
+                    mappedValue = 'three';
+                } else if (levelText.includes('4') || levelText.includes('رابع') || levelText.includes('four') || levelText.includes('fourth')) {
+                    mappedValue = 'fourth';
+                }
+
+                if (mappedValue) {
+                    levelSelect.val(mappedValue);
+                    if (levelSelect.val() === mappedValue) {
+                        levelSelect.addClass('readonly-field').prop('disabled', true);
+                    }
+                }
+            } else {
+                levelSelect.addClass('readonly-field').prop('disabled', true);
+            }
+        }
+
+        // Fill GPA if available
+        if (data.gpa) {
+            $('#gpa').val(data.gpa).addClass('readonly-field').prop('readonly', true);
+        }
+
+        console.log('=== FORM POPULATION COMPLETE ===');
+    }
+
+    function resetForm() {
+        // Reset all fields except student_id and national_id
+        $('#name, #email, #gpa').val('').removeClass('readonly-field').prop('readonly', false);
+        $('#phone').val('').removeClass('readonly-field auto-filled-editable').prop('readonly', false);
+        $('#university, #faculty, #levels').val('').removeClass('readonly-field').prop('disabled', false);
+
+        // Hide ID attachment section
+        $('#id_attachment_section').hide();
+        $('#id_number_attachment').attr('data-required', 'false').val('');
+
+        // Remove any previously added hidden inputs
+        $('.disabled-field-hidden').remove();
+
+        // Restore required attributes
+        $('#name, #email, #phone, #university, #levels').attr('required', 'required');
+        $('#statusMessage, #statusMessageNational').hide();
+    }
+
+    function showStatus(message, type, targetDiv) {
+        const statusDiv = targetDiv || $('#statusMessage');
+        statusDiv.removeClass('status-success status-error');
+        statusDiv.addClass('status-' + type);
+        statusDiv.html(message);
+        statusDiv.show();
+    }
+
+    $('#registrationForm').on('submit', function(e) {
+        // Prevent default submission first
+        e.preventDefault();
+
+        // Remove any previously added hidden inputs
+        $('.disabled-field-hidden').remove();
+
+        // Create hidden inputs for ALL disabled fields BEFORE re-enabling them
+        $('select:disabled, input:disabled').each(function() {
+            var $field = $(this);
+            var fieldName = $field.attr('name');
+            var fieldValue = $field.val();
+
+            if (fieldName && fieldValue) {
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: fieldName,
+                    value: fieldValue,
+                    class: 'disabled-field-hidden'
+                }).appendTo('#registrationForm');
+                console.log('Added hidden input for disabled field:', fieldName, '=', fieldValue);
+            }
+        });
+
+        // Now re-enable ALL disabled fields
+        $('select:disabled, input:disabled').prop('disabled', false);
+
+        // Validation
+        const status = $('input[name="status"]:checked').val();
+
+        if (status === 'student') {
+            const studentId = $('#student_id').val().trim();
+            if (!studentId) {
+                showStatus('Please enter a student ID', 'error', $('#statusMessage'));
+                $('#student_id').focus();
+                return false;
+            }
+        } else if (status === 'graduated') {
+            const nationalId = $('#national_id').val().trim();
+            if (!nationalId) {
+                showStatus('Please enter a national ID', 'error', $('#statusMessageNational'));
+                $('#national_id').focus();
+                return false;
+            }
+        }
+
+        const phoneNumber = $('#phone').val().trim();
+        if (!phoneNumber) {
+            showStatus('Please enter a phone number', 'error', $('#statusMessage'));
+            $('#phone').focus();
+            return false;
+        }
+
+        const isIdAttachmentRequired = $('#id_number_attachment').attr('data-required') === 'true';
+        const hasIdAttachment = $('#id_number_attachment').get(0).files.length > 0;
+
+        if (isIdAttachmentRequired && !hasIdAttachment) {
+            showStatus('Please upload your ID number attachment', 'error', $('#statusMessage'));
+            $('#id_number_attachment').focus();
+            $('html, body').animate({
+                scrollTop: $('#id_attachment_section').offset().top - 100
+            }, 500);
+            return false;
+        }
+
+        // All validation passed — submit the form natively
+        console.log('=== FORM SUBMITTING ===');
+        console.log('University:', $('#university').val() || $('input[name="university"].disabled-field-hidden').val());
+        console.log('Faculty:', $('#faculty').val() || $('input[name="faculty"].disabled-field-hidden').val());
+        console.log('Level:', $('#levels').val() || $('input[name="levels"].disabled-field-hidden').val());
+
+        this.submit();
+    });
+});
+]]></script>
+<!--                        <script><![CDATA[-->
+<!--$(document).ready(function() {-->
+<!--    let studentDataLoaded = false;-->
+<!--    let searchTimeout;-->
+
+<!--    // Check if student_id was passed from URL and mark as auto-filled-->
+<!--    const urlStudentId = $('#student_id').val();-->
+<!--    if (urlStudentId && urlStudentId.trim() !== '') {-->
+<!--        console.log('Student ID auto-filled from URL:', urlStudentId);-->
+<!--        $('#student_id').addClass('auto-filled');-->
+
+<!--        // Automatically search for this student-->
+<!--        setTimeout(function() {-->
+<!--            searchStudent(urlStudentId.trim());-->
+<!--        }, 500);-->
+<!--    }-->
+
+<!--    $('#student_id').on('input', function() {-->
+<!--        const studentId = $(this).val().trim();-->
+
+<!--        // Remove auto-filled class if user is typing-->
+<!--        $(this).removeClass('auto-filled');-->
+
+<!--        clearTimeout(searchTimeout);-->
+<!--        resetForm();-->
+<!--        studentDataLoaded = false;-->
+
+<!--        if (studentId.length >= 2) {-->
+<!--            searchTimeout = setTimeout(function() {-->
+<!--                searchStudent(studentId);-->
+<!--            }, 500);-->
+<!--        }-->
+<!--    });-->
+
+<!--    function searchStudent(studentId) {-->
+<!--        $('.loading-spinner').show();-->
+<!--        $('#statusMessage').hide();-->
+
+<!--        $.ajax({-->
+<!--            url: '/get_student_data',-->
+<!--            type: 'POST',-->
+<!--            data: {'student_id': studentId},-->
+<!--            success: function(response) {-->
+<!--                $('.loading-spinner').hide();-->
+<!--                console.log('=== FRONTEND DEBUG ===');-->
+<!--                console.log('Raw response:', response);-->
+
+<!--                try {-->
+<!--                    let data;-->
+<!--                    if (typeof response === 'string') {-->
+<!--                        data = JSON.parse(response);-->
+<!--                    } else {-->
+<!--                        data = response;-->
+<!--                    }-->
+
+<!--                    console.log('Parsed data:', data);-->
+
+<!--                    if (data && data.success) {-->
+<!--                        populateForm(data.data);-->
+<!--                        showStatus('Student found! Data loaded successfully.', 'success');-->
+<!--                        studentDataLoaded = true;-->
+<!--                    } else {-->
+<!--                        const errorMsg = data && data.error ? data.error : 'Student not found';-->
+<!--                        showStatus(errorMsg, 'error');-->
+<!--                        studentDataLoaded = false;-->
+<!--                    }-->
+<!--                } catch (e) {-->
+<!--                    console.error('Error parsing response:', e);-->
+<!--                    showStatus('Error processing response', 'error');-->
+<!--                    studentDataLoaded = false;-->
+<!--                }-->
+<!--            },-->
+<!--            error: function(xhr, status, error) {-->
+<!--                $('.loading-spinner').hide();-->
+<!--                console.error('AJAX Error:', status, error);-->
+<!--                console.error('Response text:', xhr.responseText);-->
+<!--                showStatus('Error connecting to server', 'error');-->
+<!--                studentDataLoaded = false;-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+
+<!--    function populateForm(data) {-->
+<!--        console.log('=== POPULATE FORM DEBUG ===');-->
+<!--        console.log('Student data:', data);-->
+
+<!--        // Fill basic fields - name and email as readonly, phone as editable-->
+<!--        if (data.name) {-->
+<!--            $('#name').val(data.name).addClass('readonly-field').prop('readonly', true);-->
+<!--        }-->
+<!--        if (data.email) {-->
+<!--            $('#email').val(data.email).addClass('readonly-field').prop('readonly', true);-->
+<!--        }-->
+<!--        if (data.phone) {-->
+<!--            $('#phone').val(data.phone).removeClass('readonly-field').prop('readonly', false);-->
+<!--            $('#phone').attr('required', 'required');-->
+<!--            $('#phone').addClass('auto-filled-editable');-->
+<!--        }-->
+
+<!--        console.log('Basic fields filled');-->
+
+<!--        // Debug available options in dropdowns-->
+<!--        console.log('=== DROPDOWN OPTIONS DEBUG ===');-->
+
+<!--        // University dropdown-->
+<!--        console.log('University dropdown options:');-->
+<!--        $('#university option').each(function(index) {-->
+<!--            console.log(`  ${index}: value="${$(this).val()}" text="${$(this).text()}"`);-->
+<!--        });-->
+
+<!--        // Faculty dropdown-->
+<!--        console.log('Faculty dropdown options:');-->
+<!--        $('#faculty option').each(function(index) {-->
+<!--            console.log(`  ${index}: value="${$(this).val()}" text="${$(this).text()}"`);-->
+<!--        });-->
+
+<!--        // Level dropdown-->
+<!--        console.log('Level dropdown options:');-->
+<!--        $('#levels option').each(function(index) {-->
+<!--            console.log(`  ${index}: value="${$(this).val()}" text="${$(this).text()}"`);-->
+<!--        });-->
+
+<!--        // Show what we're trying to set-->
+<!--        console.log('=== TRYING TO SET ===');-->
+<!--        console.log('University ID from data:', data.university_id);-->
+<!--        console.log('Faculty ID from data:', data.faculty_id);-->
+<!--        console.log('Level from data:', data.level);-->
+
+<!--        // Try to set University-->
+<!--        if (data.university_id) {-->
+<!--            console.log('Attempting to set university...');-->
+<!--            const universitySelect = $('#university');-->
+<!--            const currentValue = universitySelect.val();-->
+<!--            console.log('Current university value:', currentValue);-->
+
+<!--            universitySelect.val(data.university_id);-->
+<!--            const newValue = universitySelect.val();-->
+<!--            console.log('After setting, university value:', newValue);-->
+
+<!--            if (newValue === data.university_id.toString()) {-->
+<!--                console.log('✅ University set successfully');-->
+<!--                universitySelect.addClass('readonly-field').prop('disabled', true);-->
+<!--            } else {-->
+<!--                console.log('❌ University setting failed');-->
+<!--                // Try by name-->
+<!--                console.log('Trying to find university by name:', data.university_name);-->
+<!--                let found = false;-->
+<!--                $('#university option').each(function() {-->
+<!--                    if (data.university_name && $(this).text().toLowerCase().includes(data.university_name.toLowerCase())) {-->
+<!--                        console.log('Found university by name, setting to:', $(this).val());-->
+<!--                        universitySelect.val($(this).val()).addClass('readonly-field').prop('disabled', true);-->
+<!--                        found = true;-->
+<!--                        return false;-->
+<!--                    }-->
+<!--                });-->
+<!--                if (!found) {-->
+<!--                    console.log('❌ University not found by name either');-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+
+<!--        // Try to set Faculty-->
+<!--        if (data.faculty_id) {-->
+<!--            console.log('Attempting to set faculty...');-->
+<!--            const facultySelect = $('#faculty');-->
+<!--            const currentValue = facultySelect.val();-->
+<!--            console.log('Current faculty value:', currentValue);-->
+
+<!--            facultySelect.val(data.faculty_id);-->
+<!--            const newValue = facultySelect.val();-->
+<!--            console.log('After setting, faculty value:', newValue);-->
+
+<!--            if (newValue === data.faculty_id.toString()) {-->
+<!--                console.log('✅ Faculty set successfully');-->
+<!--                facultySelect.addClass('readonly-field').prop('disabled', true);-->
+<!--            } else {-->
+<!--                console.log('❌ Faculty setting failed');-->
+<!--                // Try by name-->
+<!--                console.log('Trying to find faculty by name:', data.faculty_name);-->
+<!--                let found = false;-->
+<!--                $('#faculty option').each(function() {-->
+<!--                    if (data.faculty_name && $(this).text().toLowerCase().includes(data.faculty_name.toLowerCase())) {-->
+<!--                        console.log('Found faculty by name, setting to:', $(this).val());-->
+<!--                        facultySelect.val($(this).val()).addClass('readonly-field').prop('disabled', true);-->
+<!--                        found = true;-->
+<!--                        return false;-->
+<!--                    }-->
+<!--                });-->
+<!--                if (!found) {-->
+<!--                    console.log('❌ Faculty not found by name either');-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+
+<!--        // Try to set Level-->
+<!--        if (data.level) {-->
+<!--            console.log('Attempting to set level...');-->
+<!--            const levelSelect = $('#levels');-->
+<!--            const originalLevel = data.level;-->
+<!--            console.log('Original level from DB:', originalLevel);-->
+
+<!--            // Try direct value first-->
+<!--            levelSelect.val(originalLevel);-->
+<!--            let newValue = levelSelect.val();-->
+<!--            console.log('After direct setting, level value:', newValue);-->
+
+<!--            if (newValue === originalLevel) {-->
+<!--                console.log('✅ Level set directly');-->
+<!--                levelSelect.addClass('readonly-field').prop('disabled', true);-->
+<!--            } else {-->
+<!--                // Try mapping-->
+<!--                console.log('Direct setting failed, trying mapping...');-->
+<!--                let mappedValue = '';-->
+<!--                const levelText = originalLevel.toString().toLowerCase();-->
+
+<!--                if (levelText.includes('1') || levelText.includes('اول') || levelText.includes('one') || levelText.includes('first')) {-->
+<!--                    mappedValue = 'one';-->
+<!--                } else if (levelText.includes('2') || levelText.includes('ثان') || levelText.includes('two') || levelText.includes('second')) {-->
+<!--                    mappedValue = 'two';-->
+<!--                } else if (levelText.includes('3') || levelText.includes('ثال') || levelText.includes('three') || levelText.includes('third')) {-->
+<!--                    mappedValue = 'three';-->
+<!--                } else if (levelText.includes('4') || levelText.includes('رابع') || levelText.includes('four') || levelText.includes('fourth')) {-->
+<!--                    mappedValue = 'fourth';-->
+<!--                }-->
+
+<!--                console.log('Mapped level to:', mappedValue);-->
+<!--                if (mappedValue) {-->
+<!--                    levelSelect.val(mappedValue);-->
+<!--                    newValue = levelSelect.val();-->
+<!--                    console.log('After mapping, level value:', newValue);-->
+<!--                    if (newValue === mappedValue) {-->
+<!--                        console.log('✅ Level set by mapping');-->
+<!--                        levelSelect.addClass('readonly-field').prop('disabled', true);-->
+<!--                    } else {-->
+<!--                        console.log('❌ Level mapping failed');-->
+<!--                    }-->
+<!--                } else {-->
+<!--                    console.log('❌ No mapping found for level');-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+
+<!--        // Fill GPA if available-->
+<!--        if (data.gpa) {-->
+<!--            $('#gpa').val(data.gpa).addClass('readonly-field').prop('readonly', true);-->
+<!--        }-->
+
+<!--        console.log('=== FORM POPULATION COMPLETE ===');-->
+<!--    }-->
+
+<!--    function resetForm() {-->
+<!--        // Reset all fields except student_id-->
+<!--        $('#name, #email, #gpa').val('').removeClass('readonly-field').prop('readonly', false);-->
+<!--        $('#phone').val('').removeClass('readonly-field auto-filled-editable').prop('readonly', false);-->
+<!--        $('#university, #faculty, #levels').val('').removeClass('readonly-field').prop('disabled', false);-->
+
+<!--        // Restore required attributes-->
+<!--        $('#name, #email, #phone, #university, #levels').attr('required', 'required');-->
+<!--        $('#statusMessage').hide();-->
+<!--    }-->
+
+<!--    function showStatus(message, type) {-->
+<!--        const statusDiv = $('#statusMessage');-->
+<!--        statusDiv.removeClass('status-success status-error');-->
+<!--        statusDiv.addClass('status-' + type);-->
+<!--        statusDiv.html(message);-->
+<!--        statusDiv.show();-->
+<!--    }-->
+
+<!--    $('#registrationForm').on('submit', function(e) {-->
+<!--        const studentId = $('#student_id').val().trim();-->
+<!--        if (!studentId) {-->
+<!--            e.preventDefault();-->
+<!--            showStatus('Please enter a student ID', 'error');-->
+<!--            $('#student_id').focus();-->
+<!--            return false;-->
+<!--        }-->
+
+<!--        // Validate phone number is required-->
+<!--        const phoneNumber = $('#phone').val().trim();-->
+<!--        if (!phoneNumber) {-->
+<!--            e.preventDefault();-->
+<!--            showStatus('Please enter a phone number', 'error');-->
+<!--            $('#phone').focus();-->
+<!--            return false;-->
+<!--        }-->
+
+<!--        // Re-enable disabled fields before submission-->
+<!--        $('#university, #faculty, #levels').prop('disabled', false);-->
+
+<!--        console.log('Form submitted with student ID:', studentId);-->
+<!--        console.log('Phone number:', phoneNumber);-->
+<!--        return true;-->
+<!--    });-->
+<!--});-->
+<!--]]></script>-->
+
+                        <t t-if="show_previous_registration_popup">
+                            <div class="ai-popup-overlay">
+                                <div class="ai-popup-container">
+                                    <!-- Header -->
+                                    <div class="ai-popup-header">
+                                        <div class="ai-warning-icon">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                      stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <h3>Registration Not Allowed</h3>
+                                        <button class="ai-close-btn" onclick="goToHome()">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="ai-popup-content">
+                                        <div class="ai-student-info">
+                                            <div class="ai-student-badge">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                                                          stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                          stroke-linejoin="round"/>
+                                                </svg>
+                                                Student ID:
+                                                <strong>
+                                                    <t t-esc="student_id"/>
+                                                </strong>
+                                            </div>
+                                        </div>
+
+                                        <div class="ai-message">
+                                            <p>This student has already registered for training programs:</p>
+                                        </div>
+
+                                        <div class="ai-registrations-list">
+                                            <t t-foreach="previous_trainings" t-as="training">
+                                                <div class="ai-registration-item">
+                                                    <div class="ai-reg-icon">
+                                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M12 14L9 11L13 15L20 8M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+                                                                  stroke="currentColor" stroke-width="2"
+                                                                  stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="ai-reg-content">
+                                                        <div class="ai-reg-title">
+                                                            Company:
+                                                            <t t-esc="training['partner_name']"/>
+                                                        </div>
+                                                        <div class="ai-reg-meta">
+                                                            <span class="ai-reg-date">
+                                                                <svg width="14" height="14" viewBox="0 0 24 24"
+                                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <rect x="3" y="4" width="18" height="18" rx="2"
+                                                                          ry="2" stroke="currentColor"
+                                                                          stroke-width="2"/>
+                                                                    <line x1="16" y1="2" x2="16" y2="6"
+                                                                          stroke="currentColor" stroke-width="2"
+                                                                          stroke-linecap="round"/>
+                                                                    <line x1="8" y1="2" x2="8" y2="6"
+                                                                          stroke="currentColor" stroke-width="2"
+                                                                          stroke-linecap="round"/>
+                                                                    <line x1="3" y1="10" x2="21" y2="10"
+                                                                          stroke="currentColor" stroke-width="2"/>
+                                                                </svg>
+                                                                <t t-esc="training['registration_date']"/>
+                                                            </span>
+                                                            <span class="ai-reg-status"
+                                                                  t-attf-class="ai-status-#{training['status']}">
+                                                                <t t-esc="training['status'].title()"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+
+                                        <div class="ai-restriction-notice">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                                <line x1="15" y1="9" x2="9" y2="15" stroke="currentColor"
+                                                      stroke-width="2" stroke-linecap="round"/>
+                                                <line x1="9" y1="9" x2="15" y2="15" stroke="currentColor"
+                                                      stroke-width="2" stroke-linecap="round"/>
+                                            </svg>
+                                            Students cannot register for multiple training programs
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="ai-popup-footer">
+                                        <a href="/" class="ai-back-button">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
+                                                      stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                      stroke-linejoin="round"/>
+                                                <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor"
+                                                          stroke-width="2" stroke-linecap="round"
+                                                          stroke-linejoin="round"/>
+                                            </svg>
+                                            Go to Home
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+
+                        <style>
+                            /* AI Tool Style Popup */
+                            .ai-popup-overlay {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0, 0, 0, 0.4);
+                            backdrop-filter: blur(8px);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 10000;
+                            padding: 20px;
+                            }
+
+                            .ai-popup-container {
+                            background: white;
+                            border-radius: 12px;
+                            width: 100%;
+                            max-width: 480px;
+                            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                            border: 1px solid rgba(0, 0, 0, 0.05);
+                            overflow: hidden;
+                            animation: aiSlideUp 0.2s ease-out;
+                            }
+
+                            @keyframes aiSlideUp {
+                            from {
+                            opacity: 0;
+                            transform: translateY(20px) scale(0.95);
+                            }
+                            to {
+                            opacity: 1;
+                            transform: translateY(0) scale(1);
+                            }
+                            }
+
+                            /* Header */
+                            .ai-popup-header {
+                            padding: 24px 24px 16px 24px;
+                            border-bottom: 1px solid #f1f5f9;
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            position: relative;
+                            }
+
+                            .ai-warning-icon {
+                            width: 40px;
+                            height: 40px;
+                            background: #fef2f2;
+                            border-radius: 10px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #dc2626;
+                            flex-shrink: 0;
+                            }
+
+                            .ai-popup-header h3 {
+                            margin: 0;
+                            font-size: 18px;
+                            font-weight: 600;
+                            color: #111827;
+                            flex: 1;
+                            }
+
+                            .ai-close-btn {
+                            position: absolute;
+                            top: 20px;
+                            right: 20px;
+                            width: 32px;
+                            height: 32px;
+                            border: none;
+                            background: #f8fafc;
+                            border-radius: 8px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            color: #64748b;
+                            transition: all 0.2s ease;
+                            }
+
+                            .ai-close-btn:hover {
+                            background: #e2e8f0;
+                            color: #334155;
+                            }
+
+                            /* Content */
+                            .ai-popup-content {
+                            padding: 24px;
+                            }
+
+                            .ai-student-info {
+                            margin-bottom: 20px;
+                            }
+
+                            .ai-student-badge {
+                            background: #f0f9ff;
+                            border: 1px solid #e0f2fe;
+                            border-radius: 8px;
+                            padding: 12px 16px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            color: #0369a1;
+                            font-size: 14px;
+                            font-weight: 500;
+                            }
+
+                            .ai-student-badge svg {
+                            color: #0284c7;
+                            }
+
+                            .ai-message {
+                            margin-bottom: 20px;
+                            }
+
+                            .ai-message p {
+                            margin: 0;
+                            color: #475569;
+                            font-size: 14px;
+                            line-height: 1.5;
+                            }
+
+                            .ai-registrations-list {
+                            margin-bottom: 20px;
+                            max-height: 200px;
+                            overflow-y: auto;
+                            }
+
+                            .ai-registration-item {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 12px;
+                            padding: 16px;
+                            background: #fafafa;
+                            border: 1px solid #f1f5f9;
+                            border-radius: 8px;
+                            margin-bottom: 8px;
+                            transition: all 0.2s ease;
+                            }
+
+                            .ai-registration-item:hover {
+                            background: #f8fafc;
+                            border-color: #e2e8f0;
+                            }
+
+                            .ai-reg-icon {
+                            width: 32px;
+                            height: 32px;
+                            background: #dcfce7;
+                            border-radius: 6px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #16a34a;
+                            flex-shrink: 0;
+                            }
+
+                            .ai-reg-content {
+                            flex: 1;
+                            min-width: 0;
+                            }
+
+                            .ai-reg-title {
+                            font-weight: 600;
+                            color: #111827;
+                            font-size: 14px;
+                            margin-bottom: 4px;
+                            }
+
+                            .ai-reg-meta {
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            font-size: 12px;
+                            color: #64748b;
+                            }
+
+                            .ai-reg-date {
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+                            }
+
+                            .ai-reg-status {
+                            padding: 2px 8px;
+                            border-radius: 12px;
+                            font-weight: 500;
+                            font-size: 11px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.025em;
+                            }
+
+                            .ai-status-draft {
+                            background: #fef3c7;
+                            color: #92400e;
+                            }
+
+                            .ai-status-confirmed {
+                            background: #dcfce7;
+                            color: #166534;
+                            }
+
+                            .ai-status-cancelled {
+                            background: #fecaca;
+                            color: #991b1b;
+                            }
+
+                            .ai-restriction-notice {
+                            background: #fffbeb;
+                            border: 1px solid #fde68a;
+                            border-radius: 8px;
+                            padding: 12px 16px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            color: #92400e;
+                            font-size: 13px;
+                            font-weight: 500;
+                            }
+
+                            .ai-restriction-notice svg {
+                            color: #d97706;
+                            flex-shrink: 0;
+                            }
+
+                            /* Footer */
+                            .ai-popup-footer {
+                            padding: 16px 24px 24px 24px;
+                            border-top: 1px solid #f1f5f9;
+                            }
+
+                            .ai-back-button {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            padding: 12px 24px;
+                            background: #374151;
+                            color: white;
+                            border-radius: 8px;
+                            text-decoration: none;
+                            font-weight: 500;
+                            font-size: 14px;
+                            transition: all 0.2s ease;
+                            }
+
+                            .ai-back-button:hover {
+                            background: #4b5563;
+                            color: white;
+                            text-decoration: none;
+                            transform: translateY(-1px);
+                            }
+
+                            /* Scrollbar */
+                            .ai-registrations-list::-webkit-scrollbar {
+                            width: 4px;
+                            }
+
+                            .ai-registrations-list::-webkit-scrollbar-track {
+                            background: transparent;
+                            }
+
+                            .ai-registrations-list::-webkit-scrollbar-thumb {
+                            background: #cbd5e1;
+                            border-radius: 2px;
+                            }
+
+                            .ai-registrations-list::-webkit-scrollbar-thumb:hover {
+                            background: #94a3b8;
+                            }
+
+                            /* Mobile */
+                            @media (max-width: 480px) {
+                            .ai-popup-overlay {
+                            padding: 10px;
+                            }
+
+                            .ai-popup-container {
+                            max-width: none;
+                            }
+
+                            .ai-popup-header {
+                            padding: 20px 20px 16px 20px;
+                            }
+
+                            .ai-popup-content {
+                            padding: 20px;
+                            }
+
+                            .ai-reg-meta {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            gap: 4px;
+                            }
+                            }
+                        </style>
+
+                        <script>
+                            function goToHome() {
+                            window.location.href = '/';
+                            }
+                        </script>
+                    </body>
+                </div>
+            </t>
+        </template>
+        <template id="payment_details">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>registration_for_training</title>
+                        <style>
+                            * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            }
+
+
+                            .payment-container {
+                            background: rgba(255, 255, 255, 0.95);
+                            backdrop-filter: blur(10px);
+                            border-radius: 24px;
+                            padding: 40px;
+                            max-width: 600px;
+                            width: 100%;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            }
+
+                            .header {
+                            text-align: center;
+                            margin-bottom: 40px;
+                            }
+
+                            .header h1 {
+                            color: #2d3748;
+                            font-size: 2.5rem;
+                            font-weight: 700;
+                            margin-bottom: 8px;
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                            }
+
+                            .header p {
+                            color: #718096;
+                            font-size: 1.1rem;
+                            }
+
+                            .form-section {
+                            margin-bottom: 32px;
+                            }
+
+                            .section-title {
+                            color: #2d3748;
+                            font-size: 1.2rem;
+                            font-weight: 600;
+                            margin-bottom: 20px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            }
+
+                            .section-title::before {
+                            content: '';
+                            width: 4px;
+                            height: 20px;
+                            background: linear-gradient(135deg, #667eea, #764ba2);
+                            border-radius: 2px;
+                            }
+
+                            .form-row {
+                            display: flex;
+                            gap: 16px;
+                            margin-bottom: 20px;
+                            }
+
+                            .form-group {
+                            flex: 1;
+                            }
+
+                            .form-group.full-width {
+                            flex: 100%;
+                            }
+
+                            label {
+                            display: block;
+                            color: #4a5568;
+                            font-weight: 500;
+                            margin-bottom: 8px;
+                            font-size: 0.95rem;
+                            }
+
+                            input, select {
+                            width: 100%;
+                            padding: 16px;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 12px;
+                            font-size: 1rem;
+                            transition: all 0.3s ease;
+                            background: white;
+                            }
+
+                            input:focus, select:focus {
+                            outline: none;
+                            border-color: #667eea;
+                            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+                            transform: translateY(-1px);
+                            }
+
+                            input:invalid:not(:focus):not(:placeholder-shown) {
+                            border-color: #e53e3e;
+                            }
+
+                            .card-icons {
+                            display: flex;
+                            gap: 8px;
+                            margin-top: 8px;
+                            }
+
+                            .card-icon {
+                            width: 40px;
+                            height: 28px;
+                            background: #f7fafc;
+                            border: 2px solid #e2e8f0;
+                            border-radius: 6px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 0.7rem;
+                            font-weight: 600;
+                            color: #4a5568;
+                            transition: all 0.2s ease;
+                            }
+
+                            .card-icon:hover {
+                            border-color: #667eea;
+                            background: #edf2f7;
+                            }
+
+                            .security-info {
+                            background: linear-gradient(135deg, #e6fffa, #f0fff4);
+                            border: 1px solid #9ae6b4;
+                            border-radius: 12px;
+                            padding: 16px;
+                            margin-top: 20px;
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            }
+
+                            .security-icon {
+                            width: 24px;
+                            height: 24px;
+                            background: #48bb78;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: white;
+                            font-size: 0.8rem;
+                            font-weight: bold;
+                            }
+
+                            .security-text {
+                            color: #2f855a;
+                            font-size: 0.9rem;
+                            }
+
+                            .submit-btn {
+                            width: 100%;
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            border: none;
+                            padding: 18px;
+                            border-radius: 12px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            margin-top: 24px;
+                            position: relative;
+                            overflow: hidden;
+                            }
+
+                            .submit-btn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+                            }
+
+                            .submit-btn:active {
+                            transform: translateY(0);
+                            }
+
+                            .checkbox-group {
+                            display: flex;
+                            align-items: flex-start;
+                            gap: 12px;
+                            margin: 24px 0;
+                            }
+
+                            .checkbox-group input[type="checkbox"] {
+                            width: auto;
+                            margin: 0;
+                            transform: scale(1.2);
+                            }
+
+                            .checkbox-group label {
+                            margin: 0;
+                            font-size: 0.9rem;
+                            line-height: 1.5;
+                            cursor: pointer;
+                            }
+
+                            @media (max-width: 640px) {
+                            .payment-container {
+                            padding: 24px;
+                            margin: 10px;
+                            }
+
+                            .form-row {
+                            flex-direction: column;
+                            gap: 20px;
+                            }
+
+                            .header h1 {
+                            font-size: 2rem;
+                            }
+                            }
+
+                            .input-group {
+                            position: relative;
+                            }
+
+                            .input-icon {
+                            position: absolute;
+                            right: 16px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            color: #a0aec0;
+                            font-size: 1.2rem;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="payment-container  mx-auto my-4">
+                            <div class="header">
+                                <h1>Payment Details</h1>
+                                <p>Complete your purchase securely</p>
+                            </div>
+
+                            <form id="paymentForm">
+                                <t t-if="registration">
+                                    <input type="hidden" name="registration_id" t-att-value="registration.id"/>
+                                </t>
+                                <div class="form-section">
+                                    <h3 class="section-title">Payment Method</h3>
+
+                                    <div class="form-group full-width">
+                                        <label for="cardNumber">Card Number</label>
+                                        <div class="input-group">
+                                            <input type="text" id="cardNumber" name="cardNumber"
+                                                   placeholder="1234 5678 9012 3456"
+                                                   autocomplete="off"
+                                                   pattern="[0-9\s]{13,19}" maxlength="19" required="1"/>
+                                            <span class="input-icon">💳</span>
+                                        </div>
+                                        <div class="card-icons">
+                                            <div class="card-icon">VISA</div>
+                                            <div class="card-icon">MC</div>
+                                            <div class="card-icon">AMEX</div>
+                                            <div class="card-icon">DISC</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="expiryDate">Expiry Date</label>
+                                            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY"
+                                                   pattern="[0-9]{2}/[0-9]{2}" maxlength="5" autocomplete="off" required="1"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv">CVV</label>
+                                            <div class="input-group">
+                                                <input type="text" id="cvv" name="cvv" placeholder="123"
+                                                       pattern="[0-9]{3,4}" maxlength="4" autocomplete="off" required="1"/>
+                                                <span class="input-icon">🔒</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group full-width">
+                                        <label for="cardholderName">Cardholder Name</label>
+                                        <input type="text" id="cardholderName" name="cardholderName"
+                                               placeholder="John Doe" required="1"/>
+                                    </div>
+                                </div>
+
+
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="saveInfo" name="saveInfo"/>
+                                    <label for="saveInfo">Save this information for next time</label>
+                                </div>
+
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="terms" name="terms" required="1"/>
+                                    <label for="terms">I agree to the <a href="#" style="color: #667eea;">Terms of
+                                        Service
+                                    </a> and
+                                        <a href="#" style="color: #667eea;">Privacy Policy</a>
+                                    </label>
+                                </div>
+
+                                <div class="security-info">
+                                    <div class="security-icon">🛡</div>
+                                    <div class="security-text">
+                                        Your payment information is encrypted and secure. We never store your card
+                                        details.
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="submit-btn"
+                                        onclick="window.location.href='/payment/process'">
+                                    Complete Payment
+                                </button>
+                            </form>
+                        </div>
+
+                    </body>
+                </div>
+            </t>
+        </template>
+        <template id="training_registration_confirm">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                    </head>
+                    <body>
+                        <div class="text-center col-12 col-md-7 mx-auto">
+                            <div style="border: solid 2px #0060bf; margin: 20px 50px; padding: 40px; border-radius: 20px;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 240px;">
+                                            <!--                                            <h5 style="font-size: 25px; color: #0060bf;">-->
+                                            <!--                                                Thank you! Your payment has been processed successfully.-->
+                                            <!--                                            </h5>-->
+                                            <i class="fas fa-square-check text-success fs-4 mb-2"></i>
+                                            <h5>
+                                                Your submission will be completed within 48 hours after payment.
+                                                We sent for you a message on whatsapp with payment details
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

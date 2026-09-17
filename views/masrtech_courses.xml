@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_courses_kanban_view">
+            <field name="name">masrtech_courses_kanban</field>
+            <field name="model">masrtech.course</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_courses_form_view">
+            <field name="model">masrtech.course</field>
+            <field name="arch" type="xml">
+                <form string="Courses">
+                    <sheet>
+                        <style>
+                            .o_form_sheet.position-relative{
+                            width: 90%;
+                            margin: 0 auto;
+                            padding: 35px 40px;
+                            margin-top: 26px;
+                            }
+                        </style>
+
+                        <group col="4" colspan="4">
+                            <group class="w-50">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="duration"/>
+                                <field name="start_date"/>
+                            </group>
+                            <group class="w-50">
+                                <field name="end_date"/>
+                                <field name="capacity"/>
+                                <field name="materials"/>
+
+
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_courses_tree_view">
+            <field name="model">masrtech.course</field>
+            <field name="arch" type="xml">
+                <tree string="Courses">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_masrtech_courses" model="ir.actions.act_window">
+            <field name="name">Courses</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.course</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+        </record>
+
+    </data>
+</odoo>

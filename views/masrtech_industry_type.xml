@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="masrtech_industry_type_kanban_view">
+            <field name="name">industry_type_kanban</field>
+            <field name="model">masrtech.industry.type</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column" action="action_masrtech_industry_type" type="object" sample="1">
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <ul>
+                                        Name :
+                                        <field name="name"/>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="masrtech_industry_type_form_view">
+            <field name="model">masrtech.industry.type</field>
+            <field name="arch" type="xml">
+                <form string="Industries">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="masrtech_industry_type_tree_view">
+            <field name="model">masrtech.industry.type</field>
+            <field name="arch" type="xml">
+                <tree string="Industries">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_masrtech_industry_type" model="ir.actions.act_window">
+            <field name="name">Industries</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">masrtech.industry.type</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+        </record>
+
+    </data>
+</odoo>

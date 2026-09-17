@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <template id="payment_page" name="Payment Page">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container-fluid"
+                         style="background-color: #f8f9fa; min-height: 100vh; padding: 50px 0;">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 col-lg-5">
+                                    <div class="card shadow-lg" style="border-radius: 15px; border: none;">
+                                        <div class="card-body p-5">
+                                            <h2 class="text-center mb-4" style="color: #333; font-weight: 600;">Online
+                                                Payment
+                                            </h2>
+
+                                            <!-- Course Info Display -->
+                                            <div class="text-center mb-4 p-3"
+                                                 style="background-color: #ffffff; border-radius: 10px; border: 1px solid #e9ecef;">
+                                                <div class="d-flex align-items-center justify-content-center mb-2">
+                                                    <i class="fa fa-graduation-cap text-primary mr-2"
+                                                       style="font-size: 1.2rem;"></i>
+                                                    <h6 class="mb-0" style="color: #666;">Course to Register</h6>
+                                                </div>
+                                                <h5 class="mb-1" style="color: #333;">
+                                                    <t t-esc="course_name"/>
+                                                </h5>
+                                                <h4 class="text-success mb-0" style="font-weight: bold;">$
+                                                    <t t-esc="course_price"/>
+                                                </h4>
+                                            </div>
+
+                                            <form action="/payment/process" method="post" id="payment-form">
+                                                <input type="hidden" name="csrf_token"
+                                                       t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="course_name" t-att-value="course_name"/>
+                                                <input type="hidden" name="course_price" t-att-value="course_price"/>
+
+                                                <!-- Name Field -->
+                                                <div class="form-group mb-4">
+                                                    <label for="name" class="form-label"
+                                                           style="color: #333; font-weight: 500;">Name
+                                                    </label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="name"
+                                                           name="name"
+                                                           placeholder="John Doe"
+                                                           required=""
+                                                           style="border-radius: 10px; padding: 12px 15px; border: 2px solid #e9ecef; font-size: 16px; background-color: #ffffff;"/>
+                                                </div>
+
+                                                <!-- Email Field -->
+                                                <div class="form-group mb-4">
+                                                    <label for="email" class="form-label"
+                                                           style="color: #333; font-weight: 500;">Email
+                                                    </label>
+                                                    <input type="email"
+                                                           class="form-control"
+                                                           id="email"
+                                                           name="email"
+                                                           placeholder="john.doe@example.com"
+                                                           required=""
+                                                           style="border-radius: 10px; padding: 12px 15px; border: 2px solid #e9ecef; font-size: 16px; background-color: #ffffff;"/>
+                                                </div>
+
+                                                <!-- Card Details -->
+                                                <div class="form-group mb-4">
+                                                    <label for="card_details" class="form-label"
+                                                           style="color: #333; font-weight: 500;">Card Details
+                                                    </label>
+                                                    <div class="card-input-container" style="position: relative;">
+                                                        <div class="input-group"
+                                                             style="border-radius: 10px; overflow: hidden;">
+                                                            <span class="input-group-text"
+                                                                  style="background-color: #ffffff; border: 2px solid #e9ecef; border-right: none; padding: 12px 15px;">
+                                                                <i class="fa fa-credit-card"
+                                                                   style="color: #6c757d; font-size: 18px;"></i>
+                                                            </span>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   id="card_number"
+                                                                   name="card_number"
+                                                                   autocomplete="off"
+                                                                   placeholder="1234 1234 1234 1234"
+                                                                   maxlength="19"
+                                                                   required=""
+                                                                   style="border: 2px solid #e9ecef; border-left: none; border-right: none; padding: 12px 15px; font-size: 16px; background-color: #ffffff;"/>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   id="expiry"
+                                                                   name="expiry"
+                                                                   autocomplete="off"
+                                                                   placeholder="MM / YY"
+                                                                   maxlength="7"
+                                                                   required=""
+                                                                   style="border: 2px solid #e9ecef; border-left: none; padding: 12px 15px; max-width: 120px; font-size: 16px; background-color: #ffffff;"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- CVV Field -->
+                                                <div class="form-group mb-4">
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="cvv"
+                                                           name="cvv"
+                                                           autocomplete="off"
+                                                           placeholder="CVV"
+                                                           maxlength="4"
+                                                           required=""
+                                                           style="border-radius: 10px; padding: 12px 15px; border: 2px solid #e9ecef; max-width: 120px; font-size: 16px; background-color: #ffffff;"/>
+                                                </div>
+
+                                                <!-- Payment Button -->
+                                                <button type="submit"
+                                                        class="btn btn-primary btn-lg w-100"
+                                                        style="background: linear-gradient(45deg, #007bff, #0056b3); border: none; border-radius: 10px; padding: 15px; font-size: 18px; font-weight: 600; box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);">
+                                                    Pay $
+                                                    <span id="pay-amount">
+                                                        <t t-esc="course_price"/>
+                                                    </span>
+                                                </button>
+
+                                                <!-- Info Message -->
+                                                <div class="text-center mt-3">
+                                                    <small style="color: #6c757d;">
+                                                        <i class="fa fa-info-circle"></i>
+                                                        Payment method created. Send to backend.
+                                                    </small>
+                                                </div>
+                                            </form>
+
+                                            <!-- Back Link -->
+                                            <div class="text-center mt-4">
+                                                <a href="" class="text-decoration-none"
+                                                   style="color: #6c757d;">
+                                                    <i class="fa fa-arrow-left"></i>
+                                                    Back to Flyer
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                    // Format card number input
+                    const cardInput = document.getElementById('card_number');
+                    cardInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s/g, '');
+                    let formattedValue = value.replace(/(.{4})/g, '$1 ').trim();
+                    if (formattedValue.length > 19) {
+                    formattedValue = formattedValue.substring(0, 19);
+                    }
+                    e.target.value = formattedValue;
+                    });
+
+                    // Format expiry date input
+                    const expiryInput = document.getElementById('expiry');
+                    expiryInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                    value = value.substring(0, 2) + ' / ' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                    });
+
+                    // Only allow numbers in CVV
+                    const cvvInput = document.getElementById('cvv');
+                    cvvInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/\D/g, '');
+                    });
+
+                    // Add focus effects
+                    const inputs = document.querySelectorAll('input[type="text"], input[type="email"]');
+                    inputs.forEach(input => {
+                    input.addEventListener('focus', function() {
+                    this.style.borderColor = '#007bff';
+                    this.style.boxShadow = '0 0 0 0.2rem rgba(0, 123, 255, 0.25)';
+                    });
+
+                    input.addEventListener('blur', function() {
+                    this.style.borderColor = '#e9ecef';
+                    this.style.boxShadow = 'none';
+                    });
+                    });
+                    });
+                </script>
+            </t>
+        </template>
+
+        <!-- Payment Success Template -->
+        <template id="payment_success" name="Payment Success">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container-fluid"
+                         style="background-color: #f8f9fa; min-height: 100vh; padding: 50px 0;">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="card shadow-lg text-center" style="border-radius: 15px; border: none;">
+                                        <div class="card-body p-5">
+                                            <div class="mb-4">
+                                                <i class="fa fa-check-circle"
+                                                   style="font-size: 4rem; color: #28a745;"></i>
+                                            </div>
+                                            <h2 class="mb-3" style="color: #333;">Payment Successful!</h2>
+                                            <p class="mb-3" style="color: #666; font-size: 18px;">
+                                                Thank you
+                                                <strong>
+                                                    <t t-esc="name"/>
+                                                </strong>
+                                                for your payment of
+                                                <strong style="color: #28a745;">
+                                                    <t t-esc="amount"/>
+                                                </strong>
+                                                for
+                                                <strong>
+                                                    <t t-esc="course_name"/>
+                                                </strong>
+                                                .
+                                            </p>
+                                            <p class="mb-4" style="color: #666;">
+                                                You will receive a confirmation email shortly with your access
+                                                details.
+                                            </p>
+                                            <a href="/" class="btn btn-primary btn-lg"
+                                               style="border-radius: 10px; padding: 12px 30px;">
+                                                <i class="fa fa-arrow-left"></i>
+                                                Back to Flyer
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Payment Error Template (Optional) -->
+        <template id="payment_error" name="Payment Error">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container-fluid" style="background-color: #f8f9fa; min-height: 100vh; padding: 50px 0;">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="card shadow-lg text-center" style="border-radius: 15px; border: none;">
+                                        <div class="card-body p-5">
+                                            <div class="mb-4">
+                                                <i class="fa fa-times-circle"
+                                                   style="font-size: 4rem; color: #dc3545;"></i>
+                                            </div>
+                                            <h2 class="mb-3" style="color: #333;">Payment Failed</h2>
+                                            <p class="mb-3" style="color: #666; font-size: 18px;">
+                                                There was an error processing your payment.
+                                            </p>
+                                            <p class="mb-4" style="color: #666;">
+                                                <t t-esc="error_message"/>
+                                            </p>
+                                            <div class="d-flex gap-3 justify-content-center">
+                                                <a href="/payment" class="btn btn-primary"
+                                                   style="border-radius: 10px; padding: 12px 24px;">
+                                                    <i class="fa fa-retry"></i>
+                                                    Try Again
+                                                </a>
+                                                <a href="/all_Courses" class="btn btn-secondary"
+                                                   style="border-radius: 10px; padding: 12px 24px;">
+                                                    <i class="fa fa-arrow-left"></i>
+                                                    Back to Courses
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

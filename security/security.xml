@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <record model="ir.module.category" id="module_category_student">
+        <field name="name">Student</field>
+    </record>
+     <record id="group_zoom_access" model="res.groups">
+            <field name="name">Zoom Meeting Access</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="comment">Users in this group can access the Zoom Meeting menu</field>
+     </record>
+
+    <!--    ACL for Admins-->
+    <record model="ir.model.access" id="access_op_student_admin">
+        <field name="name">Admin Access</field>
+        <field name="model_id" ref="model_op_student"/>
+        <field name="perm_read">1</field>
+        <field name="perm_write">1</field>
+        <field name="perm_create">1</field>
+        <field name="perm_unlink">1</field>
+    </record>
+
+    <record id="module_category_course_approval" model="ir.module.category">
+        <field name="name">Course Management</field>
+        <field name="description">Manage course approval process</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <!-- Define the group with the proper category -->
+    <record id="group_scientific_committee" model="res.groups">
+        <field name="name">Scientific Committee</field>
+        <field name="category_id" ref="nexus_nms.module_category_course_approval"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/> <!-- Add admin to this group -->
+        <field name="comment">Members can review and approve courses</field>
+    </record>
+    <record id="group_student_Menus" model="res.groups">
+        <field name="name">Menus</field>
+    </record>
+
+    <record id="acess_group_only_visitor" model="res.groups">
+        <field name="name">visitor view</field>
+
+    </record>
+    <record id="acess_group_only_admin" model="res.groups">
+        <field name="name">admin</field>
+    </record>
+</odoo>

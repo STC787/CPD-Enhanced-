@@ -1,0 +1,308 @@
+<odoo>
+    <data>
+        <template id="refund_request_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>refund request</title>
+                        <style>
+
+
+                            :root {
+                            --blue-900: #0a1628;
+                            --blue-800: #0f2547;
+                            --blue-700: #1a3a6e;
+                            --blue-600: #1e4fa0;
+                            --blue-500: #2563eb;
+                            --blue-400: #3b82f6;
+                            --blue-300: #60a5fa;
+                            --blue-200: #bfdbfe;
+                            --blue-100: #dbeafe;
+                            --blue-50: #eff6ff;
+                            --white: #ffffff;
+                            --slate: #64748b;
+                            --border: #e0eaff;
+                            --danger: #dc2626;
+                            --success: #16a34a;
+                            }
+
+                            * { box-sizing: border-box; }
+
+                            body {
+                            background: var(--blue-50);
+                            min-height: 100vh;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 24px 16px;
+                            }
+
+
+                            /* ── PANEL ── */
+                            .panel {
+                            margin: auto;
+                            background: var(--white);
+                            border-radius: 20px;
+                            box-shadow: 0 8px 40px rgba(10,22,40,0.13);
+                            overflow: hidden;
+                            width: 100%;
+                            max-width: 873px;
+                            }
+
+                            .panel-head {
+                            background: linear-gradient(45deg, #2b657f, #50acdc);
+                            padding: 29px 24px;
+                            display: flex;
+                            align-items: center;
+                            gap: 6px;
+                            }
+
+                            .panel-head h5 {
+                            color: var(--white);
+                            font-size: 1.5rem;
+                            margin: 0;
+                            }
+
+                            .panel-head i {
+                            color: var(--blue-300);
+                            font-size: 1.1rem;
+                            }
+
+                            .panel-body {
+                            padding: 24px;
+                            }
+
+                            /* ── INFO BOX ── */
+                            .info-box {
+                            background: var(--blue-50);
+                            border: 1.5px solid var(--blue-200);
+                            border-radius: 12px;
+                            padding: 12px 15px;
+                            font-size: 16px;
+                            color: var(--blue-700);
+                            display: flex;
+                            gap: 10px;
+                            align-items: flex-start;
+                            margin-bottom: 20px;
+                            }
+
+                            .info-box i {
+                            color: var(--blue-500);
+                            font-size: 1rem;
+                            flex-shrink: 0;
+                            margin-top: 1px;
+                            }
+
+                            /* ── STEP LABEL ── */
+                            .step-label {
+                            display: flex;
+                            align-items: center;
+                            gap: 13px;
+                            font-size: 1.4rem;
+                            font-weight: 700;
+                            color: var(--blue-800);
+                            margin-bottom: 10px;
+                            letter-spacing: 0.2px;
+                            }
+
+
+                            /* ── FORM LABEL ── */
+                            .form-label {
+                            margin-top: 15px !important;
+                            font-size: 1rem;
+                            font-weight: 700;
+                            color: var(--blue-800);
+                            margin-bottom: 12px !important;
+                            display: block;
+                            }
+
+                            /* ── SELECT TEXTAREA ── */
+                            .form-select,
+                            .form-control {
+
+                            font-size:1rem;
+                            border: 2px solid var(--blue-100);
+                            border-radius: 11px;
+                            padding: 10px 13px;
+                            color: var(--blue-900);
+                            background: var(--blue-50);
+                            width: 100%;
+                            transition: border-color 0.2s, box-shadow 0.2s;
+                            }
+
+                            .form-select:focus,
+                            .form-control:focus {
+                            outline: none;
+                            border-color: var(--blue-500);
+                            box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+                            background: var(--white);
+                            }
+
+                            textarea.form-control {
+                            resize: vertical;
+                            min-height: 100px;
+                            }
+
+                            /* ── REQUIRED STAR ── */
+                            .req { color: var(--danger); }
+
+                            /* ── PREVIEW BAR ── */
+                            .preview-bar {
+                            display: flex;
+                            align-items: center;
+                            gap: 9px;
+                            background: linear-gradient(90deg, var(--blue-50), var(--blue-100));
+                            border: 1.5px dashed var(--blue-300);
+                            border-radius: 11px;
+                            padding: 11px 14px;
+                            font-size: 1rem;
+                            color: var(--blue-700);
+                            margin-bottom: 16px;
+                            }
+
+                            .preview-bar i {
+                            color: var(--blue-500);
+                            font-size: 1rem;
+                            flex-shrink: 0;
+                            }
+
+                            /* ── SUBMIT BUTTON ── */
+                            .btn-main {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            width: 100%;
+                            padding: 12px;
+                            background: linear-gradient(45deg, #2c6882, #4ea8d7);
+                            color: var(--white);
+                            border: none;
+                            border-radius: 11px;
+                            font-size: 1rem;
+                            font-weight: 700;
+                            cursor: pointer;
+                            transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+                            letter-spacing: 0.2px;
+                            }
+
+                            .btn-main:hover {
+           border: 1px solid #4da6d4;
+    background: white;
+    color: #115477;
+    border-radius: 11px;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+                            }
+
+                            .btn-main:active {
+                            transform: translateY(0);
+                            }
+
+                            /* ── SUCCESS MESSAGE (CSS only) ── */
+                            .success-msg {
+                            display: none;
+                            background: #f0fdf4;
+                            border: 1.5px solid #86efac;
+                            border-radius: 12px;
+                            padding: 14px 16px;
+                            font-size: 0.85rem;
+                            color: var(--success);
+                            align-items: center;
+                            gap: 10px;
+                            margin-top: 14px;
+                            }
+
+                            /* ── RESPONSIVE ── */
+                            @media (max-width: 480px) {
+                            .panel-body { padding: 16px; }
+                            .panel-head { padding: 14px 16px; }
+                            .pay-option { padding: 11px 12px; gap: 10px; }
+                            .pay-course { font-size: 0.82rem; }
+                            .pay-amount { font-size: 0.95rem; }
+                            .btn-main { font-size: 0.85rem; padding: 11px; }
+                            }
+
+                            @media (max-width: 360px) {
+                            .pay-meta { display: none; }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="panel mt-5 mb-5">
+                            <!-- ── HEADER ── -->
+                            <div class="panel-head">
+                                <i class="bi bi-file-earmark-text-fill"></i>
+                                <h5>Submit Refund Request</h5>
+                            </div>
+
+                            <!-- ── BODY ── -->
+                            <div class="panel-body">
+
+                                <!-- Info Box -->
+                                <div class="info-box">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                    <span>Select a completed payment and describe your reason. Requests require <strong>
+                                        Admin approval</strong>.
+                                    </span>
+                                </div>
+
+                                <!-- Form -->
+                                <form action="#" method="post">
+
+                                    <!-- STEP 1: Select Payment -->
+                                    <!-- Payment Option 1 -->
+                                    <!-- Payment Option 2 -->
+                                    <!-- Payment Option 3 -->
+<!--                                    &lt;!&ndash; STEP 2: Reason &ndash;&gt;-->
+<!--                                    <div class="step-label mb-2">-->
+<!--                                        Provide Your Reason-->
+<!--                                    </div>-->
+
+
+
+                                    <!-- Detailed Reason -->
+                                    <label class="form-label" for="reason">
+                                        Detailed Reason
+                                        <span class="req">*</span>
+                                    </label>
+                                    <textarea
+                                            class="form-control mb-4"
+                                            name="reason"
+                                            id="reason"
+                                            placeholder="Describe your reason in detail (minimum 20 characters)…"
+                                            minlength="20"
+                                    ></textarea>
+
+                                    <!-- Preview Bar -->
+                                    <div class="preview-bar">
+                                        <i class="bi bi-shield-lock-fill"></i>
+                                        <span>Your request will be reviewed by an Admin before any action is taken.
+                                        </span>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <!--          <a href="/refund_request_confirm ">-->
+                                    <!--        <button type="submit" class="btn-main">-->
+                                    <!--          Submit Refund Request-->
+                                    <!--        </button>-->
+                                    <!--          </a>-->
+                                    <a href="/refund_request_confirm" class="btn-main">
+                                        Submit Refund Request
+                                    </a>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    </body>
+
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

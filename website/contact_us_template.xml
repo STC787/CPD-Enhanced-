@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="contact_us_template">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <style>
+                        h1{
+                        color: #3F82EB;
+                        }
+                        form .form-control{
+                        border-radius: 0.5rem !important;
+                        background: #f2f2f2;
+                        }
+                        .my-btn-primary{
+                        background: #284DFF;
+                        border-radius: 8px;
+                        }
+                        .input-wrapper .icon{
+                        right: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        }
+                        textarea{
+                        min-height: 150px !important;
+                        }
+                        .form-label{
+                        font-size: 1rem !important;
+                        color: #505050 !important;
+                        }
+                    </style>
+                    <body>
+                        <div style="width:max-content;margin-left:auto;margin-block: 1rem;position: relative;">
+                            <a href="/contact_us_ar">
+                                <button class="btn my-btn-primary text-white" style="position: relative;
+    left: -7.1rem;">Ar
+                                </button>
+                            </a>
+                        </div>
+
+                        <div class="container col-md-6 mt-5">
+                            <h1 class="fw-bold">Contact Us</h1>
+                            <p class="my-3">Have questions about the program? Reach out and we’ll get back to you soon.
+                            </p>
+                            <form role="form" action="confirm_contact" method="GET"
+                                  enctype="multipart/form-data"
+                                  class="consult rounded-3 mx-auto my-5">
+                                <div class="row g-0">
+                                    <div class="mb-3">
+                                        <label for="full_name" class="fw-bold form-label">Full Name *</label>
+                                        <div class="position-relative input-wrapper">
+                                            <input type="text" id="full_name" name="full_name" required="1"
+                                                   class=" form-control" placeholder="Enter your name"/>
+                                            <img src="/nexus_nms/static/src/images/user-outline.svg"
+                                                 class="position-absolute icon"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="fw-bold  form-label">Email Address *</label>
+                                        <div class="position-relative input-wrapper">
+                                            <input type="email" id="email" name="email" required="1"
+                                                   class=" form-control" placeholder="your@email.com"/>
+                                            <img src="/nexus_nms/static/src/images/email-outline.svg"
+                                                 class="position-absolute icon"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="fw-bold  form-label">Phone Number:</label>
+                                        <div class="position-relative input-wrapper">
+                                            <input type="text" id="phone" name="phone" class=" form-control"
+                                                   placeholder="Optional"/>
+                                            <img src="/nexus_nms/static/src/images/phone-outline.svg"
+                                                 class="position-absolute icon"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="fw-bold  form-label">Message
+                                        </label>
+                                        <textarea type="text" id="phone" name="phone" class=" form-control"
+                                                  placeholder="How can we help you?"></textarea>
+                                    </div>
+                                </div>
+
+                                <button class=" my-btn-primary text-white mt-3 btn d-block py-2 px-3 fw-bold h5"
+                                        action="/consultation/form/confirm" method="GET">
+                                    Send Message
+                                </button>
+                                <p class="my-3">
+                                    Or email us directly: healthtech@borg-arab.edu.eg
+                                </p>
+                            </form>
+                        </div>
+                    </body>
+
+                </div>
+            </t>
+        </template>
+        <template id="contact_us_template_ar">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <style>
+                        .ar{
+                        direction: rtl;
+                        }
+                        h1{
+                        color: #3F82EB;
+                        }
+                        form .form-control{
+                        border-radius: 0.5rem !important;
+                        background: #f2f2f2;
+                        }
+                        .my-btn-primary{
+                        background: #284DFF;
+                        border-radius: 8px;
+                        }
+                        .input-wrapper .icon{
+                        left: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        }
+                        textarea{
+                        min-height: 150px !important;
+                        }
+                        .form-label{
+                        font-size: 1rem !important;
+                        color: #505050 !important;
+                        }
+                    </style>
+                    <body>
+                        <div style="width:max-content;margin-left:auto;margin-block: 1rem;position: relative;">
+                            <a href="/contact_us">
+                                <button class="btn my-btn-primary text-white" style="position: relative;
+    left: -7.1rem;">En
+                                </button>
+                            </a>
+                        </div>
+
+                        <div class="container col-md-6 mt-5 ar">
+                            <h1 class="fw-bold">اتصل بنا</h1>
+                            <p class="my-3">هل لديك أسئلة حول البرنامج؟ تواصل معنا وسنرد عليك قريبًا.
+                            </p>
+                            <form role="form" action="confirm_contact_ar" method="GET"
+                                  enctype="multipart/form-data"
+                                  class="consult rounded-3 mx-auto my-5">
+                                <div class="row g-0">
+                                    <div class="mb-3">
+                                        <label for="full_name" class="fw-bold form-label">الاسم الكامل *</label>
+                                        <div class="position-relative input-wrapper">
+                                            <input type="text" id="full_name" name="full_name" required="1"
+                                                   class=" form-control" placeholder="أدخل اسمك"/>
+                                            <img src="/nexus_nms/static/src/images/user-outline.svg"
+                                                 class="position-absolute icon"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="fw-bold  form-label">البريد الإلكتروني *</label>
+                                        <div class="position-relative input-wrapper">
+                                            <input type="email" id="email" name="email" required="1"
+                                                   class=" form-control" placeholder="your@email.com"/>
+                                            <img src="/nexus_nms/static/src/images/email-outline.svg"
+                                                 class="position-absolute icon"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="fw-bold  form-label">رقم الهاتف:</label>
+                                        <div class="position-relative input-wrapper">
+                                            <input type="text" id="phone" name="phone" class=" form-control"
+                                                   placeholder="اختياري"/>
+                                            <img src="/nexus_nms/static/src/images/phone-outline.svg"
+                                                 class="position-absolute icon"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="fw-bold  form-label">الرسالة
+                                        </label>
+                                        <textarea type="text" id="phone" name="phone" class=" form-control"
+                                                  placeholder="كيف يمكننا مساعدتك؟"></textarea>
+                                    </div>
+                                </div>
+
+                                <button class=" my-btn-primary text-white mt-3 btn d-block py-2 px-3 fw-bold h5"
+                                        action="/consultation/form/confirm" method="GET">
+                                    إرسال الرسالة
+                                </button>
+                                <p class="my-3">
+                                    أو راسلنا مباشرة عبر البريد الإلكتروني:
+                                    healthtech@borg-arab.edu.eg
+                                </p>
+                            </form>
+                        </div>
+                    </body>
+
+                </div>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

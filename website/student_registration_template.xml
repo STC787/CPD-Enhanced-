@@ -1,0 +1,625 @@
+<odoo>
+    <data>
+        <template id="student_registration">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>Student Registration</title>
+                        <style>
+
+
+                            * {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            }
+                            body {
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            }
+                            .form-container {
+                            max-width: 1300px;
+                            margin: 0 auto;
+                            background: white;
+                            border-radius: 20px;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+                            overflow: hidden;
+                            }
+
+                            .form-header {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            text-align: center;
+                            padding: 30px;
+                            position: relative;
+                            }
+
+                            .form-header::before {
+                            content: '';
+                            position: absolute;
+                            bottom: -2px;
+                            left: 0;
+                            right: 0;
+                            height: 20px;
+                            background: white;
+                            border-radius: 20px 20px 0 0;
+                            }
+
+                            .form-header h1 {
+                            color:white;
+                            margin: 0;
+                            font-size: 2.5rem;
+                            font-weight: 700;
+                            }
+
+                            .form-body {
+                            padding: 40px;
+                            }
+
+                            .section-header {
+                            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+                            border-radius: 12px;
+                            padding: 15px 20px;
+                            margin: 30px 0 20px 0;
+                            border-right: 4px solid #2196f3;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            }
+
+                            .section-header i {
+                            color: #2196f3;
+                            font-size: 1.2rem;
+                            }
+
+                            .section-header h3 {
+                            margin: 0;
+                            color: #1976d2;
+                            font-weight: 600;
+                            font-size: 1.3rem;
+                            }
+
+                            .form-group {
+                            margin-bottom: 25px;
+                            }
+
+                            .form-group label {
+                            display: block;
+                            margin-bottom: 8px;
+                            font-weight: 600;
+                            color: #333;
+                            font-size: 0.95rem;
+                            }
+
+                            .form-control, .form-select {
+                            border: 2px solid #e0e0e0;
+                            border-radius: 12px;
+                            padding: 12px 16px;
+                            font-size: 1rem;
+                            transition: all 0.3s ease;
+                            background: #fafafa;
+                            }
+
+                            .form-control:focus, .form-select:focus {
+                            border-color: #4facfe;
+                            box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+                            background: white;
+                            }
+
+                            .row-custom {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 30px;
+                            margin-bottom: 20px;
+                            }
+
+                            @media (max-width: 768px) {
+                            .row-custom {
+                            grid-template-columns: 1fr;
+                            gap: 20px;
+                            }
+                            }
+
+                            .file-upload-section {
+                            background: #f8f9fa;
+                            border: 2px dashed #dee2e6;
+                            border-radius: 12px;
+                            padding: 30px;
+                            text-align: center;
+                            margin: 30px 0;
+                            transition: all 0.3s ease;
+                            }
+
+                            .file-upload-section:hover {
+                            border-color: #4facfe;
+                            background: #f0f8ff;
+                            }
+
+                            .file-upload-section i {
+                            font-size: 3rem;
+                            color: #6c757d;
+                            margin-bottom: 15px;
+                            }
+
+                            .btn-submit {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            border: none;
+                            border-radius: 50px;
+                            padding: 15px 50px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            color: white;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            margin-top: 30px;
+                            display: block;
+                            margin-left: auto;
+                            margin-right: auto;
+                            }
+
+                            .btn-submit:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+                            }
+
+                            .required {
+                            color: #e74c3c;
+                            }
+
+                            .account-section {
+                            background:#49a3ed;
+                            color: white;
+                            padding: 30px;
+                            border-radius: 15px;
+                            margin-bottom: 30px;
+                            }
+
+                            .account-section h3 {
+                            color: white;
+                            margin-bottom: 25px;
+                            font-weight: 600;
+                            }
+
+                            .account-section .form-control {
+                            background: rgba(255, 255, 255, 0.9);
+                            border: none;
+                            color: #333;
+                            }
+
+                            .account-section .form-control:focus {
+                            background: white;
+                            box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+                            }
+
+                            .account-section label {
+                            color: white;
+                            font-weight: 500;
+                            }
+
+
+                            .required-star {
+                            color: #e74c3c;
+                            margin-right: 3px;
+                            }
+
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container my-4">
+
+                            <form style="direction: rtl;" role="form" action="/studentRegisConfirm" method="POST"
+                                  class="form-container" enctype="multipart/form-data">
+
+                                <div class="form-header">
+                                    <h1><i class="fas fa-graduation-cap ms-2"></i>التسجيل
+                                    </h1>
+                                    <h3 class="text-white">طالب / خريج</h3>
+                                </div>
+
+                                <div class="form-body">
+                                    <div class="error_container d-flex w-100 justify-content-center fs-5 mb-5"
+                                         dir="rtl">
+                                        <t t-if="error_message">
+                                            <div class="error-alert  border border-warning border-2 rounded-2 p-3"
+                                                 style="box-shadow: 3px 3px #ffc107;">
+                                                <div>
+                                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                                    <strong>خطأ:</strong>
+                                                </div>
+                                                <div>
+                                                    <span t-esc="error_message"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    <!-- Account Creation Section -->
+                                    <div class="account-section">
+                                        <h3><i class="fas fa-user-plus ms-3"></i>انشاء حساب جديد
+                                        </h3>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="portal_name">اسم الحساب
+                                                        <span class="required-star">*</span>
+                                                    </label>
+                                                    <input type="text" name="portal_name" class="form-control"
+                                                           required="required"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="email">ايميل الحساب
+                                                        <span class="required-star">*</span>
+                                                    </label>
+                                                    <input type="username" name="username" class="form-control"
+                                                           required="required"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="pass">كلمة مرور
+                                                        <span class="required-star">*</span>
+                                                    </label>
+                                                    <input type="password" name="password" class="form-control"
+                                                           required="required"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Personal Information Section -->
+                                    <div class="section-header">
+                                        <i class="fas fa-user"></i>
+                                        <h3>المعلومات الشخصية</h3>
+                                    </div>
+
+                                    <div class="row-custom">
+                                        <div class="form-group">
+                                            <label for="name">اسم الطالب / الخريج
+                                                <span class="required-star">*</span>
+                                            </label>
+                                            <input type="text" id="name" name="name" required="1" placeholder="اجابتك"
+                                                   class="form-control"/>
+                                        </div>
+
+
+                                        <div class="row-custom">
+                                            <div class="form-group">
+                                                <label for="email">البريد الالكتروني
+                                                    <span class="required-star">*</span>
+                                                </label>
+                                                <input type="email" id="email" name="email" required="1"
+                                                       placeholder="اجابتك" class="form-control"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone">رقم الهاتف
+                                                    <span class="required-star">*</span>
+                                                </label>
+                                                <input type="tel" id="phone" name="phone" required="1"
+                                                       placeholder="اجابتك"
+                                                       class="form-control" dir="rtl"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Academic Information Section -->
+                                    <div class="section-header">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <h3>المعلومات الاكاديمية</h3>
+                                    </div>
+
+                                    <div class="row-custom">
+                                        <div class="form-group">
+                                            <label for="academic_track">المسار الاكاديمي
+                                                <span class="required-star">*</span>
+                                            </label>
+                                            <select name="academic_track" id="academic_track" required="1"
+                                                    class="form-select">
+                                                <option value="">اختر المسار</option>
+                                                <option value="student">طالب</option>
+                                                <option value="graduated">خريج</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="levels">الفرقة</label>
+                                            <select id="levels" name="levels" class="form-select">
+                                                <option value="">اختر الفرقة</option>
+                                                <option value="one">الاولي</option>
+                                                <option value="two">الثانية</option>
+                                                <option value="three">الثالثة</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row-custom">
+                                        <div class="form-group">
+                                            <label for="university">الجامعة</label>
+                                            <select class="form-select" name="university" id="university" required="1">
+                                                <option value="">اختر الجامعة</option>
+                                                <t t-foreach="universities" t-as="university">
+                                                    <option t-att-value="university.id">
+                                                        <t t-esc="university.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="faculty">الكلية</label>
+                                            <select class="form-select" name="faculty" id="faculty">
+                                                <option value="">اختر الكلية</option>
+                                                <t t-foreach="faculty" t-as="faculty">
+                                                    <option t-esc="faculty.name" t-att-value="faculty.id"
+                                                            t-att-selected="str(faculty.id) == faculty">
+                                                        <t t-esc="faculty.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="faculty_id">رقم الجامعى
+                                                <span class="required-star">*</span>
+                                            </label>
+                                            <input type="text" id="faculty_id" name="faculty_id" required="1"
+                                                   placeholder="اجابتك"
+                                                   class="form-control"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="department">البرنامج
+                                                <span class="required">*</span>
+                                            </label>
+                                            <select class="form-select" name="department" id="department" required="1">
+                                                <option value="">اختر البرنامج</option>
+                                                <t t-foreach="department" t-as="department">
+                                                    <option t-esc="department.name" t-att-value="department.id"
+                                                            t-att-selected="str(department.id) == department">
+                                                        <t t-esc="department.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- Document Upload Section -->
+                                    <div class="section-header">
+                                        <i class="fas fa-upload"></i>
+                                        <h3>رفع المستندات</h3>
+                                    </div>
+
+                                    <div class="file-upload-section">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <h4>برجاء ارفاق الشهادات التي حصلت عليها</h4>
+                                        <p class="text-muted mb-3">يمكنك رفع ملفات متعددة</p>
+                                        <input type="file" id="fileUpload" name="fileUpload" multiple="multiple"
+                                               class="form-control"/>
+                                    </div>
+
+                                    <button type="submit" class="btn-submit" action="/studentRegisConfirm"
+                                            method="POST">
+                                        <i class="fas fa-paper-plane me-2"></i>
+                                        تسجيل
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+        <template id="student_registration_confirm">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                    </head>
+                    <body>
+                        <div class="text-center col-12 col-md-7 mx-auto">
+                            <div style="border: solid 2px #0060bf; margin: 20px 50px; padding: 40px; border-radius: 20px;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 240px;">
+                                            <h5 style="font-size: 25px; color: #0060bf;">
+                                                The registration is confirmed
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- Username is shown; the password is never rendered on the page -->
+                                <div class="mt-4" style="text-align: left;">
+                                    <h6 style="color: #0060bf;">Your login username:</h6>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <p>
+                                                <strong>Username:</strong>
+                                                <span t-esc="username"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-warning mt-3">
+                                        <i class="fa fa-exclamation-triangle"/>
+                                        Your password is set during registration and is kept private.
+                                        You can now login with your username from the login page.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+
+        <!--        <template id="student_registration">-->
+        <!--            <html lang="en">-->
+        <!--                <head>-->
+        <!--                    <meta charset="UTF-8"/>-->
+        <!--                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
+        <!--                    <link rel="stylesheet"-->
+        <!--                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+
+        <!--                    &lt;!&ndash; Optional theme &ndash;&gt;-->
+        <!--                    <link rel="stylesheet"-->
+        <!--                          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>-->
+
+        <!--                    &lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+        <!--                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>-->
+        <!--                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>-->
+        <!--                    <title>MASRTECH Student Registration</title>-->
+        <!--                    <style>-->
+        <!--                        h5, h1{-->
+        <!--                        text-align: center;-->
+        <!--                        }-->
+        <!--                        h1{-->
+        <!--                        color: #2c3491;-->
+        <!--                        font-weight: bold;-->
+        <!--                        }-->
+        <!--                        h5{-->
+        <!--                        color: #3f9a3f;-->
+        <!--                        }-->
+        <!--                        form{-->
+        <!--                        padding: 30px;-->
+        <!--                        margin: auto;-->
+        <!--                        width: 70%;-->
+        <!--                        }-->
+        <!--                        input{-->
+        <!--                        width:100%;-->
+        <!--                        border-top: none;-->
+        <!--                        border-left: none;-->
+        <!--                        border-right: none;-->
+        <!--                        border-width: 1px;-->
+        <!--                        margin-top: 25px !important;-->
+        <!--                        margin-bottom: 25px !important;-->
+        <!--                        padding: 10px 0;-->
+        <!--                        }-->
+        <!--                        select{-->
+        <!--                        width: 100%;-->
+        <!--                        border-top: none;-->
+        <!--                        border-left: none;-->
+        <!--                        border-right: none;-->
+        <!--                        border-width: 1px;-->
+        <!--                        background-color: transparent;-->
+        <!--                        margin-bottom: 25px;-->
+        <!--                        padding: 10px 0;-->
+        <!--                        }-->
+        <!--                        label {-->
+        <!--                        margin-top: 25px;-->
+        <!--                        }-->
+        <!--                        button{-->
+        <!--                        width: 80px;-->
+        <!--                        height: 35px;-->
+        <!--                        background: #3f9a3f;-->
+        <!--                        border-width: 1px;-->
+        <!--                        border-radius: 4px;-->
+        <!--                        border-color: white;-->
+        <!--                        color: white;-->
+        <!--                        font-weight: bold;-->
+        <!--                        display: block;-->
+        <!--                        }-->
+        <!--                    </style>-->
+        <!--                </head>-->
+        <!--                <body>-->
+        <!--                    <form role="form" action="/MASRTECH/student/registration/confirm" method="GET" enctype="multipart/form-data">-->
+        <!--                        <img src="/masrtech/static/imgs/masr_logo.jpeg" width="200" style="margin: auto; display: block;"/>-->
+        <!--&lt;!&ndash;                        <h1>MASRTECH</h1>&ndash;&gt;-->
+        <!--                        <h5>Student Registration</h5>-->
+        <!--                        <label for="first_name">First Name:</label>-->
+        <!--                        <input type="text" id="first_name" name="first_name"/>-->
+        <!--                        <label for="middle_name">Middle Name:</label>-->
+        <!--                        <input type="text" id="middle_name" name="middle_name" required="1"/>-->
+        <!--                        <label for="last_name">Last Name:</label>-->
+        <!--                        <input type="text" id="last_name" name="last_name" required="1"/>-->
+        <!--                                                <label for="first_name">First Name:</label>-->
+        <!--                        <input type="hidden" id="name"/>-->
+
+
+        <!--                        <label for="student_id">Student ID:</label>-->
+        <!--                        <input type="text" id="student_id" name="student_id" required="1"/>-->
+        <!--                        <label for="date_of_birth">Date of Birth:</label>-->
+        <!--                        <input type="date" id="date_of_birth" name="date_of_birth" required="1"/>-->
+        <!--                        <label for="gender">Gender:</label>-->
+
+        <!--                        <select id="gender" name="gender" required="1">-->
+        <!--                            <option value="m">Male</option>-->
+        <!--                            <option value="f">Female</option>-->
+        <!--                        </select>-->
+
+        <!--&lt;!&ndash;                        <label for="nationality">Nationality:</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" id="nationality" name="nationality"/>&ndash;&gt;-->
+
+        <!--                        <label for="address">Address:</label>-->
+        <!--                        <input type="text" id="street" name="street" placeholder="Street Address"/>-->
+        <!--                        <input type="text" id="city" name="city" placeholder="City" required="1"/>-->
+        <!--&lt;!&ndash;                        <input type="text" id="state" name="state" placeholder="State/Province"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" id="country" name="country" placeholder="Country"/>&ndash;&gt;-->
+        <!--                        <label for="phone">Phone:</label>-->
+        <!--                        <input type="tel" id="phone" name="phone"/>-->
+        <!--                        <label for="email">Email:</label>-->
+        <!--                        <input type="email" id="email" name="email"/>-->
+        <!--                        <label for="parent_name">Parent Name:</label>-->
+        <!--                        <input type="text" id="parent_name" name="parent_name"/>-->
+        <!--                        <label for="parent_contact">Parent Contact:</label>-->
+        <!--                        <input type="tel" id="parent_contact" name="parent_contact"/>-->
+        <!--&lt;!&ndash;                        <label for="photo">Photo:</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="file" id="photo" name="photo"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <label for="semester">Current Semester:</label>&ndash;&gt;-->
+        <!--&lt;!&ndash;                        <input type="text" id="semester" name="semester"/>&ndash;&gt;-->
+        <!--                        <label for="gpa">GPA:</label>-->
+        <!--                        <input type="number" id="gpa" name="gpa" step="0.01" min="0" max="4.0"/>-->
+        <!--                        <label for="clubs">Clubs/Organizations:</label>-->
+        <!--                        <input type="text" id="clubs" name="clubs"/>-->
+        <!--                        <label for="graduation_date">Expected Graduation Date:</label>-->
+        <!--                        <input type="date" id="graduation_date" name="graduation_date"/>-->
+
+
+        <!--                        &lt;!&ndash;                        <select class="form-control speciality" id="clinics" name="clinics" t-att-value="clinics"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                onchange="myFunc()">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            <option value="all" t-att-selected="clinics == 'all'">All Clinics</option>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            <t t-foreach="clinic_rec" t-as="clinic">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                <option t-esc="clinic.name" t-att-value="clinic.id"&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                        t-att-selected="str(clinic.id) == clinics">&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                    <t t-esc="clinic.name"/>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                                </option>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                            </t>&ndash;&gt;-->
+        <!--                        &lt;!&ndash;                        </select>&ndash;&gt;-->
+
+        <!--                        <label for="universities">Universities</label>-->
+        <!--                        <br/>-->
+        <!--                        <select class="form-control" name="universities" id="universities">-->
+        <!--                            <t t-foreach="universities" t-as="universities">-->
+        <!--                                <option t-esc="universities.name" t-att-value="universities.id"-->
+        <!--                                        t-att-selected="str(universities.id) == universities">-->
+        <!--                                    <t t-esc="universities.name"/>-->
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+        <!--                        <label for="faculty">College</label>-->
+        <!--                        <br/>-->
+        <!--                        <select class="form-control" name="faculty" id="faculty">-->
+        <!--                            <t t-foreach="faculty" t-as="faculty">-->
+        <!--                                <option t-esc="faculty.name" t-att-value="faculty.id"-->
+        <!--                                        t-att-selected="str(faculty.id) == faculty">-->
+        <!--                                    <t t-esc="faculty.name"/>-->
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+        <!--                        <label for="department">Department</label>-->
+        <!--                        <br/>-->
+        <!--                        <select class="form-control" name="department" id="department">-->
+        <!--                            <t t-foreach="department" t-as="department">-->
+        <!--                                <option t-esc="department.name" t-att-value="department.id"-->
+        <!--                                        t-att-selected="str(department.id) == department">-->
+        <!--                                    <t t-esc="department.name"/>-->
+        <!--                                </option>-->
+        <!--                            </t>-->
+        <!--                        </select>-->
+
+
+        <!--                        <button style="text-align: center; background: #0060bf; width: 250px; margin:20px auto; border-radius: 20px; color: white; padding: 10px;"-->
+        <!--                                action="/MASRTECH/student/portfolio/confirm" method="GET">-->
+        <!--                            Submit-->
+        <!--                        </button>-->
+        <!--                    </form>-->
+        <!--                </body>-->
+        <!--            </html>-->
+        <!--        </template>-->

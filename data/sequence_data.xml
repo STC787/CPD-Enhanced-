@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Medical Department: Starts at 1001 -->
+        <record id="course_code_seq_medical" model="ir.sequence">
+            <field name="name">Medical Course Sequence</field>
+            <field name="code">op.course.code.medical</field>
+            <field name="prefix">Prog-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1001</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Industry Department: Starts at 2001 -->
+        <record id="course_code_seq_industry" model="ir.sequence">
+            <field name="name">Industry Course Sequence</field>
+            <field name="code">op.course.code.industry</field>
+            <field name="prefix">Prog-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">2001</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Default: Starts at 3001 -->
+        <record id="course_code_seq_default" model="ir.sequence">
+            <field name="name">Default Course Sequence</field>
+            <field name="code">op.course.code.default</field>
+            <field name="prefix">Prog-</field>
+            <field name="padding">4</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">3001</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

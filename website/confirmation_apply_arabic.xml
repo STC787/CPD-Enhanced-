@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="confirmation_apply_arabic">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <style>
+
+                            * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                            }
+                            .confirm-ar{
+                              direction: rtl;}
+
+                            body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+                            Cantarell, sans-serif;
+                            background-color: #f8f9fa;
+                            line-height: 1.6;
+                            color: #333;
+                            }
+
+                            .confirm {
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 40px 20px;
+                            background-color: white;
+                            min-height: 100vh;
+                            }
+
+                            .breadcrumb-nav {
+                            font-size: 14px;
+                            color: #4f4f4f;
+                            margin-bottom: 30px;
+                            font-weight: bold;
+                            }
+
+                            .breadcrumb-nav span {
+                            margin: 0 8px;
+                            }
+
+                            .main-heading {
+                            font-size: 32px;
+                            font-weight: 600;
+                            color: #4a90e2;
+                            margin-bottom: 20px;
+                            }
+
+                            .description {
+                            font-size: 16px;
+                            color: #6c757d;
+                            margin-bottom: 40px;
+                            line-height: 1.5;
+                            }
+
+                            .next-steps {
+                            background-color: #f8f9fa;
+                            border-radius: 8px;
+                            padding: 30px;
+                            margin-bottom: 40px;
+                            }
+
+                            .next-steps-header {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 15px;
+                            justify-content: flex-start;
+                            }
+
+                            .checkmark {
+                            width: 24px;
+                            height: 24px;
+                            background-color: #4a90e2;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            margin-left:10px;
+                            flex-shrink: 0;
+                            }
+
+                            .checkmark::after {
+                            content: "✓";
+                            color: white;
+                            font-weight: bold;
+                            font-size: 14px;
+                            }
+
+                            .next-steps h2 {
+                            font-size: 20px;
+                            font-weight: 600;
+                            color: #333;
+                            margin: 0;
+                            text-align: right;
+                            }
+
+                            .next-steps-description {
+                            font-size: 14px;
+                            color: #6c757d;
+                            line-height: 1.5;
+                            text-align: right;
+                            }
+                            .button-group {
+                            display: flex;
+                            gap: 15px;
+                            margin-bottom: 40px;
+                            flex-wrap: wrap;
+                            }
+
+                            .btn-confirm {
+                            padding: 12px 24px !important;
+                            border: none !important;
+                            border-radius: 8px !important;
+                            font-size: 14px !important;
+                            font-weight: 500 !important;
+                            cursor: pointer !important;
+                            text-decoration: none !important;
+                            display: inline-block !important;
+                            transition: all 0.2s ease !important;
+                            }
+
+                            .backBtn {
+                            background-color: #4a90e2 !important;
+                            color: white !important;
+                            }
+
+                            .backBtn:hover {
+                            background-color: #357abd !important;
+                            }
+
+                            .contactbtn {
+                            background-color: #5293d140 !important;
+                            color: #4a90e2 !important;
+                            }
+
+                            .contactbtn:hover {
+                            background-color: #e9f2fb !important;
+                            }
+                            .contact-info {
+                            font-size: 14px;
+                            color: #6c757d;
+                            text-align: right;
+                            }
+
+                            .contact-info a {
+                            color: #4a90e2;
+                            text-decoration: none;
+                            }
+
+                            .contact-info a:hover {
+                            text-decoration: underline;
+                            }
+                            @media (max-width: 600px) {
+                            .confirm {
+                            padding: 20px 15px;
+                            }
+
+                            .main-heading {
+                            font-size: 24px;
+                            }
+
+                            .button-group {
+                            flex-direction: column;
+                            }
+
+                            .btn {
+                            text-align: center;
+                            }
+                            }
+                        </style>
+                    </head>
+                    <body>
+
+                        <div class=" confirm-ar container-fluid confirm">
+
+                            <h1 class="main-heading text-end"> شكرا لك على التقديم !</h1>
+
+                            <p class="description text-end ">
+                                تم استلام طلبك ل
+                                <t t-if="course and course.name_ar">
+                                    <strong><t t-esc="course.name_ar"/></strong>
+                                </t>
+                                <t t-elif="course">
+                                    <strong><t t-esc="course.name"/></strong>
+                                </t>
+                                ، سنراجع بياناتك ونتواصل معك قريبًا لإبلاغك بالخطوات التالية
+                            </p>
+                            <div class="next-steps">
+                                <div class="next-steps-header">
+                                    <div class="checkmark"></div>
+                                    <h2>ماذا بعد؟</h2>
+                                </div>
+                                <p class="next-steps-description text-end">
+                                    سيقوم فريقنا بمراجعة طلبك. في حال اختيارك، ستتلقى بريدًا إلكترونيًا يتضمن المزيد من
+                                    التعليمات وتفاصيل البرنامج
+                                </p>
+                            </div>
+
+                            <div class="button-group">
+                                <a href="/program_details" class="btn-confirm backBtn">العودة الي صفحة التقديم</a>
+                                <a href="/contact_us" class="btn-confirm contactbtn">اتصل بالدعم</a>
+                            </div>
+
+                            <p class="contact-info">
+                                للاستفسار، تواصل معنا عبر البريد الإلكتروني:
+                                <br/>
+                                <a href="mailto:info@georgelarab.edu.eg">info@georgelarab.edu.eg</a>
+                            </p>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,2282 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="program_details">
+            <t t-call="website.layout">
+                <style>
+                    body {
+                    background-color: #f8f9fa;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    overflow-x: hidden;
+                    }
+                    .progOverviewSec .skillHeader, .targetPreSec .candeader, div:has(>.modulesSec):nth-child(odd)
+                    .modulesSec .modulesSecHeader, .programDurationSec .progDuration {
+                    color: #1D4ED8;
+                    }
+                    .progOverviewSec:has(>.skillHeader), .targetPreSec:has(>.candeader),
+                    div:has(>.modulesSec):nth-child(odd) .modulesSec, .programDurationSec {
+                    border-inline-start: solid 4px #1D4ED8;
+                    }
+                    .progOverviewSec .careerHeader, .targetPreSec .preHeader, div:has(>.modulesSec):nth-child(even)
+                    .modulesSec .modulesSecHeader, .weeklyScheduleSec .weeklyHeader {
+                    color: #2da8dc;
+                    }
+                    .progOverviewSec:has(>.careerHeader), .targetPreSec:has(>.preHeader),
+                    div:has(>.modulesSec):nth-child(even) .modulesSec, .weeklyScheduleSec {
+                    border-inline-start: solid 4px #2da8dc;
+                    }
+                    .progOverviewSec, .targetPreSec, .modulesSec, .programDurationSec, .weeklyScheduleSec {
+                    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+                    border-radius: 8px;
+                    height: 100%;
+                    display: flex ;
+                    flex-direction: column;
+                    <!--                    justify-content: center;-->
+                    }
+                    .targetPreSec .list_group .item_list {
+                    color: #03a9f4;
+                    }
+                    .text-blue {
+                    color: #5A73C4;
+                    }
+                    /* Simple Animation Keyframes */
+                    @keyframes fadeIn {
+                    from {
+                    opacity: 0;
+                    }
+                    to {
+                    opacity: 1;
+                    }
+                    }
+                    button.accordion-button.collapse-btn.collapsed:after,
+                    .collapse-btn.accordion-button:not(.collapsed)::after{
+                    width: 2rem;
+                    height: 2rem;
+                    background-size:100% !important;
+                    background-image:url('/nexus_nms/static/src/images/accordionIcon.svg') !important;
+                    }
+                    .main-container.enSection .collapse-btn.accordion-button:not(.collapsed)::after,
+                    .main-container.enSection button.accordion-button.collapse-btn.collapsed:after{
+                    margin-left: 2rem !important;
+                    }
+                    .main-container.arSection .collapse-btn.accordion-button:not(.collapsed)::after,
+                    .main-container.arSection button.accordion-button.collapse-btn.collapsed:after{
+                    margin-right: 2rem !important;
+                    }
+                    .collapse-btn.accordion-button:not(.collapsed)::after{
+                    transform: rotate(135deg) !important;
+                    }
+                    button.accordion-button.collapse-btn.collapsed .show-less,
+                    .collapse-btn.accordion-button:not(.collapsed) .show-more{
+                    display: none;
+                    }
+
+                    .collapse-btn.accordion-button:not(.collapsed){
+                    box-shadow:unset !important;
+                    background:unset !important;
+                    }
+
+                    @keyframes fadeInUp {
+                    from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateY(0);
+                    }
+                    }
+
+                    @keyframes fadeInLeft {
+                    from {
+                    opacity: 0;
+                    transform: translateX(-20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    @keyframes fadeInRight {
+                    from {
+                    opacity: 0;
+                    transform: translateX(20px);
+                    }
+                    to {
+                    opacity: 1;
+                    transform: translateX(0);
+                    }
+                    }
+
+                    @keyframes gentleFloat {
+                    0%, 100% {
+                    transform: translateY(0);
+                    }
+                    50% {
+                    transform: translateY(-5px);
+                    }
+                    }
+
+                    @keyframes simpleGradient {
+                    0% {
+                    background-position: 0% 50%;
+                    }
+                    50% {
+                    background-position: 100% 50%;
+                    }
+                    100% {
+                    background-position: 0% 50%;
+                    }
+                    }
+
+                    /* Main Container */
+                    .main-container {
+                    background: white;
+                    border-radius: 12px;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    margin: 20px auto;
+                    max-width: 1440px;
+                    overflow: hidden;
+
+                    }
+
+
+                    /* Header Section */
+                    .header-section {
+                    background: white;
+                    color: white;
+                    padding: 30px;
+                    position: relative;
+                    }
+
+                    .university-icon {
+                    width: 50px;
+                    height: 50px;
+                    background: #4285f4;
+                    border-radius: 12px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 15px;
+                    animation: fadeInLeft 0.6s ease-out 0.2s both;
+                    transition: transform 0.3s ease;
+                    }
+
+                    .university-icon:hover {
+                    transform: scale(1.1);
+                    }
+
+                    .university-name {
+                    font-size: 18px;
+                    color: #004899;
+                    margin-bottom: 8px;
+                    font-weight:700px;
+
+                    }
+
+                    .program-title {
+                    font-size: 28px;
+                    font-weight: 700;
+                    margin-bottom: 15px;
+                    line-height: 1.2;
+                    animation: fadeInUp 0.6s ease-out 0.6s both;
+                    }
+
+                    .program-description {
+                    font-size: 14px;
+                    color:#3c3c3ccc;
+                    margin-bottom: 6px;
+                    line-height: 1.5;
+                    animation: fadeInUp 0.6s ease-out 0.8s both;
+                    }
+
+                    /* Buttons */
+                    .btn-apply {
+                    background: #4285f4;
+                    border: none;
+                    color: white;
+                    padding: 10px 25px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    margin-right: 10px;
+                    animation: fadeInUp 0.6s ease-out 1s both;
+                    transition: all 0.3s ease;
+                    }
+
+                    .btn-apply:hover {
+                    border: 1px solid #4285f4 ;
+                    background:white;
+                    transform: translateY(-2px);
+                    color:#4285f4;
+                    }
+                    .btn-contact {
+                    background: rgba(255,255,255,0.2);
+                    border: 1px solid #004899;
+                    color: #4285f4;
+                    padding: 10px 25px;
+                    border-radius: 25px;
+                    font-weight: 600;
+                    animation: fadeInUp 0.6s ease-out 1.2s both;
+                    transition: all 0.3s ease;
+                    }
+                    .btn-contact:hover {
+                    background: #4285f4;
+                    border-color: rgba(255,255,255,0.5);
+                    transform: translateY(-2px);
+                    color: white;
+                    }
+
+                    /* Content Section */
+                    .content-section {
+                    padding: 30px;
+                    animation: fadeInUp 0.6s ease-out 0.4s both;
+                    }
+
+                    .section-title {
+                    color: #4285f4;
+                    font-size: 21px;
+                    font-weight: 600;
+                    <!--                    margin-bottom: 39px;-->
+                    <!--                    margin-top: 20px-->
+                    position: relative;
+                    animation: fadeInLeft 0.6s ease-out 0.8s both;
+                    }
+
+
+                    .program-details {
+                    margin-bottom: 30px;
+                    animation: fadeInUp 0.6s ease-out 1s both;
+                    }
+
+                    .duration-text {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-bottom: 5px;
+                    }
+
+                    .target-audience {
+                    color: #666;
+                    font-size: 14px;
+                    }
+
+                    /* Curriculum Cards */
+                    .curriculum-overview {
+                    margin-bottom: 30px;
+                    animation: fadeInUp 0.6s ease-out 1.2s both;
+                    }
+
+                    .week-card {
+                    background: white;
+                    border: 1px solid #e9ecef;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin-bottom: 15px;
+                    position: relative;
+                    transition: all 0.3s ease;
+                    }
+
+                    .week-card:nth-child(1) {
+                    animation: fadeInLeft 0.6s ease-out 1.4s both;
+                    }
+
+                    .week-card:nth-child(2) {
+                    animation: fadeInRight 0.6s ease-out 1.6s both;
+                    }
+
+                    .week-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+                    border-color: #4285f4;
+                    }
+
+                    .week-card::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 3px;
+                    background: linear-gradient(90deg, #4285f4, #667eea);
+                    border-radius: 8px 8px 0 0;
+                    transform: scaleX(0);
+                    transition: transform 0.3s ease;
+                    }
+
+                    .week-card:hover::before {
+                    transform: scaleX(1);
+                    }
+
+                    .week-icon {
+                    width: 35px;
+                    height: 35px;
+                    background: #4285f4;
+                    border-radius: 6px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                    transition: all 0.3s ease;
+                    }
+
+                    .week-card:hover .week-icon {
+                    background: #667eea;
+                    transform: scale(1.1);
+                    }
+
+                    .week-number {
+                    font-size: 12px;
+                    color: #4285f4;
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                    }
+
+                    .week-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-bottom: 8px;
+                    }
+
+                    .week-description {
+                    font-size: 14px;
+                    color: #666;
+                    line-height: 1.4;
+                    }
+
+                    .week-number {
+                    font-size: 12px;
+                    color: #4285f4;
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                    }
+
+                    .week-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-bottom: 8px;
+                    }
+
+                    .week-description {
+                    font-size: 14px;
+                    color: #666;
+                    line-height: 1.4;
+                    }
+
+                    /* Learning Cards */
+                    .learning-section {
+                    margin-bottom: 30px;
+                    animation: fadeInUp 0.6s ease-out 1.8s both;
+                    }
+
+                    .learning-card {
+                    background: #ffffff;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin-bottom: 15px;
+                    border-left: 4px solid #4285f4;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    }
+
+                    .learning-card:nth-child(1) {
+                    animation: fadeInUp 0.5s ease-out 2s both;
+                    }
+
+                    .learning-card:nth-child(2) {
+                    animation: fadeInUp 0.5s ease-out 2.2s both;
+                    }
+
+                    .learning-card:nth-child(3) {
+                    animation: fadeInUp 0.5s ease-out 2.4s both;
+                    }
+
+                    .learning-card:hover {
+                    background: white;
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 25px rgba(66, 133, 244, 0.1);
+                    border-left-width: 6px;
+                    }
+
+                    .learning-icon {
+                    color: #4285f4;
+                    font-size: 24px;
+                    margin-bottom: 10px;
+                    transition: all 0.3s ease;
+                    margin-left: 6px;
+                    }
+
+                    .learning-card:hover .learning-icon {
+                    color: #667eea;
+                    transform: scale(1.1);
+                    }
+
+                    .learning-title {
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-bottom: 5px;
+                    }
+
+                    .learning-subtitle {
+                    font-size: 14px;
+                    color: #666;
+                    }
+
+                    /* Profile Section */
+                    .profile-section {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    animation: fadeIn 0.8s ease-out 2.6s both;
+                    }
+
+                    .profile-image {
+                    width: 665px;
+
+                    border-radius: 12px;
+                    object-fit: cover;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 48px;
+                    margin: 0 auto;
+                    transition: all 0.3s ease;
+                    }
+
+                    .profile-image:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                    }
+
+
+                    /* Additional Animations */
+                    .row {
+                    margin: 0;
+                    }
+
+                    html {
+                    scroll-behavior: smooth;
+                    }
+
+                    /* Simple floating elements */
+                    .gentle-float {
+                    animation: gentleFloat 4s ease-in-out infinite;
+                    }
+
+                    .gentle-float:nth-child(2) {
+                    animation-delay: 0.5s;
+                    }
+
+                    .gentle-float:nth-child(3) {
+                    animation-delay: 1s;
+                    }
+                    .arSection{
+                    direction: rtl;
+                    display: none;
+                    }
+                    .color-grey {
+                    color: #505050;
+                    }
+                    .code-sec {
+                    background: #4285f4;
+                    border-radius: 24px;
+                    font-weight: bold;
+                    }
+                    .code{
+                    background-color: #4285f4;
+                    z-index: 99;
+                    animation: fadeIn 0.6s ease-out 0.2s both;
+                    }
+                    .arSection .code{
+                    border-bottom-right-radius: 8px;
+                    }
+                    .enSection .code{
+                    border-bottom-left-radius: 8px;
+                    }
+                    /* Responsive adjustments */
+                    @media (max-width: 768px) {
+                    .program-title {
+                    font-size: 24px;
+                    }
+
+                    .main-container {
+                    margin: 10px;
+                    }
+
+                    .header-section {
+                    padding: 20px;
+                    }
+
+                    .content-section {
+                    padding: 20px;
+                    }
+                    }
+                </style>
+                <div id="wrap">
+                    <div class="container-fluid p-0 p-md-2">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mt-3">
+                                    <button class="en btn"
+                                            style="background: #2da8dc;  color: white;"
+                                            onclick="document.querySelector('.enSection').style.display='block';document.querySelector('.arSection').style.display='none';">
+                                        EN
+                                    </button>
+                                    <button class="ar btn"
+                                            style="background: #2da8dc;  color: white;"
+                                            onclick="document.querySelector('.arSection').style.display='block';document.querySelector('.enSection').style.display='none';">
+                                        AR
+                                    </button>
+                                </div>
+                                <div class="main-container enSection mx-auto">
+                                    <!-- Header Section -->
+                                    <div class="header-section px-3 px-md-4">
+                                        <div class="university-icon">
+                                            <i class="fas fa-graduation-cap" style="font-size: 20px;"></i>
+                                        </div>
+                                        <div class="university-name">
+                                            <t t-esc="course.university.name"/>
+                                        </div>
+                                        <h1 class="program-title">
+                                            <t t-esc="course.name"/>
+                                        </h1>
+
+                                        <p class="program-description">
+                                            <t t-if="course.description">
+                                                <t t-esc="course.description"/>
+                                            </t>
+                                            <t t-else="">
+                                                Hands-on experience and practical skills development. Gain real-world
+                                                knowledge in this comprehensive program.
+                                            </t>
+                                        </p>
+                                        <div class="accordion-item  my-4"
+                                             style="box-shadow: 0px 0px 4px #80808059;border-radius: 8px;">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapse-btn p-3 collapsed" style="justify-content: left !important;
+                                                width: max-content !important;border-bottom: 0px !important;color: #4285f4;"
+                                                        type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                        aria-expanded="false" aria-controls="collapseTwo">
+                                                    <div>
+                                                        <div class="mb-2 ">
+                                                            Program Details
+                                                        </div>
+
+                                                        <span class="text-muted show-more ">Show More ..</span>
+                                                        <span class="text-muted show-less ">Show Less ..</span>
+                                                    </div>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                 data-bs-parent="#accordionExample">
+                                                <div class="accordion-body p-2 p-md-3">
+
+                                                    <!-- Content Section -->
+                                                    <div class="row">
+                                                        <div class="content-section px-0 p-md-3">
+                                                            <div class="code-sec d-inline-block px-3 p-2">
+                                                                Course Code:
+                                                                <t t-esc="course.code"/>
+                                                            </div>
+                                                            <!--                                                            Program Overview-->
+                                                            <div class="program-overview mt-3 mb-5">
+                                                                <h3 class="section-title">
+                                                                    Program Overview
+                                                                </h3>
+                                                                <t t-if="course.description">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        <t t-esc="course.description"/>
+                                                                    </p>
+                                                                </t>
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3">
+                                                                            <h5 class="skillHeader">
+                                                                                <i class="fa-solid fa-graduation-cap me-1"></i>
+                                                                                Skill Development
+                                                                            </h5>
+
+                                                                            <t t-if="course.department.name == 'Health Care'">
+                                                                                <p class="text-dark">
+                                                                                    Learn advanced techniques in health
+                                                                                    informatics, data analysis, and
+                                                                                    Electronic Health Record systems
+                                                                                    with hands-on training in medical
+                                                                                    environments.
+                                                                                </p>
+                                                                            </t>
+
+                                                                            <t t-elif="course.department.name == 'Industry'">
+                                                                                <p class="text-dark">
+                                                                                    Enhance your career prospects with
+                                                                                    industry-relevant skills
+                                                                                    and professional development
+                                                                                    opportunities.
+                                                                                </p>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <p class="text-dark">
+                                                                                    Develop comprehensive skills and
+                                                                                    knowledge relevant to your field of
+                                                                                    study
+                                                                                    with hands-on practical training.
+                                                                                </p>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3">
+                                                                            <h5 class="careerHeader">
+                                                                                <i class="fa-solid fa-briefcase me-1"></i>
+                                                                                Career Advancement
+                                                                            </h5>
+
+                                                                            <!-- Conditional career content based on department -->
+                                                                            <t t-if="course.department.name == 'Health Care'">
+                                                                                <p class="text-dark">
+                                                                                    Prepare for roles in healthcare
+                                                                                    technology, medical informatics,
+                                                                                    hospital IT systems, and digital
+                                                                                    health innovation.
+                                                                                </p>
+                                                                            </t>
+                                                                            <t t-elif="course.department.name == 'Industry'">
+                                                                                <p class="text-dark">
+                                                                                    Advance to industry leadership
+                                                                                    roles, operations management,
+                                                                                    and specialized technical positions
+                                                                                    in manufacturing and production.
+                                                                                </p>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <p class="text-dark">
+                                                                                    Enhance your career prospects with
+                                                                                    industry-relevant skills
+                                                                                    and professional development
+                                                                                    opportunities.
+                                                                                </p>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!--                                                             Target Audience &amp; Prerequisites-->
+                                                            <div class="target-prerequisites mb-5">
+                                                                <h3 class="section-title">
+                                                                    Target Audience &amp; Prerequisites
+                                                                </h3>
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="targetPreSec p-3">
+                                                                            <h5 class="candeader mb-3">
+                                                                                <i class="fa-solid fa-users me-1"></i>
+                                                                                Ideal Candidates
+                                                                            </h5>
+                                                                            <div class="list_group ms-4">
+                                                                                <t t-if="course.target_audience_en">
+                                                                                    <t t-foreach="course.target_audience_en"
+                                                                                       t-as="audience_en">
+                                                                                        <div class="item_list d-flex">
+                                                                                            <i class="fa-solid fa-circle-check me-2 fs-5"></i>
+                                                                                            <p class="text-dark fs-6 fw-bold mb-0">
+                                                                                                <t t-esc="audience_en.name"/>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="targetPreSec p-3">
+                                                                            <h5 class="preHeader mb-3">
+                                                                                <i class="fa-solid fa-clipboard-check me-1"></i>
+                                                                                Prerequisites
+                                                                            </h5>
+                                                                            <div class="list_group ms-4">
+                                                                                <t t-if="course.pre_req">
+                                                                                    <t t-foreach="course.pre_req"
+                                                                                       t-as="req_en">
+                                                                                        <div class="item_list d-flex">
+                                                                                            <i class="fa-solid fa-circle-check me-2 fs-5"></i>
+                                                                                            <p class="text-dark fs-6 fw-bold mb-0">
+                                                                                                <t t-esc="req_en.name"/>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--                                                             Curriculum &amp; Modules-->
+                                                            <div class="curriculumModules mb-5">
+                                                                <h3 class="section-title">
+                                                                    Curriculum &amp; Modules
+                                                                </h3>
+                                                                <t t-if="course.department.name == 'Health Care'">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive curriculum is designed to
+                                                                        provide practical skills and knowledge
+                                                                        in the most in-demand areas of healthcare
+                                                                        technology.
+                                                                    </p>
+                                                                </t>
+                                                                <t t-elif="course.department.name == 'Industry'">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive curriculum is designed to
+                                                                        provide practical skills and knowledge
+                                                                        in the most in-demand areas of industrial
+                                                                        technology and manufacturing systems.
+                                                                    </p>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive curriculum is designed to
+                                                                        provide practical skills and knowledge
+                                                                        in the most in-demand areas of your field of
+                                                                        study.
+                                                                    </p>
+                                                                </t>
+                                                                <t t-if="subjects">
+                                                                    <div class="row gy-4">
+                                                                        <t t-foreach="subjects" t-as="subject">
+                                                                            <div class="col-md-6 col-lg-4">
+                                                                                <a t-attf-href=""
+                                                                                   class="text-decoration-none">
+                                                                                    <div class="modulesSec pt-5 pt-md-3 p-3 position-relative">
+                                                                                        <div class="code position-absolute d-flex p-2 end-0 top-0">
+                                                                                            <span class="text-white fw-bold">
+                                                                                                <t t-if="subject.duration_weeks">
+                                                                                                    Week
+                                                                                                    <t t-esc="subject.duration_weeks"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    Week
+                                                                                                    <t t-esc="subject_index + 1"/>
+                                                                                                </t>
+                                                                                            </span>
+                                                                                        </div>
+
+                                                                                        <h5 class="modulesSecHeader mb-3 mt-4">
+                                                                                            <i class="fa-solid fa-book me-1"></i>
+                                                                                            <t t-esc="subject.name"/>
+                                                                                        </h5>
+
+                                                                                        <div class="learning-subtitle text-dark fs-6 mb-2">
+                                                                                            <t t-if="subject.description">
+                                                                                                <ul class="text-dark fs-6">
+                                                                                                    <t t-foreach="subject.description.split('\n')"
+                                                                                                       t-as="desc_line">
+                                                                                                        <t t-if="desc_line.strip()">
+                                                                                                            <li>
+                                                                                                                <t t-esc="desc_line.strip()"/>
+                                                                                                            </li>
+                                                                                                        </t>
+                                                                                                    </t>
+                                                                                                </ul>
+                                                                                            </t>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </div>
+                                                                        </t>
+                                                                    </div>
+                                                                </t>
+                                                            </div>
+                                                            <!-- Program Details -->
+                                                            <div class="program-details px-0 p-lg-1">
+                                                                <h3 class="section-title">Program Details</h3>
+
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-4 px-1 px-md-3">
+                                                                        <div class="programDurationSec p-3">
+                                                                            <h5 class="progDuration mb-3">
+                                                                                <i class="fa-solid fa-calendar-days me-1"></i>
+                                                                                Program Duration
+                                                                            </h5>
+                                                                            <div>
+                                                                                <ul class="text-dark fs-6">
+                                                                                    <li>
+                                                                                        <t t-if="course.duration_weeks and course.days_per_week">
+                                                                                            <t t-esc="course.duration_weeks"/>
+                                                                                            weeks,
+                                                                                            <t t-esc="course.days_per_week"/>
+                                                                                            days/week
+                                                                                        </t>
+                                                                                        <t t-else="">
+                                                                                            From 5 to 7 days
+                                                                                        </t>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <t t-if="course.total_hours">
+                                                                                            Total of
+                                                                                            <t t-esc="course.total_hours"/>
+                                                                                            training hours
+                                                                                        </t>
+                                                                                        <t t-else="">
+                                                                                            Duration not specified
+                                                                                        </t>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <t t-if="course.date_period_display">
+                                                                                            Summer 2025 (
+                                                                                            <t
+                                                                                                    t-esc="course.date_period_display"/>
+                                                                                            )
+                                                                                        </t>
+                                                                                        <t t-else="">
+                                                                                            Duration not specified
+                                                                                        </t>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 px-1 px-md-3">
+                                                                        <div class="weeklyScheduleSec p-3">
+                                                                            <h5 class="weeklyHeader mb-3">
+                                                                                <i class="fa-solid fa-clock me-1"></i>
+                                                                                Weekly Schedule
+                                                                            </h5>
+                                                                            <div class="list_group ms-4">
+                                                                                <div class="item_list d-flex align-items-center">
+                                                                                    <i class="fa-solid fa-circle me-2  color-grey"></i>
+                                                                                    <div>
+                                                                                        <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                            9:00 AM - 3:00 PM
+                                                                                        </p>
+                                                                                        <small class="fw-bold color-grey">
+                                                                                            Lectures &amp; Hands-on Labs
+                                                                                        </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="item_list d-flex align-items-center">
+                                                                                    <i class="fa-solid fa-circle me-2  color-grey"></i>
+                                                                                    <div>
+                                                                                        <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                            9:00 AM - 3:00 PM
+                                                                                        </p>
+                                                                                        <small class="fw-bold color-grey">
+                                                                                            Workshops &amp; Case Studies
+                                                                                        </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="item_list d-flex align-items-center">
+                                                                                    <i class="fa-solid fa-circle me-2  color-grey"></i>
+                                                                                    <div>
+                                                                                        <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                            9:00 AM - 3:00 PM
+                                                                                        </p>
+                                                                                        <small class="fw-bold color-grey">
+                                                                                            Projects &amp; Presentations
+                                                                                        </small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 px-1 px-md-3">
+                                                                        <div class="programDurationSec p-3">
+                                                                            <h5 class="progDuration mb-3">
+                                                                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                                                                Training Tools
+                                                                            </h5>
+                                                                            <div class="list_group ms-4">
+                                                                                <t t-if="course.training_tools">
+                                                                                    <t t-foreach="course.training_tools.split('\n')"
+                                                                                       t-as="tool">
+                                                                                        <t t-if="tool.strip()">
+                                                                                            <div class="item_list d-flex align-items-center">
+                                                                                                <i class="fa-solid fa-circle me-2 color-grey"></i>
+                                                                                                <div>
+                                                                                                    <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                                        <t t-esc="tool.strip()"/>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </t>
+                                                                                    </t>
+                                                                                </t>
+                                                                                <t t-else="">
+                                                                                    <div class="item_list d-flex align-items-center">
+                                                                                        <p class="text-muted fs-6">No
+                                                                                            specific training tools
+                                                                                            listed
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </t>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <!--Program Overview-->
+                                                            <div class="program-overview mt-3 mb-5">
+                                                                <h3 class="section-title">
+                                                                    Benefits &amp; Outcomes
+                                                                </h3>
+                                                                <t t-if="course.department.name == 'Health Care'">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive Health-Tech IT training
+                                                                        program provides tangible career benefits and
+                                                                        valuable
+                                                                        outcomes that will give you a competitive edge
+                                                                        in the rapidly growing healthcare technology
+                                                                        sector.
+                                                                    </p>
+                                                                </t>
+                                                                <t t-elif="course.department.name == 'Industry'">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive industrial training program
+                                                                        provides tangible career benefits and valuable
+                                                                        outcomes that will give you a competitive edge
+                                                                        in the rapidly evolving manufacturing and
+                                                                        industrial technology sector.
+                                                                    </p>
+                                                                </t>
+                                                                <t t-elif="course.department.name == 'engineering'">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive engineering training program
+                                                                        provides tangible career benefits and valuable
+                                                                        outcomes that will give you a competitive edge
+                                                                        in the dynamic engineering and innovation
+                                                                        sector.
+                                                                    </p>
+                                                                </t>
+                                                                <t t-else="">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        Our comprehensive training program provides
+                                                                        tangible career benefits and valuable
+                                                                        outcomes that will give you a competitive edge
+                                                                        in your chosen professional sector.
+                                                                    </p>
+                                                                </t>
+
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3">
+                                                                            <h5 class="skillHeader">
+                                                                                <i class="fa fa-handshake me-1"></i>
+                                                                                Benefits
+                                                                            </h5>
+                                                                            <ul class="text-dark fs-6">
+                                                                                <t t-if="course.benefits">
+                                                                                    <t t-foreach="course.benefits.split('\n')"
+                                                                                       t-as="benefit">
+                                                                                        <t t-if="benefit.strip()">
+                                                                                            <li>
+                                                                                                <t t-esc="benefit.strip()"/>
+                                                                                            </li>
+                                                                                        </t>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3">
+                                                                            <h5 class="careerHeader">
+                                                                                <i class="fa-solid fa-chart-line me-1"></i>
+                                                                                Outcomes
+                                                                            </h5>
+                                                                            <ul class="text-dark fs-6">
+                                                                                <t t-if="course.outcome">
+                                                                                    <t t-foreach="course.outcome.split('\n')"
+                                                                                       t-as="out">
+                                                                                        <t t-if="out.strip()">
+                                                                                            <li>
+                                                                                                <t t-esc="out.strip()"/>
+                                                                                            </li>
+                                                                                        </t>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--                                                            Reference-->
+                                                            <div class="program-overview mb-5">
+                                                                <h3 class="section-title">
+                                                                    Reference
+                                                                </h3>
+
+                                                                <div class="row gy-4 justify-content-center">
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3"
+                                                                             style="border-left: solid 4px #1D4ED8;">
+
+                                                                            <ul class="text-dark fs-6">
+                                                                                <t t-if="course.reference">
+                                                                                    <t t-foreach="course.reference.split('\n')"
+                                                                                       t-as="ref">
+                                                                                        <t t-if="ref.strip()">
+                                                                                            <li>
+                                                                                                <t t-esc="ref.strip()"/>
+                                                                                            </li>
+                                                                                        </t>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <!-- Profile Section -->
+
+                                                            <div class="profile-section">
+                                                                <div class="profile-image w-100 w-md-75">
+                                                                    <img class="img-fluid"
+                                                                         src="/nexus_nms/static/src/images/profileSection.jpeg"
+                                                                         alt=""/>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="action-buttons">
+                                            <a t-attf-href="/healthtech-training?course_id=#{course.id}"
+                                               class="btn btn-apply mb-3"
+                                               style="text-decoration: none; display: inline-block;">Apply
+                                            </a>
+                                            <a href="/contact_us" class="btn btn-contact mb-3"
+                                               style="text-decoration: none; display: inline-block;">Contact Us
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="main-container arSection  mx-auto">
+                                    <!-- Header Section -->
+                                    <div class="header-section px-3 px-md-4">
+                                        <div class="university-icon">
+                                            <i class="fas fa-graduation-cap" style="font-size: 20px;"></i>
+                                        </div>
+                                        <div class="university-name">
+                                            <t t-esc="course.university_name_ar"/>
+                                        </div>
+                                        <h1 class="program-title">
+                                            <t t-esc="course.name"/>
+                                        </h1>
+
+                                        <p class="program-description">
+                                            <t t-if="course.description">
+                                                <t t-esc="course.description"/>
+                                            </t>
+                                            <t t-else="">
+                                                Hands-on experience and practical skills development. Gain real-world
+                                                knowledge in this comprehensive program.
+                                            </t>
+                                        </p>
+                                        <div class="accordion-item  my-4"
+                                             style="box-shadow: 0px 0px 4px #80808059;border-radius: 8px;">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapse-btn p-3 collapsed" style="justify-content: left !important;
+                                                width: max-content !important;border-bottom: 0px !important;color: #4285f4;"
+                                                        type="button"
+                                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                        aria-expanded="false" aria-controls="collapseTwo">
+                                                    <div>
+                                                        <div class="mb-2 ">
+                                                            تفاصيل البرنامج
+                                                        </div>
+
+                                                        <span class="text-muted show-more ">عرض المزيد ..</span>
+                                                        <span class="text-muted show-less ">عرض أقل ..</span>
+                                                    </div>
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                 data-bs-parent="#accordionExample">
+                                                <div class="accordion-body p-2 p-md-3">
+
+                                                    <!-- Content Section -->
+                                                    <div class="row">
+
+                                                        <div class="content-section px-0 p-md-3">
+                                                            <div class="code-sec d-inline-block px-3 p-2">
+                                                                كود البرنامج
+                                                                <t t-esc="course.code"/>
+                                                            </div>
+                                                            <!--                                                            Program Overview-->
+                                                            <div class="program-overview mt-3 mb-5 px-0 px-lg-3">
+                                                                <h3 class="section-title">
+                                                                    نظرة عامة على البرنامج
+                                                                </h3>
+                                                                <t t-if="course.description">
+                                                                    <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                        <t t-esc="course.description"/>
+                                                                    </p>
+                                                                </t>
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3">
+                                                                            <h5 class="skillHeader">
+                                                                                <i class="fa-solid fa-graduation-cap ms-1"></i>
+                                                                                تطوير المهارات
+                                                                            </h5>
+                                                                            <!-- Arabic Skill Development Section - Conditional based on department -->
+                                                                            <t t-if="course.department.name == 'Health Care'">
+                                                                                <p class="text-dark">
+                                                                                    تعلم تقنيات متقدمة في مجال
+                                                                                    المعلوماتية الصحية وتحليل البيانات
+                                                                                    الطبية
+                                                                                    وأنظمة السجلات الصحية الإلكترونية مع
+                                                                                    التدريب العملي.
+                                                                                </p>
+                                                                            </t>
+                                                                            <t t-elif="course.department.name == 'Industry'">
+                                                                                <p class="text-dark">
+                                                                                    تعلم تقنيات متقدمة في مجال إصلاح
+                                                                                    المعدات الميكانيكية والصناعية
+                                                                                    وأنظمة التصنيع والإنتاج الحديثة.
+                                                                                </p>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="progOverviewSec p-3">
+                                                                            <h5 class="careerHeader">
+                                                                                <i class="fa-solid fa-briefcase ms-1"></i>
+                                                                                تدريب عملي
+                                                                            </h5>
+                                                                            <t t-if="course.department.name == 'Health Care'">
+                                                                                <p class="text-dark">
+                                                                                    ممارسة عملية مباشرة على أنظمة
+                                                                                    وتقنيات المعلوماتية الصحية
+                                                                                    في البيئات الطبية الحقيقية.
+                                                                                </p>
+                                                                            </t>
+                                                                            <t t-elif="course.department.name == 'Industry'">
+                                                                                <p class="text-dark">
+                                                                                    ممارسة عملية مباشرة على أنظمة
+                                                                                    وتقنيات صناعية حقيقية
+                                                                                    في بيئات التصنيع والإنتاج.
+                                                                                </p>
+                                                                            </t>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--                                                             Target Audience &amp; Prerequisites-->
+                                                            <div class="target-prerequisites mb-5">
+                                                                <h3 class="section-title">
+                                                                    الفئة المستهدفة والمتطلبات
+                                                                </h3>
+                                                                <!--                                                                <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">-->
+                                                                <!--                                                                    برنامجنا مخصص لطلاب وخريجي تخصصات المعلوماتية-->
+                                                                <!--                                                                    الصحية، تقنية المعلومات، علوم الحاسب، الهندسة الطبية-->
+                                                                <!--                                                                    الحيوية، والصحة-->
+                                                                <!--                                                                    العامة الراغبين في تطوير مهاراتهم في مجال التقنية-->
+                                                                <!--                                                                    الصحية.-->
+                                                                <!--                                                                </p>-->
+
+                                                                <div class="row gy-4">
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="targetPreSec p-3">
+                                                                            <h5 class="candeader mb-3">
+                                                                                <i class="fa-solid fa-users ms-1"></i>
+                                                                                الفئات المستهدفة
+                                                                            </h5>
+                                                                            <div class="list_group ms-4">
+                                                                                <t t-if="course.target_audience_en">
+                                                                                    <t t-foreach="course.target_audience_en"
+                                                                                       t-as="audience_ar">
+                                                                                        <div class="item_list d-flex">
+                                                                                            <i class="fa-solid fa-circle-check ms-2 fs-5"></i>
+                                                                                            <p class="text-dark fs-6 fw-bold mb-0">
+                                                                                                <t t-esc="audience_ar.name"/>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 px-1 px-md-3">
+                                                                        <div class="targetPreSec p-3">
+                                                                            <h5 class="preHeader mb-3">
+                                                                                <i class="fa-solid fa-clipboard-check ms-1"></i>
+                                                                                المتطلبات الأساسية
+                                                                            </h5>
+                                                                            <div class="list_group ms-4">
+                                                                                <t t-if="course.pre_req">
+                                                                                    <t t-foreach="course.pre_req"
+                                                                                       t-as="req_ar">
+                                                                                        <div class="item_list d-flex">
+                                                                                            <i class="fa-solid fa-circle-check ms-2 fs-5"></i>
+                                                                                            <p class="text-dark fs-6 fw-bold mb-0">
+                                                                                                <t t-esc="req_ar.name"/>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--                                                             Curriculum &amp; Modules-->
+                                                            <div class="curriculumModules mb-5">
+                                                                <h3 class="section-title">
+                                                                    البرنامج والمحتوى
+                                                                </h3>
+                                                                <!--                                                                <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">-->
+                                                                <!--                                                                    يغطي البرنامج التدريبي مجموعة شاملة من المواضيع-->
+                                                                <!--                                                                    المتخصصة في تقنية المعلومات الصحية. تم تصميم-->
+                                                                <!--                                                                    المساقات التالية لتزويد-->
+                                                                <!--                                                                    المتدربين بالمهارات العملية والمعرفة النظرية اللازمة-->
+                                                                <!--                                                                    للتميز في هذا المجال:-->
+                                                                <!--                                                                </p>-->
+                                                                <t t-if="subjects">
+                                                                    <div class="row gy-4">
+                                                                        <t t-foreach="subjects" t-as="subject">
+                                                                            <div class="col-md-6 col-lg-4">
+                                                                                <a t-attf-href=""
+                                                                                   class="text-decoration-none">
+                                                                                    <div class="modulesSec pt-5 pt-md-3 p-3 position-relative">
+                                                                                        <div class="code position-absolute d-flex p-2 start-0 top-0">
+                                                                                            <span class="text-white fw-bold">
+                                                                                                <t t-if="subject.duration_weeks">
+                                                                                                    <t t-esc="subject.duration_weeks"/>
+
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <t t-esc="subject_index + 1"/>
+
+                                                                                                </t>
+                                                                                            </span>
+                                                                                        </div>
+
+                                                                                        <h5 class="modulesSecHeader mb-3 mt-4">
+                                                                                            <i class="fa-solid fa-book ms-1"></i>
+                                                                                            <t t-esc="subject.name_ar"/>
+                                                                                        </h5>
+
+                                                                                        <div class="learning-subtitle text-dark fs-6 mb-2">
+                                                                                            <t t-if="subject.description_ar">
+                                                                                                <ul class="text-dark fs-6">
+                                                                                                    <t t-foreach="subject.description_ar.split('\n')"
+                                                                                                       t-as="desc_line">
+                                                                                                        <t t-if="desc_line.strip()">
+                                                                                                            <li>
+                                                                                                                <t t-esc="desc_line.strip()"/>
+                                                                                                            </li>
+                                                                                                        </t>
+                                                                                                    </t>
+                                                                                                </ul>
+                                                                                            </t>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </div>
+                                                                        </t>
+                                                                    </div>
+                                                                </t>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--                                                                <div class="row gy-4">-->
+                                                        <!--                                                                    <div class="col-md-6 col-lg-4">-->
+                                                        <!--                                                                        <div class="modulesSec  pt-5 pt-md-3 p-3  position-relative">-->
+                                                        <!--                                                                              <div class="code position-absolute d-flex p-2 start-0 top-0">-->
+                                                        <!--                                                                                <span class="text-white fw-bold">اسبوع-->
+                                                        <!--                                                                                </span>-->
+                                                        <!--                                                                            </div>-->
+                                                        <!--                                                                            <h5 class="modulesSecHeader mb-3">-->
+                                                        <!--                                                                                <i class="fa-solid fa-book ms-1"></i>-->
+                                                        <!--                                                                                المعلوماتية الصحية-->
+                                                        <!--                                                                            </h5>-->
+                                                        <!--                                                                            <ul class="text-dark fs-6">-->
+                                                        <!--                                                                                <li>-->
+                                                        <!--                                                                                    مقدمة في نظم المعلومات الصحية-->
+                                                        <!--                                                                                </li>-->
+                                                        <!--                                                                                <li>-->
+                                                        <!--                                                                                    مقدمة في نظم المعلومات الصحية-->
+                                                        <!--                                                                                </li>-->
+                                                        <!--                                                                            </ul>-->
+                                                        <!--                                                                        </div>-->
+                                                        <!--                                                                    </div>-->
+                                                        <!--                                                                    <div class="col-md-6 col-lg-4">-->
+                                                        <!--                                                                        <div class="modulesSec  pt-5 pt-md-3 p-3  position-relative">-->
+                                                        <!--                                                                              <div class="code position-absolute d-flex p-2 start-0 top-0">-->
+                                                        <!--                                                                                <span class="text-white fw-bold">اسبوع-->
+                                                        <!--                                                                                </span>-->
+                                                        <!--                                                                            </div>-->
+                                                        <!--                                                                            <h5 class="modulesSecHeader mb-3">-->
+                                                        <!--                                                                                <i class="fa-solid fa-book ms-1"></i>-->
+                                                        <!--                                                                                المعلوماتية الصحية-->
+                                                        <!--                                                                            </h5>-->
+                                                        <!--                                                                            <ul class="text-dark fs-6">-->
+                                                        <!--                                                                                <li>-->
+                                                        <!--                                                                                    مقدمة في نظم المعلومات الصحية-->
+                                                        <!--                                                                                </li>-->
+                                                        <!--                                                                                <li>-->
+                                                        <!--                                                                                    مقدمة في نظم المعلومات الصحية-->
+                                                        <!--                                                                                </li>-->
+                                                        <!--                                                                            </ul>-->
+                                                        <!--                                                                        </div>-->
+                                                        <!--                                                                    </div>-->
+                                                        <!--                                                                    <div class="col-md-6 col-lg-4">-->
+                                                        <!--                                                                        <div class="modulesSec  pt-5 pt-md-3 p-3  position-relative">-->
+                                                        <!--                                                                              <div class="code position-absolute d-flex p-2 start-0 top-0">-->
+                                                        <!--                                                                                <span class="text-white fw-bold">اسبوع-->
+                                                        <!--                                                                                </span>-->
+                                                        <!--                                                                            </div>-->
+                                                        <!--                                                                            <h5 class="modulesSecHeader mb-3">-->
+                                                        <!--                                                                                <i class="fa-solid fa-book ms-1"></i>-->
+                                                        <!--                                                                                المعلوماتية الصحية-->
+                                                        <!--                                                                            </h5>-->
+                                                        <!--                                                                            <ul class="text-dark fs-6">-->
+                                                        <!--                                                                                <li>-->
+                                                        <!--                                                                                    مقدمة في نظم المعلومات الصحية-->
+                                                        <!--                                                                                </li>-->
+                                                        <!--                                                                                <li>-->
+                                                        <!--                                                                                    مقدمة في نظم المعلومات الصحية-->
+                                                        <!--                                                                                </li>-->
+                                                        <!--                                                                            </ul>-->
+                                                        <!--                                                                        </div>-->
+                                                        <!--                                                                    </div>-->
+
+                                                        <!--                                                                </div>-->
+                                                        <!--                                                            </div>-->
+
+                                                        <!-- Program Details -->
+                                                        <!-- Program Details -->
+                                                        <div class="program-details px-0 p-lg-1">
+                                                            <h3 class="section-title">تفاصيل البرنامج والجدول
+                                                                الزمني
+                                                            </h3>
+
+                                                            <div class="row gy-4">
+                                                                <div class="col-md-4 px-1 px-md-3">
+                                                                    <div class="programDurationSec p-3">
+                                                                        <h5 class="progDuration mb-3">
+                                                                            <i class="fa-solid fa-calendar-days ms-1"></i>
+                                                                            مدة البرنامج
+                                                                        </h5>
+                                                                        <div>
+                                                                            <ul class="text-dark fs-6">
+                                                                                <li>
+                                                                                    <span style="margin-right: 8px;">
+                                                                                        <t t-if="course.duration_weeks and course.days_per_week">
+                                                                                            <t t-esc="course.time"/>
+                                                                                            <!--                                                                                            <t t-esc="course.days_per_week"/>-->
+                                                                                            <!--                                                                                            أيام/أسبوع-->
+                                                                                        </t>
+                                                                                        <t t-else="">
+                                                                                            المدة غير محددة
+                                                                                        </t>
+                                                                                    </span>
+                                                                                    <i class="fa-solid fa-circle"
+                                                                                       style="font-size: 6px; color: #999;"></i>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span style="margin-right: 8px;">
+                                                                                        <t t-if="course.total_hours">
+                                                                                            إجمالي
+                                                                                            <t t-esc="course.total_hours"/>
+                                                                                            ساعة تدريب
+                                                                                        </t>
+                                                                                        <t t-else="">
+                                                                                            المدة غير محددة
+                                                                                        </t>
+                                                                                    </span>
+                                                                                    <i class="fa-solid fa-circle"
+                                                                                       style="font-size: 6px; color: #999;"></i>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <span style="margin-right: 8px;">
+                                                                                        <t t-if="course.date_period_display">
+                                                                                            صيف ٢٠٢٥ (يوليو - أغسطس)
+                                                                                        </t>
+                                                                                        <t t-else="">
+                                                                                            الفترة غير محددة
+                                                                                        </t>
+                                                                                    </span>
+                                                                                    <i class="fa-solid fa-circle"
+                                                                                       style="font-size: 6px; color: #999;"></i>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1 px-md-3">
+                                                                    <div class="weeklyScheduleSec p-3">
+                                                                        <h5 class="weeklyHeader mb-3"
+                                                                            style="text-align: right;">
+                                                                            <i class="fa-solid fa-clock ms-1"></i>
+                                                                            الجدول الاسبوعى
+                                                                        </h5>
+                                                                        <div class="list_group ms-4">
+                                                                            <div class="item_list d-flex align-items-center">
+                                                                                <div style="text-align: right;">
+                                                                                    <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                        ٩:٠٠ صباحاً - ٣:٠٠ مساءً
+                                                                                    </p>
+                                                                                    <i class="fa-solid fa-circle color-grey"
+                                                                                       style="font-size: 6px;"></i>
+                                                                                    <small class="fw-bold color-grey">
+                                                                                        محاضرات ومختبرات عملية
+                                                                                    </small>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="item_list d-flex align-items-center">
+                                                                                <div style="text-align: right;">
+                                                                                    <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                        ٩:٠٠ صباحاً - ٣:٠٠ مساءً
+                                                                                    </p>
+                                                                                    <i class="fa-solid fa-circle color-grey"
+                                                                                       style="font-size: 6px;"></i>
+                                                                                    <small class="fw-bold color-grey">
+                                                                                        ورش عمل ودراسات حالة
+                                                                                    </small>
+
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="item_list d-flex align-items-center">
+                                                                                <div style="text-align: right;">
+                                                                                    <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                        ٩:٠٠ صباحاً - ٣:٠٠ مساءً
+                                                                                    </p>
+                                                                                    <i class="fa-solid fa-circle color-grey"
+                                                                                       style="font-size: 6px;"></i>
+                                                                                    <small class="fw-bold color-grey">
+                                                                                        مشاريع وعروض تقديمية
+                                                                                    </small>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 px-1 px-md-3">
+                                                                    <div class="programDurationSec p-3">
+                                                                        <h5 class="progDuration mb-3">
+                                                                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                                                                            الوسائل التدريبية
+                                                                        </h5>
+                                                                        <div class="list_group ms-4">
+                                                                            <t t-if="course.training_tools">
+                                                                                <t t-foreach="course.training_tools.split('\n')"
+                                                                                   t-as="tool">
+                                                                                    <t t-if="tool.strip()">
+                                                                                        <div class="item_list d-flex align-items-center">
+                                                                                            <i class="fa-solid fa-circle ms-2 color-grey"></i>
+                                                                                            <div>
+                                                                                                <p class="text-blue fs-6 fw-bold mb-0">
+                                                                                                    <t t-esc="tool.strip()"/>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </t>
+                                                                            <t t-else="">
+                                                                                <div class="item_list d-flex align-items-center">
+                                                                                    <p class="text-muted fs-6">No
+                                                                                        specific training tools
+                                                                                        listed
+                                                                                    </p>
+                                                                                </div>
+                                                                            </t>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--                                                            Program Overview-->
+                                                        <div class="program-overview mb-5">
+                                                            <h3 class="section-title">
+                                                                المزايا والمخرجات
+                                                            </h3>
+                                                            <t t-if="course.department.name == 'Health Care'">
+                                                                <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                    يوفر البرنامج العديد من المزايا التي ستساعدك على
+                                                                    تطوير مهاراتك وتعزيز فرصك المهنية في مجال التقنية
+                                                                    الصحية والمعلوماتية الطبية:
+                                                                </p>
+                                                            </t>
+                                                            <t t-elif="course.department.name == 'Industry'">
+                                                                <p class="text-dark fs-6 px-0 px-md-5 text-center w-100 w-md-75 mx-auto mb-3 mb-lg-5">
+                                                                    يوفر البرنامج العديد من المزايا التي ستساعدك على
+                                                                    تطوير مهاراتك وتعزيز فرصك المهنية في مجال الصناعة
+                                                                    والتقنيات الميكانيكية:
+                                                                </p>
+                                                            </t>
+                                                            <div class="row gy-4">
+                                                                <div class="col-md-6 px-1 px-md-3">
+                                                                    <div class="progOverviewSec p-3">
+                                                                        <h5 class="skillHeader">
+                                                                            <i class="fa fa-handshake ms-1"></i>
+                                                                            المزايا
+                                                                        </h5>
+                                                                        <ul class="text-dark fs-6">
+                                                                            <t t-if="course.benefits">
+                                                                                <t t-foreach="course.benefits.split('\n')"
+                                                                                   t-as="benefit">
+                                                                                    <t t-if="benefit.strip()">
+                                                                                        <li>
+                                                                                            <t t-esc="benefit.strip()"/>
+                                                                                        </li>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </t>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 px-1 px-md-3">
+                                                                    <div class="progOverviewSec p-3">
+                                                                        <h5 class="careerHeader">
+                                                                            <i class="fa-solid fa-chart-line ms-1"></i>
+                                                                            المخرجات
+                                                                        </h5>
+                                                                        <ul class="text-dark fs-6">
+                                                                            <t t-if="course.outcome">
+                                                                                <t t-foreach="course.outcome.split('\n')"
+                                                                                   t-as="out">
+                                                                                    <t t-if="out.strip()">
+                                                                                        <li>
+                                                                                            <t t-esc="out.strip()"/>
+                                                                                        </li>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </t>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--                                                            Reference-->
+                                                        <div class="program-overview mb-5">
+                                                            <h3 class="section-title">
+                                                                المراجع المستخدمة
+                                                            </h3>
+
+                                                            <div class="row gy-4 justify-content-center">
+                                                                <div class="col-md-6 px-1 px-md-3">
+                                                                    <div class="progOverviewSec p-3"
+                                                                         style="border-right: solid 4px #1D4ED8;">
+                                                                        <ul class="text-dark fs-6">
+                                                                            <t t-if="course.reference">
+                                                                                <t t-foreach="course.reference.split('\n')"
+                                                                                   t-as="ref">
+                                                                                    <t t-if="ref.strip()">
+                                                                                        <li>
+                                                                                            <t t-esc="ref.strip()"/>
+                                                                                        </li>
+                                                                                    </t>
+                                                                                </t>
+                                                                            </t>
+                                                                        </ul>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- Profile Section -->
+
+                                                        <div class="profile-section ">
+                                                            <div class="profile-image w-100 w-md-75">
+                                                                <img class="img-fluid"
+                                                                     src="/nexus_nms/static/src/images/profileSection.jpeg"
+                                                                     alt=""/>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="action-buttons">
+                                        <a t-attf-href="/apply_template_ar?course_id=#{course.id}"
+                                           class="btn btn-apply mb-3"
+                                           style="text-decoration: none; display: inline-block;">انضم إلينا
+                                        </a>
+                                        <a href="/contact_us_ar" class="btn btn-contact mb-3"
+                                           style="text-decoration: none; display: inline-block;">تواصل معانا
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </t>
+        </template>
+        <!--        <template id="program_details_test">-->
+        <!--            <t t-call="website.layout">-->
+        <!--                <style>-->
+        <!--                    body {-->
+        <!--                    background-color: #f8f9fa;-->
+        <!--                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;-->
+        <!--                    overflow-x: hidden;-->
+        <!--                    }-->
+
+        <!--                    /* Simple Animation Keyframes */-->
+        <!--                    @keyframes fadeIn {-->
+        <!--                    from {-->
+        <!--                    opacity: 0;-->
+        <!--                    }-->
+        <!--                    to {-->
+        <!--                    opacity: 1;-->
+        <!--                    }-->
+        <!--                    }-->
+        <!--                    button.accordion-button.collapse-btn.collapsed:after,-->
+        <!--                    .collapse-btn.accordion-button:not(.collapsed)::after{-->
+        <!--                    margin-left: 2rem !important;-->
+        <!--                    width: 2rem;-->
+        <!--                    height: 2rem;-->
+        <!--                    background-size:100% !important;-->
+        <!--                    background-image:url('/nexus_nms/static/src/images/accordionIcon.svg') !important;-->
+        <!--                    }-->
+        <!--                    .collapse-btn.accordion-button:not(.collapsed)::after{-->
+        <!--                    transform: rotate(135deg) !important;-->
+        <!--                    }-->
+        <!--                    button.accordion-button.collapse-btn.collapsed .show-less,-->
+        <!--                    .collapse-btn.accordion-button:not(.collapsed) .show-more{-->
+        <!--                    display: none;-->
+        <!--                    }-->
+
+        <!--                    .collapse-btn.accordion-button:not(.collapsed){-->
+        <!--                    box-shadow:unset !important;-->
+        <!--                    background:unset !important;-->
+        <!--                    }-->
+
+        <!--                    @keyframes fadeInUp {-->
+        <!--                    from {-->
+        <!--                    opacity: 0;-->
+        <!--                    transform: translateY(20px);-->
+        <!--                    }-->
+        <!--                    to {-->
+        <!--                    opacity: 1;-->
+        <!--                    transform: translateY(0);-->
+        <!--                    }-->
+        <!--                    }-->
+
+        <!--                    @keyframes fadeInLeft {-->
+        <!--                    from {-->
+        <!--                    opacity: 0;-->
+        <!--                    transform: translateX(-20px);-->
+        <!--                    }-->
+        <!--                    to {-->
+        <!--                    opacity: 1;-->
+        <!--                    transform: translateX(0);-->
+        <!--                    }-->
+        <!--                    }-->
+
+        <!--                    @keyframes fadeInRight {-->
+        <!--                    from {-->
+        <!--                    opacity: 0;-->
+        <!--                    transform: translateX(20px);-->
+        <!--                    }-->
+        <!--                    to {-->
+        <!--                    opacity: 1;-->
+        <!--                    transform: translateX(0);-->
+        <!--                    }-->
+        <!--                    }-->
+
+        <!--                    @keyframes gentleFloat {-->
+        <!--                    0%, 100% {-->
+        <!--                    transform: translateY(0);-->
+        <!--                    }-->
+        <!--                    50% {-->
+        <!--                    transform: translateY(-5px);-->
+        <!--                    }-->
+        <!--                    }-->
+
+        <!--                    @keyframes simpleGradient {-->
+        <!--                    0% {-->
+        <!--                    background-position: 0% 50%;-->
+        <!--                    }-->
+        <!--                    50% {-->
+        <!--                    background-position: 100% 50%;-->
+        <!--                    }-->
+        <!--                    100% {-->
+        <!--                    background-position: 0% 50%;-->
+        <!--                    }-->
+        <!--                    }-->
+
+        <!--                    /* Main Container */-->
+        <!--                    .main-container {-->
+        <!--                    background: white;-->
+        <!--                    border-radius: 12px;-->
+        <!--                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);-->
+        <!--                    margin: 20px auto;-->
+        <!--                    max-width: 1440px;-->
+        <!--                    overflow: hidden;-->
+
+        <!--                    }-->
+
+
+        <!--                    /* Header Section */-->
+        <!--                    .header-section {-->
+        <!--                    background: white;-->
+        <!--                    color: white;-->
+        <!--                    padding: 30px;-->
+        <!--                    position: relative;-->
+        <!--                    }-->
+
+        <!--                    .university-icon {-->
+        <!--                    width: 50px;-->
+        <!--                    height: 50px;-->
+        <!--                    background: #4285f4;-->
+        <!--                    border-radius: 12px;-->
+        <!--                    display: flex;-->
+        <!--                    align-items: center;-->
+        <!--                    justify-content: center;-->
+        <!--                    margin-bottom: 15px;-->
+        <!--                    animation: fadeInLeft 0.6s ease-out 0.2s both;-->
+        <!--                    transition: transform 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .university-icon:hover {-->
+        <!--                    transform: scale(1.1);-->
+        <!--                    }-->
+
+        <!--                    .university-name {-->
+        <!--                    font-size: 18px;-->
+        <!--                    color: #004899;-->
+        <!--                    margin-bottom: 8px;-->
+        <!--                    font-weight:700px;-->
+
+        <!--                    }-->
+
+        <!--                    .program-title {-->
+        <!--                    font-size: 28px;-->
+        <!--                    font-weight: 700;-->
+        <!--                    margin-bottom: 15px;-->
+        <!--                    line-height: 1.2;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 0.6s both;-->
+        <!--                    }-->
+
+        <!--                    .program-description {-->
+        <!--                    font-size: 14px;-->
+        <!--                    color:#3c3c3ccc;-->
+        <!--                    margin-bottom: 6px;-->
+        <!--                    line-height: 1.5;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 0.8s both;-->
+        <!--                    }-->
+
+        <!--                    /* Buttons */-->
+        <!--                    .btn-apply {-->
+        <!--                    background: #4285f4;-->
+        <!--                    border: none;-->
+        <!--                    color: white;-->
+        <!--                    padding: 10px 25px;-->
+        <!--                    border-radius: 6px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    margin-right: 10px;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 1s both;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .btn-apply:hover {-->
+        <!--                    border: 1px solid #4285f4 ;-->
+        <!--                    background:white;-->
+        <!--                    transform: translateY(-2px);-->
+        <!--                    color:#4285f4;-->
+        <!--                    }-->
+
+        <!--                    .btn-contact {-->
+        <!--                    background: rgba(255,255,255,0.2);-->
+        <!--                    border: 1px solid #004899;-->
+        <!--                    color: #4285f4;-->
+        <!--                    padding: 10px 25px;-->
+        <!--                    border-radius: 6px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 1.2s both;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .btn-contact:hover {-->
+        <!--                    background: #4285f4;-->
+        <!--                    border-color: rgba(255,255,255,0.5);-->
+        <!--                    transform: translateY(-2px);-->
+        <!--                    color: white;-->
+        <!--                    }-->
+
+        <!--                    /* Content Section */-->
+        <!--                    .content-section {-->
+        <!--                    padding: 30px;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 0.4s both;-->
+        <!--                    }-->
+
+
+        <!--                    .program-details {-->
+        <!--                    margin-bottom: 30px;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 1s both;-->
+        <!--                    }-->
+
+        <!--                    .duration-text {-->
+        <!--                    font-size: 16px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    color: #333;-->
+        <!--                    margin-bottom: 5px;-->
+        <!--                    }-->
+
+        <!--                    .target-audience {-->
+        <!--                    color: #666;-->
+        <!--                    font-size: 14px;-->
+        <!--                    }-->
+
+        <!--                    /* Curriculum Cards */-->
+        <!--                    .curriculum-overview {-->
+        <!--                    margin-bottom: 30px;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 1.2s both;-->
+        <!--                    }-->
+
+        <!--                    .week-card {-->
+        <!--                    background: white;-->
+        <!--                    border: 1px solid #e9ecef;-->
+        <!--                    border-radius: 8px;-->
+        <!--                    padding: 20px;-->
+        <!--                    margin-bottom: 15px;-->
+        <!--                    position: relative;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .week-card:nth-child(1) {-->
+        <!--                    animation: fadeInLeft 0.6s ease-out 1.4s both;-->
+        <!--                    }-->
+
+        <!--                    .week-card:nth-child(2) {-->
+        <!--                    animation: fadeInRight 0.6s ease-out 1.6s both;-->
+        <!--                    }-->
+
+        <!--                    .week-card:hover {-->
+        <!--                    transform: translateY(-5px);-->
+        <!--                    box-shadow: 0 10px 25px rgba(0,0,0,0.1);-->
+        <!--                    border-color: #4285f4;-->
+        <!--                    }-->
+
+        <!--                    .week-card::before {-->
+        <!--                    content: '';-->
+        <!--                    position: absolute;-->
+        <!--                    top: 0;-->
+        <!--                    left: 0;-->
+        <!--                    right: 0;-->
+        <!--                    height: 3px;-->
+        <!--                    background: linear-gradient(90deg, #4285f4, #667eea);-->
+        <!--                    border-radius: 8px 8px 0 0;-->
+        <!--                    transform: scaleX(0);-->
+        <!--                    transition: transform 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .week-card:hover::before {-->
+        <!--                    transform: scaleX(1);-->
+        <!--                    }-->
+
+        <!--                    .week-icon {-->
+        <!--                    width: 35px;-->
+        <!--                    height: 35px;-->
+        <!--                    background: #4285f4;-->
+        <!--                    border-radius: 6px;-->
+        <!--                    display: flex;-->
+        <!--                    align-items: center;-->
+        <!--                    justify-content: center;-->
+        <!--                    color: white;-->
+        <!--                    font-size: 14px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    margin-bottom: 10px;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .week-card:hover .week-icon {-->
+        <!--                    background: #667eea;-->
+        <!--                    transform: scale(1.1);-->
+        <!--                    }-->
+
+        <!--                    .week-number {-->
+        <!--                    font-size: 12px;-->
+        <!--                    color: #4285f4;-->
+        <!--                    font-weight: 600;-->
+        <!--                    margin-bottom: 5px;-->
+        <!--                    }-->
+
+        <!--                    .week-title {-->
+        <!--                    font-size: 16px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    color: #333;-->
+        <!--                    margin-bottom: 8px;-->
+        <!--                    }-->
+
+        <!--                    .week-description {-->
+        <!--                    font-size: 14px;-->
+        <!--                    color: #666;-->
+        <!--                    line-height: 1.4;-->
+        <!--                    }-->
+
+        <!--                    .week-number {-->
+        <!--                    font-size: 12px;-->
+        <!--                    color: #4285f4;-->
+        <!--                    font-weight: 600;-->
+        <!--                    margin-bottom: 5px;-->
+        <!--                    }-->
+
+        <!--                    .week-title {-->
+        <!--                    font-size: 16px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    color: #333;-->
+        <!--                    margin-bottom: 8px;-->
+        <!--                    }-->
+
+        <!--                    .week-description {-->
+        <!--                    font-size: 14px;-->
+        <!--                    color: #666;-->
+        <!--                    line-height: 1.4;-->
+        <!--                    }-->
+
+        <!--                    /* Learning Cards */-->
+        <!--                    .learning-section {-->
+        <!--                    margin-bottom: 30px;-->
+        <!--                    animation: fadeInUp 0.6s ease-out 1.8s both;-->
+        <!--                    }-->
+
+        <!--                    .learning-card {-->
+        <!--                    background: #ffffff;-->
+        <!--                    border-radius: 8px;-->
+        <!--                    padding: 20px;-->
+        <!--                    margin-bottom: 15px;-->
+        <!--                    border-left: 4px solid #4285f4;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    cursor: pointer;-->
+        <!--                    }-->
+
+        <!--                    .learning-card:nth-child(1) {-->
+        <!--                    animation: fadeInUp 0.5s ease-out 2s both;-->
+        <!--                    }-->
+
+        <!--                    .learning-card:nth-child(2) {-->
+        <!--                    animation: fadeInUp 0.5s ease-out 2.2s both;-->
+        <!--                    }-->
+
+        <!--                    .learning-card:nth-child(3) {-->
+        <!--                    animation: fadeInUp 0.5s ease-out 2.4s both;-->
+        <!--                    }-->
+
+        <!--                    .learning-card:hover {-->
+        <!--                    background: white;-->
+        <!--                    transform: translateY(-5px);-->
+        <!--                    box-shadow: 0 10px 25px rgba(66, 133, 244, 0.1);-->
+        <!--                    border-left-width: 6px;-->
+        <!--                    }-->
+
+        <!--                    .learning-icon {-->
+        <!--                    color: #4285f4;-->
+        <!--                    font-size: 24px;-->
+        <!--                    margin-bottom: 10px;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    margin-left: 6px;-->
+        <!--                    }-->
+
+        <!--                    .learning-card:hover .learning-icon {-->
+        <!--                    color: #667eea;-->
+        <!--                    transform: scale(1.1);-->
+        <!--                    }-->
+
+        <!--                    .learning-title {-->
+        <!--                    font-size: 16px;-->
+        <!--                    font-weight: 600;-->
+        <!--                    color: #333;-->
+        <!--                    margin-bottom: 5px;-->
+        <!--                    }-->
+
+        <!--                    .learning-subtitle {-->
+        <!--                    font-size: 14px;-->
+        <!--                    color: #666;-->
+        <!--                    }-->
+
+        <!--                    /* Profile Section */-->
+        <!--                    .profile-section {-->
+        <!--                    text-align: center;-->
+        <!--                    margin-bottom: 20px;-->
+        <!--                    animation: fadeIn 0.8s ease-out 2.6s both;-->
+        <!--                    }-->
+
+        <!--                    .profile-image {-->
+        <!--                    width: 665px;-->
+
+        <!--                    border-radius: 12px;-->
+        <!--                    object-fit: cover;-->
+        <!--                    display: flex;-->
+        <!--                    align-items: center;-->
+        <!--                    justify-content: center;-->
+        <!--                    color: white;-->
+        <!--                    font-size: 48px;-->
+        <!--                    margin: 0 auto;-->
+        <!--                    transition: all 0.3s ease;-->
+        <!--                    }-->
+
+        <!--                    .profile-image:hover {-->
+        <!--                    transform: scale(1.05);-->
+        <!--                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);-->
+        <!--                    }-->
+
+
+        <!--                    /* Additional Animations */-->
+        <!--                    .row {-->
+        <!--                    margin: 0;-->
+        <!--                    }-->
+
+        <!--                    html {-->
+        <!--                    scroll-behavior: smooth;-->
+        <!--                    }-->
+
+        <!--                    /* Simple floating elements */-->
+        <!--                    .gentle-float {-->
+        <!--                    animation: gentleFloat 4s ease-in-out infinite;-->
+        <!--                    }-->
+
+        <!--                    .gentle-float:nth-child(2) {-->
+        <!--                    animation-delay: 0.5s;-->
+        <!--                    }-->
+
+        <!--                    .gentle-float:nth-child(3) {-->
+        <!--                    animation-delay: 1s;-->
+        <!--                    }-->
+
+        <!--                    /* Responsive adjustments */-->
+        <!--                    @media (max-width: 768px) {-->
+        <!--                    .program-title {-->
+        <!--                    font-size: 24px;-->
+        <!--                    }-->
+
+        <!--                    .main-container {-->
+        <!--                    margin: 10px;-->
+        <!--                    }-->
+
+        <!--                    .header-section {-->
+        <!--                    padding: 20px;-->
+        <!--                    }-->
+
+        <!--                    .content-section {-->
+        <!--                    padding: 20px;-->
+        <!--                    }-->
+        <!--                    }-->
+        <!--                </style>-->
+        <!--                <div id="wrap">-->
+        <!--                    <div class="container-fluid">-->
+        <!--                        <div class="row">-->
+        <!--                            <div class="col-lg-12">-->
+        <!--                                <div class="main-container">-->
+        <!--                                    &lt;!&ndash; Header Section &ndash;&gt;-->
+        <!--                                    <div class="header-section">-->
+        <!--                                        <div class="university-icon">-->
+        <!--                                            <i class="fas fa-graduation-cap" style="font-size: 20px;"></i>-->
+        <!--                                        </div>-->
+        <!--                                        <div class="university-name">Borg El Arab Technological University</div>-->
+        <!--                                        <h1 class="program-title">-->
+        <!--                                            <t t-esc="course.name"/>-->
+        <!--                                        </h1>-->
+
+        <!--                                        <p class="program-description">-->
+        <!--                                            <t t-if="course.description">-->
+        <!--                                                <t t-esc="course.description"/>-->
+        <!--                                            </t>-->
+        <!--                                            <t t-else="">-->
+        <!--                                                Hands-on experience and practical skills development. Gain real-world-->
+        <!--                                                knowledge in this comprehensive program.-->
+        <!--                                            </t>-->
+        <!--                                        </p>-->
+        <!--                                        <div class="accordion-item  my-4"-->
+        <!--                                             style="box-shadow: 0px 0px 4px #80808059;border-radius: 8px;">-->
+        <!--                                            <h2 class="accordion-header">-->
+        <!--                                                <button class="accordion-button collapse-btn p-3 collapsed" style="justify-content: left !important;-->
+        <!--                                                width: max-content !important;border-bottom: 0px !important;color: #4285f4;"-->
+        <!--                                                        type="button"-->
+        <!--                                                        data-bs-toggle="collapse" data-bs-target="#collapseTwo"-->
+        <!--                                                        aria-expanded="false" aria-controls="collapseTwo">-->
+        <!--                                                    <div>-->
+        <!--                                                        <div class="mb-2">-->
+        <!--                                                            Program Details-->
+        <!--                                                            <button class="en btn btn-warning">EN</button>-->
+        <!--                                                            <button class="ar btn btn-warning">AR</button>-->
+        <!--                                                        </div>-->
+
+        <!--                                                        <span class="text-muted show-more ">Show More ..</span>-->
+        <!--                                                        <span class="text-muted show-less ">Show Less ..</span>-->
+        <!--                                                    </div>-->
+        <!--                                                </button>-->
+        <!--                                            </h2>-->
+        <!--                                            <div id="collapseTwo" class="accordion-collapse collapse"-->
+        <!--                                                 data-bs-parent="#accordionExample">-->
+        <!--                                                <div class="accordion-body">-->
+        <!--                                                    &lt;!&ndash; Content Section &ndash;&gt;-->
+        <!--                                                    <div class="row">-->
+        <!--                                                        <div class="content-section">-->
+        <!--                                                            &lt;!&ndash; Program Details &ndash;&gt;-->
+        <!--                                                            <div class="program-details">-->
+        <!--                                                                <h2 class="section-title">Program Details</h2>-->
+        <!--                                                                <div class="duration-text">-->
+        <!--                                                                    Duration:-->
+        <!--                                                                    <t t-if="course.duration_weeks and course.days_per_week">-->
+        <!--                                                                        <t t-esc="course.duration_weeks"/>-->
+        <!--                                                                        weeks,-->
+        <!--                                                                        <t t-esc="course.days_per_week"/>-->
+        <!--                                                                        days/week-->
+        <!--                                                                    </t>-->
+        <!--                                                                    <t t-else="">-->
+        <!--                                                                        Duration not specified-->
+        <!--                                                                    </t>-->
+        <!--                                                                </div>-->
+
+        <!--                                                                <div class="duration-text">-->
+        <!--                                                                    Course Code:-->
+        <!--                                                                    <t t-esc="course.code"/>-->
+        <!--                                                                </div>-->
+        <!--                                                                <t t-if="course.target_audience">-->
+        <!--                                                                    <div class="target-audience">-->
+        <!--                                                                        Target Audience:-->
+        <!--                                                                        <t t-esc="course.target_audience"/>-->
+        <!--                                                                    </div>-->
+        <!--                                                                </t>-->
+        <!--                                                            </div>-->
+
+        <!--                                                            &lt;!&ndash; Curriculum Overview &ndash;&gt;-->
+        <!--                                                            <div class="curriculum-overview">-->
+        <!--                                                                <h2 class="section-title text-black">Curriculum-->
+        <!--                                                                    Overview-->
+        <!--                                                                </h2>-->
+
+        <!--                                                                <div class="row">-->
+        <!--                                                                    <div class="col-md-6">-->
+        <!--                                                                        <div class="week-card">-->
+        <!--                                                                            <div class="week-icon">-->
+        <!--                                                                                <i class="fas fa-hospital"></i>-->
+        <!--                                                                            </div>-->
+        <!--                                                                            <div class="week-number">Week 1</div>-->
+        <!--                                                                            <div class="week-title">Foundations &amp;-->
+        <!--                                                                                Patient Journey-->
+        <!--                                                                            </div>-->
+        <!--                                                                            <div class="week-description">-->
+        <!--                                                                                Days 1-3: Explore hospital departments,-->
+        <!--                                                                                patient flow, and IT-->
+        <!--                                                                                basics.-->
+        <!--                                                                            </div>-->
+        <!--                                                                        </div>-->
+        <!--                                                                    </div>-->
+
+        <!--                                                                    <div class="col-md-6">-->
+        <!--                                                                        <div class="week-card">-->
+        <!--                                                                            <div class="week-icon">-->
+        <!--                                                                                <i class="fas fa-chart-line"></i>-->
+        <!--                                                                            </div>-->
+        <!--                                                                            <div class="week-number">Week 2</div>-->
+        <!--                                                                            <div class="week-title">Specialized Systems-->
+        <!--                                                                                &amp; Analytics-->
+        <!--                                                                            </div>-->
+        <!--                                                                            <div class="week-description">-->
+        <!--                                                                                Days 4-6: Dive into EHR, lab systems,-->
+        <!--                                                                                and healthcare data-->
+        <!--                                                                                analytics.-->
+        <!--                                                                            </div>-->
+        <!--                                                                        </div>-->
+        <!--                                                                    </div>-->
+        <!--                                                                </div>-->
+        <!--                                                            </div>-->
+
+        <!--                                                            &lt;!&ndash; What You'll Learn &ndash;&gt;-->
+        <!--                                                            <div class="learning-section">-->
+        <!--                                                                <h2 class="section-title text-black">What You'll Learn-->
+        <!--                                                                </h2>-->
+
+        <!--                                                                <t t-if="subjects">-->
+        <!--                                                                    <div class="row">-->
+        <!--                                                                        <t t-foreach="subjects" t-as="subject">-->
+        <!--                                                                            <div class="col-md-4">-->
+        <!--                                                                                <a t-attf-href="/hospital_departments">-->
+        <!--                                                                                    <div class="learning-card gentle-float">-->
+        <!--                                                                                        <div class="learning-icon">-->
+        <!--                                                                                            <i class="fas fa-book"></i>-->
+        <!--                                                                                        </div>-->
+        <!--                                                                                        <div class="learning-title">-->
+        <!--                                                                                            <t t-esc="subject.name"/>-->
+        <!--                                                                                        </div>-->
+        <!--                                                                                        <div class="learning-subtitle">-->
+        <!--                                                                                            <t t-if="subject.code">-->
+        <!--                                                                                                Subject Code:-->
+        <!--                                                                                                <t t-esc="subject.code"/>-->
+        <!--                                                                                            </t>-->
+        <!--                                                                                            <t t-else="">-->
+        <!--                                                                                                Course subject-->
+        <!--                                                                                            </t>-->
+        <!--                                                                                        </div>-->
+        <!--                                                                                    </div>-->
+        <!--                                                                                </a>-->
+        <!--                                                                            </div>-->
+        <!--                                                                        </t>-->
+        <!--                                                                    </div>-->
+        <!--                                                                </t>-->
+        <!--                                                            </div>-->
+
+        <!--                                                            &lt;!&ndash; Profile Section &ndash;&gt;-->
+
+        <!--                                                            <div class="profile-section">-->
+        <!--                                                                <div class="profile-image">-->
+        <!--                                                                    <img class="img-fluid"-->
+        <!--                                                                         src="/nexus_nms/static/src/images/Information Technology Program.png"-->
+        <!--                                                                         alt=""/>-->
+
+        <!--                                                                </div>-->
+        <!--                                                            </div>-->
+
+
+        <!--                                                        </div>-->
+        <!--                                                    </div>-->
+        <!--                                                </div>-->
+        <!--                                            </div>-->
+
+        <!--                                        </div>-->
+        <!--                                        <div class="action-buttons">-->
+        <!--                                            <a t-attf-href="/healthtech-training?course_id=#{course.id}"-->
+        <!--                                               class="btn btn-apply"-->
+        <!--                                               style="text-decoration: none; display: inline-block;">Apply Today-->
+        <!--                                            </a>-->
+        <!--                                            <a href="/contact_us" class="btn btn-contact"-->
+        <!--                                               style="text-decoration: none; display: inline-block;">Contact Us-->
+        <!--                                            </a>-->
+        <!--                                        </div>-->
+        <!--                                    </div>-->
+
+
+        <!--                                </div>-->
+        <!--                            </div>-->
+
+
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+
+        <!--                </div>-->
+        <!--            </t>-->
+        <!--        </template>-->
+    </data>
+</odoo>

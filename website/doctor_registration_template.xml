@@ -1,0 +1,436 @@
+<odoo>
+    <data>
+        <template id="doctor_registration">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <style>
+                            body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            }
+
+                            .form-container {
+                            max-width: 1300px;
+                            margin: 0 auto;
+                            background: white;
+                            border-radius: 15px;
+                            overflow: hidden;
+                            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                            }
+
+                            .form-header {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            text-align: center;
+                            padding: 30px;
+                            margin-bottom: 0;
+                            }
+
+                            .form-header h1 {
+                            margin: 0;
+                            font-size: 2rem;
+                            font-weight: 600;
+                            letter-spacing: 1px;
+                            }
+
+                            .form-section {
+                            margin: 30px;
+                            padding: 25px;
+                            border: 1px solid #e1e8ed;
+                            border-radius: 10px;
+                            background: #fafbfc;
+                            }
+
+                            .section-header {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 20px;
+                            padding-bottom: 10px;
+                            border-bottom: 2px solid #36d1dc;
+                            }
+
+                            .section-icon {
+                            width: 24px;
+                            height: 24px;
+                            margin-right: 10px;
+                            fill: #36d1dc;
+                            }
+
+                            .section-title {
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            color: #333;
+                            margin: 0;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            }
+
+                            .form-group {
+                            margin-bottom: 20px;
+                            }
+
+                            .form-group label {
+                            font-weight: 600;
+                            color: #555;
+                            margin-bottom: 8px;
+                            display: block;
+                            }
+
+                            .form-group input,
+                            .form-group select {
+                            width: 100%;
+                            padding: 12px 15px;
+                            border: 2px solid #e1e8ed;
+                            border-radius: 8px;
+                            font-size: 14px;
+                            transition: all 0.3s ease;
+                            background: white;
+                            }
+
+                            .form-group input:focus,
+                            .form-group select:focus {
+                            outline: none;
+                            border-color: #36d1dc;
+                            box-shadow: 0 0 0 3px rgba(54, 209, 220, 0.1);
+                            }
+
+
+                            .btn-submit {
+                            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+                            color: white;
+                            border: none;
+                            padding: 15px 40px;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            border-radius: 50px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            display: block;
+                            margin: 30px auto 0;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                            }
+
+                            .btn-submit:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 10px 20px rgba(54, 209, 220, 0.3);
+                            }
+
+                            .logo-container {
+                            text-align: center;
+                            margin-bottom: 20px;
+                            }
+
+                            .logo-container img {
+                            max-width: 200px;
+                            height: auto;
+                            }
+
+                            .account-info {
+                            background: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 10px;
+                            margin-bottom: 20px;
+                            }
+
+                            .row.g-3 > .col-md-6,
+                            .row.g-3 > .col-md-4 {
+                            padding: 0 10px;
+                            }
+
+                            @media (max-width: 768px) {
+                            .form-container {
+                            margin: 10px;
+                            border-radius: 10px;
+                            }
+
+                            .form-section {
+                            margin: 20px;
+                            padding: 20px;
+                            }
+
+                            .form-header h1 {
+                            font-size: 1.5rem;
+                            }
+                            }
+
+
+                            .file-upload-section {
+                            background: #f8f9fa;
+                            border: 2px dashed #dee2e6;
+                            border-radius: 12px;
+                            padding: 30px;
+                            text-align: center;
+                            margin: 30px 0;
+                            transition: all 0.3s ease;
+                            }
+
+                            .file-upload-section:hover {
+                            border-color: #4facfe;
+                            background: #f0f8ff;
+                            }
+
+                            .file-upload-section i {
+                            font-size: 3rem;
+                            color: #6c757d;
+                            margin-bottom: 15px;
+                            }
+
+                            .section-header i {
+                            color: #36d1dc;
+                            font-size: 1.2rem;
+                            }
+                            .required-star {
+                            color: #e74c3c;
+                            margin-right: 3px;
+                            }
+
+                        </style>
+                    </head>
+                    <body>
+ <div class="container-fluid mt-5 mb-5">
+        <div class="form-container">
+            <form role="form" action="/doctorRegisConfirm" method="POST" enctype="multipart/form-data" class="docregis">
+
+                                    <!-- Header -->
+                                    <div class="form-header">
+                                        <h1 class="text-white">Instructor</h1>
+                                        <p class="mb-0">Create an account to get started</p>
+                                    </div>
+
+                                    <!-- Account Information Section -->
+                                    <div class="form-section">
+                                        <div class="section-header">
+                                            <svg class="section-icon" viewBox="0 0 24 24">
+                                                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1L9 7V9H3V11H9V23H15V11H21V9Z"/>
+                                            </svg>
+                                            <h3 class="section-title">Account Information</h3>
+                                        </div>
+
+                                        <div class="account-info">
+                                            <div class="row g-3">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="portal_name"><span class="required-star">*</span>User
+                                                            name
+                                                        </label>
+                                                        <input type="text" name="portal_name" id="portal_name"
+                                                               required="required"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="username"><span class="required-star">*</span>Email
+                                                            Account
+                                                        </label>
+                                                        <input type="username" name="username" id="username"
+                                                               required="required"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="password"><span class="required-star">*</span>Password
+                                                        </label>
+                                                        <input type="password" name="password" id="password"
+                                                               required="required"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Personal Information Section -->
+                                    <div class="form-section">
+                                        <div class="section-header">
+                                            <svg class="section-icon" viewBox="0 0 24 24">
+                                                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
+                                            </svg>
+                                            <h3 class="section-title">Personal Information</h3>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="first_name"><span class="required-star">*</span>First Name</label>
+                                                    <input type="text" id="first_name" name="first_name" required="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="middle_name"><span class="required-star">*</span>Middle Name</label>
+                                                    <input type="text" id="middle_name" name="middle_name"
+                                                           required="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="last_name"><span class="required-star">*</span>Last Name</label>
+                                                    <input type="text" id="last_name" name="last_name" required="1"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="email"><span class="required-star">*</span>Email
+                                                    </label>
+                                                    <input type="email" id="email" name="email" required="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="phone"><span class="required-star">*</span>Phone
+                                                    </label>
+                                                    <input type="tel" id="phone" name="phone" required="1"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="gender"><span class="required-star">*</span>Gender</label>
+                                                    <select id="gender" name="gender" required="1">
+                                                        <option value="">Select Gender</option>
+                                                        <option value="male">Male</option>
+                                                        <option value="female">Female</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="date_of_birth"><span class="required-star">*</span>Date of Birth</label>
+                                                    <input type="date" id="date_of_birth" name="date_of_birth"
+                                                           required="1"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="title"><span class="required-star">*</span>Title</label>
+                                                    <select name="title" id="title" required="required">
+                                                        <option value="">Select Title</option>
+                                                        <option value="doctor">Doctor</option>
+                                                        <option value="assistant">Assistant</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Professional Information Section -->
+                                    <div class="form-section">
+                                        <div class="section-header">
+                                            <svg class="section-icon" viewBox="0 0 24 24">
+                                                <path d="M12,3L1,9L12,15L21,10.09V17H23V9M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z"/>
+                                            </svg>
+                                            <h3 class="section-title">Professional Information</h3>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="faculty">College</label>
+                                                    <select name="faculty" id="faculty">
+                                                        <option value="">Select College</option>
+                                                        <t t-foreach="faculty" t-as="faculty">
+                                                            <option t-esc="faculty.name" t-att-value="faculty.id"
+                                                                    t-att-selected="str(faculty.id) == faculty">
+                                                                <t t-esc="faculty.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="specialization">Specialization</label>
+                                                    <input type="text" id="specialization" name="specialization"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Professional Information Section -->
+                                    <div class="form-section">
+                                        <div class="section-header">
+                                            <i class="fas fa-upload "></i>
+                                            <h3 class="section-title">Upload documents</h3>
+                                        </div>
+
+                                        <div class="row g-3">
+                                            <div class="col-md-12">
+                                                <div class="file-upload-section">
+                                                    <i class="fas fa-cloud-upload-alt"></i>
+                                                    <h4>Please attach the certificates you have obtained.</h4>
+                                                    <p class="text-muted mb-3">You can upload multiple files.</p>
+                                                    <input type="file" id="fileUpload" name="fileUpload"
+                                                           multiple="multiple" class="form-control"/>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Hidden Fields -->
+                                    <input type="hidden" id="name"/>
+                                    <input type="hidden" name="university" t-att-value="university"/>
+
+                                    <!-- Submit Button -->
+                                    <button type="submit" class="btn-submit mt-3 mb-3">
+                                        Submit Registration
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+        <template id="doctor_registration_confirm">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                    </head>
+                    <body>
+                        <div class="text-center col-12 col-md-7 mx-auto">
+                            <div style="border: solid 2px #0060bf; margin: 20px 50px; padding: 40px; border-radius: 20px;">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 240px;">
+                                            <h5 style="font-size: 25px; color: #0060bf;">
+                                                The registration is confirmed
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- Username is shown; the password is never rendered on the page -->
+                                <div class="mt-4" style="text-align: left;">
+                                    <h6 style="color: #0060bf;">Your login username:</h6>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <p>
+                                                <strong>Username:</strong>
+                                                <span t-esc="username"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-warning mt-3">
+                                        <i class="fa fa-exclamation-triangle"/>
+                                        Your password is set during registration and is kept private.
+                                        You can now login with your username from the login page.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

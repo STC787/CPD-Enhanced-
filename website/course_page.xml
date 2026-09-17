@@ -1,0 +1,1389 @@
+<odoo>
+    <data>
+        <template id="course_page">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <head>
+                        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+                              rel="stylesheet"/>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"/>
+                        <title>course page</title>
+                        <style>
+                            body {
+                            background: linear-gradient(135deg, #ffffff 0%, #a4d7ff5c 50%, #e8e5ff 100%) !important;
+                            min-height: 100vh;
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            }
+                            .main-container {
+                            max-width: 80%;
+                            margin: 0 auto;
+                            padding: 0 15px;
+                            }
+
+                            .filter-container {
+                            padding: 40px;
+                            }
+
+                            .filter-wrapper {
+                            position: relative;
+                            margin-bottom: 30px;
+                            }
+
+                            .filter-tabs {
+                            display: flex;
+                            background: #ffffff;
+                            border-radius: 20px;
+                            padding: 8px;
+                            gap: 8px;
+                            position: relative;
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.15);
+                            }
+
+                            .filter-tab {
+                            flex: 1;
+                            padding: 16px 24px;
+                            border: none;
+                            font-size: 1rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            border-radius: 16px;
+                            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                            position: relative;
+                            z-index: 2;
+                            text-align: center;
+                            color: rgba(0, 0, 0, 0.6);
+                            }
+
+                            .filter-tab:hover {
+                            color: white;
+                            background: linear-gradient(135deg, #0f4a6f, #27a4da);
+                            transform: translateY(-2px);
+                            }
+
+                            .filter-tab.active {
+                            color: white;
+                            background: linear-gradient(135deg, #0f4a6f, #27a4da);
+                            box-shadow: 0 4px 5px rgb(35 147 198 / 45%);
+                            transform: translateY(-2px);
+                            }
+
+                            .category-icon {
+                            font-size: 1.2rem;
+                            opacity: 0.8;
+                            }
+
+                            .dropdown-container {
+                            margin-top: 20px;
+                            }
+
+                            .dropdown-container select {
+                            width: 100%;
+                            padding: 12px 16px;
+                            border: 1px solid rgba(255, 255, 255, 0.3);
+                            border-radius: 12px;
+                            background: rgba(255, 255, 255, 0.9);
+                            font-size: 16px;
+                            color: #333;
+                            backdrop-filter: blur(10px);
+                            }
+
+                            .dropdown-container select:focus {
+                            outline: none;
+                            border-color: #74b9ff;
+                            box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.2);
+                            }
+
+                            .card-container {
+                            margin-top: -8px;
+                            margin-bottom: 60px;
+                            transition: all 0.3s ease;
+                            }
+
+                            .card-container.hidden {
+                            display: none;
+                            }
+
+                            .custom-card {
+                            background: rgba(255, 255, 255, 0.95);
+                            border-radius: 20px;
+                            overflow: hidden;
+                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+                            transition: all 0.4s ease;
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            position: relative;
+                            }
+
+                            .custom-card:hover {
+                            transform: translateY(-10px);
+                            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+                            }
+
+                            .card-image {
+                            width: 100%;
+                            height: 200px;
+                            object-fit: cover;
+                            transition: transform 0.4s ease;
+                            }
+
+                            .custom-card:hover .card-image {
+                            transform: scale(1.05);
+                            }
+
+                            .card-content {
+                            padding: 25px;
+                            }
+
+                            .card-title {
+                            font-size: 22px;
+                            font-weight: 700;
+                            color: #2d3436;
+                            margin-bottom: 15px;
+                            line-height: 1.3;
+                            min-height: 57px;
+                            }
+
+                            .card-description {
+                            color: #636e72;
+                            font-size: 14px;
+                            line-height: 1.6;
+                            margin-bottom: 20px;
+                            }
+
+                            .course-info {
+                            margin-bottom: 7px;
+                            padding: 15px;
+                            background: rgba(116, 185, 255, 0.1);
+                            border-radius: 12px;
+                            border-left: 4px solid #74b9ff;
+                            }
+
+                            .info-item {
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 8px;
+                            font-size: 14px;
+                            color: #2d3436;
+                            position: relative;
+                            }
+
+                            .info-item:last-child {
+                            margin-bottom: 0;
+                            }
+
+                            .info-item i {
+                            width: 20px;
+                            color: #74b9ff;
+                            margin-right: 10px;
+                            font-size: 16px;
+                            }
+
+                            .enroll-btn {
+                            margin-top: 16px;
+                            width: 100%;
+                            padding: 12px 20px;
+                            background: linear-gradient(135deg, #74b9ff, #0984e3);
+                            color: white;
+                            border: none;
+                            border-radius: 19px;
+                            font-size: 16px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            margin-bottom: 20px;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            margin-inline: auto;
+                            display: block;
+                            text-decoration: none;
+                            text-align: center;
+                            }
+
+                            .enroll-btn:hover {
+                            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+                            box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+                            }
+
+                            .enroll-btn.full {
+                            background: #dc3545;
+                            cursor: not-allowed;
+                            pointer-events: none;
+                            }
+
+                            .blueColor{
+                            color: #5592e3;
+                            text-decoration: underline;
+                            }
+                            .blueColor:hover{
+                            color:#346ab2;
+                            }
+
+                            /* Remaining Badge Styles */
+                            .remaining-badge {
+                            position: absolute;
+                            top: 15px;
+                            right: 15px;
+                            padding: 8px 12px;
+                            border-radius: 20px;
+                            color: white;
+                            font-size: 12px;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            letter-spacing: 0.5px;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                            z-index: 10;
+                            }
+
+                            .badge-available {
+                            background: linear-gradient(135deg, #28a745, #20c997);
+                            }
+
+                            .badge-limited {
+                            background: linear-gradient(135deg, #ffc107, #fd7e14);
+                            }
+
+                            .badge-full {
+                            background: linear-gradient(135deg, #dc3545, #c82333);
+                            }
+
+                            .remaining-count {
+                            color: #28a745;
+                            font-weight: bold;
+                            }
+
+                            .remaining-count.limited {
+                            color: #ffc107;
+                            }
+
+                            .remaining-count.full {
+                            color: #dc3545;
+                            }
+
+                            /* COMPACT Weekly Breakdown Styles - FIXED VERSION */
+                            .weekly-info-icon {
+                            position: relative;
+                            display: inline-block;
+                            cursor: help;
+                            margin-left: 8px;
+                            color: #74b9ff;
+                            transition: all 0.2s ease;
+                            }
+
+                            .weekly-info-icon:hover {
+                            color: #0984e3;
+                            transform: scale(1.1);
+                            }
+
+                            .week-details-hover {
+                            position: relative;
+                            display: inline-block;
+                            cursor: help;
+                            margin-left: 8px;
+                            color: #74b9ff;
+                            transition: all 0.2s ease;
+                            }
+
+                            .week-details-hover:hover {
+                            color: #0984e3;
+                            transform: scale(1.1);
+                            }
+
+                            /* COMPACT TOOLTIP - Much smaller and neater */
+                            .week-tooltip {
+                            position: absolute;
+                            top: -10px;
+                            right: 0px;
+                            background: rgba(255, 255, 255, 0.98);
+                            color: #333;
+                            padding: 12px;
+                            border-radius: 8px;
+                            font-size: 11px;
+                            width: 340px;
+                            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                            z-index: 10000;
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: all 0.3s ease;
+                            pointer-events: none;
+                            border: 1px solid #74b9ff;
+                            backdrop-filter: blur(10px);
+                            transform: translateY(-100%);
+                            max-height: 330px;
+                            overflow-y: auto;
+                            }
+
+
+                            .week-details-hover:hover .week-tooltip {
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateY(-110%);
+                            pointer-events: auto;
+                            }
+
+                            /* Compact tooltip header */
+                            .tooltip-header {
+                            text-align: center;
+                            margin-bottom: 10px;
+                            padding-bottom: 8px;
+                            border-bottom: 1px solid #74b9ff;
+                            font-size: 12px;
+                            color: #74b9ff;
+                            font-weight: bold;
+                            }
+
+                            /* Compact week detail items */
+                            .week-detail-item {
+                            margin-bottom: 8px;
+                            padding: 8px;
+                            background: rgba(116, 185, 255, 0.1);
+                            border-radius: 6px;
+                            border-left: 3px solid;
+                            transition: all 0.2s ease;
+                            }
+
+                            .week-detail-item:last-child {
+                            margin-bottom: 0;
+                            }
+
+                            .week-detail-item.active {
+                            border-left-color: #28a745;
+                            background: rgba(40, 167, 69, 0.15);
+                            }
+
+                            .week-detail-item.available {
+                            border-left-color: #17a2b8;
+                            }
+
+                            .week-detail-item.limited {
+                            border-left-color: #ffc107;
+                            background: rgba(255, 193, 7, 0.1);
+                            }
+
+                            /* Compact active badge */
+                            .week-active-badge {
+                            background: linear-gradient(135deg, #28a745, #20c997);
+                            color: white;
+                            font-size: 8px;
+                            padding: 2px 6px;
+                            border-radius: 8px;
+                            margin-left: 6px;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                            letter-spacing: 0.3px;
+                            animation: pulse 2s infinite;
+                            }
+
+                            /* Compact layout for week info */
+                            .week-spots-info {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            margin-top: 2px;
+                            }
+
+                            .week-dates {
+                            font-size: 10px;
+                            color: #666;
+                            margin-top: 2px;
+                            font-weight: 500;
+                            }
+
+                            .week-capacity {
+                            font-size: 10px;
+                            font-weight: bold;
+                            padding: 2px 6px;
+                            border-radius: 4px;
+                            }
+
+                            .week-capacity.available {
+                            color: #28a745;
+                            background: rgba(40, 167, 69, 0.1);
+                            }
+
+                            .week-capacity.limited {
+                            color: #f39c12;
+                            background: rgba(243, 156, 18, 0.1);
+                            }
+
+                            .week-capacity.full {
+                            color: #e74c3c;
+                            background: rgba(231, 76, 60, 0.1);
+                            }
+
+                            @keyframes pulse {
+                            0% { opacity: 1; transform: scale(1); }
+                            50% { opacity: 0.8; transform: scale(1.05); }
+                            100% { opacity: 1; transform: scale(1); }
+                            }
+
+                            /* Responsive adjustments for compact tooltip */
+                            @media (max-width: 768px) {
+                            .week-tooltip {
+                            left: -100px;
+                            width: 220px;
+                            }
+
+                            .week-tooltip::after {
+                            left: 110px;
+                            }
+                            }
+
+                            @media (max-width: 576px) {
+                            .week-tooltip {
+                            left: -80px;
+                            width: 200px;
+                            font-size: 10px;
+                            }
+
+                            .week-tooltip::after {
+                            left: 100px;
+                            }
+                            }
+
+                            @media (min-width: 769px) and (max-width: 1024px) {
+                            .card-container {
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 25px;
+                            }
+                            }
+
+                            .custom-card {
+                            opacity: 0;
+                            transform: translateY(30px);
+                            animation: fadeInUp 0.6s ease forwards;
+                            }
+
+                            .custom-card:nth-child(1) {
+                            animation-delay: 0.1s;
+                            }
+
+                            .custom-card:nth-child(2) {
+                            animation-delay: 0.2s;
+                            }
+
+                            .custom-card:nth-child(3) {
+                            animation-delay: 0.3s;
+                            }
+
+                            @keyframes fadeInUp {
+                            to {
+                            opacity: 1;
+                            transform: translateY(0);
+                            }
+                            }
+
+                            html {
+                            scroll-behavior: smooth;
+                            }
+                            .levelBadge {
+                            background: #22bf7f;
+                            }
+                            .simple-modal {
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0, 0, 0, 0.6);
+                            display: none;
+                            justify-content: center;
+                            align-items: center;
+                            z-index: 10000;
+                            }
+
+                            .simple-modal.show {
+                            display: flex;
+                            }
+
+                            .modal-box {
+                            background: white;
+                            border-radius: 15px;
+                            padding: 30px;
+                            max-width: 400px;
+                            width: 90%;
+                            text-align: center;
+                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                            }
+
+                            .modal-box h3 {
+                            color: #74b9ff;
+                            margin-bottom: 20px;
+                            }
+
+                            .modal-box p {
+                            margin-bottom: 20px;
+                            line-height: 1.5;
+                            color: #333;
+                            }
+
+                            .modal-buttons {
+                            display: flex;
+                            gap: 15px;
+                            justify-content: center;
+                            }
+
+                            .modal-btn {
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            min-width: 100px;
+                            }
+
+                            .modal-btn.cancel {
+                            background: #ddd;
+                            color: #666;
+                            }
+
+                            .modal-btn.continue {
+                            background: #74b9ff;
+                            color: white;
+                            }
+                            #wrapwrap:has(div#customAlert.d-block) {
+                            overflow: hidden;
+                            }
+                            #customAlert{
+                            z-index: 99999;
+                            }
+
+                            .no-courses {
+                            text-align: center;
+                            padding: 60px 20px;
+                            color: white;
+                            }
+
+                            .no-courses h3 {
+                            font-size: 2rem;
+                            margin-bottom: 20px;
+                            }
+
+                            .no-courses p {
+                            font-size: 1.2rem;
+                            opacity: 0.8;
+                            }
+
+                            .filter-results {
+                            text-align: center;
+                            padding: 20px;
+                            color: white;
+                            background: rgba(255, 255, 255, 0.1);
+                            border-radius: 10px;
+                            margin-bottom: 20px;
+                            }
+
+
+                            .enroll-btn1 {
+                            padding: 8px 13px;
+                            background: linear-gradient(135deg, #74b9ff, #0984e3);
+                            color: white;
+                            border: none;
+                            border-radius: 19px;
+                            font-size: 13px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            margin-bottom: 16px;
+                            text-transform: uppercase;
+                            margin-inline: auto;
+                            display: block;
+                            text-decoration: none;
+                            text-align: center;
+                            }
+
+                            .enroll-btn1:hover {
+                            background: linear-gradient(135deg, #0984e3, #6c5ce7);
+                            box-shadow: 0 8px 25px rgba(116, 185, 255, 0.4);
+                            }
+
+
+                            /* Modal Overlay Styling */
+                            .modal-body {
+                            padding: 0;
+                            border-radius: 15px;
+                            overflow: hidden;
+                            }
+
+                            .popup-overlay {
+                            background: rgba(255, 255, 255, 0.95);
+                            backdrop-filter: blur(10px);
+                            border-radius: 15px;
+                            margin: 0;
+                            min-height: 400px;
+                            position: relative;
+                            }
+
+                            /* Main Popup Container */
+                            .instructor-popup {
+                            background: linear-gradient(145deg, #ffffff 0%, #f8f9ff 100%);
+<!--                            border-radius: 15px;-->
+<!--                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);-->
+                            overflow: hidden;
+                            position: relative;
+                            margin: 20px;
+                            }
+
+                            /* Header Styling */
+                            .popup-header {
+                            background: linear-gradient(135deg, #74b9ff, #0984e3);
+                            color: white;
+                            padding: 30px;
+                            text-align: center;
+                            position: relative;
+                            overflow: hidden;
+                            border-radius: 15px;
+                            }
+
+
+                            @keyframes shimmer {
+                            0%, 100% { transform: rotate(0deg); }
+                            50% { transform: rotate(180deg); }
+                            }
+
+                            .instructor-name {
+                            font-size: 1.6rem;
+                            font-weight: 700;
+                            margin-bottom: 8px;
+                            z-index: 2;
+                            color: white;
+                            }
+
+                            .instructor-title {
+                            font-size: 1.1rem;
+                            font-weight: 400;
+                            margin: 0;
+                            opacity: 0.9;
+
+                            z-index: 2;
+                            }
+
+                            /* Body Content */
+                            .popup-body {
+                            padding: 40px 30px;
+                            background: white;
+                            }
+
+                            .info-section {
+                            margin-bottom: 25px;
+                            }
+
+                            .info-section h5 {
+                            color: #667eea;
+                            font-size: 1.3rem;
+                            font-weight: 600;
+                            margin-bottom: 15px;
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            }
+
+                            .info-section h5 i {
+                            color: #2391e9;
+                            font-size: 1.5rem;
+                            }
+
+                            .info-section p {
+                            font-size: 1rem;
+                            line-height: 1.7;
+                            color:#666666;
+                            margin: 0;
+                            text-align: justify;
+                            }
+
+                            .text-muted {
+                            color: #6c757d !important;
+                            }
+
+                            /* Modal Footer */
+                            .modal-footer {
+                            background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
+                            border-top: 1px solid #e9ecef;
+                            padding: 20px 30px;
+                            display: flex;
+                            justify-content: center;
+                            border-radius: 0 0 15px 15px;
+                            }
+
+                            /* Close Button Styling */
+                            .enroll-btn {
+                            background: linear-gradient(135deg, #74b9ff, #0984e3));
+                            border: none;
+                            color: white;
+                            padding: 12px 30px;
+                            border-radius: 25px;
+                            font-weight: 600;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                            position: relative;
+                            overflow: hidden;
+                            }
+
+                            .enroll-btn::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                            transition: left 0.5s;
+                            }
+
+                            .enroll-btn:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+                            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+                            }
+
+                            .enroll-btn:hover::before {
+                            left: 100%;
+                            }
+
+                            .enroll-btn:active {
+                            transform: translateY(0);
+                            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+                            }
+
+                            /* Responsive Design */
+                            @media (max-width: 768px) {
+                            .instructor-popup {
+                            margin: 10px;
+                            }
+
+                            .popup-header {
+                            padding: 20px;
+                            }
+
+                            .instructor-name {
+                            font-size: 1.8rem;
+                            }
+
+                            .instructor-title {
+                            font-size: 1rem;
+                            }
+
+                            .popup-body {
+                            padding: 25px 20px;
+                            }
+
+                            .modal-footer {
+                            padding: 15px 20px;
+                            }
+                            }
+
+                            @media (max-width: 576px) {
+                            .instructor-name {
+                            font-size: 1.6rem;
+                            }
+
+                            .instructor-title {
+                            font-size: 0.9rem;
+                            }
+
+                            .info-section h5 {
+                            font-size: 1.1rem;
+                            }
+
+                            .info-section p {
+                            font-size: 0.9rem;
+                            }
+                            }
+
+                            /* Additional Bootstrap Modal Overrides */
+                            .modal-dialog {
+                            max-width: 600px;
+                            margin: 1.75rem auto;
+                            }
+
+                            .modal-content {
+                            border: none;
+                            border-radius: 15px;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+                            }
+
+                            /* Animation for modal appearance */
+                            .modal.fade .modal-dialog {
+                            transition: transform 0.3s ease-out;
+                            transform: translate(0, -50px);
+                            }
+
+                            .modal.show .modal-dialog {
+                            transform: none;
+                            }
+
+
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container ">
+                            <div class="filter-container w-lg-50 mx-auto">
+                                <div class="filter-wrapper">
+                                    <div class="filter-tabs">
+                                        <button class="filter-tab active" data-filter="all">
+                                            All Categories
+                                        </button>
+                                        <button class="filter-tab" data-filter="category">
+                                            Choose Category
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="dropdown-container d-none" id="categoryDropdown">
+                                    <select class="form-select" id="typeFilter">
+                                        <option value="">Select a category type</option>
+                                        <!-- Dynamic type options -->
+                                        <t t-if="training_data">
+                                            <t t-set="unique_types" t-value="[]"/>
+                                            <t t-foreach="training_data" t-as="course">
+                                                <t t-if="course.get('type') and course['type'] not in unique_types">
+                                                    <t t-set="unique_types" t-value="unique_types + [course['type']]"/>
+                                                </t>
+                                            </t>
+                                            <t t-foreach="unique_types" t-as="type_name">
+                                                <option t-att-value="type_name">
+                                                    <t t-esc="type_name"/>
+                                                </option>
+                                            </t>
+                                        </t>
+                                    </select>
+                                </div>
+                                <!-- Filter Results Info -->
+                                <div class="filter-results d-none" id="filterResults">
+                                    <span id="filterResultsText">Showing all courses</span>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center" id="coursesContainer">
+                                <!-- Dynamic Training Course Cards -->
+                                <t t-if="training_data">
+                                    <t t-foreach="training_data" t-as="course">
+                                        <div class="card-container col-lg-4 col-md-6"
+                                             t-att-data-type="course.get('type') or ''">
+                                            <div class="custom-card">
+                                                <t t-set="remaining_spots"
+                                                   t-value="course.get('is_weekly_breakdown') and course.get('current_week_remaining', 0) or course.get('remaining_spots', 0)"/>
+                                                <t t-set="availability_status"
+                                                   t-value="'full' if remaining_spots == 0 else 'limited' if remaining_spots &lt;= 5 else 'available'"/>
+
+                                                <!--                                                &lt;!&ndash; ALWAYS show badge (even when full) &ndash;&gt;-->
+                                                <!--                                                <div t-att-class="'remaining-badge badge-' + availability_status">-->
+                                                <!--                                                    <t t-if="remaining_spots > 0">-->
+                                                <!--                                                        <i class="fas fa-users"></i>-->
+                                                <!--                                                        <t t-esc="remaining_spots"/>-->
+                                                <!--                                                    </t>-->
+                                                <!--                                                    <t t-else="">-->
+                                                <!--                                                        <i class="fas fa-ban"></i>-->
+                                                <!--                                                        FULL-->
+                                                <!--                                                    </t>-->
+                                                <!--                                                </div>-->
+
+                                                <!-- Course Image -->
+                                                <t t-if="course['image']">
+                                                    <img t-att-src="'data:image/png;base64,%s' % course['image'].decode('utf-8')"
+                                                         t-att-alt="course['training_title']" class="card-image"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <img src="/nexus_nms/static/src/images/Top-10-Online-Computer-Courses-to-Get-a-Job.jpg"
+                                                         t-att-alt="course['training_title']" class="card-image"/>
+                                                </t>
+
+                                                <!-- Course Content -->
+                                                <div class="card-content">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="level mb-3">
+                                                            <t t-if="course.get('levels')">
+                                                                <t t-foreach="course['levels']" t-as="level">
+                                                                    <div class="levelBadge badge p-2 px-3 fs-6 rounded-pill">
+                                                                        <t t-esc="level['name']"/>
+                                                                    </div>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <div class="levelBadge badge p-2 px-3 fs-6 rounded-pill">
+                                                                    No Level Specified
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                        <div class="imgCon col-2">
+                                                            <img src="/nexus_nms/static/src/images/drugs.png"
+                                                                 class="w-100"/>
+                                                        </div>
+                                                    </div>
+                                                    <h3 class="card-title">
+                                                        <t t-esc="course['training_title'] or course['company_name']"/>
+                                                    </h3>
+                                                    <p class="card-description">
+                                                        <t t-esc="course['company_details']"/>
+                                                    </p>
+                                                </div>
+
+                                                <div class="px-3">
+                                                    <div class="course-id d-flex justify-content-between px-2 mb-2">
+                                                        <h6>Course ID:
+                                                            <span>
+                                                                <t t-esc="course['code'] or 'N/A'"/>
+                                                            </span>
+                                                        </h6>
+                                                        <div class="d-flex  align-items-center">
+                                                            <!-- Button trigger modal -->
+                                                            <button type="button" class="enroll-btn1 mb-0"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModal">Our Instructors
+                                                            </button>
+
+                                                            <!-- Modal -->
+                                                            <span class="week-details-hover">
+                                                                <i class="fa-solid fa-calendar-days"
+                                                                   style="color: #0984e3; font-size: 26px !important;"></i>
+
+                                                                <div class="week-tooltip">
+                                                                    <div class="tooltip-header">
+                                                                        📅 Available Weeks Schedule
+                                                                    </div>
+                                                                    <t t-foreach="course['available_weeks_info']"
+                                                                       t-as="week_info">
+                                                                        <div t-att-class="'week-detail-item ' + ('active' if week_info.get('is_active') else 'available')">
+                                                                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+                                                                                <div>
+                                                                                    <strong style="color: #333; font-size: 11px;">
+                                                                                        Week
+                                                                                        <t t-esc="week_info['week_number']"/>
+                                                                                    </strong>
+                                                                                    <t t-if="week_info.get('is_active')">
+                                                                                        <span class="week-active-badge">
+                                                                                            ACTIVE
+                                                                                        </span>
+                                                                                    </t>
+                                                                                </div>
+                                                                                <div t-att-class="'week-capacity ' + ('available' if week_info['remaining_spots'] > 5 else 'limited' if week_info['remaining_spots'] > 0 else 'full')">
+                                                                                    <strong>
+                                                                                        <t
+                                                                                                t-esc="week_info['remaining_spots']"/>
+                                                                                        /
+                                                                                        <t t-esc="week_info['max_students']"/>
+                                                                                        spots
+                                                                                    </strong>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="week-dates">
+                                                                                📅
+                                                                                <strong>
+                                                                                    <t t-esc="week_info['start_date']"/>
+                                                                                    →
+                                                                                    <t t-esc="week_info['end_date']"/>
+                                                                                </strong>
+                                                                            </div>
+                                                                        </div>
+                                                                    </t>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="course-info">
+                                                        <div class="info-item">
+                                                            <i class="fas fa-graduation-cap"></i>
+                                                            <span>
+                                                                <strong>Course Name:</strong>
+                                                                <t t-esc="course['training_name']"/>
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- Type Info -->
+                                                        <div class="info-item">
+                                                            <i class="fas fa-tag"></i>
+                                                            <span>
+                                                                <strong>Type:</strong>
+                                                                <t t-esc="course.get('type') or 'N/A'"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+<!--                                                    <t t-if="course['total_capacity']">-->
+<!--                                                        <div class="course-info">-->
+<!--                                                            <div class="info-item">-->
+<!--                                                                <i class="fas fa-users"></i>-->
+<!--                                                                <span>-->
+<!--                                                                    <strong>Max Number Of Students:</strong>-->
+<!--                                                                    <t t-esc="course['students_capacity']"/>-->
+<!--                                                                    Students-->
+<!--                                                                </span>-->
+<!--                                                            </div>-->
+
+<!--                                                            <div class="info-item">-->
+<!--                                                                <i class="fas fa-user-friends"></i>-->
+<!--                                                                <span>-->
+<!--                                                                    <strong>Students Per Week:</strong>-->
+<!--                                                                    <t t-if="course.get('is_weekly_breakdown')">-->
+<!--                                                                        <t t-esc="course.get('students_per_week', 0)"/>-->
+<!--                                                                    </t>-->
+<!--                                                                    <t t-else="">-->
+<!--                                                                        <t t-esc="course['students_capacity']"/>-->
+<!--                                                                    </t>-->
+<!--                                                                </span>-->
+<!--                                                            </div>-->
+
+<!--                                                            <div class="info-item">-->
+<!--                                                                <i class="fas fa-check-circle"></i>-->
+<!--                                                                <span>-->
+<!--                                                                    <strong>Available per week:</strong>-->
+<!--                                                                    <span t-att-class="'remaining-count ' + course.get('availability_status', 'available')">-->
+<!--                                                                        <t t-esc="course.get('remaining_spots', 0)"/>-->
+<!--                                                                        Students-->
+<!--                                                                    </span>-->
+<!--                                                                </span>-->
+<!--                                                            </div>-->
+
+<!--                                                            <div class="info-item">-->
+<!--                                                                <i class="fas fa-user-check"></i>-->
+<!--                                                                <span>-->
+<!--                                                                    <strong>Occupied per week:</strong>-->
+<!--                                                                    <t t-esc="course.get('registered_count', 0)"/>-->
+<!--                                                                    Students-->
+<!--                                                                </span>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+<!--                                                    </t>-->
+
+                                                    <!-- Duration Info -->
+                                                    <t t-if="course['duration']">
+                                                        <div class="course-info">
+                                                            <div class="info-item">
+                                                                <i class="fas fa-clock"></i>
+                                                                <span>
+                                                                    <strong>Duration:</strong>
+                                                                    <t t-esc="course['duration']"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+
+                                                    <!-- Price Info -->
+                                                    <t t-if="course['price_display']">
+                                                        <div class="course-info">
+                                                            <div class="info-item">
+                                                                <i class="fa-solid fa-coins"></i>
+                                                                <span>
+                                                                    <strong>Price:</strong>
+                                                                    <t t-esc="course['price_display']"/>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </t>
+
+                                                    <t t-if="course.get('is_full') or course.get('remaining_spots', 0) == 0">
+                                                        <div class="enroll-btn full">
+                                                            <i class="fas fa-ban"></i>
+                                                            Fully Occupied
+                                                        </div>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <a class="enroll-btn"
+                                                                t-attf-href="/registration_for_training?partner_id=#{course['partner'].id}&amp;training_id=#{course['training'].id}&amp;course_code=#{course['code'] or ''}&amp;partner_name=#{course['partner'].name or ''}&amp;is_course=#{str(course['partner'].is_course).lower()}">
+                                                            Apply Now
+                                                        </a>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </t>
+
+                                <!-- No Courses Message -->
+                                <div class="no-courses d-none" id="noCoursesMessage">
+                                    <h3>No courses found for the selected type.</h3>
+                                    <p>Please try selecting a different type or check back later.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5"
+                                            id="exampleModalLabel">our instructor
+                                        </h1>
+                                        <button type="button" class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="popup-overlay">
+                                            <div class="instructor-popup">
+                                             <div class="popup-header">
+
+                                                    <h2 class="instructor-name">
+                                                        DR. Muhammed Adel
+                                                    </h2>
+                                                </div>
+                                                <div class="popup-header mt-4">
+
+                                                      <h2 class="instructor-name">
+                                                        DR. Shrouk Sherif
+                                                    </h2>
+                                                </div>
+
+<!--                                                <div class="popup-body">-->
+<!--                                                    <div class="info-section">-->
+
+<!--                                                        <h5>-->
+<!--                                                            <img src="/nexus_nms/static/src/images/semina_1.png" alt="/"-->
+<!--                                                                 style="width: 40px;"/>-->
+
+<!--                                                            BIO-->
+<!--                                                        </h5>-->
+<!--                                                        <p class="text-muted">Dr.-->
+<!--                                                            Sarah Johnson is a-->
+<!--                                                            passionate educator with-->
+<!--                                                            over 8 years of-->
+<!--                                                            experience in software-->
+<!--                                                            engineering and computer-->
+<!--                                                            science. She holds a-->
+<!--                                                            Ph.D.-->
+
+<!--                                                        </p>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="enroll-btn"
+                                                data-bs-dismiss="modal">Close
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Login Alert Modal -->
+                        <div id="customAlert" class="d-none w-100 h-100 position-fixed top-0 right-0 left-0 bottom-0"
+                             style="background-color: rgba(0,0,0,0.8);">
+                            <div style="position: fixed; top: 20%; left: 50%; transform: translateX(-50%);background-color:rgb(255 255 255); color: white; padding: 20px; border-radius: 10px; z-index: 9999; width: 75%;max-width: 500px;">
+                                <div id="screenOne">
+                                    <p class="text-dark">⚠️ Please login first to apply for this training course!</p>
+                                    <div class="d-flex flex-column align-items-center gap-3">
+                                        <button class="btn btn-secondary" onclick="showStudentId()">
+                                            Enter Your Student ID
+                                        </button>
+                                        <button class="btn btn-primary"
+                                                onclick="window.location.href = '/studentRegistration';">
+                                            Register New Student
+                                        </button>
+                                        <button class="btn" onclick="closeAlert()">Cancel</button>
+                                    </div>
+                                </div>
+                                <div id="screenTwo" class="d-none">
+                                    <div class="cursor-pointer d-inline-block" onclick="hideStudentId()">
+                                        <i class="fas fa-arrow-left text-dark fs-6"></i>
+                                    </div>
+                                    <p class="text-dark text-center">Please enter your existing student ID to
+                                        continue.
+                                    </p>
+                                    <form action="/training_pagee" method="GET" class="mb-3">
+                                        <input type="text" id="customInput" name="student_id"
+                                               placeholder="Enter Your Student ID"
+                                               style="width: 100%; margin: 10px 0;" class="form-control"/>
+                                        <div class="text-center mt-3">
+                                            <button class="btn btn-primary" type="submit">Submit Your ID</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+
+                    <!-- Level Modal -->
+                    <div id="levelModal" class="simple-modal">
+                        <div class="modal-box">
+                            <h3>⚠️ Level Mismatch</h3>
+                            <p>This training may not match your current level</p>
+                            <div class="modal-buttons">
+                                <button class="modal-btn cancel" onclick="closeModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        // Type filtering functionality
+                        function filterByType(typeName) {
+                        const cards = document.querySelectorAll('.card-container');
+                        const noCoursesMessage = document.getElementById('noCoursesMessage');
+                        const filterResults = document.getElementById('filterResults');
+                        const filterResultsText = document.getElementById('filterResultsText');
+                        let visibleCount = 0;
+
+                        cards.forEach(card => {
+                        const cardType = card.getAttribute('data-type');
+                        if (!typeName || cardType === typeName) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                        } else {
+                        card.classList.add('hidden');
+                        }
+                        });
+
+                        // Update results info
+                        if (typeName) {
+                        filterResults.classList.remove('d-none');
+                        filterResultsText.textContent = `Showing ${visibleCount} Training of type "${typeName}"`;
+                        } else {
+                        filterResults.classList.add('d-none');
+                        filterResultsText.textContent = 'Showing all training';
+                        }
+
+                        // Show/hide no courses message
+                        if (visibleCount === 0) {
+                        noCoursesMessage.classList.remove('d-none');
+                        } else {
+                        noCoursesMessage.classList.add('d-none');
+                        }
+                        }
+
+                        // Initialize filter functionality
+                        document.addEventListener('DOMContentLoaded', function() {
+                        const typeFilter = document.getElementById('typeFilter');
+                        if (typeFilter) {
+                        typeFilter.addEventListener('change', function() {
+                        filterByType(this.value);
+                        });
+                        }
+                        });
+
+                        function showCustomAlert() {
+                        document.getElementById('customAlert').classList.remove('d-none');
+                        document.getElementById('customAlert').classList.add('d-block');
+                        }
+
+                        function showStudentId() {
+                        document.getElementById('screenTwo').classList.remove('d-none');
+                        document.getElementById('screenTwo').classList.add('d-block');
+                        document.getElementById('screenOne').classList.remove('d-block');
+                        document.getElementById('screenOne').classList.add('d-none');
+                        }
+
+                        function hideStudentId() {
+                        document.getElementById('screenOne').classList.remove('d-none');
+                        document.getElementById('screenOne').classList.add('d-block');
+                        document.getElementById('screenTwo').classList.remove('d-block');
+                        document.getElementById('screenTwo').classList.add('d-none');
+                        }
+
+                        function closeAlert() {
+                        document.getElementById('customAlert').classList.add('d-none');
+                        document.getElementById('customAlert').classList.remove('d-block');
+                        }
+
+                        function closeModal() {
+                        document.getElementById('levelModal').classList.remove('show');
+                        }
+
+                        // Close modal when clicking outside
+                        document.addEventListener('click', function(event) {
+                        const modal = document.getElementById('levelModal');
+                        if (event.target === modal) {
+                        closeModal();
+                        }
+                        });
+
+                        // Category filter functionality
+                        let filterTabs = document.querySelectorAll('.filter-tab');
+                        filterTabs.forEach(tab => {
+                        tab.addEventListener('click', () => {
+                        filterTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        });
+                        });
+
+                        let onecategory = document.querySelector('button[data-filter="category"]');
+                        if (onecategory) {
+                        onecategory.addEventListener('click', () => {
+                        document.querySelector("#categoryDropdown").classList.remove('d-none');
+                        });
+                        }
+
+                        let allcategory = document.querySelector('button[data-filter="all"]');
+                        if (allcategory) {
+                        allcategory.addEventListener('click', () => {
+                        document.querySelector("#categoryDropdown").classList.add('d-none');
+                        // Reset filter to show all courses
+                        filterByType('');
+                        });
+                        }
+
+                        // Card description hover effects
+                        document.querySelectorAll('.card-description').forEach(p => {
+                        // default: clamp to 2 lines
+                        p.style.display = '-webkit-box';
+                        p.style.webkitBoxOrient = 'vertical';
+                        p.style.webkitLineClamp = '2';
+                        p.style.overflow = 'hidden';
+                        p.style.textOverflow = 'ellipsis';
+                        p.style.transition = 'all 0.2s ease-in-out';
+
+                        // on hover: show full text
+                        p.addEventListener('mouseenter', () => {
+                        p.style.webkitLineClamp = 'unset';
+                        p.style.overflow = 'visible';
+                        });
+
+                        // on leave: clamp again
+                        p.addEventListener('mouseleave', () => {
+                        p.style.webkitLineClamp = '2';
+                        p.style.overflow = 'hidden';
+                        });
+                        });
+
+                        // Enhanced compact tooltip functionality
+                        document.addEventListener('DOMContentLoaded', function() {
+                        // Weekly info icon tooltips
+                        const weeklyIcons = document.querySelectorAll('.weekly-info-icon');
+                        weeklyIcons.forEach(icon => {
+                        icon.addEventListener('mouseenter', function() {
+                        icon.setAttribute('title', 'This course uses weekly scheduling');
+                        });
+                        });
+
+                        // Compact hover for week details
+                        const weekHoverElements = document.querySelectorAll('.week-details-hover');
+                        weekHoverElements.forEach(element => {
+                        const tooltip = element.querySelector('.week-tooltip');
+                        if (tooltip) {
+                        element.addEventListener('mouseenter', function() {
+                        tooltip.style.opacity = '1';
+                        tooltip.style.visibility = 'visible';
+                        tooltip.style.transform = 'translateY(-110%)';
+                        });
+
+                        element.addEventListener('mouseleave', function() {
+                        tooltip.style.opacity = '0';
+                        tooltip.style.visibility = 'hidden';
+                        tooltip.style.transform = 'translateY(-100%)';
+                        });
+                        }
+                        });
+
+                        // Enhanced remaining count display
+                        const remainingCounts = document.querySelectorAll('.remaining-count');
+                        remainingCounts.forEach(count => {
+                        const value = parseInt(count.textContent);
+                        if (value === 0) {
+                        count.classList.add('full');
+                        } else if (value &lt;= 5) {
+                        count.classList.add('limited');
+                        } else {
+                        count.classList.add('available');
+                        }
+                        });
+                        });
+
+                    </script>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>
